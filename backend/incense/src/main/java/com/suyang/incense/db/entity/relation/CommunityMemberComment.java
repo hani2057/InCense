@@ -41,5 +41,5 @@ public class CommunityMemberComment {
 
 
     @NotNull
-    private LocalDateTime registerTime
+    private LocalDateTime registerTime;
 }

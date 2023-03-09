@@ -1,6 +1,7 @@
 package com.suyang.incense.db.entity.relation;
 
 
+import com.suyang.incense.db.entity.member.Member;
 import com.suyang.incense.db.entity.share.Share;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
