@@ -1,7 +1,7 @@
 package com.suyang.incense.db.entity.community;
 
 import com.suyang.incense.db.entity.member.Member;
-import com.suyang.incense.db.entity.relation.CommuntiyMemberComment;
+import com.suyang.incense.db.entity.relation.CommunityMemberComment;
 import com.suyang.incense.db.entity.relation.MemberCommunityGood;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,7 +37,7 @@ public class Community {
 
 
     @OneToMany(mappedBy = "community")
-    private List<CommuntiyMemberComment> communtiyMemberCommentList = new ArrayList<>();
+    private List<CommunityMemberComment> communtiyMemberCommentList = new ArrayList<>();
 
 
     @ManyToOne(fetch =FetchType.LAZY)

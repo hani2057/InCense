@@ -1,5 +1,6 @@
 package com.suyang.incense.db.entity.share;
 
+import com.suyang.incense.db.entity.member.Member;
 import com.suyang.incense.db.entity.relation.MemberShareBookmark;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

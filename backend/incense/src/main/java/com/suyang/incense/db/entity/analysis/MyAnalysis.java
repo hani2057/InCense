@@ -1,5 +1,6 @@
 package com.suyang.incense.db.entity.analysis;
 
+import com.suyang.incense.db.entity.member.Member;
 import com.suyang.incense.db.entity.relation.MyAnalysisBaseNote;
 import com.suyang.incense.db.entity.relation.MyAnalysisMiddleNote;
 import com.suyang.incense.db.entity.relation.MyAnalysisPerfume;

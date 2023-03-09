@@ -1,5 +1,6 @@
 package com.suyang.incense.db.entity.test;
 
+import com.suyang.incense.db.entity.member.Member;
 import com.suyang.incense.db.entity.relation.TestBaseNoteResult;
 import com.suyang.incense.db.entity.relation.TestMiddleNoteResult;
 import com.suyang.incense.db.entity.relation.TestPerfumeResult;

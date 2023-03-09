@@ -1,5 +1,6 @@
 package com.suyang.incense.db.entity.relation;
 
+import com.suyang.incense.db.entity.member.Member;
 import com.suyang.incense.db.entity.perfume.Perfume;
 import javax.persistence.Column;
 import javax.persistence.Entity;
