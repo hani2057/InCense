@@ -1,14 +1,19 @@
 package com.suyang.incense.db.entity.member;
 
 
+import com.suyang.incense.db.entity.analysis.MyAnalysis;
+import com.suyang.incense.db.entity.chat.ChatMessage;
+import com.suyang.incense.db.entity.chat.ChatRoom;
 import com.suyang.incense.db.entity.community.Community;
+import com.suyang.incense.db.entity.relation.CommunityMemberComment;
 import com.suyang.incense.db.entity.relation.MemberCommunityGood;
+import com.suyang.incense.db.entity.relation.MemberPerfume;
+import com.suyang.incense.db.entity.test.Test;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -53,6 +58,50 @@ public class Member {
     private List<Community> communityList = new ArrayList<>();
 
 
+    @OneToMany(mappedBy = "member")
+    private List<CommunityMemberComment> communityMemberCommentList = new ArrayList<>();
+
+
+    @OneToMany(mappedBy="member")
+    private List<ChatMessage> chatMessageList = new ArrayList<>();
+
+    @OneToMany(mappedBy="member")
+    private List<ChatRoom> chatRoomList = new ArrayList<>();
+
+
+    @OneToMany(mappedBy="member")
+    private List<SaleReport> saleReportList = new ArrayList<>();
+
+    @OneToMany(mappedBy="member")
+    private List<SaleComment> saleCommentList = new ArrayList<>();
+
+    @OneToMany(mappedBy="member")
+    private List<Sale> saleList = new ArrayList<>();
+    @OneToMany(mappedBy="member")
+    private List<MemberSaleBookMark> memberSaleBookMarkList = new ArrayList<>();
+    @OneToMany(mappedBy="member")
+    private List<ShareReport> shareReportList = new ArrayList<>();
+
+
+    @OneToMany(mappedBy="member")
+    private List<ShareComment> shareCommentList = new ArrayList<>();
+
+    @OneToMany(mappedBy="member")
+    private List<Share> shareList = new ArrayList<>();
+
+
+    @OneToMany(mappedBy="member")
+    private List<MemberShareBookMark> memberShareBookMarkList = new ArrayList<>();
+
+    @OneToMany(mappedBy="member")
+    private List<MyAnalysis> myAnalysisList = new ArrayList<>();
+
+
+    @OneToMany(mappedBy="member")
+    private List<Test> testList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<MemberPerfume> memberPerfumeList = new ArrayList<>();
 
     @NotNull
     @Column(length = 50)

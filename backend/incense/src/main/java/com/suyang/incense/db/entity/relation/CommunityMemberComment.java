@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @Table(name = "community_member_comment")
-public class CommuntiyMemberComment {
+public class CommunityMemberComment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
