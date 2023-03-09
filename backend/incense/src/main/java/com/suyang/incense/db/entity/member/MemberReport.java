@@ -28,7 +28,7 @@ public class MemberReport {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="member_id")
+    @JoinColumn
     private Member reportedMember;
 
 

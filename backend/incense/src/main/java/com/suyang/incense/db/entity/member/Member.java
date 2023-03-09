@@ -42,7 +42,7 @@ public class Member {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rank_id")
-    private List<Rank> rankList = new ArrayList<>();
+    private Rank rank;
 
 
 
