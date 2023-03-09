@@ -1,6 +1,6 @@
 package com.suyang.incense.db.entity.share;
 
-import com.suyang.incense.db.entity.sale.Sale;
+import com.suyang.incense.db.entity.member.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

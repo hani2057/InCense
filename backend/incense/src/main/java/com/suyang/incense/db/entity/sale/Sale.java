@@ -1,5 +1,7 @@
 package com.suyang.incense.db.entity.sale;
 
+import com.suyang.incense.db.entity.chat.ChatRoom;
+import com.suyang.incense.db.entity.member.Member;
 import com.suyang.incense.db.entity.relation.MemberSaleBookmark;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

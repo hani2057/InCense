@@ -1,10 +1,19 @@
 package com.suyang.incense.db.entity.relation;
 
+import com.suyang.incense.db.entity.member.Member;
 import com.suyang.incense.db.entity.sale.Sale;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@Table(name = "member_sale_bookmark")
 public class MemberSaleBookmark {
 
     @Id
