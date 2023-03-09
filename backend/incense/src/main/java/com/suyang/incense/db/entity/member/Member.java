@@ -5,9 +5,13 @@ import com.suyang.incense.db.entity.analysis.MyAnalysis;
 import com.suyang.incense.db.entity.chat.ChatMessage;
 import com.suyang.incense.db.entity.chat.ChatRoom;
 import com.suyang.incense.db.entity.community.Community;
-import com.suyang.incense.db.entity.relation.CommunityMemberComment;
-import com.suyang.incense.db.entity.relation.MemberCommunityGood;
-import com.suyang.incense.db.entity.relation.MemberPerfume;
+import com.suyang.incense.db.entity.relation.*;
+import com.suyang.incense.db.entity.sale.Sale;
+import com.suyang.incense.db.entity.sale.SaleComment;
+import com.suyang.incense.db.entity.sale.SaleReport;
+import com.suyang.incense.db.entity.share.Share;
+import com.suyang.incense.db.entity.share.ShareComment;
+import com.suyang.incense.db.entity.share.ShareReport;
 import com.suyang.incense.db.entity.test.Test;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -78,7 +82,7 @@ public class Member {
     @OneToMany(mappedBy="member")
     private List<Sale> saleList = new ArrayList<>();
     @OneToMany(mappedBy="member")
-    private List<MemberSaleBookMark> memberSaleBookMarkList = new ArrayList<>();
+    private List<MemberSaleBookmark> memberSaleBookMarkList = new ArrayList<>();
     @OneToMany(mappedBy="member")
     private List<ShareReport> shareReportList = new ArrayList<>();
 
@@ -91,7 +95,7 @@ public class Member {
 
 
     @OneToMany(mappedBy="member")
-    private List<MemberShareBookMark> memberShareBookMarkList = new ArrayList<>();
+    private List<MemberShareBookmark> memberShareBookMarkList = new ArrayList<>();
 
     @OneToMany(mappedBy="member")
     private List<MyAnalysis> myAnalysisList = new ArrayList<>();
