@@ -1,5 +1,11 @@
 package com.suyang.incense.db.entity.perfume;
 
+import com.suyang.incense.db.entity.relation.MemberPerfume;
+import com.suyang.incense.db.entity.relation.MemberPerfumeAlarm;
+import com.suyang.incense.db.entity.relation.MyAnalysisPerfume;
+import com.suyang.incense.db.entity.relation.PerfumeBaseNote;
+import com.suyang.incense.db.entity.relation.PerfumeMiddleNote;
+import com.suyang.incense.db.entity.relation.PerfumeTopNote;
 import com.suyang.incense.db.entity.relation.TestPerfumeResult;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,10 +48,28 @@ public class Perfume {
   private Byte gender;    //0: 남자, 1:여자, 2:양성, 3:어린이
   @NotNull
   private double rating;  //엑셀 데이터 평점
+
+  @Column(length = 2500)
   private String image;
 
   @OneToMany(mappedBy = "perfume")
   private List<TestPerfumeResult> testPerfumeResultList = new ArrayList<>();
 
+  @OneToMany(mappedBy = "perfume")
+  private List<MemberPerfume> memberPerfumeList = new ArrayList<>();
 
+  @OneToMany(mappedBy = "perfume")
+  private List<MemberPerfumeAlarm> memberPerfumeAlarmList = new ArrayList<>();
+
+  @OneToMany(mappedBy = "perfume")
+  private List<PerfumeTopNote> perfumeTopNoteList = new ArrayList<>();
+
+  @OneToMany(mappedBy = "perfume")
+  private List<PerfumeMiddleNote> perfumeMiddleNoteList = new ArrayList<>();
+
+  @OneToMany(mappedBy = "perfume")
+  private List<PerfumeBaseNote> perfumeBaseNoteList = new ArrayList<>();
+
+  @OneToMany(mappedBy = "perfume")
+  private List<MyAnalysisPerfume> myAnalysisPerfumeList = new ArrayList<>();
 }
