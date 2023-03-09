@@ -1,6 +1,9 @@
 package com.suyang.incense.db.entity.test;
 
+import com.suyang.incense.db.entity.relation.TestBaseNoteResult;
+import com.suyang.incense.db.entity.relation.TestMiddleNoteResult;
 import com.suyang.incense.db.entity.relation.TestPerfumeResult;
+import com.suyang.incense.db.entity.relation.TestTopNoteResult;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,4 +45,13 @@ public class Test {
 
   @OneToMany(mappedBy = "test")
   private List<TestPerfumeResult> testPerfumeResultList = new ArrayList<>();
+
+  @OneToMany(mappedBy = "test")
+  private List<TestTopNoteResult> testTopNoteResultList = new ArrayList<>();
+
+  @OneToMany(mappedBy = "test")
+  private List<TestMiddleNoteResult> testMiddleNoteResultList = new ArrayList<>();
+
+  @OneToMany(mappedBy = "test")
+  private List<TestBaseNoteResult> testBaseNoteResultList = new ArrayList<>();
 }
