@@ -77,6 +77,6 @@ public class Share {
     @OneToMany(mappedBy = "share")
     private List<MemberShareBookmark> memberShareBookmarkList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "sale")
+    @OneToMany(mappedBy = "share")
     private List<ChatRoom> chatRoomList = new ArrayList<>();
 }
