@@ -1,8 +1,8 @@
-package com.suyang.incense.db.entity.sale;
+package com.suyang.incense.db.entity.deal;
 
-import com.suyang.incense.db.entity.chat.ChatRoom;
 import com.suyang.incense.db.entity.member.Member;
-import com.suyang.incense.db.entity.relation.MemberSaleBookmark;
+import com.suyang.incense.db.entity.perfume.Perfume;
+import com.suyang.incense.db.entity.relation.MemberDealBookmark;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,12 +22,12 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @DynamicInsert
-@Table(name = "sale")
-public class Sale {
+@Table(name = "deal")
+public class Deal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "sale_id")
+    @Column(name = "deal_id")
     private Long id;
 
     @NotNull
@@ -36,18 +36,20 @@ public class Sale {
     private Member member;
 
     @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "perfume_id")
+    private Perfume perfume;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Gubun gubun;
+
+    @NotNull
     @Column(length = 100)
     private String title;
 
     @NotNull
-    @Column(length = 100)
-    private String name;
-
-    @NotNull
-    @Column(length = 100)
-    private String brand;
-
-    @NotNull
+    @ColumnDefault("0")
     private int price;
 
     @NotNull
@@ -68,18 +70,19 @@ public class Sale {
     @ColumnDefault("0")
     private byte isClosed;      // 0: false, 1: true
 
-    @OneToMany(mappedBy = "sale")
-    private List<MemberSaleBookmark> memberSaleBookmarkList = new ArrayList<>();
+    @OneToMany(mappedBy = "deal")
+    private List<DealPhoto> dealPhotoList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "sale")
-    private List<SalePhoto> salePhotoList = new ArrayList<>();
+    @OneToMany(mappedBy = "deal")
+    private List<DealComment> dealCommentList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "sale")
-    private List<SaleComment> saleCommentList = new ArrayList<>();
+    @OneToMany(mappedBy = "deal")
+    private List<DealReport> dealReportList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "sale")
-    private List<SaleReport> saleReportList = new ArrayList<>();
+    @OneToMany(mappedBy = "deal")
+    private List<MemberDealBookmark> memberDealBookmarkList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "sale")
-    private List<ChatRoom> chatRoomList = new ArrayList<>();
+    @OneToMany(mappedBy = "deal")
+    private List<AlarmSend> alarmSendList = new ArrayList<>();
+
 }

@@ -1,26 +1,25 @@
 package com.suyang.incense.db.entity.relation;
 
 
+import com.suyang.incense.db.entity.deal.Deal;
 import com.suyang.incense.db.entity.member.Member;
-import com.suyang.incense.db.entity.share.Share;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "member_share_bookmark")
-public class MemberShareBookmark {
+@Table(name = "member_deal_bookmark")
+public class MemberDealBookmark {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_share_bookmark_id")
+    @Column(name = "member_deal_bookmark_id")
     private Long id;
 
 
@@ -30,6 +29,6 @@ public class MemberShareBookmark {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "share_id")
-    private Share share;
+    @JoinColumn(name = "deal_id")
+    private Deal deal;
 }

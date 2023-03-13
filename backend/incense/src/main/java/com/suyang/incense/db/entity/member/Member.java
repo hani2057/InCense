@@ -4,14 +4,10 @@ package com.suyang.incense.db.entity.member;
 import com.suyang.incense.db.entity.analysis.MyAnalysis;
 import com.suyang.incense.db.entity.chat.ChatMessage;
 import com.suyang.incense.db.entity.chat.ChatRoom;
-import com.suyang.incense.db.entity.community.Community;
+import com.suyang.incense.db.entity.deal.DealComment;
+import com.suyang.incense.db.entity.deal.DealReport;
 import com.suyang.incense.db.entity.relation.*;
-import com.suyang.incense.db.entity.sale.Sale;
-import com.suyang.incense.db.entity.sale.SaleComment;
-import com.suyang.incense.db.entity.sale.SaleReport;
-import com.suyang.incense.db.entity.share.Share;
-import com.suyang.incense.db.entity.share.ShareComment;
-import com.suyang.incense.db.entity.share.ShareReport;
+import com.suyang.incense.db.entity.deal.Deal;
 import com.suyang.incense.db.entity.test.Test;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -53,19 +49,6 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<MemberReport> memberReportList = new ArrayList<>();
 
-
-    @OneToMany(mappedBy ="member")
-    private List<MemberCommunityGood> memberCommunityGoodList = new ArrayList<>();
-
-
-    @OneToMany(mappedBy = "member")
-    private List<Community> communityList = new ArrayList<>();
-
-
-    @OneToMany(mappedBy = "member")
-    private List<CommunityMemberComment> communityMemberCommentList = new ArrayList<>();
-
-
     @OneToMany(mappedBy="member")
     private List<ChatMessage> chatMessageList = new ArrayList<>();
 
@@ -74,28 +57,26 @@ public class Member {
 
 
     @OneToMany(mappedBy="member")
-    private List<SaleReport> saleReportList = new ArrayList<>();
+    private List<DealReport> saleReportList = new ArrayList<>();
 
     @OneToMany(mappedBy="member")
-    private List<SaleComment> saleCommentList = new ArrayList<>();
+    private List<DealComment> saleCommentList = new ArrayList<>();
 
     @OneToMany(mappedBy="member")
-    private List<Sale> saleList = new ArrayList<>();
+    private List<Deal> saleList = new ArrayList<>();
     @OneToMany(mappedBy="member")
-    private List<MemberSaleBookmark> memberSaleBookMarkList = new ArrayList<>();
-    @OneToMany(mappedBy="member")
-    private List<ShareReport> shareReportList = new ArrayList<>();
+    private List<DealReport> dealReportList = new ArrayList<>();
 
 
     @OneToMany(mappedBy="member")
-    private List<ShareComment> shareCommentList = new ArrayList<>();
+    private List<DealComment> dealCommentList = new ArrayList<>();
 
     @OneToMany(mappedBy="member")
-    private List<Share> shareList = new ArrayList<>();
+    private List<Deal> dealList = new ArrayList<>();
 
 
     @OneToMany(mappedBy="member")
-    private List<MemberShareBookmark> memberShareBookMarkList = new ArrayList<>();
+    private List<MemberDealBookmark> memberDealBookMarkList = new ArrayList<>();
 
     @OneToMany(mappedBy="member")
     private List<MyAnalysis> myAnalysisList = new ArrayList<>();

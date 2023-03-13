@@ -1,9 +1,10 @@
-package com.suyang.incense.db.entity.share;
+package com.suyang.incense.db.entity.deal;
 
 import com.suyang.incense.db.entity.member.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -15,12 +16,12 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "share_comment")
-public class ShareComment {
+@Table(name = "deal_comment")
+public class DealComment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "share_comment_id")
+    @Column(name = "deal_comment_id")
     private Long id;
 
     @NotNull
@@ -30,8 +31,8 @@ public class ShareComment {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "share_id")
-    private Share share;
+    @JoinColumn(name = "deal_id")
+    private Deal deal;
 
     @NotNull
     private String content;
@@ -40,4 +41,8 @@ public class ShareComment {
     @CreatedDate
     @LastModifiedDate
     private LocalDateTime registerTime;
+
+    @NotNull
+    @ColumnDefault("0")
+    private byte isSecret;    // 0: 불가능, 1: 가능
 }
