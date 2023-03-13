@@ -1,10 +1,7 @@
 package com.suyang.incense.db.entity.member;
-
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -14,21 +11,19 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "rank")
-public class Rank {
+@Table(name = "grade")
+public class Grade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "rank_id")
+    @Column(name = "grade_id")
     private Long id;
 
-
-    @OneToMany(mappedBy = "rank")
-    private List<Member> memberList = new ArrayList<>();
 
     @NotNull
     @Column(length=100)
     private String name;
+
 
     @NotNull
     private  int minScore;
@@ -41,5 +36,8 @@ public class Rank {
     @Column(length=2500)
     private String image;
 
+
+    @OneToMany(mappedBy = "grade")
+    private List<Member> memberList = new ArrayList<>();
 
 }

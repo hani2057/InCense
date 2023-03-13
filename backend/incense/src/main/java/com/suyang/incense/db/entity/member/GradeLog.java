@@ -1,6 +1,5 @@
 package com.suyang.incense.db.entity.member;
 
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,37 +8,37 @@ import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @DynamicInsert
-@Table(name = "member_report")
-public class MemberReport {
+@Table(name = "grade_log")
+public class GradeLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_report_id")
+    @Column(name = "grade_log_id")
     private Long id;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="member_id")
+    @JoinColumn(name ="member_id")
     private Member member;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
-    private Member reportedMember;
+    @ColumnDefault("0")
+    private int score;
 
 
     @NotNull
-    private String content;
+    @Column(length = 100)
+    private String reason;
 
 
-    @ColumnDefault("0")
-    private byte isCompleted;
-
+    @NotNull
+    private LocalDateTime createTime;
 
 }
