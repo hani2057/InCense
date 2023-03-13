@@ -1,10 +1,8 @@
 package com.suyang.incense.db.entity.analysis;
 
 import com.suyang.incense.db.entity.member.Member;
-import com.suyang.incense.db.entity.relation.MyAnalysisBaseNote;
-import com.suyang.incense.db.entity.relation.MyAnalysisMiddleNote;
+import com.suyang.incense.db.entity.relation.MyAnalysisNote;
 import com.suyang.incense.db.entity.relation.MyAnalysisPerfume;
-import com.suyang.incense.db.entity.relation.MyAnalysisTopNote;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,12 +44,6 @@ public class MyAnalysis {
   private List<MyAnalysisPerfume> myAnalysisPerfumeList = new ArrayList<>();
 
   @OneToMany(mappedBy = "myAnalysis")
-  private List<MyAnalysisTopNote> myAnalysisTopNoteList = new ArrayList<>();
-
-  @OneToMany(mappedBy = "myAnalysis")
-  private List<MyAnalysisMiddleNote> myAnalysisMiddleNoteList = new ArrayList<>();
-
-  @OneToMany(mappedBy = "myAnalysis")
-  private List<MyAnalysisBaseNote> myAnalysisBaseNoteList = new ArrayList<>();
+  private List<MyAnalysisNote> myAnalysisTopNoteList = new ArrayList<>();
 
 }

@@ -88,6 +88,9 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<MemberPerfume> memberPerfumeList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member")
+    private List<AlarmSend> alarmSendList = new ArrayList<>();
+
     @NotNull
     @Column(length = 50)
     private String email;

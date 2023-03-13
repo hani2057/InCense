@@ -1,5 +1,6 @@
 package com.suyang.incense.db.entity.deal;
 
+import com.suyang.incense.db.entity.member.AlarmSend;
 import com.suyang.incense.db.entity.member.Member;
 import com.suyang.incense.db.entity.perfume.Perfume;
 import com.suyang.incense.db.entity.relation.MemberDealBookmark;

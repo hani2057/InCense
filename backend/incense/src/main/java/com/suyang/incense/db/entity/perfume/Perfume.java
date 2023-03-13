@@ -3,17 +3,18 @@ package com.suyang.incense.db.entity.perfume;
 import com.suyang.incense.db.entity.relation.MemberPerfume;
 import com.suyang.incense.db.entity.relation.MemberPerfumeAlarm;
 import com.suyang.incense.db.entity.relation.MyAnalysisPerfume;
-import com.suyang.incense.db.entity.relation.PerfumeBaseNote;
-import com.suyang.incense.db.entity.relation.PerfumeMiddleNote;
-import com.suyang.incense.db.entity.relation.PerfumeTopNote;
+import com.suyang.incense.db.entity.relation.PerfumeNote;
 import com.suyang.incense.db.entity.relation.TestPerfumeResult;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -33,13 +34,13 @@ public class Perfume {
   @Column(name = "perfume_id")
   private Long id;
 
-  @NotNull
-  @Column(length = 100)
-  private String name;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "brand_id")
+  private Brand brand;
 
   @NotNull
   @Column(length = 100)
-  private String brand;
+  private String name;
   @NotNull
   private double price;
   @NotNull
@@ -62,13 +63,7 @@ public class Perfume {
   private List<MemberPerfumeAlarm> memberPerfumeAlarmList = new ArrayList<>();
 
   @OneToMany(mappedBy = "perfume")
-  private List<PerfumeTopNote> perfumeTopNoteList = new ArrayList<>();
-
-  @OneToMany(mappedBy = "perfume")
-  private List<PerfumeMiddleNote> perfumeMiddleNoteList = new ArrayList<>();
-
-  @OneToMany(mappedBy = "perfume")
-  private List<PerfumeBaseNote> perfumeBaseNoteList = new ArrayList<>();
+  private List<PerfumeNote> perfumeNoteList = new ArrayList<>();
 
   @OneToMany(mappedBy = "perfume")
   private List<MyAnalysisPerfume> myAnalysisPerfumeList = new ArrayList<>();

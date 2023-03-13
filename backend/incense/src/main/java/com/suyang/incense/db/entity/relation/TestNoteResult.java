@@ -1,8 +1,7 @@
 package com.suyang.incense.db.entity.relation;
 
-import com.suyang.incense.db.entity.analysis.MyAnalysis;
-import com.suyang.incense.db.entity.note.MiddleNote;
-import com.suyang.incense.db.entity.note.TopNote;
+import com.suyang.incense.db.entity.note.Note;
+import com.suyang.incense.db.entity.test.Test;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,21 +20,21 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "my_analysis_middle_note")
-public class MyAnalysisMiddleNote {
+@Table(name = "test_note_result")
+public class TestNoteResult {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "my_analysis_middle_note_id")
+  @Column(name = "test_note_id")
   private Long id;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "middle_note_id")
-  private MiddleNote middleNote;
+  @JoinColumn(name = "test_id")
+  private Test test;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "my_analysis_id")
-  private MyAnalysis myAnalysis;
+  @JoinColumn(name = "note_id")
+  private Note note;
 
   @NotNull
   private double weight;
