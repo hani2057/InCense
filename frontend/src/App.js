@@ -1,11 +1,11 @@
 import { Route, Routes } from "react-router";
-import SignUpPage from "./pages/SignUpPage/SignUpPage";
+import LogInPage from "./pages/LogInPage/LogInPage";
 
 function App() {
   return (
     <Routes>
       {/* <Route index element={<MainPage />} /> */}
-      <Route path="/signup" element={<SignUpPage />} />
+      <Route path="/login" element={<LogInPage />} />
     </Routes>
   );
 }
