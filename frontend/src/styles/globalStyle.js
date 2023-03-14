@@ -33,7 +33,7 @@ const GlobalStyle = createGlobalStyle`
     color: var(--font-color);
     width: 100%;
     height: 100%;
-    font-family: 'Pretendard-Regular', -apple-system, Helvetica Neue, sans-serif;
+    font-family: 'Pretendard-Regular', -apple-system, 'Helvetica Neue', sans-serif;
     font-size: 1rem;
   }
 

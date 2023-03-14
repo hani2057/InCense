@@ -13,7 +13,8 @@ const LoginBtn = styled.button`
   color: var(--gray-color);
 
   &:hover {
-    box-shadow: 0 0 16px var(--main-color);
+    box-shadow: 0 0 10px var(--main-color);
+    border: 1px solid var(--main-color);
     color: var(--main-color);
   }
 `;
