@@ -13,7 +13,6 @@ const SignUpPage = () => {
     <FlexDiv height="100vh">
       <FlexDiv
         direction="column"
-        justify="center"
         width="45%"
         style={{ backgroundImage: "url('/assets/images/bgimg1.png')" }}
       >
@@ -21,12 +20,12 @@ const SignUpPage = () => {
         <TitleSpan>Cense</TitleSpan>
       </FlexDiv>
       <FlexDiv direction="column">
-        <FlexDiv direction="column" height="40%">
+        <FlexDiv direction="column" height="35%">
           <SignUpSpan>보다 정확한 추천을 위해</SignUpSpan>
           <SignUpSpan>당신에 대해 알려주세요</SignUpSpan>
         </FlexDiv>
-        <FlexDiv direction="column" width="50%" justify="space-around">
-          <FlexDiv justify="space-between">
+        <FlexDiv direction="column" justify="start" height="65%">
+          <FlexDiv height="8rem">
             <SignUpInput placeholder="닉네임을 입력해주세요" />
             <CheckBox
               text={nameChecked ? "사용가능" : "중복검사"}
@@ -34,15 +33,16 @@ const SignUpPage = () => {
               funcClicked={() => setNameChecked((prev) => !prev)}
             />
           </FlexDiv>
-          <FlexDiv>
+          <FlexDiv height="8rem">
             <SignUpInput placeholder="생년월일을 입력해주세요" />
             <span>토글 공개</span>
           </FlexDiv>
-          <FlexDiv>
+          <FlexDiv height="8rem">
             <CheckBoxPickOne
               textArr={["남성", "여성"]}
               pickedIdx={genderPickedIdx}
               setPickedIdx={setGenderPickedIdx}
+              width="10rem"
             />
             <span>토글 공개</span>
           </FlexDiv>

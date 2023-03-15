@@ -10,9 +10,9 @@ import { FlexDiv } from "../FlexDiv/FlexDiv";
  *
  */
 
-const CheckBoxPickOne = ({ textArr, pickedIdx, setPickedIdx }) => {
+const CheckBoxPickOne = ({ textArr, pickedIdx, setPickedIdx, width }) => {
   return (
-    <FlexDiv justify="space-between">
+    <FlexDiv justify="space-between" style={{ width: `${width || "100%"}` }}>
       {textArr.map((text, idx) => (
         <CheckBox
           text={text}

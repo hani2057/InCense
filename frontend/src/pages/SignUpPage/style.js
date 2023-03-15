@@ -7,7 +7,15 @@ const SignUpSpan = styled.span`
 `;
 
 const SignUpInput = styled.input`
+  width: 22rem;
   border-bottom: 1px solid var(--gray-color);
+  font-size: 1.3rem;
+  padding: 0.7rem;
+  margin-right: 2.5rem;
+
+  &::placeholder {
+    color: var(--gray-color);
+  }
 `;
 
 export { SignUpSpan, SignUpInput };
