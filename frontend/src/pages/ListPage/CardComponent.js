@@ -10,6 +10,7 @@ import { Box } from "@mui/system";
 const CardComponent = () => {
   const navigate = useNavigate()
   const onClickCard = () => {
+    // 해당id디테일로가게
     navigate('/detail')
   }
 
