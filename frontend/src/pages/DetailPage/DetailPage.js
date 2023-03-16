@@ -4,6 +4,9 @@ import BellIcon from './bell1.svg'
 import {BsBell} from 'react-icons/bs'
 import {BsFillBellFill} from 'react-icons/bs'
 import { Button } from "@mui/material";
+import CardComponent from "../ListPage/CardComponent";
+import DivideLine from "../../components/common/DivideLine/DivideLine";
+import ReviewTable from "./ReviewTable";
 
 const DetailPage = () => {
   const [alarmStatus, setAlarmStatus] = useState(false)
@@ -42,10 +45,10 @@ const DetailPage = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          backgroundColor: "#D9D9D9",
+          // backgroundColor: "#D9D9D9",
           fontSize: "2rem",
           fontWeight:"bold",
-          marginBottom:'2rem'
+          marginBottom:'3rem'
       }}>
         <h4>DETAIL</h4>
       </Box>
@@ -57,7 +60,7 @@ const DetailPage = () => {
           display:"flex",
           flexDirection:"row",
           justifyContent:'center',
-          backgroundColor:"#FBE8E8",
+          // backgroundColor:"#FBE8E8",
           my:'3rem'
       }}>
         <Box
@@ -81,11 +84,15 @@ const DetailPage = () => {
               position:'relative'
           }}>
               {alarmStatus === false
-                ?<BsBell style={{position:'absolute',right:'1rem',top:'1rem', fontSize:'2rem' }}
+                ?<BsBell style={{position:'absolute',right:'1rem',top:'1rem', fontSize:'2rem',cursor:'pointer' }}
                 onClick={onChangeAlarm}></BsBell>
-                :<BsFillBellFill style={{position:'absolute',right:'1rem',top:'1rem', fontSize:'2rem', color:'#706DFF' }}
+                :<BsFillBellFill style={{position:'absolute',right:'1rem',top:'1rem', fontSize:'2rem', color:'#706DFF',cursor:'pointer' }}
                 onClick={onChangeAlarm}></BsFillBellFill>}
-            <img style={{width:'auto', height:'20rem'}} src="/images/fluer.png" alt='detailimage'></img>
+            <img style={{width:'auto', height:'20rem', position:'relative', top:'2.5rem'}} src="/images/fluer.png" alt='detailimage'></img>
+          </Box>
+          <Box
+            sx={{width:'25rem', height:'5rem', backgroundColor:'lightgrey'}}>
+            모달 자리.
           </Box>
         </Box>
         <Box
@@ -119,9 +126,25 @@ const DetailPage = () => {
 
         </Box>
       </Box>
+      <DivideLine/>
       <Box
-          sx={{width:'80rem', height:'0.2rem', backgroundColor:'#DCDCDC'}}>
-      </Box>      
+        sx={{width:'80rem',display:'flex'}}>
+        <h1 style={{fontSize:'2rem', fontWeight:'bold', marginTop:'2rem', marginBottom:'2rem'}}>유사한 향수 목록</h1>
+      </Box>
+      <Box
+        sx={{width:'80rem',display:'flex',flexDirection:'row',justifyContent:'space-between',marginTop:'2rem',marginBottom:'2rem'}}>
+        <CardComponent/>
+        <CardComponent/>
+        <CardComponent/>
+        <CardComponent/>
+      </Box>
+      <DivideLine/>
+      <Box
+        sx={{width:'80rem',display:'flex', flexDirection:'column'}}>
+        <h1 style={{fontSize:'2rem', fontWeight:'bold', marginTop:'2rem', marginBottom:'3rem'}}>후기 (28)</h1>
+        <ReviewTable/> 
+      </Box>
+  
     </Box>
 
   )
