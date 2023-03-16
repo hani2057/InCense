@@ -34,6 +34,7 @@ const Nav = styled.nav`
   align-items: center;
   gap: 4px;
   margin: 16px;
+  
 `;
 
 const Button = styled.button`
@@ -41,13 +42,15 @@ const Button = styled.button`
   border-radius: 8px;
   padding: 8px;
   margin: 0;
-  color: #706DFF;
+  color: grey;
   font-size: 1rem;
 
   &:hover {
     background: lightgrey;
     cursor: pointer;
     transform: translateY(-2px);
+    color: #706DFF;
+    font-weight: bold;
 
   }
 
@@ -62,6 +65,7 @@ const Button = styled.button`
     font-weight: bold;
     cursor: revert;
     transform: revert;
+    color: #706DFF;
   }
 `;
 

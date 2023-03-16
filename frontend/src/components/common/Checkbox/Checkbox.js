@@ -33,3 +33,6 @@ export default function Checkbox({ children, disabled, value, checked, onChange 
     </label>
   );
 }
+
+
+// https://www.daleseo.com/react-context/ 참고
