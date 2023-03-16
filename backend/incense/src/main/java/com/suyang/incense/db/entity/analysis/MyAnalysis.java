@@ -1,5 +1,6 @@
 package com.suyang.incense.db.entity.analysis;
 
+import com.suyang.incense.common.BaseTimeEntity;
 import com.suyang.incense.db.entity.member.Member;
 import com.suyang.incense.db.entity.relation.MyAnalysisNote;
 import com.suyang.incense.db.entity.relation.MyAnalysisPerfume;
@@ -26,7 +27,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Table(name = "my_analysis")
-public class MyAnalysis {
+public class MyAnalysis extends BaseTimeEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,9 +37,6 @@ public class MyAnalysis {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "member_id")
   private Member member;
-
-  @NotNull
-  private LocalDateTime updateTime;
 
   @OneToMany(mappedBy = "myAnalysis")
   private List<MyAnalysisPerfume> myAnalysisPerfumeList = new ArrayList<>();

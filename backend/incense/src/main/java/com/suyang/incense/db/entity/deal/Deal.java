@@ -1,5 +1,6 @@
 package com.suyang.incense.db.entity.deal;
 
+import com.suyang.incense.common.BaseTimeEntity;
 import com.suyang.incense.db.entity.member.AlarmSend;
 import com.suyang.incense.db.entity.member.Member;
 import com.suyang.incense.db.entity.perfume.Perfume;
@@ -24,7 +25,7 @@ import java.util.List;
 @NoArgsConstructor
 @DynamicInsert
 @Table(name = "deal")
-public class Deal {
+public class Deal extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,11 +56,6 @@ public class Deal {
 
     @NotNull
     private String content;
-
-    @NotNull
-    @CreatedDate
-    @LastModifiedDate
-    private LocalDateTime registerTime;
 
     private int volume;
 

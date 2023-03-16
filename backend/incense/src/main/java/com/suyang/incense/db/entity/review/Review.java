@@ -1,5 +1,6 @@
 package com.suyang.incense.db.entity.review;
 
+import com.suyang.incense.common.BaseTimeEntity;
 import com.suyang.incense.db.entity.relation.MemberPerfume;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
@@ -23,7 +24,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 @Setter
 @NoArgsConstructor
 @Table(name = "review")
-public class Review {
+public class Review extends BaseTimeEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,8 +41,5 @@ public class Review {
   @Column(length = 1000)
   private String comment;
 
-  @CreatedDate
-  @LastModifiedDate
-  private LocalDateTime updateTime;
 
 }
