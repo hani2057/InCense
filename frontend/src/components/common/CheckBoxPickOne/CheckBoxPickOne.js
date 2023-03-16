@@ -1,6 +1,7 @@
 import React from "react";
 import CheckBox from "../CheckBox/CheckBox";
 import { FlexDiv } from "../FlexDiv/FlexDiv";
+import { CheckBoxPickWrapper } from "./style";
 
 /* 프롭스 설명
  *
@@ -10,9 +11,21 @@ import { FlexDiv } from "../FlexDiv/FlexDiv";
  *
  */
 
-const CheckBoxPickOne = ({ textArr, pickedIdx, setPickedIdx, width }) => {
+const CheckBoxPickOne = ({
+  textArr,
+  pickedIdx,
+  setPickedIdx,
+  width,
+  height,
+  margin,
+}) => {
   return (
-    <FlexDiv justify="space-between" style={{ width: `${width || "100%"}` }}>
+    <CheckBoxPickWrapper
+      width={width}
+      height={height}
+      margin={margin}
+      justify="space-around"
+    >
       {textArr.map((text, idx) => (
         <CheckBox
           text={text}
@@ -21,7 +34,7 @@ const CheckBoxPickOne = ({ textArr, pickedIdx, setPickedIdx, width }) => {
           key={idx}
         />
       ))}
-    </FlexDiv>
+    </CheckBoxPickWrapper>
   );
 };
 
