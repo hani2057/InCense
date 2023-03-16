@@ -92,7 +92,7 @@ const DetailPage = () => {
           </Box>
           <Box
             sx={{width:'25rem', height:'5rem', backgroundColor:'lightgrey'}}>
-            모달 자리
+            모달 자리.
           </Box>
         </Box>
         <Box
