@@ -46,7 +46,7 @@ public class AlarmSend {
 
   @NotNull
   @ColumnDefault("0")
-  private Byte isReceived;    //0: 미수신, 1: 수신완료
+  private Byte isReceived;    // 0: 미수신, 1: 수신완료
 
   @NotNull
   @CreatedDate
@@ -54,6 +54,6 @@ public class AlarmSend {
 
   @NotNull
   @ColumnDefault("0")
-  private Byte isDeleted;   //0: false, 1: true
+  private Byte isDeleted;   // 0: false, 1: true
 
 }

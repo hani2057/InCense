@@ -19,23 +19,18 @@ public class Grade {
     @Column(name = "grade_id")
     private Long id;
 
-
     @NotNull
     @Column(length=100)
     private String name;
 
-
     @NotNull
     private  int minScore;
-
 
     @NotNull
     private int maxScore;
 
-
     @Column(length=2500)
     private String image;
-
 
     @OneToMany(mappedBy = "grade")
     private List<Member> memberList = new ArrayList<>();

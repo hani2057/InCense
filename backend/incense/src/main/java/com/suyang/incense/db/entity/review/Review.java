@@ -15,7 +15,8 @@ import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Entity
 @Getter
@@ -35,11 +36,12 @@ public class Review {
 
   @NotNull
   private double preference;
+
   @Column(length = 1000)
   private String comment;
-  @UpdateTimestamp
+
+  @CreatedDate
+  @LastModifiedDate
   private LocalDateTime updateTime;
-
-
 
 }

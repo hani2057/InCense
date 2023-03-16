@@ -23,23 +23,19 @@ public class MemberReport {
     @Column(name = "member_report_id")
     private Long id;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="member_id")
     private Member member;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
     private Member reportedMember;
 
-
     @NotNull
     private String content;
 
-
     @ColumnDefault("0")
-    private byte isCompleted;
+    private byte isCompleted;   // 0: false, 1:true
 
 
 }
