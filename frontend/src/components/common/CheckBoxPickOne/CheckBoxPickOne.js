@@ -1,6 +1,5 @@
 import React from "react";
-import CheckBox from "../CheckBox/CheckBox";
-import { FlexDiv } from "../FlexDiv/FlexDiv";
+import CheckboxWithIcon from "../CheckboxWithIcon/CheckboxWithIcon";
 import { CheckBoxPickWrapper } from "./style";
 
 /* 프롭스 설명
@@ -11,7 +10,7 @@ import { CheckBoxPickWrapper } from "./style";
  *
  */
 
-const CheckBoxPickOne = ({
+const CheckboxPickOne = ({
   textArr,
   pickedIdx,
   setPickedIdx,
@@ -27,10 +26,11 @@ const CheckBoxPickOne = ({
       justify="space-around"
     >
       {textArr.map((text, idx) => (
-        <CheckBox
+        <CheckboxWithIcon
           text={text}
           isChecked={idx === pickedIdx ? true : false}
           funcClicked={() => setPickedIdx(idx)}
+          pointer={true}
           key={idx}
         />
       ))}
@@ -38,4 +38,4 @@ const CheckBoxPickOne = ({
   );
 };
 
-export default CheckBoxPickOne;
+export default CheckboxPickOne;

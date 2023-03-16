@@ -1,15 +1,9 @@
 import React, { useState } from "react";
-import CheckBox from "../../components/common/CheckBox/CheckBox";
-import CheckBoxPickOne from "../../components/common/CheckBoxPickOne/CheckBoxPickOne";
+import CheckboxWithIcon from "../../components/common/CheckboxWithIcon/CheckboxWithIcon";
+import CheckboxPickOne from "../../components/common/CheckboxPickOne/CheckboxPickOne";
 import { FlexDiv } from "../../components/common/FlexDiv/FlexDiv";
 import { TitleSpan } from "../LogInPage/style";
-import {
-  SignUpInput,
-  SignUpItemWrapper,
-  SignUpItem,
-  SignUpSpan,
-  SignUpMsg,
-} from "./style";
+import { SignUpInput, SignUpItem, SignUpSpan, SignUpMsg } from "./style";
 
 const SignUpPage = () => {
   const [nameChecked, setNameChecked] = useState(false);
@@ -39,7 +33,7 @@ const SignUpPage = () => {
           >
             <SignUpItem>
               <SignUpInput placeholder="닉네임을 입력해주세요" />
-              <CheckBox
+              <CheckboxWithIcon
                 text={nameChecked ? "사용가능" : "중복검사"}
                 isChecked={nameChecked ? true : false}
                 funcClicked={() => setNameChecked((prev) => !prev)}
@@ -53,13 +47,13 @@ const SignUpPage = () => {
               <SignUpMsg>* YYYYMMDD 형식의 8자리로 입력해주세요</SignUpMsg>
             </SignUpItem>
             <SignUpItem>
-              <CheckBoxPickOne
+              <CheckboxPickOne
                 textArr={["남성", "여성"]}
                 pickedIdx={genderPickedIdx}
                 setPickedIdx={setGenderPickedIdx}
                 width="23rem"
                 height="3rem"
-                margin="0 2.5rem 0 0"
+                margin="0 3rem 0 0"
               />
               <span>토글 공개</span>
             </SignUpItem>

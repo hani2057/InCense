@@ -7,12 +7,10 @@ const SignUpSpan = styled.span`
   line-height: 2rem;
 `;
 
-const SignUpItemWrapper = styled(FlexDiv)``;
-
 const SignUpItem = styled(FlexDiv)`
   justify-content: start;
   width: auto;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 `;
 
 const SignUpInput = styled.input`
@@ -21,7 +19,7 @@ const SignUpInput = styled.input`
   border-bottom: 1px solid var(--gray-color);
   font-size: 1.2rem;
   padding: 0.7rem;
-  margin-right: 2.5rem;
+  margin-right: 3rem;
 
   &::placeholder {
     color: var(--gray-color);
@@ -36,4 +34,4 @@ const SignUpMsg = styled.span`
   `}
 `;
 
-export { SignUpSpan, SignUpItemWrapper, SignUpItem, SignUpInput, SignUpMsg };
+export { SignUpSpan, SignUpItem, SignUpInput, SignUpMsg };
