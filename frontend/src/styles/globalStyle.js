@@ -49,6 +49,11 @@ const GlobalStyle = createGlobalStyle`
     background-color: inherit;
   }
 
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+
   input:focus {
     outline: none;
   }

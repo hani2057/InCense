@@ -24,12 +24,29 @@ const SignUpInput = styled.input`
   &::placeholder {
     color: var(--gray-color);
   }
+
+  &:focus {
+    border-bottom: 1px solid var(--main-color);
+    box-shadow: 0 10px 10px -10px var(--main-color);
+  }
+
+  /*&:focus::after {
+    content: "";
+    display: block;
+    background-color: var(--main-color);
+    width: 23rem;
+    height: 3rem;
+  }*/
+
+  &:focus + span {
+    color: var(--main-color);
+  }
 `;
 
 const SignUpMsg = styled.span`
   ${({ color }) => css`
     font-size: 0.75rem;
-    padding-top: 0.5rem;
+    padding: 0.5rem 0 0 0.5rem;
     color: ${color ? "var(--" + color + "-color)" : "var(--gray-color)"};
   `}
 `;
