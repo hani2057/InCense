@@ -7,7 +7,7 @@ const SignUpSpan = styled.span`
   line-height: 2rem;
 `;
 
-const SignUpItem = styled(FlexDiv)`
+const SignUpItemWrapper = styled(FlexDiv)`
   justify-content: start;
   width: auto;
   margin-bottom: 2rem;
@@ -54,4 +54,4 @@ const SignUpMsg = styled.span`
   `}
 `;
 
-export { SignUpSpan, SignUpItem, SignUpInput, SignUpMsg };
+export { SignUpSpan, SignUpItemWrapper, SignUpInput, SignUpMsg };

@@ -4,10 +4,10 @@ import isBetween from "dayjs/plugin/isBetween";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 // import "dayjs/locale/ko";
 import CheckboxWithIcon from "../../components/common/CheckboxWithIcon/CheckboxWithIcon";
-import CheckboxPickOne from "../../components/common/CheckboxPickOne/CheckboxPickOne";
 import { FlexDiv } from "../../components/common/FlexDiv/FlexDiv";
 import { TitleSpan } from "../LogInPage/style";
-import { SignUpInput, SignUpItem, SignUpSpan, SignUpMsg } from "./style";
+import { SignUpItemWrapper, SignUpSpan } from "./style";
+import SignUpItem from "../../components/SignUpItem/SignUpItem";
 
 dayjs.extend(isBetween);
 dayjs.extend(customParseFormat);
@@ -18,18 +18,22 @@ const SignUpPage = () => {
   const [name, setName] = useState("");
   const [birth, setBirth] = useState("");
   const [genderPickedIdx, setGenderPickedIdx] = useState(null);
-  console.log(birth);
+  console.log("aa", name);
 
   // validation 관련 state
   const [nameChecked, setNameChecked] = useState(false);
-  // const [inputMsg, setInputMsg] = useState({ name: "", birth: "" });
-  const [nameMsg, setNameMsg] = useState("test");
+  const [nameMsg, setNameMsg] = useState("20자 이하의 닉네임을 입력해주세요");
   const [birthMsg, setBirthMsg] = useState(
     "YYYYMMDD 형식의 8자리로 입력해주세요"
   );
+  // const [inputMsg, setInputMsg] = useState({ name: "", birth: "" });
 
   const [isError, setIsError] = useState({ name: false, birth: false });
 
+  // 닉네임 유효성 검사
+  const checkName = () => {};
+
+  // 생년월일 유효성 검사
   const checkBirth = (date) => {
     const year = +date.slice(0, 4);
     const month = +date.slice(4, 6);
@@ -42,17 +46,17 @@ const SignUpPage = () => {
       month > 12 || // month값이 12를 초과하거나
       day > 31 // day값이 31을 초과할 경우
     ) {
-      // setMsg("birth", "error", "유효하지 않은 생년월일입니다");
       setBirthMsg("유효하지 않은 생년월일입니다");
       setIsError((prev) => {
         return { ...prev, birth: true };
       });
+      // setMsg("birth", "error", "유효하지 않은 생년월일입니다");
     } else {
-      // setMsg("birth", "success", "공개 여부를 선택해주세요");
       setBirthMsg("공개 여부를 선택해주세요");
       setIsError((prev) => {
         return { ...prev, birth: false };
       });
+      // setMsg("birth", "success", "공개 여부를 선택해주세요");
     }
 
     console.log("aaa");
@@ -61,26 +65,18 @@ const SignUpPage = () => {
     console.log(year < dayjs().year() - 100);
     console.log(month > 12);
     console.log(day > 31);
+  };
 
-    // const newDate = dayjs(date).format("YYYY.MM.DD");
-    // if (
-    //   !dayjs(date, "YYYYMMDD", true).isValid() ||
-    //   !dayjs(date).isBetween(dayjs().subtract(100, "y"), undefined)
-    // ) {
-    //   setBirthMsg("유효하지 않은 생년월일입니다");
-    //   // setIsError((prev) => {
-    //   //   return { ...prev, birth: true };
-    //   // });
-    // }
-    // console.log(dayjs(date).subtract(100, "y"));
-    // console.log(!dayjs(date, "YYYYMMDD", true).isValid());
-    // console.log(
-    //   !dayjs(date).isBetween(dayjs(date).subtract(100, "y"), dayjs())
-    // );
+  const fetchPostMemberInfo = (name, birth, genderPickedIdx) => {
+    // 닉네임 유효성 검사
+    // if (!checkName(name))
+    // 생년월일 유효성 검사
+    // 성별 체크 검사
+    // api 요청
   };
 
   useEffect(() => {
-    // 형식 유효성 검사 - 차후 submit으로 옮길 것
+    // 생년월일 형식 유효성 검사 - 차후 submit으로 옮길 것
     if (birth.length === 8) checkBirth(birth);
     else
       setIsError((prev) => {
@@ -123,83 +119,40 @@ const SignUpPage = () => {
             align="start"
             height="auto"
           >
-            <SignUpItem>
-              <FlexDiv direction="column" align="start" width="auto">
-                <SignUpInput
-                  placeholder="닉네임을 입력해주세요"
-                  type="text"
-                  value={name}
-                  onChange={(e) => {
-                    setNameChecked(false);
-                    // 길이 유효성 검사
-                    if (e.target.value.length <= 20) {
-                      setName(e.target.value);
-                      // setMsg(
-                      //   "name",
-                      //   "normal",
-                      //   "20자 이하의 닉네임을 입력해주세요"
-                      // );
-                      setNameMsg("test");
-                    } else {
-                      setName(name.substring(0, 20));
-                      setNameMsg("20자 이하의 닉네임을 입력해주세요");
-                    }
-                  }}
-                  required
-                  maxlength={20}
-                />
-                {/* <SignUpMsg>{inputMsg.name}</SignUpMsg> */}
-                <SignUpMsg>{nameMsg}</SignUpMsg>
-              </FlexDiv>
+            <SignUpItemWrapper>
+              <SignUpItem
+                type="name"
+                inputValue={name}
+                setInputValue={setName}
+                setNameChecked={setNameChecked}
+                msg={nameMsg}
+                setMsg={setNameMsg}
+              />
               <CheckboxWithIcon
                 text={nameChecked ? "사용가능" : "중복검사"}
                 isChecked={nameChecked ? true : false}
                 funcClicked={() => setNameChecked((prev) => !prev)}
               />
-            </SignUpItem>
-            <SignUpItem>
-              <FlexDiv direction="column" align="start" width="auto">
-                <SignUpInput
-                  placeholder="생년월일을 입력해주세요"
-                  value={birth}
-                  onChange={(e) => {
-                    // 길이 유효성 검사
-                    if (e.target.value.length <= 8) {
-                      setBirth(e.target.value);
-                      setBirthMsg("YYYYMMDD 형식의 8자리로 입력해주세요");
-                      // setMsg(
-                      //   "birth",
-                      //   "normal",
-                      //   "YYYYMMDD 형식의 8자리로 입력해주세요"
-                      // );
-                    } else {
-                      setBirth(birth.substring(0, 8));
-                    }
-                  }}
-                  msgColor={isError.birth ? "red" : null}
-                  type="number"
-                  required
-                />
-                {/* <SignUpMsg color={isError.birth ? "red" : null}>
-                  {inputMsg.birth}
-                </SignUpMsg> */}
-                <SignUpMsg color={isError.birth ? "red" : null}>
-                  {birthMsg}
-                </SignUpMsg>
-              </FlexDiv>
-              <span>토글 공개</span>
-            </SignUpItem>
-            <SignUpItem>
-              <CheckboxPickOne
-                textArr={["남성", "여성"]}
-                pickedIdx={genderPickedIdx}
-                setPickedIdx={setGenderPickedIdx}
-                width="23rem"
-                height="3rem"
-                margin="0 3rem 0 0"
+            </SignUpItemWrapper>
+            <SignUpItemWrapper>
+              <SignUpItem
+                type="birth"
+                inputValue={birth}
+                setInputValue={setBirth}
+                msg={birthMsg}
+                setMsg={setBirthMsg}
+                isError={isError}
               />
               <span>토글 공개</span>
-            </SignUpItem>
+            </SignUpItemWrapper>
+            <SignUpItemWrapper>
+              <SignUpItem
+                type="gender"
+                genderPickedIdx={genderPickedIdx}
+                setGenderPickedIdx={setGenderPickedIdx}
+              />
+              <span>토글 공개</span>
+            </SignUpItemWrapper>
           </FlexDiv>
         </div>
         <div style={{ height: "20%" }}>
