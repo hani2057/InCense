@@ -39,7 +39,10 @@ const SignUpInput = styled.input`
   }*/
 
   &:focus + span {
-    color: var(--main-color);
+    color: ${(props) =>
+      props.msgColor
+        ? "var(--" + props.msgColor + "-color)"
+        : "var(--main-color)"};
   }
 `;
 

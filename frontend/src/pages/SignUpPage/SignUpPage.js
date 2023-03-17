@@ -18,13 +18,16 @@ const SignUpPage = () => {
   const [name, setName] = useState("");
   const [birth, setBirth] = useState("");
   const [genderPickedIdx, setGenderPickedIdx] = useState(null);
+  console.log(birth);
 
   // validation 관련 state
   const [nameChecked, setNameChecked] = useState(false);
+  // const [inputMsg, setInputMsg] = useState({ name: "", birth: "" });
   const [nameMsg, setNameMsg] = useState("test");
   const [birthMsg, setBirthMsg] = useState(
     "YYYYMMDD 형식의 8자리로 입력해주세요"
   );
+
   const [isError, setIsError] = useState({ name: false, birth: false });
 
   const checkBirth = (date) => {
@@ -33,16 +36,23 @@ const SignUpPage = () => {
     const day = +date.slice(6, 8);
 
     if (
-      !dayjs(date, "YYYYMMDD", true).isValid() ||
-      dayjs(date).toDate() > new Date() ||
-      year < dayjs().year() - 100 ||
-      month > 12 ||
-      day > 31
+      !dayjs(date, "YYYYMMDD", true).isValid() || // isValid가 false거나
+      dayjs(date).toDate() > new Date() || // 오늘 이후 날짜이거나
+      year < dayjs().year() - 100 || // 오늘 기준 100년보다 더 이전이거나
+      month > 12 || // month값이 12를 초과하거나
+      day > 31 // day값이 31을 초과할 경우
     ) {
+      // setMsg("birth", "error", "유효하지 않은 생년월일입니다");
       setBirthMsg("유효하지 않은 생년월일입니다");
-      // setIsError((prev) => {
-      //   return { ...prev, birth: true };
-      // });
+      setIsError((prev) => {
+        return { ...prev, birth: true };
+      });
+    } else {
+      // setMsg("birth", "success", "공개 여부를 선택해주세요");
+      setBirthMsg("공개 여부를 선택해주세요");
+      setIsError((prev) => {
+        return { ...prev, birth: false };
+      });
     }
 
     console.log("aaa");
@@ -72,7 +82,24 @@ const SignUpPage = () => {
   useEffect(() => {
     // 형식 유효성 검사 - 차후 submit으로 옮길 것
     if (birth.length === 8) checkBirth(birth);
+    else
+      setIsError((prev) => {
+        return { ...prev, birth: false };
+      });
   }, [birth]);
+
+  // input종류, 상태, 메시지를 받아 input 하단 메시지를 설정
+  // const setMsg = (type, status, msg) => {
+  //   setInputMsg((prev) => {
+  //     const newInputMsg = {};
+  //     const key = `${type}`;
+  //     return {
+  //       ...prev,
+  //       key: msg,
+  //     };
+  //   });
+  //   console.log(inputMsg);
+  // };
 
   return (
     <FlexDiv height="100vh">
@@ -107,15 +134,20 @@ const SignUpPage = () => {
                     // 길이 유효성 검사
                     if (e.target.value.length <= 20) {
                       setName(e.target.value);
+                      // setMsg(
+                      //   "name",
+                      //   "normal",
+                      //   "20자 이하의 닉네임을 입력해주세요"
+                      // );
                       setNameMsg("test");
                     } else {
                       setName(name.substring(0, 20));
-                      setNameMsg("닉네임은 최대 20자까지 가능합니다");
                     }
                   }}
                   required
                   maxlength={20}
                 />
+                {/* <SignUpMsg>{inputMsg.name}</SignUpMsg> */}
                 <SignUpMsg>{nameMsg}</SignUpMsg>
               </FlexDiv>
               <CheckboxWithIcon
@@ -134,14 +166,25 @@ const SignUpPage = () => {
                     if (e.target.value.length <= 8) {
                       setBirth(e.target.value);
                       setBirthMsg("YYYYMMDD 형식의 8자리로 입력해주세요");
+                      // setMsg(
+                      //   "birth",
+                      //   "normal",
+                      //   "YYYYMMDD 형식의 8자리로 입력해주세요"
+                      // );
                     } else {
                       setBirth(birth.substring(0, 8));
                     }
                   }}
+                  msgColor={isError.birth ? "red" : null}
                   type="number"
                   required
                 />
-                <SignUpMsg>{birthMsg}</SignUpMsg>
+                {/* <SignUpMsg color={isError.birth ? "red" : null}>
+                  {inputMsg.birth}
+                </SignUpMsg> */}
+                <SignUpMsg color={isError.birth ? "red" : null}>
+                  {birthMsg}
+                </SignUpMsg>
               </FlexDiv>
               <span>토글 공개</span>
             </SignUpItem>
