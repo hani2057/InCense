@@ -1,5 +1,7 @@
 import React from 'react';
 
+// https://tech.ozys.io/2022/02/24/dropdown-animation.html
+
 const Dropdown = props => {
     const [visibilityAnimation, setVisibilityAnimation] = React.useState(false);
     const [repeat, setRepeat] = React.useState(null);
