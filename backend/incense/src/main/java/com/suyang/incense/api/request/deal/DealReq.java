@@ -37,6 +37,9 @@ public class DealReq {
   @ApiModelProperty(name = "판매/나눔 마감 여부: 0 판매/나눔중, 1 마감", example = "0")
   private byte isClosed;
 
+  @ApiModelProperty(name = "향수 구매일", example = "2023.01")
+  private String buyDate;
+
   @ApiModelProperty(name = "판매/나눔 이미지")
   private List<MultipartFile> files;
 

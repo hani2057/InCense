@@ -67,6 +67,8 @@ public class Deal extends BaseTimeEntity {
     @ColumnDefault("0")
     private byte isClosed;      // 0: false, 1: true
 
+    private String buyDate;     //yyyy.mm
+
     @OneToMany(mappedBy = "deal")
     private List<DealPhoto> dealPhotoList = new ArrayList<>();
 

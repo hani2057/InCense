@@ -43,6 +43,7 @@ public class DealServiceImpl implements DealService  {
     deal.setVolume(dealReq.getVolume());
     deal.setIsDelivery(dealReq.getIsDelivery());
     deal.setIsClosed(dealReq.getIsClosed());
+    deal.setBuyDate(dealReq.getBuyDate());
 
 
     dealRepository.save(deal);
