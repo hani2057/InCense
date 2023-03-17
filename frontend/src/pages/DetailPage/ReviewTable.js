@@ -7,7 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import Pagination from '../../components/Pagination/Pagination';
+import Pagination from '../../components/common/Pagination/Pagination';
 import { Box } from '@mui/system';
 
 
@@ -62,7 +62,7 @@ export default function ReviewTable() {
       <Table padding='none' sx={{ minWidth: 700, width:'80rem', height:'15rem' }} aria-label="customized table">
         <TableHead sx={{height:'2.5rem'}}>
           <TableRow>
-            <StyledTableCell  align='center' sx={{width:'5rem'}}>번호</StyledTableCell>
+            <StyledTableCell align='center' sx={{width:'5rem'}}>번호</StyledTableCell>
             <StyledTableCell align="center" sx={{width:'10rem'}}>작성자</StyledTableCell>
             <StyledTableCell align="center" sx={{width:'50rem'}}>내용</StyledTableCell>
             <StyledTableCell align="center" sx={{width:'15rem'}}>평점</StyledTableCell>
@@ -83,11 +83,11 @@ export default function ReviewTable() {
       </Table>
       </TableContainer>
       <Pagination
-              total={10}
-              limit={5}
-              page={5}
-              setPage={1}
-            />
+        total={10}
+        limit={5}
+        page={5}
+        setPage={1}
+      />
     
     </Box>
   );

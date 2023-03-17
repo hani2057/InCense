@@ -142,6 +142,7 @@ const SignUpPage = () => {
                       setNameMsg("test");
                     } else {
                       setName(name.substring(0, 20));
+                      setNameMsg("20자 이하의 닉네임을 입력해주세요");
                     }
                   }}
                   required
