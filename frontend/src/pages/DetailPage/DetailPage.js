@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import { Box } from "@mui/system";
-import BellIcon from './bell1.svg'
+// import BellIcon from './bell1.svg'
 import {BsBell} from 'react-icons/bs'
 import {BsFillBellFill} from 'react-icons/bs'
 import { Button } from "@mui/material";
 import CardComponent from "../ListPage/CardComponent";
 import DivideLine from "../../components/common/DivideLine/DivideLine";
 import ReviewTable from "./ReviewTable";
+import { useNavigate } from "react-router";
 
 const DetailPage = () => {
   const [alarmStatus, setAlarmStatus] = useState(false)
   const isLoggedIn = true
+  const navigate = useNavigate()
   const onChangeAlarm = () => {
     if (isLoggedIn === true) {
       if(alarmStatus === false) {
@@ -22,6 +24,7 @@ const DetailPage = () => {
       }
     } else {
       alert('로그인이 필요합니다.')
+      navigate('/login')
     }
   }
 
@@ -33,6 +36,7 @@ const DetailPage = () => {
     }
     else {
       alert('로그인이 필요합니다.')
+      navigate('/login')
     }
   }
 
@@ -50,7 +54,7 @@ const DetailPage = () => {
           fontWeight:"bold",
           marginBottom:'3rem'
       }}>
-        <h4>DETAIL</h4>
+        {/* <h4>DETAIL</h4> */}
       </Box>
 
       <Box

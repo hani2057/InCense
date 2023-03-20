@@ -2,6 +2,7 @@ import React from "react";
 import CheckboxContext from "./CheckboxContext";
 import { useContext } from "react";
 
+
 export default function Checkbox({ children, disabled, value, checked, onChange }) {
   const context = useContext(CheckboxContext);
 
@@ -9,6 +10,7 @@ export default function Checkbox({ children, disabled, value, checked, onChange 
     return (
       <label>
         <input
+          id='check1'
           type="checkbox"
           disabled={disabled}
           checked={checked}
@@ -24,6 +26,7 @@ export default function Checkbox({ children, disabled, value, checked, onChange 
   return (
     <label>
       <input
+        id='check1'
         type="checkbox"
         disabled={isDisabled(disabled)}
         checked={isChecked(value)}
