@@ -3,8 +3,8 @@ spring:
     activate:
       on-profile: dev
   datasource:
-    # url: jdbc:mysql://j8a804.p.ssafy.io:3306/incense_db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
-    # hikari:
-    #   username: root
-    #   password: ssafy
+    url: jdbc:mysql://j8a804.p.ssafy.io:3306/incense_db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
+    hikari:
+      username: root
+      password: ssafy
     driver-class-name: com.mysql.cj.jdbc.Driver
