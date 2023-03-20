@@ -1,6 +1,6 @@
 import React from "react";
 import { SignUpInput, SignUpMsg } from "../../pages/SignUpPage/style";
-import CheckboxPickOne from "../common/CheckboxPickOneTest/CheckboxPickOneTest";
+import CheckboxPickOne from "../common/CheckboxPickOne/CheckboxPickOne";
 import { FlexDiv } from "../common/FlexDiv/FlexDiv";
 
 const SignUpItem = ({
