@@ -1,5 +1,6 @@
 package com.suyang.incense.db.entity.member;
 
+import com.suyang.incense.common.BaseTimeEntity;
 import com.suyang.incense.db.entity.deal.Deal;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
@@ -25,7 +26,7 @@ import org.springframework.data.annotation.CreatedDate;
 @NoArgsConstructor
 @DynamicInsert
 @Table(name = "alarm_send")
-public class AlarmSend {
+public class AlarmSend extends BaseTimeEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,10 +48,6 @@ public class AlarmSend {
   @NotNull
   @ColumnDefault("0")
   private Byte isReceived;    // 0: 미수신, 1: 수신완료
-
-  @NotNull
-  @CreatedDate
-  private LocalDateTime sendDate;
 
   @NotNull
   @ColumnDefault("0")
