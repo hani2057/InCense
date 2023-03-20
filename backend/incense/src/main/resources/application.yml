@@ -3,7 +3,7 @@ server:
 
 spring:
   profiles:
-    default: dev # 기본 환경을 dev로
+    default: local # 기본 환경을 local로
   web:
     resources:
       add-mappings: false
