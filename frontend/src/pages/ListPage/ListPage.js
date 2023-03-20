@@ -6,8 +6,8 @@ import ToggleFilter from "./ToggleFilter";
 import Dropdown from "../../components/common/Dropdown/Dropdown";
 import '../../components/common/Dropdown/Dropdown.css'
 import { useState } from "react";
-import Checkbox from "../../components/common/Checkbox/Checkbox111";
-import CheckboxGroup from "../../components/common/Checkbox/CheckboxGroup";
+import Checkbox from "../../components/common/select/Checkbox111";
+import CheckboxGroup from "../../components/common/select/CheckboxGroup";
 import Pagination from "../../components/common/Pagination/Pagination";
 import { Button } from "@mui/material";
 
