@@ -1,5 +1,6 @@
 package com.suyang.incense.db.entity.test;
 
+import com.suyang.incense.common.BaseTimeEntity;
 import com.suyang.incense.db.entity.member.Member;
 import com.suyang.incense.db.entity.relation.TestNoteResult;
 import com.suyang.incense.db.entity.relation.TestPerfumeResult;
@@ -27,7 +28,7 @@ import org.springframework.data.annotation.CreatedDate;
 @Setter
 @NoArgsConstructor
 @Table(name = "test")
-public class Test {
+public class Test extends BaseTimeEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,10 +38,6 @@ public class Test {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "member_id")
   private Member member;
-
-  @NotNull
-  @CreatedDate
-  private LocalDateTime testDate;
 
   @OneToMany(mappedBy = "test")
   private List<TestPerfumeResult> testPerfumeResultList = new ArrayList<>();
