@@ -57,7 +57,7 @@ export default function SharePage() {
           fontSize: "2rem",
           fontWeight:"bold"
       }}>
-        <h4>향수 나눔 / 판매</h4>
+        {/* <h4>향수 나눔 / 판매</h4> */}
       </Box>
       <Box 
         sx={{

@@ -11,7 +11,7 @@ import { useNavigate } from "react-router";
 
 const DetailPage = () => {
   const [alarmStatus, setAlarmStatus] = useState(false)
-  const isLoggedIn = false
+  const isLoggedIn = true
   const navigate = useNavigate()
   const onChangeAlarm = () => {
     if (isLoggedIn === true) {
@@ -54,7 +54,7 @@ const DetailPage = () => {
           fontWeight:"bold",
           marginBottom:'3rem'
       }}>
-        <h4>DETAIL</h4>
+        {/* <h4>DETAIL</h4> */}
       </Box>
 
       <Box
