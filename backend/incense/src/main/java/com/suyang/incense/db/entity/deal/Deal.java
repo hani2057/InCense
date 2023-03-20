@@ -69,7 +69,7 @@ public class Deal extends BaseTimeEntity {
 
     private String buyDate;     //yyyy.mm
 
-    @OneToMany(mappedBy = "deal")
+    @OneToMany(mappedBy = "deal", cascade = CascadeType.REMOVE)
     private List<DealPhoto> dealPhotoList = new ArrayList<>();
 
     @OneToMany(mappedBy = "deal")

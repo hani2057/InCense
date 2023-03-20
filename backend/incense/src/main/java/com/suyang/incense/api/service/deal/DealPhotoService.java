@@ -8,4 +8,6 @@ public interface DealPhotoService {
 
   boolean saveImage(Long dealId, List<MultipartFile> multipartFiles) throws IOException;
 
+  boolean updateImage(Long dealId, List<MultipartFile> multipartFiles) throws IOException;
+
 }

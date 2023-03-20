@@ -27,7 +27,7 @@ public class DealPhotoServiceImpl implements DealPhotoService{
 
     Deal deal = dealRepository.findById(dealId).orElseThrow(IllegalArgumentException::new);
 
-    List<DealPhoto> dealPhotoList = fileHandler.parseFileInfo(dealId, multipartFiles);
+    List<DealPhoto> dealPhotoList = fileHandler.parseDealImageInfo(dealId, multipartFiles);
 
     if(!dealPhotoList.isEmpty()){
       List<DealPhoto> photoBeans = new ArrayList<>();
@@ -39,4 +39,17 @@ public class DealPhotoServiceImpl implements DealPhotoService{
 
     return true;
   }
+
+  @Transactional
+  public boolean updateImage(Long dealId, List<MultipartFile> multipartFiles) throws IOException {
+
+    //기존 이미지 모두 삭제
+    dealPhotoRepository.deleteAllByDealId(dealId);
+
+    //이미지 새로 등록
+    saveImage(dealId, multipartFiles);
+
+    return true;
+  }
+
 }

@@ -10,4 +10,5 @@ public interface DealPhotoRepository extends CrudRepository<DealPhoto, Long> {
 
   DealPhoto save(DealPhoto dealPhoto);
 
+  void deleteAllByDealId(Long dealId);
 }

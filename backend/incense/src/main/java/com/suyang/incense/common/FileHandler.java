@@ -20,7 +20,7 @@ public class FileHandler {
 
   private final DealRepository dealRepository;
 
-  public List<DealPhoto> parseFileInfo(Long dealId, List<MultipartFile> multipartFiles)
+  public List<DealPhoto> parseDealImageInfo(Long dealId, List<MultipartFile> multipartFiles)
       throws IOException {
 
     Deal deal = dealRepository.findById(dealId).orElseThrow(IllegalArgumentException::new);
@@ -39,7 +39,7 @@ public class FileHandler {
 
     //프로젝트 폴더에 저장하기 위해 절대경로, 경로 설정
     String absolutePath = new File("").getAbsolutePath() + "\\";
-    String path = "images/" + currentDate;
+    String path = "images/deal/" + currentDate;
     File file = new File(path);
 
     //저장할 위치의 디렉토리가 존재하지 않는 경우
