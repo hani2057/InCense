@@ -1,5 +1,6 @@
 package com.suyang.incense.db.entity.deal;
 
+import com.suyang.incense.common.BaseTimeEntity;
 import com.suyang.incense.db.entity.member.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @Table(name = "deal_comment")
-public class DealComment {
+public class DealComment extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,11 +37,6 @@ public class DealComment {
 
     @NotNull
     private String content;
-
-    @NotNull
-    @CreatedDate
-    @LastModifiedDate
-    private LocalDateTime registerTime;
 
     @NotNull
     @ColumnDefault("0")

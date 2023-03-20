@@ -1,5 +1,6 @@
 package com.suyang.incense.db.entity.member;
 
+import com.suyang.incense.common.BaseTimeEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +18,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @DynamicInsert
 @Table(name = "grade_log")
-public class GradeLog {
+public class GradeLog extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,8 +36,5 @@ public class GradeLog {
     @Column(length = 100)
     private String reason;
 
-    @NotNull
-    @CreatedDate
-    private LocalDateTime createTime;
 
 }
