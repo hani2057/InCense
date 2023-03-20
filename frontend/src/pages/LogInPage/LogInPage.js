@@ -3,6 +3,10 @@ import { FlexDiv } from "../../components/common/FlexDiv/FlexDiv";
 import { TitleSpan, LoginBtn } from "./style";
 
 const LogInPage = () => {
+  const kakaoLogInRequest = () => {
+    console.log("bbb");
+  };
+
   return (
     <FlexDiv height="100vh">
       <FlexDiv
@@ -16,7 +20,7 @@ const LogInPage = () => {
       </FlexDiv>
       <FlexDiv direction="column" gap="1rem">
         <span style={{ fontSize: "2rem", marginBottom: "4rem" }}>Log In</span>
-        <LoginBtn>KaKao</LoginBtn>
+        <LoginBtn onClick={kakaoLogInRequest}>KaKao</LoginBtn>
         <LoginBtn>Naver</LoginBtn>
         <LoginBtn>Google</LoginBtn>
       </FlexDiv>

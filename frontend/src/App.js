@@ -1,11 +1,16 @@
 import { Route, Routes } from "react-router";
-import MainPage from "./pages/MainPage/MainPage";
+import NavBar from "./components/NavBar/NavBar";
 import LogInPage from "./pages/LogInPage/LogInPage";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
+import MainPage from "./pages/MainPage/MainPage";
 import ListPage from "./pages/ListPage/ListPage";
 import DetailPage from "./pages/DetailPage/DetailPage";
 import SharePage from "./pages/SharePage/SharePage";
-import NavBar from "./components/NavBar/NavBar";
+import ProfilePage from "./pages/Profile/ProfilePage/ProfilePage";
+import ProfileMainPage from "./pages/Profile/ProfileMainPage/ProfileMainPage";
+import ProfilePerfumePage from "./pages/Profile/ProfilePerfumePage/ProfilePerfumePage";
+import ProfileAnalysisPage from "./pages/Profile/ProfileAnalysisPage/ProfileAnalysisPage";
+import ProfileActivityPage from "./pages/Profile/ProfileActivityPage/ProfileActivityPage";
 
 function App() {
   return (
@@ -18,6 +23,12 @@ function App() {
         <Route path="/list" element={<ListPage />} />
         <Route path="/detail" element={<DetailPage />} />
         <Route path="/share" element={<SharePage />} />
+        <Route path="/profile" element={<ProfilePage />}>
+          <Route index element={<ProfileMainPage />} />
+          <Route path="perfumes" element={<ProfilePerfumePage />} />
+          <Route path="analysis" element={<ProfileAnalysisPage />} />
+          <Route path="activity" element={<ProfileActivityPage />} />
+        </Route>
       </Routes>
     </>
   );
