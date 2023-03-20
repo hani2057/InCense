@@ -33,7 +33,7 @@ const GlobalStyle = createGlobalStyle`
     color: var(--font-color);
     width: 100%;
     height: 100%;
-    font-family: 'Pretendard-Regular', -apple-system, Helvetica Neue, sans-serif;
+    font-family: 'Pretendard-Regular', -apple-system, 'Helvetica Neue', sans-serif;
     font-size: 1rem;
   }
 
@@ -47,6 +47,11 @@ const GlobalStyle = createGlobalStyle`
   input {
     border: none;
     background-color: inherit;
+  }
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
   }
 
   input:focus {
