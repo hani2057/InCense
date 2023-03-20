@@ -6,6 +6,7 @@ import ListPage from "./pages/ListPage/ListPage";
 import DetailPage from "./pages/DetailPage/DetailPage";
 import SharePage from "./pages/SharePage/SharePage";
 import NavBar from "./components/NavBar/NavBar";
+import RegisterPage from "./pages/SharePage/RegisterPage";
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
         <Route path="/list" element={<ListPage />} />
         <Route path="/detail" element={<DetailPage />} />
         <Route path="/share" element={<SharePage />} />
+        <Route path="/share/register" element={<RegisterPage />} />
+
       </Routes>
     </>
   );
