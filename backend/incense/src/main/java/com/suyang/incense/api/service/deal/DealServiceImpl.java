@@ -9,7 +9,7 @@ import com.suyang.incense.db.entity.member.Member;
 import com.suyang.incense.db.entity.perfume.Perfume;
 import com.suyang.incense.db.repository.deal.DealRepository;
 import com.suyang.incense.db.repository.deal.MemberRepository;
-import com.suyang.incense.db.repository.deal.PerfumeRepository;
+import com.suyang.incense.db.repository.perfume.PerfumeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
