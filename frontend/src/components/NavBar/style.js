@@ -10,7 +10,7 @@ const NavWrapper = styled(FlexDiv)`
 const NavTitle = styled(NavLink)`
   font-family: "Federo", sans-serif;
   font-size: 24px;
-  padding-left: ${(props) => (props.title ? "0" : "1rem")};
+  padding-left: 1rem;
 `;
 
 const NavItem = styled(NavLink)`
