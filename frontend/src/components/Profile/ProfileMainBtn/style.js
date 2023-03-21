@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { FlexDiv } from "../../common/FlexDiv/FlexDiv";
 
 const ProfileMainBtnWrapper = styled(FlexDiv)`
@@ -8,7 +8,7 @@ const ProfileMainBtnWrapper = styled(FlexDiv)`
   background-image: url("/assets/images/bgimg1.png");
 `;
 
-const ProfileMainBtnDiv = styled.div`
+const ProfileMainBtnDiv = styled(FlexDiv)`
   width: 15rem;
   height: 15rem;
   border-radius: 10px;
@@ -53,7 +53,14 @@ const ProfileMainBtnDiv = styled.div`
   }
 `;
 
-export { ProfileMainBtnWrapper, ProfileMainBtnDiv };
+const ProfileMainBtnSpan = styled.span`
+  ${({ isTitle }) => css`
+    font-size: ${isTitle ? "2.1rem" : "1.1rem"};
+    z-index: 2;
+  `}
+`;
+
+export { ProfileMainBtnWrapper, ProfileMainBtnDiv, ProfileMainBtnSpan };
 
 // HTML
 // <div class="block"></block>
