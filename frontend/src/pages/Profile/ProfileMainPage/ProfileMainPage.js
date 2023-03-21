@@ -1,13 +1,16 @@
 import React from "react";
+import { FlexDiv } from "../../../components/common/FlexDiv/FlexDiv";
 import ProfileMainBtn from "../../../components/Profile/ProfileMainBtn/ProfileMainBtn";
-import { ProfileOutletContainer } from "./style";
+import { ProfileOutletContainer } from "../ProfilePage/style";
 
 const ProfileMainPage = () => {
   return (
     <ProfileOutletContainer>
-      <ProfileMainBtn />
-      <ProfileMainBtn />
-      <ProfileMainBtn />
+      <FlexDiv>
+        <ProfileMainBtn />
+        <ProfileMainBtn />
+        <ProfileMainBtn />
+      </FlexDiv>
     </ProfileOutletContainer>
   );
 };

@@ -1,0 +1,104 @@
+import styled from "styled-components";
+import { FlexDiv } from "../../common/FlexDiv/FlexDiv";
+
+const ProfileMainBtnWrapper = styled(FlexDiv)`
+  width: calc(100% / 3);
+  height: calc(100vh - var(--nav-height));
+  padding: 0;
+  background-image: url("/assets/images/bgimg1.png");
+`;
+
+const ProfileMainBtnDiv = styled.div`
+  width: 15rem;
+  height: 15rem;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  position: relative;
+
+  &:hover:after {
+    content: "";
+    position: absolute;
+    left: -2px;
+    top: -2px;
+    background: linear-gradient(
+      45deg,
+      #fb0094,
+      #0000ff,
+      #00ff00,
+      #ffff00,
+      #ff0000,
+      #fb0094,
+      #0000ff,
+      #00ff00,
+      #ffff00,
+      #ff0000
+    );
+    background-size: 400%;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    filter: blur(50px);
+    animation: steam 20s linear infinite;
+  }
+  &:hover:before {
+    content: "";
+    width: 15rem;
+    height: 15rem;
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: 1;
+  }
+`;
+
+export { ProfileMainBtnWrapper, ProfileMainBtnDiv };
+
+// HTML
+// <div class="block"></block>
+
+// CSS
+// body {
+// 	margin: 0;
+// 	padding: 0;
+// 	background-color: #000;
+// }
+
+// .block {
+// 	position: relative;
+// 	margin: 300px auto 0;
+// 	width: 500px;
+// 	height: 250px;
+// 	background: linear-gradient(0deg, #000, #272727);
+// }
+
+// .block:before, .block:after {
+// 	content: '';
+// 	position: absolute;
+// 	left: -2px;
+// 	top: -2px;
+// 	background: linear-gradient(45deg, #fb0094, #0000ff, #00ff00,#ffff00, #ff0000, #fb0094,
+// 		#0000ff, #00ff00,#ffff00, #ff0000);
+// 	background-size: 400%;
+// 	width: calc(100% + 4px);
+// 	height: calc(100% + 4px);
+// 	z-index: -1;
+// 	animation: steam 20s linear infinite;
+// }
+
+// @keyframes steam {
+// 	0% {
+// 		background-position: 0 0;
+// 	}
+// 	50% {
+// 		background-position: 400% 0;
+// 	}
+// 	100% {
+// 		background-position: 0 0;
+// 	}
+// }
+
+// .block:after {
+// 	filter: blur(50px);
+// }

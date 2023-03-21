@@ -1,8 +1,13 @@
 import React from "react";
-import { ProfileMainBtnWrapper } from "../../../pages/Profile/ProfileMainPage/style";
+import { ProfileMainBtnWrapper, ProfileMainBtnDiv } from "./style";
+import "./style.css";
 
 const ProfileMainBtn = () => {
-  return <ProfileMainBtnWrapper>ProfileMainBtn</ProfileMainBtnWrapper>;
+  return (
+    <ProfileMainBtnWrapper>
+      <ProfileMainBtnDiv></ProfileMainBtnDiv>
+    </ProfileMainBtnWrapper>
+  );
 };
 
 export default ProfileMainBtn;

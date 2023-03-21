@@ -1,5 +1,5 @@
 import React from "react";
-import { ProfileOutletContainer } from "../ProfileMainPage/style";
+import { ProfileOutletContainer } from "../ProfilePage/style";
 
 const ProfilePerfumes = () => {
   return (
