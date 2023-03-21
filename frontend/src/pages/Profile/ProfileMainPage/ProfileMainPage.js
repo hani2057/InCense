@@ -10,14 +10,17 @@ const ProfileMainPage = () => {
         <ProfileMainBtn
           title="Perfumes"
           subTitles={["I have it", "I had it", "I want it"]}
+          bgimgNo="1"
         />
         <ProfileMainBtn
           title="Analysis"
           subTitles={["preference", "notes", "recommendation"]}
+          bgimgNo="2"
         />
         <ProfileMainBtn
           title="Activity"
           subTitles={["review", "share", "sell"]}
+          bgimgNo="3"
         />
       </FlexDiv>
     </ProfileOutletContainer>

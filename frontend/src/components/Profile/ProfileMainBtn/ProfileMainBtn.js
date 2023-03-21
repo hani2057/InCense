@@ -5,12 +5,11 @@ import {
   ProfileMainBtnDiv,
   ProfileMainBtnSpan,
 } from "./style";
-import "./style.css";
 
-const ProfileMainBtn = ({ title, subTitles }) => {
+const ProfileMainBtn = ({ title, subTitles, bgimgNo }) => {
   const navigate = useNavigate();
   return (
-    <ProfileMainBtnWrapper>
+    <ProfileMainBtnWrapper bgimgNo={bgimgNo}>
       <ProfileMainBtnDiv
         direction="column"
         justify="space-around"

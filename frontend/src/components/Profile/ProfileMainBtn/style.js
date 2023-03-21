@@ -1,13 +1,31 @@
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { FlexDiv } from "../../common/FlexDiv/FlexDiv";
+
+const steam = keyframes`
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+`;
 
 const ProfileMainBtnWrapper = styled(FlexDiv)`
   width: calc(100% / 3);
   height: calc(100vh - var(--nav-height));
   padding: 0;
-  background-image: url("/assets/images/bgimg1.png");
+  background-image: url("/assets/images/bgimg${(props) => props.bgimgNo}.png");
 `;
 
+// colors
+// #fb0094 megenta
+// #0000ff blue
+// #fcba03 orange
+// #ffff00 yellow
+// #ff0000 red
 const ProfileMainBtnDiv = styled(FlexDiv)`
   width: 15rem;
   height: 15rem;
@@ -25,12 +43,12 @@ const ProfileMainBtnDiv = styled(FlexDiv)`
       45deg,
       #fb0094,
       #0000ff,
-      #00ff00,
+      #fcba03,
       #ffff00,
       #ff0000,
       #fb0094,
       #0000ff,
-      #00ff00,
+      #fcba03,
       #ffff00,
       #ff0000
     );
@@ -38,7 +56,7 @@ const ProfileMainBtnDiv = styled(FlexDiv)`
     width: calc(100% + 4px);
     height: calc(100% + 4px);
     filter: blur(50px);
-    animation: steam 20s linear infinite;
+    animation: ${steam} 25s linear infinite;
   }
   &:hover:before {
     content: "";
