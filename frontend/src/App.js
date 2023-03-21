@@ -14,6 +14,7 @@ import ProfileAnalysisPage from "./pages/Profile/ProfileAnalysisPage/ProfileAnal
 import ProfileActivityPage from "./pages/Profile/ProfileActivityPage/ProfileActivityPage";
 import RegisterPage from "./pages/SharePage/RegisterPage";
 import RegisterOrEdit from "./pages/SharePage/RegisterOrEdit";
+import ArticleDetail from "./pages/SharePage/ArticleDetail";
 
 function App() {
   return (
@@ -35,6 +36,10 @@ function App() {
           <Route path="activity" element={<ProfileActivityPage />} />
         </Route>
         <Route path="/share/registertest" element={<RegisterOrEdit />} />
+        <Route path="/share/article" element={<ArticleDetail />} />
+
+
+
       </Routes>
     </>
   );
