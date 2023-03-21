@@ -10,4 +10,6 @@ public interface DealPhotoService {
 
   boolean updateImage(Long dealId, List<MultipartFile> multipartFiles) throws IOException;
 
+  void deleteServerImage(Long dealId) throws IOException;
+
 }
