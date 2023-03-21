@@ -7,6 +7,7 @@ import com.suyang.incense.api.service.deal.DealPhotoService;
 import com.suyang.incense.api.service.deal.DealService;
 import com.suyang.incense.db.entity.deal.Deal;
 import com.suyang.incense.db.entity.deal.DealPhoto;
+import com.suyang.incense.db.entity.deal.Gubun;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -83,8 +84,6 @@ public class DealController {
     return ResponseEntity.status(200).body("success");
   }
 
-  //////////////////////////////////////////이미지 조회 컨트롤러/////////////////////////////////
-
 
   //원래는 Page<DealListRes> 반환해야 한다.
   @ApiOperation(value = "나눔/판매 글 리스트 조회")
@@ -98,8 +97,9 @@ public class DealController {
           @PageableDefault(value = Integer.MAX_VALUE) Pageable pageable) {
 
 
+    /* dummy */
     List<DealListRes> result = new ArrayList<>();
-    DealListRes temp = new DealListRes(1l, "2023.03.20", "글 제목", 100, 10000, (byte)0, (byte)0, 1, "헤일리", "Chanel", "No.5");
+    DealListRes temp = new DealListRes(1l, "2023.03.20", "글 제목", 100, 10000, (byte)0, (byte)0, 1, "헤일리", "Chanel", "No.5", "향수 이미지 url");
     result.add(temp);
 
     return ResponseEntity.status(200).body(result);
@@ -112,7 +112,23 @@ public class DealController {
   public ResponseEntity<DealDetailRes> getDeal(
           @PathVariable(value = "deal-id") Long dealId) {
 
-    DealDetailRes result = new DealDetailRes();
+    /* dummy */
+    DealDetailRes result = new DealDetailRes(
+            Gubun.SALE,
+            "나눔/판매 글 제목",
+            "나눔/판매 글 내용",
+            "2023.03.21",
+            (byte)0,
+            (byte)0,
+            "헤일리",
+            "등급1",
+            "등급 이미지 url",
+            "Chanel",
+            "No.5",
+            "2023.01",
+            10000,
+            100
+    );
 
     return ResponseEntity.status(200).body(result);
 

@@ -1,6 +1,7 @@
 package com.suyang.incense.api.service.deal;
 
 import com.suyang.incense.api.request.deal.DealReq;
+import com.suyang.incense.api.response.deal.DealDetailRes;
 import com.suyang.incense.common.BaseTimeEntity;
 import com.suyang.incense.db.entity.deal.Deal;
 import com.suyang.incense.db.entity.deal.Gubun;
@@ -87,5 +88,11 @@ public class DealServiceImpl implements DealService  {
     dealRepository.deleteById(dealId);              //DB에서 이미지 삭제
 
     return true;
+  }
+
+  public DealDetailRes getDeal(Long dealId) {
+
+    DealDetailRes deal = dealRepository.findDealById(dealId);
+    return deal;
   }
 }

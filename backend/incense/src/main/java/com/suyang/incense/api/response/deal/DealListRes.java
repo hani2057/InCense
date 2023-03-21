@@ -43,10 +43,13 @@ public class DealListRes {
     @ApiModelProperty(name = "나눔/판매 글 향수 이름", example = "No.5")
     private String perfumeName;
 
+    @ApiModelProperty(name = "향수 이미지", example = "")
+    private String perfumeImage;
+
 
     public DealListRes() {}
 
-    public DealListRes(Long dealId, String createdDate, String title, int volume, int price, byte isDelivery, byte isClosed, int commentCount, String nickName, String perfumeBrand, String perfumeName) {
+    public DealListRes(Long dealId, String createdDate, String title, int volume, int price, byte isDelivery, byte isClosed, int commentCount, String nickName, String perfumeBrand, String perfumeName, String perfumeImage) {
         this.dealId = dealId;
         this.createdDate = createdDate;
         this.title = title;
@@ -58,5 +61,6 @@ public class DealListRes {
         this.nickName = nickName;
         this.perfumeBrand = perfumeBrand;
         this.perfumeName = perfumeName;
+        this.perfumeImage = perfumeImage;
     }
 }

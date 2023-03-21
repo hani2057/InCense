@@ -22,7 +22,6 @@ public class DealPhotoCustomRepositoryImpl implements DealPhotoCustomRepository{
   QDealPhoto qDealPhoto = QDealPhoto.dealPhoto;
   QDeal qDeal = QDeal.deal;
 
-  @Override
   public List<DealPhotoListRes> findImagesByDealId(Long dealId) {
 
     return jpaQueryFactory
