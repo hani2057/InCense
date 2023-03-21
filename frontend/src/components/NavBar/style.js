@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { FlexDiv } from "../common/FlexDiv/FlexDiv";
 
 const NavWrapper = styled(FlexDiv)`
@@ -10,7 +10,7 @@ const NavWrapper = styled(FlexDiv)`
 const NavTitle = styled(NavLink)`
   font-family: "Federo", sans-serif;
   font-size: 24px;
-  padding-left: ${(props) => (props.title ? "0" : "1rem")};
+  padding-left: 1rem;
 `;
 
 const NavItem = styled(NavLink)`

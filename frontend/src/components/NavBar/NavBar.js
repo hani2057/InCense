@@ -25,9 +25,8 @@ const NavBar = () => {
       <FlexDiv width="auto">
         <NavTitle to="/">
           <img src="/assets/images/Icon.svg" alt="logo" />
-          {/* <NavTitle>Home</NavTitle> */}
         </NavTitle>
-        <NavTitle to="/" title={true}>
+        <NavTitle to="/" style={{ paddingLeft: "0" }}>
           In Cense
         </NavTitle>
       </FlexDiv>
