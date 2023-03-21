@@ -12,6 +12,7 @@ import ProfilePerfumePage from "./pages/Profile/ProfilePerfumePage/ProfilePerfum
 import ProfileAnalysisPage from "./pages/Profile/ProfileAnalysisPage/ProfileAnalysisPage";
 import ProfileActivityPage from "./pages/Profile/ProfileActivityPage/ProfileActivityPage";
 import RegisterPage from "./pages/SharePage/RegisterPage";
+import RegisterOrEdit from "./pages/SharePage/RegisterOrEdit";
 
 function App() {
   return (
@@ -31,6 +32,9 @@ function App() {
           <Route path="analysis" element={<ProfileAnalysisPage />} />
           <Route path="activity" element={<ProfileActivityPage />} />
         </Route>
+        <Route path="/share/registertest" element={<RegisterOrEdit />} />
+
+
       </Routes>
     </>
   );
