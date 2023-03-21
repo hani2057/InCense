@@ -17,12 +17,14 @@ const CheckboxPickOne = ({
   width,
   height,
   margin,
+  padding,
 }) => {
   return (
     <CheckBoxPickWrapper
       width={width}
       height={height}
       margin={margin}
+      padding={padding}
       justify="space-around"
     >
       {textArr.map((text, idx) => (
