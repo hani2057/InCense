@@ -30,7 +30,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin("*")
-@RequestMapping("/api/deal")
+@RequestMapping("/deal")
 public class DealController {
 
   private final DealService dealService;
