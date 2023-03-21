@@ -72,7 +72,7 @@ public class DealController {
 
   @ApiOperation(value = "나눔/판매 글 삭제")
   @DeleteMapping("/{deal-id}")
-  public ResponseEntity<?> deleteDeal(@PathVariable(value = "deal-id") Long dealId) {
+  public ResponseEntity<?> deleteDeal(@PathVariable(value = "deal-id") Long dealId) throws IOException {
 
 //    dealService.delete(dealId, memberId);
 

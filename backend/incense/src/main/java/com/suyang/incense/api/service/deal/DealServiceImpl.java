@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -21,6 +23,7 @@ public class DealServiceImpl implements DealService  {
   private final DealRepository dealRepository;
   private final MemberRepository memberRepository;
   private final PerfumeRepository perfumeRepository;
+  private final DealPhotoService dealPhotoService;
 
   @Transactional
   public Deal create(DealReq dealReq, Long memberId) {
@@ -73,13 +76,16 @@ public class DealServiceImpl implements DealService  {
   }
 
   @Transactional
-  public boolean delete(Long dealId, Long memberId) {
+  public boolean delete(Long dealId, Long memberId) throws IOException {
 
     Deal deal = dealRepository.findById(dealId).orElseThrow(IllegalArgumentException::new);
     if(deal.getMember().getId() != memberId){
       return false;
     }
-    dealRepository.deleteById(dealId);
+
+    dealPhotoService.deleteServerImage(dealId);     //서버에서 이미지 삭제
+    dealRepository.deleteById(dealId);              //DB에서 이미지 삭제
+
     return true;
   }
 }
