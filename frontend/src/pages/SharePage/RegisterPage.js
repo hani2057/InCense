@@ -4,7 +4,7 @@ import { Link, useParams,useLocation,useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { articleActions } from "../../slice/articleSlice";
 import { articleReducers } from "../../slice/articleSlice";
-import RegisterOrEdit from "./RegisterOrEdit";
+// import RegisterOrEdit from "./RegisterOrEdit";
 
 
 
@@ -117,7 +117,7 @@ const RegisterPage = () => {
           justifyContent:'center'
         }}>
         <h1>나눔/판매글 작성 페이지</h1>
-        <RegisterOrEdit
+        {/* <RegisterOrEdit
           id={article.id}
           titleValue={article.title}
           contentValue={article.content}
@@ -128,7 +128,7 @@ const RegisterPage = () => {
           updateRequest={IsForUpdate}
           formData = {formdata}
           picture={image.name}
-        />
+        /> */}
       </Box>
     </Box>
 
