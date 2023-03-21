@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { FlexDiv } from "../common/FlexDiv/FlexDiv";
 
 const NavWrapper = styled(FlexDiv)`
