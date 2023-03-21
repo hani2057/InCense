@@ -92,7 +92,7 @@ const DetailPage = () => {
                 onClick={onChangeAlarm}></BsBell>
                 :<BsFillBellFill style={{position:'absolute',right:'1rem',top:'1rem', fontSize:'2rem', color:'#706DFF',cursor:'pointer' }}
                 onClick={onChangeAlarm}></BsFillBellFill>}
-            <img style={{width:'auto', height:'20rem', position:'relative', top:'2.5rem'}} src="/images/fluer.png" alt='detailimage'></img>
+            <img style={{width:'auto', height:'20rem', position:'relative', top:'2.5rem'}} src="assets/images/fluer.png" alt='detailimage'></img>
           </Box>
           <Box
             sx={{width:'25rem', height:'5rem', backgroundColor:'lightgrey'}}>

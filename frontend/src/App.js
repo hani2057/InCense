@@ -11,6 +11,7 @@ import ProfileMainPage from "./pages/Profile/ProfileMainPage/ProfileMainPage";
 import ProfilePerfumePage from "./pages/Profile/ProfilePerfumePage/ProfilePerfumePage";
 import ProfileAnalysisPage from "./pages/Profile/ProfileAnalysisPage/ProfileAnalysisPage";
 import ProfileActivityPage from "./pages/Profile/ProfileActivityPage/ProfileActivityPage";
+import RegisterPage from "./pages/SharePage/RegisterPage";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/list" element={<ListPage />} />
         <Route path="/detail" element={<DetailPage />} />
         <Route path="/share" element={<SharePage />} />
+        <Route path="/share/register" element={<RegisterPage />} />
         <Route path="/profile" element={<ProfilePage />}>
           <Route index element={<ProfileMainPage />} />
           <Route path="perfumes" element={<ProfilePerfumePage />} />
