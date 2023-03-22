@@ -13,7 +13,8 @@ const PerfumeItem = () => {
         <img src="/assets/icons/edit.svg" alt="edit" />
       </FlexDiv>
       <img
-        src="/assets/images/fluer.png"
+        // src="/assets/images/fluer.png"
+        src="https://j8a804.p.ssafy.io/api/display?filename=perfumes/test.jpg"
         alt="perfume"
         style={{ width: "60%" }}
       />
