@@ -8,7 +8,7 @@ import com.suyang.incense.db.entity.member.Member;
 import com.suyang.incense.db.repository.deal.CommentReplyRepository;
 import com.suyang.incense.db.repository.deal.DealCommentRepository;
 import com.suyang.incense.db.repository.deal.DealRepository;
-import com.suyang.incense.db.repository.deal.MemberRepository;
+import com.suyang.incense.db.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
