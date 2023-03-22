@@ -30,13 +30,13 @@ const ProfileInfo = () => {
           <FlexDiv justify="start">
             <ProfileInfoSpan>여성</ProfileInfoSpan>
             <ProfileInfoSpan>
-              <img src="assets/icons/lock.svg" alt="locked" />
+              <img src="/assets/icons/lock.svg" alt="locked" />
             </ProfileInfoSpan>
           </FlexDiv>
           <FlexDiv justify="start">
             <ProfileInfoSpan>1999.01.01.</ProfileInfoSpan>
             <ProfileInfoSpan>
-              <img src="assets/icons/lock.svg" alt="locked" />
+              <img src="/assets/icons/lock.svg" alt="locked" />
             </ProfileInfoSpan>
           </FlexDiv>
           <FlexDiv justify="start">

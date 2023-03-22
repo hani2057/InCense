@@ -17,12 +17,16 @@ const CheckboxPickOne = ({
   width,
   height,
   margin,
+  padding,
+  color,
+  colorPicked,
 }) => {
   return (
     <CheckBoxPickWrapper
       width={width}
       height={height}
       margin={margin}
+      padding={padding}
       justify="space-around"
     >
       {textArr.map((text, idx) => (
@@ -32,6 +36,8 @@ const CheckboxPickOne = ({
           funcClicked={() => setPickedIdx(idx)}
           pointer={true}
           key={idx}
+          color={color}
+          colorPicked={colorPicked}
         />
       ))}
     </CheckBoxPickWrapper>
