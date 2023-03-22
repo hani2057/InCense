@@ -30,7 +30,7 @@ public class PerfumeController {
     @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "성공",
             content = @Content(array = @ArraySchema(schema = @Schema( implementation = PerfumeRes.class))))})
     @GetMapping(path="")
-    public ResponseEntity<List<PerfumeRes>> getPerfumeList(@RequestBody PerfumeReq perfumeReq){
+    public ResponseEntity<List<PerfumeRes>> getPerfumeList(@ModelAttribute PerfumeReq perfumeReq){
 
         List<PerfumeRes> perfumeResList = new ArrayList<>();
 
