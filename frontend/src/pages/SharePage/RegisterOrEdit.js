@@ -89,7 +89,7 @@ const RegisterOrEdit = () => {
               helperText="카테고리를 선택하세요"
               size='small'
               onChange={onChangeCategory}
-              sx={{marginRight:'3rem'}}
+              sx={{width:'12rem',marginRight:'3rem'}}
             >
               {categories.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
@@ -105,10 +105,11 @@ const RegisterOrEdit = () => {
             size='small'
             helperText='가격을 입력하세요'
             onChange={onChangePrice}
+            sx={{width:'12rem'}}
             />
             :<TextField
             disabled
-            id="outlined-number"
+            id="price"
             label="가격 (원)"
             type="number"
             size='small'
@@ -117,16 +118,16 @@ const RegisterOrEdit = () => {
             
             
           </Box>
-          <Box sx={{ Width: "50rem", margin: "1rem",display:'flex', marginBottom:'0',flexDirection:'row', justifyContent:'space-between' }}>
+          <Box sx={{ Width: "50rem", margin: "1rem",display:'flex', marginBottom:'0',flexDirection:'row', justifyContent:'start' }}>
           <TextField
-              id="outlined-select-isDelivery"
+              id="isDelivery"
               select
               label="거래방식"
               defaultValue="1"
               helperText="거래방식을 선택하세요"
               size='small'
               onChange={onChangeDelivery}
-              
+              sx={{width:'12rem',marginRight:'3rem'}}
             >
               {deliveryMethods.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
@@ -134,6 +135,15 @@ const RegisterOrEdit = () => {
                 </MenuItem>
               ))}
             </TextField>
+            <TextField
+            id="buyDate"
+            label="구매시기"
+            type="number"
+            size='small'
+            helperText='YYYY.MM으로 입력해주세요'
+            onChange={onChangePrice}
+            sx={{width:'12rem'}}
+            />
           {/* <input onChange={props.handleRegisterChange}
             value={props.titleValue} type='text' name='title'/>
           <hr></hr>
@@ -144,7 +154,7 @@ const RegisterOrEdit = () => {
           {/* <input type='file'>파일2</input> */}
           </Box>
           <Box sx={{width:'50%'}}>
-            <TextField fullWidth label="검색 코드 추가하기" id="fullWidth" size='small' sx={{margin:'1rem'}} />
+            <TextField  label="검색 코드 추가하기" id="fullWidth" size='small' sx={{width:'27rem',margin:'1rem'}} />
           </Box>
           <TextField fullWidth label="제목을 입력하세요" id="fullWidth" size='small' sx={{margin:'1rem'}}
             onChange={onChangeTitle}/>

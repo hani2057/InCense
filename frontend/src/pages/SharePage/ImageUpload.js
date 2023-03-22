@@ -22,10 +22,14 @@ const ImageUpload = () => {
     }
 
     setShowImages(imageUrlLists);
+    console.log('---', showImages)
   };
+  
 
   const handleDeleteImage = (id) => {
+    
     setShowImages(showImages.filter((_, index) => index !== id));
+    // setShowImages(showImages.pop((_, index) => index !== id));
   };
 
   const onSubmitArticle = () => {
@@ -40,7 +44,7 @@ const ImageUpload = () => {
       <Box sx={{width:'100%', display:'flex',flexDirection:'row', justifyContent:'space-between'}}>
         <Button sx={{width:'6rem', fontStyle:'bold'}} variant='outlined' component="label">
           사진 추가
-          <input hidden accept="image/*" multiple type="file" onChange={handleAddImages}/>
+          <input id="input-file" hidden accept="image/*" multiple type="file" onChange={handleAddImages}/>
         </Button>
         <Button sx={{width:'6rem', fontStyle:'bold'}} variant='contained' component="label"
           onClick={onSubmitArticle}>
@@ -51,7 +55,7 @@ const ImageUpload = () => {
       {showImages.map((image, id) => (
         <Box key={id} sx={{display:'flex',flexDirection:'column', marginY:'1rem', marginRight:'1rem', position:'relative'}}>
           <img src={image} alt={`${image}-${id}`} style={{width:'10rem',height:'10rem'}} />
-          <button style={{position:'absolute',top:'0',right:'5%'}} onClick={() => handleDeleteImage(id)}> x </button> 
+          <button type='button' style={{position:'absolute',top:'0',right:'5%'}} onClick={() => handleDeleteImage(id)}> x </button> 
         </Box>
       ))}
       </Box>
