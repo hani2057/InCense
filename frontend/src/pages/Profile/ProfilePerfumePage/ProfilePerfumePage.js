@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import CheckboxPickOne from "../../../components/common/CheckboxPickOne/CheckboxPickOne";
 import { FlexDiv } from "../../../components/common/FlexDiv/FlexDiv";
+import PerfumeItem from "../../../components/Profile/PerfumeItem/PerfumeItem";
 import CardComponent from "../../ListPage/CardComponent";
 import { ProfileOutletContainer } from "../ProfilePage/style";
 import { ProfilePerfumeHeader } from "./style";
@@ -169,7 +170,7 @@ const ProfilePerfumes = () => {
         />
         <FlexDiv
           width="50%"
-          padding="0 5%"
+          padding="0 2%"
           style={{ borderLeft: "2px solid var(--gray-color)" }}
         >
           <FlexDiv justify="start">
@@ -197,7 +198,8 @@ const ProfilePerfumes = () => {
 
       <FlexDiv wrap="wrap" justify="start" margin="3rem 0">
         {data.map(({ id, name }) => (
-          <CardComponent key={id} />
+          // <CardComponent key={id} />
+          <PerfumeItem key={id} />
         ))}
       </FlexDiv>
     </ProfileOutletContainer>
