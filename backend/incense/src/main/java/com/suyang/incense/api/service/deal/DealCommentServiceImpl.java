@@ -39,6 +39,7 @@ public class DealCommentServiceImpl  implements DealCommentService {
             dealComment.setIsSecret(dealCommentReq.getIsSecret());
 
             dealCommentRepository.save(dealComment);
+
         } else{     //대댓글
 
             DealComment parentComment = dealCommentRepository.findById(dealCommentReq.getParentId()).orElseThrow(IllegalArgumentException::new);
@@ -55,8 +56,52 @@ public class DealCommentServiceImpl  implements DealCommentService {
             }
 
             commentReplyRepository.save(commentReply);
-
         }
 
+    }
+
+    @Transactional
+    public boolean update(Long commentId, Long memberId, DealCommentReq dealCommentReq) {
+
+        if(dealCommentReq.getParentId() == null){
+            DealComment dealComment = dealCommentRepository.findById(commentId).orElseThrow(IllegalArgumentException::new);
+
+            if(dealComment.getMember().getId() != memberId){
+                return false;
+            }
+
+            dealComment.setContent(dealCommentReq.getContent());
+            dealComment.setIsSecret(dealCommentReq.getIsSecret());
+
+        } else{
+            CommentReply commentReply = commentReplyRepository.findById(commentId).orElseThrow(IllegalArgumentException::new);
+
+            if(commentReply.getMember().getId() != memberId){
+                return false;
+            }
+
+            commentReply.setContent(dealCommentReq.getContent());
+        }
+        return true;
+    }
+
+    @Transactional
+    public boolean delete(String type, Long commentId, Long memberId) {
+
+        if(type.equals("parent")){
+            DealComment dealComment = dealCommentRepository.findById(commentId).orElseThrow(IllegalArgumentException::new);
+            if(dealComment.getMember().getId() != memberId){
+                return false;
+            }
+            dealCommentRepository.deleteById(commentId);
+
+        } else if(type.equals("child")){
+            CommentReply commentReply = commentReplyRepository.findById(commentId).orElseThrow(IllegalArgumentException::new);
+            if(commentReply.getMember().getId() != memberId){
+                return false;
+            }
+            commentReplyRepository.deleteById(commentId);
+        }
+        return true;
     }
 }

@@ -18,6 +18,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +29,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
+
+import javax.validation.Valid;
 
 @Api(value = "판매 나눔 API", tags = {"Deal"})
 @RestController
@@ -160,5 +164,32 @@ public class DealController {
     return ResponseEntity.status(200).body("success");
 
   }
+
+  @ApiOperation(value = "나눔/판매 댓글 수정")
+  @PutMapping("/comment/{comment-id}")
+  public ResponseEntity<?> updateDealComment(
+          @PathVariable(value = "comment-id") Long commentId,
+          @RequestBody @ApiParam(value = "나눔/판매 댓글 수정 정보", required = true) DealCommentReq dealCommentReq) {
+
+//    dealCommentService.update(commentId, memberId, dealCommentReq);
+    dealCommentService.update(commentId, 1l, dealCommentReq);
+
+    return ResponseEntity.status(200).body("success");
+  }
+
+  @ApiOperation(value = "나눔/판매 댓글 삭제")
+  @DeleteMapping("/comment/{comment-id}")
+  public ResponseEntity<?> deleteDealComment(
+          @PathVariable(value = "comment-id") Long commentId,
+          @RequestBody Map<String, String> type) {
+
+    String typeArg = type.get("type");
+
+//    dealCommentService.delete(typeArg, commentId, memberId);
+    dealCommentService.delete(typeArg, commentId, 1l);
+
+    return ResponseEntity.status(200).body("success");
+  }
+
 
 }
