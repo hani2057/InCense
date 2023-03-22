@@ -16,4 +16,6 @@ public interface DealService {
 
   DealDetailRes getDeal(Long dealId);
 
+  boolean closeDeal(Long dealId, Long memberId);
+
 }

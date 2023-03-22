@@ -84,6 +84,18 @@ public class DealController {
     return ResponseEntity.status(200).body("success");
   }
 
+  @ApiOperation(value = "나눔/판매 글 마감")
+  @PutMapping("/close/{deal-id}")
+  public ResponseEntity<?> closeDeal(@PathVariable(value = "deal-id") Long dealId) {
+
+//    dealService.closeDeal(dealId, memberId);
+    if(!dealService.closeDeal(dealId, 1l)){
+      return ResponseEntity.status(404).body("유효하지 않은 사용자");
+    }
+
+    return ResponseEntity.status(200).body("success");
+  }
+
 
   //원래는 Page<DealListRes> 반환해야 한다.
   @ApiOperation(value = "나눔/판매 글 리스트 조회")
@@ -131,6 +143,6 @@ public class DealController {
     );
 
     return ResponseEntity.status(200).body(result);
-
   }
+
 }

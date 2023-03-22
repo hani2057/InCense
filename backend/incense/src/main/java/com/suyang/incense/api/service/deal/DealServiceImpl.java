@@ -95,4 +95,21 @@ public class DealServiceImpl implements DealService  {
     DealDetailRes deal = dealRepository.findDealById(dealId);
     return deal;
   }
+
+  @Transactional
+  public boolean closeDeal(Long dealId, Long memberId) {
+
+    Deal deal = dealRepository.findById(dealId).orElseThrow(IllegalArgumentException::new);
+    if(deal.getMember().getId() != memberId) {
+      return false;
+    }
+
+    if(deal.getIsClosed() == 1){
+      System.out.println("이미 마감 된 글...............................");
+      return false;
+    }
+
+    deal.setIsClosed((byte)1);
+    return true;
+  }
 }
