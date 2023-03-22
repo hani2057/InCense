@@ -1,8 +1,10 @@
 package com.suyang.incense.api.controller;
 
+import com.suyang.incense.api.request.deal.DealCommentReq;
 import com.suyang.incense.api.request.deal.DealReq;
 import com.suyang.incense.api.response.deal.DealDetailRes;
 import com.suyang.incense.api.response.deal.DealListRes;
+import com.suyang.incense.api.service.deal.DealCommentService;
 import com.suyang.incense.api.service.deal.DealPhotoService;
 import com.suyang.incense.api.service.deal.DealService;
 import com.suyang.incense.db.entity.deal.Deal;
@@ -35,6 +37,7 @@ public class DealController {
 
   private final DealService dealService;
   private final DealPhotoService dealPhotoService;
+  private final DealCommentService dealCommentService;
 
   @ApiOperation(value = "나눔/판매 글 생성")
   @PostMapping(consumes = {"multipart/form-data"})
@@ -143,6 +146,19 @@ public class DealController {
     );
 
     return ResponseEntity.status(200).body(result);
+  }
+
+  @ApiOperation(value = "나눔/판매 글 댓글 생성")
+  @PostMapping("/comment/{deal-id}")
+  public ResponseEntity<?> createDealComment(
+          @PathVariable(value = "deal-id") Long dealId,
+          @RequestBody @ApiParam(value = "나눔/판매 글 댓글 생성 정보", required = true) DealCommentReq dealCommentReq) {
+
+//    dealCommentService.create(dealId, memberId, dealCommentReq);
+    dealCommentService.create(dealId, 1l, dealCommentReq);
+
+    return ResponseEntity.status(200).body("success");
+
   }
 
 }

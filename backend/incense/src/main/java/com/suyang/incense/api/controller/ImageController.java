@@ -24,14 +24,15 @@ public class ImageController {
 
     @ApiOperation(value = "이미지 조회")
     @GetMapping
-    public ResponseEntity<Resource> display(@RequestParam("filename") String filename){
+    public ResponseEntity<?> display(@RequestParam("filename") String filename){
 
         //서버 경로 지정
         String path = "/asset/images/";
 
         Resource resource = new FileSystemResource(path + filename);
         if(!resource.exists()){
-            return new ResponseEntity<Resource>(HttpStatus.NOT_FOUND);
+//            return new ResponseEntity<Resource>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.status(404).body(path + filename);
         }
         HttpHeaders header = new HttpHeaders();
         Path filePath = null;
