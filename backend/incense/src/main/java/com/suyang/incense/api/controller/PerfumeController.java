@@ -30,7 +30,7 @@ public class PerfumeController {
     @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "성공",
             content = @Content(array = @ArraySchema(schema = @Schema( implementation = PerfumeRes.class))))})
     @GetMapping(path="")
-    public ResponseEntity<List<PerfumeRes>> getPerfumeList(){
+    public ResponseEntity<List<PerfumeRes>> getPerfumeList(@RequestBody PerfumeReq perfumeReq){
 
         List<PerfumeRes> perfumeResList = new ArrayList<>();
 
@@ -42,7 +42,7 @@ public class PerfumeController {
 
         for(int i=0;i<40;i++){
             perfumeResList.add(PerfumeRes.builder().id((long)i).brandName("brand입니다").name("향수 이름입니다").price(1).
-                            baseNoteName(note).middleNoteName(note).topNoteName(note).build());
+                            baseNoteName(note).middleNoteName(note).topNoteName(note).image("perfumes/1.jpg").build());
         }
         return ResponseEntity.ok(perfumeResList);
     }

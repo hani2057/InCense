@@ -22,5 +22,6 @@ public class PerfumeRes {
     private int volume;
     private byte gender;
     private double rating;
+    private String image;
 
 }
