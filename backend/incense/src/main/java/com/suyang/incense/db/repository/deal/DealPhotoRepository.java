@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DealPhotoRepository extends CrudRepository<DealPhoto, Long> {
+public interface DealPhotoRepository extends CrudRepository<DealPhoto, Long>, DealPhotoCustomRepository {
 
   DealPhoto save(DealPhoto dealPhoto);
 
