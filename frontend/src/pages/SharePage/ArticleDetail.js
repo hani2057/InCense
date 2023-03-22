@@ -5,12 +5,27 @@ import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
 import {Checkbox} from '@mui/material';
 import {FormControlLabel} from '@mui/material';
+import SimpleImageSlider from "react-simple-image-slider";
+import perfumeImage from './fluer.png'
+import bg1Image from './bgimg1.png'
+import bg2Image from './bgimg2.png'
+import bg3Image from './bgimg3.png'
+import CommentBox from './CommentBox';
+// import CommentSample from './CommentSample';
 
 
 
 
 
 function ArticleDetail() {
+
+  const images = [
+    {url: perfumeImage},
+    {url: bg1Image},
+    {url: bg2Image},
+    {url: bg3Image},
+    
+  ]
 
   const onSubmitComment = () => {
     console.log('댓글 저장')
@@ -36,6 +51,8 @@ function ArticleDetail() {
   }
   console.log('댓글내용==',commentValue)
 
+
+
   return (
     <Box sx={{ width: "60%", margin: "1rem auto" }}>
       <Box
@@ -49,7 +66,7 @@ function ArticleDetail() {
           <Box sx={{width:'100%',display:'flex',flexDirection:'row'}}>
             <Box sx={{width:'50%', display:'flex',flexDirection:'column'}}>
               <P3>구분 : 나눔</P3>
-              <P3>구매일 : 2023.03</P3>
+              <P3>구매시기 : 2023.03</P3>
             </Box>
             <Box sx={{width:'50%', display:'flex',flexDirection:'column'}}>
               <P3>구분 : 나눔</P3>
@@ -59,9 +76,11 @@ function ArticleDetail() {
           <P3>제품명 : fleur de peau</P3>
           <P3>브랜드 : Diptyque</P3>
         </Box>
-        <Box sx={{width:'40%', display:'flex',flexDirection:'column',backgroundColor:'lightgreen'}}>
-          사진
+        <Box sx={{width:'40%', display:'flex',flexDirection:'column'}}>
+          <SimpleImageSlider
+            style={{marginLeft:'2rem'}} width={300} height={300} navMargin={0} images={images} showBullets={true} showNavs={true} />
         </Box>
+        
       </Box>
       <Box
         sx={{width:'100%', height:'0.1rem', backgroundColor:'#DCDCDC',marginTop:'2rem',marginBottom:'2rem',marginLeft:'1rem'}}>
@@ -80,11 +99,14 @@ function ArticleDetail() {
         onChange={onChangeComment}/>
       <Box sx={{width:'100%',display:'flex',flexDirection:'row',justifyContent:'flex-end',marginLeft:'1rem'}}>
         <FormControlLabel control={<Checkbox />} label="비밀댓글" sx={{marginRight:'3rem'}} onChange={onChangeSecret}/>
-        <Button sx={{width:'4rem', fontWeight:'bold',fontSize:'0.9rem'}} variant='contained' component="label"
+        <Button sx={{width:'4rem',height:'2rem',top:'0.2rem', fontWeight:'bold',fontSize:'0.9rem'}} variant='contained' component="label"
           onClick={onSubmitComment} size='small'> 
           저장
         </Button>
       </Box>
+      <CommentBox/>
+      ---
+      
     </Box>
   )
 }
@@ -94,3 +116,5 @@ export default ArticleDetail;
 const P3 = styled.p`
   margin-top: 1.5rem
 `;
+
+// https://www.npmjs.com/package/react-simple-image-slider  > 이미지 슬라이더 url
