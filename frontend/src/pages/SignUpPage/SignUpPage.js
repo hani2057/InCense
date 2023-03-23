@@ -31,7 +31,10 @@ const SignUpPage = () => {
   const [isError, setIsError] = useState({ name: false, birth: false });
 
   // 닉네임 유효성 검사
-  const checkName = () => {};
+  const checkName = () => {
+    setNameChecked(true);
+    setNameMsg("");
+  };
 
   // 생년월일 유효성 검사
   const checkBirth = (date) => {
@@ -52,7 +55,7 @@ const SignUpPage = () => {
       });
       // setMsg("birth", "error", "유효하지 않은 생년월일입니다");
     } else {
-      setBirthMsg("공개 여부를 선택해주세요");
+      setBirthMsg(" ");
       setIsError((prev) => {
         return { ...prev, birth: false };
       });
@@ -83,6 +86,10 @@ const SignUpPage = () => {
         return { ...prev, birth: false };
       });
   }, [birth]);
+
+  useEffect(() => {
+    setNameChecked(false);
+  }, [name]);
 
   // input종류, 상태, 메시지를 받아 input 하단 메시지를 설정
   // const setMsg = (type, status, msg) => {
@@ -131,7 +138,7 @@ const SignUpPage = () => {
               <CheckboxWithIcon
                 text={nameChecked ? "사용가능" : "중복검사"}
                 isChecked={nameChecked ? true : false}
-                funcClicked={() => setNameChecked((prev) => !prev)}
+                funcClicked={() => checkName()}
               />
             </SignUpItemWrapper>
             <SignUpItemWrapper>
@@ -150,8 +157,9 @@ const SignUpPage = () => {
                 type="gender"
                 genderPickedIdx={genderPickedIdx}
                 setGenderPickedIdx={setGenderPickedIdx}
+                msg={""}
               />
-              <span>토글 공개</span>
+              <span style={{ paddingBottom: "1.25rem" }}>토글 공개</span>
             </SignUpItemWrapper>
           </FlexDiv>
         </div>

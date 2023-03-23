@@ -51,6 +51,7 @@ const SignUpMsg = styled.span`
     font-size: 0.75rem;
     padding: 0.5rem 0 0 0.5rem;
     color: ${color ? "var(--" + color + "-color)" : "var(--gray-color)"};
+    height: 1.25rem;
   `}
 `;
 
