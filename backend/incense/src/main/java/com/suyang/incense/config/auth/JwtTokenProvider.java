@@ -1,5 +1,6 @@
-package com.suyang.incense.config.jwt;
+package com.suyang.incense.config.auth;
 
+import com.suyang.incense.common.auth.MemberDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -21,8 +22,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class JwtTokenProvider {
 
-    private final UserDetailsService userDetailsService; // Spring Security 에서 제공하는 서비스 레이어
-    private String secretKey = "flature!@#";
+    private final MemberDetailsService memberDetailsService; // Spring Security 에서 제공하는 서비스 레이어
+    private String secretKey = "dyAeHubOOc8KaOfYB6XEQoEj1QzRlVgtjNL8PYs1A1tymZvvqkcEU7L1imkKHeDa";
     private final long tokenValidMillisecond = 1000L * 60 * 60; // 1시간 토큰 유효
 
     /** SecretKey 에 대해 인코딩 수행 */
@@ -57,7 +58,7 @@ public class JwtTokenProvider {
     // JWT 토큰으로 인증 정보 조회
     public Authentication getAuthentication(String token) {
         // [getAuthentication] 토큰 인증 정보 조회 시작
-        UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUsername(token));
+        UserDetails userDetails = memberDetailsService.loadUserByUsername(this.getUsername(token));
         // [getAuthentication] 토큰 인증 정보 조회 완료
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
