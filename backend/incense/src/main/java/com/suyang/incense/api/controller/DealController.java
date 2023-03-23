@@ -191,5 +191,14 @@ public class DealController {
     return ResponseEntity.status(200).body("success");
   }
 
+  @ApiOperation(value = "나눔/판매 댓글 조회")
+  @GetMapping("/comment/{deal-id}")
+  public ResponseEntity<?> getComments(
+          @PathVariable(value = "deal-id") Long dealId){
+
+    dealCommentService.getComments(dealId);
+
+    return ResponseEntity.status(200).body("success");
+  }
 
 }
