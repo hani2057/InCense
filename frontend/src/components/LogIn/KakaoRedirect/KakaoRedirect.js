@@ -22,7 +22,7 @@ const KakaoRedirect = (props) => {
   const kakaoLogin = async (code) => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/auth/login/kakao",
+        "http://localhost:8080/api/auth/login/kakao",
         { params: { code: code } }
       );
       console.log(response);
