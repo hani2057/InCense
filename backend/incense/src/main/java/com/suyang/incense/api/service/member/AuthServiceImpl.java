@@ -2,8 +2,10 @@ package com.suyang.incense.api.service.member;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.suyang.incense.api.response.member.auth.kakao.KakaoTokenRes;
-import com.suyang.incense.api.response.member.auth.kakao.KakaoUserInfoRes;
+import com.suyang.incense.api.response.member.LoginRes;
+import com.suyang.incense.api.response.member.kakao.KakaoTokenRes;
+import com.suyang.incense.api.response.member.kakao.KakaoUserInfoRes;
+import com.suyang.incense.db.entity.member.Member;
 import com.suyang.incense.db.entity.member.SocialType;
 import com.suyang.incense.db.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -40,7 +44,6 @@ public class AuthServiceImpl implements AuthService {
 
         // HttpEntity 객체 생성 = HttpBody + HttpHeader
         HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(params, headers);
-        System.out.println(kakaoTokenRequest);
 
         ResponseEntity<String> accessTokenResponse = restTemplate.exchange(
                 "https://kauth.kakao.com/oauth/token",
@@ -87,13 +90,20 @@ public class AuthServiceImpl implements AuthService {
             e.printStackTrace();
         }
 
-        assert kakaoUserInfo != null;
         return kakaoUserInfo.getKakao_account().getEmail();
     }
 
     @Override
-    public boolean isExistUser(String email, String type) {
+    public LoginRes isExistUser(String email, String type) {
         // 기존 회원 (true)과 신입 회원 (false) 구분
-        return memberRepository.findByEmailAndType(email, SocialType.valueOf(type)).isPresent();
+        Optional<Member> member = memberRepository.findByEmailAndType(email, SocialType.valueOf(type));
+        LoginRes loginRes = null;
+        if(member.isPresent()) {  // 기존 회원일때
+            // 여기서 AccessToken 만들어야 함!!!!!!!!!!!!!!!!!!!!!!!!
+            loginRes = LoginRes.of("accesstoken", null, null);
+        } else {    // 신입 회원일때
+            loginRes = LoginRes.of(null, email, "kakao");
+        }
+        return loginRes;
     }
 }

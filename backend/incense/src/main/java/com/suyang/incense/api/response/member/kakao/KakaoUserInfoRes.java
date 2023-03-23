@@ -1,4 +1,4 @@
-package com.suyang.incense.api.response.member.auth.kakao;
+package com.suyang.incense.api.response.member.kakao;
 
 import lombok.Data;
 import lombok.Getter;

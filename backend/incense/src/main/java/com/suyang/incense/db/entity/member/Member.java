@@ -13,6 +13,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
+
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class Member {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "grade_id")
+    @JoinColumn(name = "grade_id", nullable = false)
     private Grade grade;
 
     @NotNull
@@ -42,9 +43,9 @@ public class Member {
 //    @Column(length = 100)
 //    private String password;
 
-    @NotNull
-    @Column(length = 50)
-    private String role;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
