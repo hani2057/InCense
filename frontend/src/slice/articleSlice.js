@@ -6,6 +6,7 @@ export const articleSlice = createSlice({
 
   name: 'article',
   initialState: {
+    article: {
     id : 0,
     title: '',
     content: '',
@@ -19,8 +20,9 @@ export const articleSlice = createSlice({
     isClosed: 0,
     volume: 0,
     createdDate: '',
-    comments: []
-
+    comments: [],
+    userNickname: ''
+    }
 
 
   },
@@ -28,22 +30,14 @@ export const articleSlice = createSlice({
     saveArticle: (state, {payload}) => {
       console.log('article 저장 액션 호출');
       // console.log(data)
-      state = payload;
+      state.article = payload;
     },
 
     updateArticle: (state, {payload}) => {
       // 마감여부는 따로 버튼
       console.log('article 수정 액션 호출');
       console.log(payload)
-      state.title = payload.title;
-      state.content = payload.content;
-      state.gubun = payload.gubun;
-      state.price = payload.price;
-      state.isDelivery = payload.isDelivery;
-      state.perfumeId = payload.perfumeId;
-      state.buyDate = payload.buyDate;
-      state.files = payload.files;
-      state.volume = payload.volume;
+      state.article = payload
 
     },    
     saveMyRoomInfo: (state, {payload}) => {
@@ -56,6 +50,24 @@ export const articleSlice = createSlice({
       console.log('createMytodo 저장 액션 호출');
       state.user.doing.push(payload.newTodo);
       console.log(state.user);
+    },
+    changeRegisterInput: (state, { payload }) => {
+      switch (payload.name) {
+        case "title":
+          return {
+            ...state,
+            title: payload.value,
+          };
+
+        case "content":
+          return {
+            ...state,
+            content: payload.value,
+          };
+
+        default:
+          break;
+      }
     },
   }
 })

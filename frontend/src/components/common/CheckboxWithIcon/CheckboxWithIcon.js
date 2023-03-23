@@ -11,7 +11,14 @@ import { ReactComponent as CheckSvg } from "./check.svg";
  *
  */
 
-const CheckboxWithIcon = ({ text, isChecked, funcClicked, pointer }) => {
+const CheckboxWithIcon = ({
+  text,
+  isChecked,
+  funcClicked,
+  pointer,
+  color,
+  colorPicked,
+}) => {
   return (
     <FlexDiv
       onClick={funcClicked}
@@ -22,12 +29,20 @@ const CheckboxWithIcon = ({ text, isChecked, funcClicked, pointer }) => {
       <CheckSvg
         stroke="currentColor"
         style={{
-          color: `${isChecked ? "var(--main-color)" : "var(--gray-color)"}`,
+          color: `${
+            isChecked
+              ? `var(--${colorPicked}-color` || "var(--main-color)"
+              : `var(--${color}-color` || "var(--gray-color)"
+          }`,
         }}
       />
       <span
         style={{
-          color: `${isChecked ? "var(--main-color)" : "var(--gray-color)"}`,
+          color: `${
+            isChecked
+              ? `var(--${colorPicked}-color` || "var(--main-color)"
+              : `var(--${color}-color` || "var(--gray-color)"
+          }`,
           paddingLeft: "0.5rem",
         }}
       >
