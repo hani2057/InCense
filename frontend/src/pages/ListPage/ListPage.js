@@ -33,7 +33,7 @@ const ListPage = () => {
     <Box sx={{marginBottom:'5rem'}}>
       <Box
         sx={{
-          mt: "10rem",
+          
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -41,7 +41,7 @@ const ListPage = () => {
           fontSize: "2rem",
           fontWeight:"bold"
       }}>
-        <h4>향수 리스트</h4>
+        
       </Box>
       <Box 
         sx={{
