@@ -49,7 +49,7 @@ export default function SharePage() {
     <Box sx={{marginBottom:'5rem'}}>
       <Box
         sx={{
-          mt: "10rem",
+          
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
