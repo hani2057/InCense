@@ -23,6 +23,12 @@ public class MemberController {
     @PostMapping("/register")
     @ApiOperation(value = "회원가입", notes = "사용자 정보를 입력받아 회원가입 진행")
     public ResponseEntity<String> registerMember(@RequestBody MemberRegisterReq registerInfo) {
+        System.out.println("###registerInfo = " + registerInfo.getEmail());
+        System.out.println("###registerInfo = " + registerInfo.getType());
+        System.out.println("###registerInfo = " + registerInfo.getNickname());
+        System.out.println("###registerInfo = " + registerInfo.getGender());
+        System.out.println("###registerInfo = " + registerInfo.getBirth());
+
         memberService.registerMember(registerInfo);
         return ResponseEntity.status(200).body(authService.getToken(registerInfo.getEmail()));
     }
