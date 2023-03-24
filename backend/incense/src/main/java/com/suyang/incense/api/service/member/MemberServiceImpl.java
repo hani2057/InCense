@@ -9,6 +9,8 @@ import com.suyang.incense.db.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -41,5 +43,11 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Member getMemeberByEmail(String email) {
         return memberRepository.findByEmail(email).get();
+    }
+
+    @Override
+    public boolean isPossibleNickname(String nickname) {
+        Optional<Member> member = memberRepository.findByNickname(nickname);
+        return member.isEmpty();
     }
 }
