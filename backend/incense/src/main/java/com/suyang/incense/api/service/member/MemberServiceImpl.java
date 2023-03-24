@@ -7,8 +7,10 @@ import com.suyang.incense.db.entity.member.SocialType;
 import com.suyang.incense.db.repository.member.GradeRepository;
 import com.suyang.incense.db.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 
@@ -16,6 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
+    private final AuthService authService;
     private final MemberRepository memberRepository;
     private final GradeRepository gradeRepository;
 
@@ -49,5 +52,12 @@ public class MemberServiceImpl implements MemberService {
     public boolean isPossibleNickname(String nickname) {
         Optional<Member> member = memberRepository.findByNickname(nickname);
         return member.isEmpty();
+    }
+
+    @Override
+    @Transactional
+    public void modifyNickname(String nickname, Authentication authentication) {
+        Member member = memberRepository.findById(authService.getIdByAuthentication(authentication)).get();
+        member.setNickname(nickname);
     }
 }
