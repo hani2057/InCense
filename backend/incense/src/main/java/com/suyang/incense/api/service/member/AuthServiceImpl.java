@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.suyang.incense.api.response.member.LoginRes;
 import com.suyang.incense.api.response.member.kakao.KakaoTokenRes;
 import com.suyang.incense.api.response.member.kakao.KakaoUserInfoRes;
+import com.suyang.incense.common.util.JwtTokenUtil;
 import com.suyang.incense.db.entity.member.Member;
 import com.suyang.incense.db.entity.member.SocialType;
 import com.suyang.incense.db.repository.member.MemberRepository;
@@ -90,6 +91,7 @@ public class AuthServiceImpl implements AuthService {
             e.printStackTrace();
         }
 
+        assert kakaoUserInfo != null;
         return kakaoUserInfo.getKakao_account().getEmail();
     }
 
@@ -99,8 +101,9 @@ public class AuthServiceImpl implements AuthService {
         Optional<Member> member = memberRepository.findByEmailAndType(email, SocialType.valueOf(type));
         LoginRes loginRes = null;
         if(member.isPresent()) {  // 기존 회원일때
-            // 여기서 AccessToken 만들어야 함!!!!!!!!!!!!!!!!!!!!!!!!
-            loginRes = LoginRes.of("accesstoken", null, null);
+            String token = JwtTokenUtil.getToken(member.get().getEmail());
+            System.out.println("###token = " + token);
+            loginRes = LoginRes.of(token, null, null);
         } else {    // 신입 회원일때
             loginRes = LoginRes.of(null, email, "kakao");
         }

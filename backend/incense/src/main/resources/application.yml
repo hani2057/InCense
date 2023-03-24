@@ -31,3 +31,6 @@ spring:
       file-size-threshold: 2KB
       max-file-size: 500KB
       max-request-size: 215MB
+jwt:
+  secret: dyAeHubOOc8KaOfYB6XEQoEj1QzRlVgtjNL8PYs1A1tymZvvqkcEU7L1imkKHeDa
+  expiration: 1296000000  # unit is ms. 15 * 24 * 60 * 60 * 1000 = 15days

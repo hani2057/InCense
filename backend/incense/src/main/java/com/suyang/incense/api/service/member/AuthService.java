@@ -8,4 +8,5 @@ public interface AuthService {
     KakaoTokenRes getKakakoAccessToken(String code);
     String GetKakaoUserInfo(String kakaoAccessToken);
     LoginRes isExistUser(String email, String type);
+
 }
