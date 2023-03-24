@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -34,7 +33,5 @@ public class MemberRegisterReq {
     @ApiModelProperty(name = "성별 공개 여부", example = "0: 비공개, 1: 공개")
     private byte genderOpen;
 
-    @ApiModelProperty(name = "알람 수신 여부", example = "0: 수신안함, 1: 수신")
-    private byte alarmOpen;
 
 }
