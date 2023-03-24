@@ -101,7 +101,7 @@ public class AuthServiceImpl implements AuthService {
         Optional<Member> member = memberRepository.findByEmailAndType(email, SocialType.valueOf(type));
         LoginRes loginRes = null;
         if(member.isPresent()) {  // 기존 회원일때
-            String token = JwtTokenUtil.getToken(member.get().getEmail());
+            String token = getToken(member.get().getEmail());
             System.out.println("###token = " + token);
             loginRes = LoginRes.of(token, null, null);
         } else {    // 신입 회원일때
@@ -109,4 +109,11 @@ public class AuthServiceImpl implements AuthService {
         }
         return loginRes;
     }
+
+    @Override
+    public String getToken(String email) {
+        return JwtTokenUtil.getToken(email);
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package com.suyang.incense.api.service.member;
 
+import com.suyang.incense.api.request.member.MemberRegisterReq;
 import com.suyang.incense.db.entity.member.Member;
 import com.suyang.incense.db.entity.member.Role;
 import com.suyang.incense.db.entity.member.SocialType;
@@ -17,14 +18,24 @@ public class MemberServiceImpl implements MemberService {
     private final GradeRepository gradeRepository;
 
     @Override
-    public void registerMember(String email, String type) {
+    public void registerMember(MemberRegisterReq registerInfo) {
         // 회원 정보 저장
-        Member member = new Member();
-        member.setEmail(email);
-        member.setRole(Role.ROLE_GUEST);
-        member.setGrade(gradeRepository.findById(1L).get());
-        if(type.equals("kakao")) member.setType(SocialType.kakao);
-        else if (type.equals("naver")) member.setType(SocialType.naver);
+        SocialType type = null;
+        if(registerInfo.getType().equals("kakao")) type = SocialType.kakao;
+        else type = SocialType.naver;
+
+        Member member = Member.builder()
+                .grade(gradeRepository.findById(1L).get())
+                .email(registerInfo.getEmail())
+                .role(Role.ROLE_USER)
+                .type(type)
+                .nickname(registerInfo.getNickname())
+                .gender(registerInfo.getGender())
+                .birth(registerInfo.getBirth())
+                .birthOpen(registerInfo.getBirthOpen())
+                .genderOpen(registerInfo.getGenderOpen())
+                .alarmOpen(registerInfo.getAlarmOpen())
+                .build();
         memberRepository.save(member);
     }
 
