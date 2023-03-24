@@ -103,9 +103,9 @@ public class AuthServiceImpl implements AuthService {
         if(member.isPresent()) {  // 기존 회원일때
             String token = getToken(member.get().getEmail());
             System.out.println("###token = " + token);
-            loginRes = LoginRes.of(token, null, null);
+            loginRes = new LoginRes(token, null, null);
         } else {    // 신입 회원일때
-            loginRes = LoginRes.of(null, email, "kakao");
+            loginRes = new LoginRes(null, email, "kakao");
         }
         return loginRes;
     }
