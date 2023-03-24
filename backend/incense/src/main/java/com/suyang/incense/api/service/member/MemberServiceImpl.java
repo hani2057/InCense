@@ -34,7 +34,6 @@ public class MemberServiceImpl implements MemberService {
                 .birth(registerInfo.getBirth())
                 .birthOpen(registerInfo.getBirthOpen())
                 .genderOpen(registerInfo.getGenderOpen())
-                .alarmOpen(registerInfo.getAlarmOpen())
                 .build();
         memberRepository.save(member);
     }

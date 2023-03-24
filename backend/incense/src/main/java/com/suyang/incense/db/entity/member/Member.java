@@ -10,14 +10,12 @@ import com.suyang.incense.db.entity.test.Test;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import javax.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,7 +114,7 @@ public class Member {
 
     @Builder
     public Member(Grade grade, String email, Role role, SocialType type, String nickname, Byte gender,
-                  LocalDate birth, byte birthOpen, byte genderOpen, byte alarmOpen) {
+                  LocalDate birth, byte birthOpen, byte genderOpen) {
         this.grade = grade;
         this.email = email;
         this.role = role;
@@ -126,6 +124,5 @@ public class Member {
         this.birth = birth;
         this.birthOpen = birthOpen;
         this.genderOpen = genderOpen;
-        this.alarmOpen = alarmOpen;
     }
 }
