@@ -22,19 +22,12 @@ const KakaoRedirect = (props) => {
   // }, []);
 
   const kakaoLogin = async (code) => {
-    try {
-      const res = await defaultInstance.get(api.user.login("kakao"), {
-        params: { code: code },
+    const res = await api.user.login("kakao", { params: { code: code } });
+    if (res.accessToken) navigate("/");
+    else
+      navigate("/signup", {
+        state: { email: res.email, type: res.type },
       });
-      console.log(res);
-      if (res.data.accessToken) navigate("/");
-      else
-        navigate("/signup", {
-          state: { email: res.data.email, type: res.data.type },
-        });
-    } catch (err) {
-      console.error(err);
-    }
   };
 
   return <Loading />;

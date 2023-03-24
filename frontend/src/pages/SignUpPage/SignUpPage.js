@@ -78,17 +78,15 @@ const SignUpPage = () => {
       const res = await axios.post(
         "https://j8a804.p.ssafy.io/api/member/register",
         {
-          data: {
-            alarmOpen: 1,
-            birth: birth,
-            birthOpen: 1,
-            email: email,
-            // gender: genderPickedIdx,
-            gender: 1,
-            genderOpen: 1,
-            nickname: name,
-            type: type,
-          },
+          alarmOpen: 1,
+          birth: birth,
+          birthOpen: 1,
+          email: email,
+          // gender: genderPickedIdx,
+          gender: 1,
+          genderOpen: 1,
+          nickname: name,
+          type: type,
         }
       );
 
