@@ -1,13 +1,15 @@
-// 리다이렉트될 화면
-
-import axios from "axios";
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { defaultInstance } from "../../../apis";
+import api from "../../../apis/api";
+import Loading from "../../common/Loading/Loading";
 // import { useDispatch } from "react-redux";
 // import { actionCreators as userActions } from "../redux/modules/user";
 // import Spinner from "./Spinner";
 
 const KakaoRedirect = (props) => {
   // const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // 인가코드
   let code = new URL(window.location.href).searchParams.get("code");
@@ -20,18 +22,15 @@ const KakaoRedirect = (props) => {
   // }, []);
 
   const kakaoLogin = async (code) => {
-    try {
-      const response = await axios.get(
-        "http://localhost:8080/api/auth/login/kakao",
-        { params: { code: code } }
-      );
-      console.log(response);
-    } catch (err) {
-      console.error(err);
-    }
+    const res = await api.user.login("kakao", { params: { code: code } });
+    if (res.accessToken) navigate("/");
+    else
+      navigate("/signup", {
+        state: { email: res.email, type: res.type },
+      });
   };
 
-  return <span>로그인 리다이렉트중</span>;
+  return <Loading />;
 };
 
 export default KakaoRedirect;
