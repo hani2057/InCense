@@ -133,22 +133,24 @@ public class DealController {
           @PathVariable(value = "deal-id") Long dealId) {
 
     /* dummy */
-    DealDetailRes result = new DealDetailRes(
-            Gubun.SALE,
-            "나눔/판매 글 제목",
-            "나눔/판매 글 내용",
-            "2023.03.21",
-            (byte)0,
-            (byte)0,
-            "헤일리",
-            "등급1",
-            "등급 이미지 url",
-            "Chanel",
-            "No.5",
-            "2023.01",
-            10000,
-            100
-    );
+//    DealDetailRes result = new DealDetailRes(
+//            Gubun.SALE,
+//            "나눔/판매 글 제목",
+//            "나눔/판매 글 내용",
+//            "2023.03.21",
+//            (byte)0,
+//            (byte)0,
+//            "헤일리",
+//            "등급1",
+//            "등급 이미지 url",
+//            "Chanel",
+//            "No.5",
+//            "2023.01",
+//            10000,
+//            100
+//    );
+
+    DealDetailRes result = dealService.getDeal(dealId);
 
     return ResponseEntity.status(200).body(result);
   }
