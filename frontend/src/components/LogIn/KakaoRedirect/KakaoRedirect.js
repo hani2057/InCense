@@ -27,10 +27,10 @@ const KakaoRedirect = (props) => {
         params: { code: code },
       });
       console.log(res);
-      if (res.data.accessToken) navigate("/");
+      if (res.accessToken) navigate("/");
       else
         navigate("/signup", {
-          state: { email: res.data.email, type: res.data.type },
+          state: { email: res.email, type: res.type },
         });
     } catch (err) {
       console.error(err);
