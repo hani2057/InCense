@@ -7,4 +7,5 @@ public interface MemberService {
 
     void registerMember(MemberRegisterReq memberRegisterReq);
     Member getMemeberByEmail(String email);
+    boolean isPossibleNickname(String nickname);
 }
