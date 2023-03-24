@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import React, { useEffect } from "react";
+import Loading from "../../common/Loading/Loading";
 // import { useDispatch } from "react-redux";
 // import { actionCreators as userActions } from "../redux/modules/user";
 // import Spinner from "./Spinner";
@@ -31,7 +32,7 @@ const KakaoRedirect = (props) => {
     }
   };
 
-  return <span>로그인 리다이렉트중</span>;
+  return <Loading />;
 };
 
 export default KakaoRedirect;
