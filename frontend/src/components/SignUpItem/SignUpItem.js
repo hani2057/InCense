@@ -17,14 +17,17 @@ const SignUpItem = ({
   return (
     <>
       {type === "gender" ? (
-        <CheckboxPickOne
-          textArr={["남성", "여성"]}
-          pickedIdx={genderPickedIdx}
-          setPickedIdx={setGenderPickedIdx}
-          width="23rem"
-          height="3rem"
-          margin="0 3rem 0 0"
-        />
+        <FlexDiv direction="column" align="start" width="auto">
+          <CheckboxPickOne
+            textArr={["남성", "여성"]}
+            pickedIdx={genderPickedIdx}
+            setPickedIdx={setGenderPickedIdx}
+            width="23rem"
+            height="3rem"
+            margin="0 3rem 0 0"
+          />
+          <SignUpMsg color={isError?.gender ? "red" : null}>{msg}</SignUpMsg>
+        </FlexDiv>
       ) : type === "name" ? (
         <FlexDiv direction="column" align="start" width="auto">
           <SignUpInput
@@ -49,7 +52,7 @@ const SignUpItem = ({
             required
             maxlength={20}
           />
-          <SignUpMsg>{msg}</SignUpMsg>
+          <SignUpMsg color={isError?.name ? "red" : null}>{msg}</SignUpMsg>
         </FlexDiv>
       ) : (
         <FlexDiv direction="column" align="start" width="auto">
@@ -77,7 +80,7 @@ const SignUpItem = ({
           {/* <SignUpMsg color={isError.birth ? "red" : null}>
                   {inputMsg.birth}
                 </SignUpMsg> */}
-          <SignUpMsg color={isError.birth ? "red" : null}>{msg}</SignUpMsg>
+          <SignUpMsg color={isError?.birth ? "red" : null}>{msg}</SignUpMsg>
         </FlexDiv>
       )}
     </>
