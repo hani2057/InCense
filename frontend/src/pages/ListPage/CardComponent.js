@@ -28,7 +28,7 @@ const CardComponent = () => {
         sx={{width:"8rem",height:"12rem", display:"flex", justifyContent:"center", flexDirection:"row"}}
         component="img"
         height="140"
-        image="assets/images/fluer.png"
+        image="assets/images/936.jpg"
         alt="perfume image"
       />
       </Box>
