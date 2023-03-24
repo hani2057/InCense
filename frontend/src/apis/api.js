@@ -10,7 +10,7 @@ const ALARM = "/alarm";
 const api = {
   user: {
     login: (type, params) => defaultInstance.get(`/auth/login/${type}`, params),
-    resister: (data) => defaultInstance.post(`/${USERS}/resister`, data),
+    register: (data) => defaultInstance.post(`${USERS}/register`, data),
   },
   share: {
     getList: () => defaultInstance.get("/deal"),
