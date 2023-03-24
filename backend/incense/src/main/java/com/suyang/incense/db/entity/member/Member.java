@@ -7,6 +7,7 @@ import com.suyang.incense.db.entity.deal.DealReport;
 import com.suyang.incense.db.entity.relation.*;
 import com.suyang.incense.db.entity.deal.Deal;
 import com.suyang.incense.db.entity.test.Test;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,12 +16,13 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
 @DynamicInsert
 @Table(name = "member")
@@ -51,7 +53,7 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private SocialType type;
 
-/*    @NotNull
+    @NotNull
     @Column(length = 20)
     private String nickname;
 
@@ -59,10 +61,10 @@ public class Member {
     private Byte gender;        // 0: 남자, 1:여자
 
     @NotNull
-    private LocalDateTime birth;
+    private LocalDate birth;
 
     @Column(length = 2500)
-    private String profile;*/
+    private String profile;
 
     @ColumnDefault("0")
     private int score;
@@ -112,4 +114,18 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Test> testList = new ArrayList<>();
 
+    @Builder
+    public Member(Grade grade, String email, Role role, SocialType type, String nickname, Byte gender,
+                  LocalDate birth, byte birthOpen, byte genderOpen, byte alarmOpen) {
+        this.grade = grade;
+        this.email = email;
+        this.role = role;
+        this.type = type;
+        this.nickname = nickname;
+        this.gender = gender;
+        this.birth = birth;
+        this.birthOpen = birthOpen;
+        this.genderOpen = genderOpen;
+        this.alarmOpen = alarmOpen;
+    }
 }

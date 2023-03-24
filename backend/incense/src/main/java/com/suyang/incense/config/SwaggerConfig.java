@@ -11,7 +11,7 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
 /*
-* http://localhost:8080/swagger-ui/index.html
+* http://localhost:8080/api/swagger-ui/index.html
 * */
 @Configuration
 @EnableWebMvc
