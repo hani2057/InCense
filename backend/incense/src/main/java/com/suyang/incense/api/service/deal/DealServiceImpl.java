@@ -2,10 +2,12 @@ package com.suyang.incense.api.service.deal;
 
 import com.suyang.incense.api.request.deal.DealReq;
 import com.suyang.incense.api.response.deal.DealDetailRes;
+import com.suyang.incense.api.response.deal.DealPhotoListRes;
 import com.suyang.incense.db.entity.deal.Deal;
 import com.suyang.incense.db.entity.deal.Gubun;
 import com.suyang.incense.db.entity.member.Member;
 import com.suyang.incense.db.entity.perfume.Perfume;
+import com.suyang.incense.db.repository.deal.DealPhotoRepository;
 import com.suyang.incense.db.repository.deal.DealRepository;
 import com.suyang.incense.db.repository.member.MemberRepository;
 import com.suyang.incense.db.repository.perfume.PerfumeRepository;
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -23,6 +27,7 @@ public class DealServiceImpl implements DealService  {
   private final DealRepository dealRepository;
   private final MemberRepository memberRepository;
   private final PerfumeRepository perfumeRepository;
+  private final DealPhotoRepository dealPhotoRepository;
   private final DealPhotoService dealPhotoService;
 
   @Transactional
@@ -92,6 +97,15 @@ public class DealServiceImpl implements DealService  {
   public DealDetailRes getDeal(Long dealId) {
 
     DealDetailRes deal = dealRepository.findDealById(dealId);
+    List<DealPhotoListRes> dealPhotos = dealPhotoRepository.findImagesByDealId(dealId);
+
+    List<String> mappedImageInfo = new ArrayList<>();
+    for(int i = 0, size = dealPhotos.size(); i<size; i++){
+      mappedImageInfo.add(String.valueOf(dealPhotos.get(i)));
+    }
+
+    deal.setImageInfo(mappedImageInfo);
+
     return deal;
   }
 
