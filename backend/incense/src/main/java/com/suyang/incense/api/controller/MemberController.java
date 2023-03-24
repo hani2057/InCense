@@ -39,7 +39,7 @@ public class MemberController {
         return ResponseEntity.status(200).body(response);
     }
 
-    @PostMapping("/nickname/modify")
+    @PutMapping("/nickname/modify")
     @ApiOperation(value = "닉네임 변경", notes = "사용자의 닉네임을 변경")
     public ResponseEntity<? extends BaseResponseBody> nicknameModify(@RequestParam String nickname,
                                                            @ApiIgnore Authentication authentication) {
