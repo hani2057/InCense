@@ -45,7 +45,7 @@ const DetailPage = () => {
     <Box sx={{marginBottom:'5rem', display:'flex',flexDirection:'column',alignItems:'center'}}>
       <Box
         sx={{
-          mt: "10rem",
+          
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
