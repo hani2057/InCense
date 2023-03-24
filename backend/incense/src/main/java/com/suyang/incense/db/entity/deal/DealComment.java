@@ -12,6 +12,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -40,5 +42,8 @@ public class DealComment extends BaseTimeEntity {
 
     @NotNull
     @ColumnDefault("0")
-    private byte isSecret;    // 0: 불가능, 1: 가능
+    private Byte isSecret;    // 0: 불가능, 1: 가능
+
+    @OneToMany(mappedBy = "dealComment", cascade = CascadeType.REMOVE)
+    private List<CommentReply> commentReplyList = new ArrayList<>();
 }

@@ -39,7 +39,7 @@ public class CommentReply extends BaseTimeEntity {
 
     @NotNull
     @ColumnDefault("0")
-    private byte isSecret;  // 0: false, 1: true
+    private Byte isSecret;  // 0: false, 1: true
 
 
 }

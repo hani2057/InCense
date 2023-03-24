@@ -1,6 +1,8 @@
 package com.suyang.incense.api.service.deal;
 
+import com.querydsl.core.Tuple;
 import com.suyang.incense.api.request.deal.DealCommentReq;
+import com.suyang.incense.api.response.deal.DealCommentRes;
 import com.suyang.incense.db.entity.deal.CommentReply;
 import com.suyang.incense.db.entity.deal.Deal;
 import com.suyang.incense.db.entity.deal.DealComment;
@@ -12,6 +14,8 @@ import com.suyang.incense.db.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -30,6 +34,9 @@ public class DealCommentServiceImpl  implements DealCommentService {
         Deal deal = dealRepository.findById(dealId).orElseThrow(IllegalArgumentException::new);
 
         Long parentId = dealCommentReq.getParentId();
+
+        System.out.println("부모 댓글 시퀀스 넘버..............................: "+parentId);
+
         if(parentId == null){
 
             DealComment dealComment = new DealComment();
@@ -39,7 +46,10 @@ public class DealCommentServiceImpl  implements DealCommentService {
             dealComment.setIsSecret(dealCommentReq.getIsSecret());
 
             dealCommentRepository.save(dealComment);
+
         } else{     //대댓글
+
+            System.out.println("대댓글 생성......................................");
 
             DealComment parentComment = dealCommentRepository.findById(dealCommentReq.getParentId()).orElseThrow(IllegalArgumentException::new);
 
@@ -55,8 +65,57 @@ public class DealCommentServiceImpl  implements DealCommentService {
             }
 
             commentReplyRepository.save(commentReply);
-
         }
 
+    }
+
+    @Transactional
+    public boolean update(Long commentId, Long memberId, DealCommentReq dealCommentReq) {
+
+        if(dealCommentReq.getParentId() == null){
+            DealComment dealComment = dealCommentRepository.findById(commentId).orElseThrow(IllegalArgumentException::new);
+
+            if(dealComment.getMember().getId() != memberId){
+                return false;
+            }
+
+            dealComment.setContent(dealCommentReq.getContent());
+            dealComment.setIsSecret(dealCommentReq.getIsSecret());
+
+        } else{
+            CommentReply commentReply = commentReplyRepository.findById(commentId).orElseThrow(IllegalArgumentException::new);
+
+            if(commentReply.getMember().getId() != memberId){
+                return false;
+            }
+
+            commentReply.setContent(dealCommentReq.getContent());
+        }
+        return true;
+    }
+
+    @Transactional
+    public boolean delete(String type, Long commentId, Long memberId) {
+
+        if(type.equals("parent")){
+            DealComment dealComment = dealCommentRepository.findById(commentId).orElseThrow(IllegalArgumentException::new);
+            if(dealComment.getMember().getId() != memberId){
+                return false;
+            }
+            dealCommentRepository.deleteById(commentId);
+
+        } else if(type.equals("child")){
+            CommentReply commentReply = commentReplyRepository.findById(commentId).orElseThrow(IllegalArgumentException::new);
+            if(commentReply.getMember().getId() != memberId){
+                return false;
+            }
+            commentReplyRepository.deleteById(commentId);
+        }
+        return true;
+    }
+
+    public List<DealCommentRes> getComments(Long dealId) {
+
+        return dealCommentRepository.getComments();
     }
 }
