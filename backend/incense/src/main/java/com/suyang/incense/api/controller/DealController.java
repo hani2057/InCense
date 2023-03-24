@@ -2,6 +2,7 @@ package com.suyang.incense.api.controller;
 
 import com.suyang.incense.api.request.deal.DealCommentReq;
 import com.suyang.incense.api.request.deal.DealReq;
+import com.suyang.incense.api.response.deal.DealCommentRes;
 import com.suyang.incense.api.response.deal.DealDetailRes;
 import com.suyang.incense.api.response.deal.DealListRes;
 import com.suyang.incense.api.service.deal.DealCommentService;
@@ -196,9 +197,9 @@ public class DealController {
   public ResponseEntity<?> getComments(
           @PathVariable(value = "deal-id") Long dealId){
 
-    dealCommentService.getComments(dealId);
+    List<DealCommentRes> result = dealCommentService.getComments(dealId);
 
-    return ResponseEntity.status(200).body("success");
+    return ResponseEntity.status(200).body(result);
   }
 
 }
