@@ -2,13 +2,12 @@ package com.suyang.incense.api.service.deal;
 
 import com.suyang.incense.api.request.deal.DealReq;
 import com.suyang.incense.api.response.deal.DealDetailRes;
-import com.suyang.incense.common.BaseTimeEntity;
 import com.suyang.incense.db.entity.deal.Deal;
 import com.suyang.incense.db.entity.deal.Gubun;
 import com.suyang.incense.db.entity.member.Member;
 import com.suyang.incense.db.entity.perfume.Perfume;
 import com.suyang.incense.db.repository.deal.DealRepository;
-import com.suyang.incense.db.repository.deal.MemberRepository;
+import com.suyang.incense.db.repository.member.MemberRepository;
 import com.suyang.incense.db.repository.perfume.PerfumeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

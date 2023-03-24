@@ -10,11 +10,11 @@ import com.suyang.incense.db.entity.test.Test;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import javax.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
-import javax.persistence.*;
+
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,22 +32,26 @@ public class Member {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "grade_id")
+    @JoinColumn(name = "grade_id", nullable = false)
     private Grade grade;
 
     @NotNull
     @Column(length = 50)
     private String email;
 
-    @NotNull
-    @Column(length = 100)
-    private String password;
+//    @NotNull
+//    @Column(length = 100)
+//    private String password;
 
-    @NotNull
-    @Column(length = 50)
-    private String role;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
-    @NotNull
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private SocialType type;
+
+/*    @NotNull
     @Column(length = 20)
     private String nickname;
 
@@ -58,7 +62,7 @@ public class Member {
     private LocalDateTime birth;
 
     @Column(length = 2500)
-    private String profile;
+    private String profile;*/
 
     @ColumnDefault("0")
     private int score;
@@ -71,7 +75,6 @@ public class Member {
 
     @ColumnDefault("1")
     private byte alarmOpen;     // 0: 수신안함, 1: 수신
-
 
     @OneToMany(mappedBy ="member")
     private List<GradeLog> gradeLogList = new ArrayList<>();
