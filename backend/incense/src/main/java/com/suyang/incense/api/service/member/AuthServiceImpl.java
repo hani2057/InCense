@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.suyang.incense.api.response.member.LoginRes;
 import com.suyang.incense.api.response.member.kakao.KakaoTokenRes;
 import com.suyang.incense.api.response.member.kakao.KakaoUserInfoRes;
+import com.suyang.incense.common.auth.MemberDetails;
 import com.suyang.incense.common.util.JwtTokenUtil;
 import com.suyang.incense.db.entity.member.Member;
 import com.suyang.incense.db.entity.member.SocialType;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -113,6 +115,12 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public String getToken(String email) {
         return JwtTokenUtil.getToken(email);
+    }
+
+    @Override
+    public Long getIdByAuthentication(Authentication authentication) {
+        MemberDetails memberDetails = (MemberDetails) authentication.getDetails();
+        return memberDetails.getMember().getId();
     }
 
 
