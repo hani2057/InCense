@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import customParseFormat from "dayjs/plugin/customParseFormat";
@@ -16,6 +16,7 @@ dayjs.extend(customParseFormat);
 // dayjs.locale("ko");
 
 const SignUpPage = () => {
+  const navigate = useNavigate();
   const { email, type } = useLocation().state;
 
   // 값 저장할 state
@@ -74,7 +75,7 @@ const SignUpPage = () => {
   };
 
   const fetchPostMemberInfo = async (name, birth, genderPickedIdx) => {
-    const res = await api.user.resister({
+    await api.user.register({
       alarmOpen: 1,
       birth: birth,
       birthOpen: 1,
@@ -86,26 +87,11 @@ const SignUpPage = () => {
       type: type,
     });
 
-    // try {
-    //   const res = await axios.post(
-    //     "https://j8a804.p.ssafy.io/api/member/register",
-    //     {
-    //       alarmOpen: 1,
-    //       birth: birth,
-    //       birthOpen: 1,
-    //       email: email,
-    //       // gender: genderPickedIdx,
-    //       gender: 1,
-    //       genderOpen: 1,
-    //       nickname: name,
-    //       type: type,
-    //     }
-    //   );
+    // accessToken 리덕스에 저장
 
-    //   console.log(res);
-    // } catch (err) {
-    //   console.error(err);
-    // }
+    // 홈으로 이동
+    navigate("/");
+    // navigate(-1, { replace: true });
   };
 
   useEffect(() => {
