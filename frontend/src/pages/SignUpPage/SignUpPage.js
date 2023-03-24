@@ -7,9 +7,9 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import CheckboxWithIcon from "../../components/common/CheckboxWithIcon/CheckboxWithIcon";
 import { FlexDiv } from "../../components/common/FlexDiv/FlexDiv";
 import { TitleSpan } from "../LogInPage/style";
-import { SignUpItemWrapper, SignUpSpan } from "./style";
 import SignUpItem from "../../components/SignUpItem/SignUpItem";
-import axios from "axios";
+import { SignUpItemWrapper, SignUpSpan } from "./style";
+import api from "../../apis/api";
 
 dayjs.extend(isBetween);
 dayjs.extend(customParseFormat);
@@ -74,26 +74,38 @@ const SignUpPage = () => {
   };
 
   const fetchPostMemberInfo = async (name, birth, genderPickedIdx) => {
-    try {
-      const res = await axios.post(
-        "https://j8a804.p.ssafy.io/api/member/register",
-        {
-          alarmOpen: 1,
-          birth: birth,
-          birthOpen: 1,
-          email: email,
-          // gender: genderPickedIdx,
-          gender: 1,
-          genderOpen: 1,
-          nickname: name,
-          type: type,
-        }
-      );
+    const res = await api.user.resister({
+      alarmOpen: 1,
+      birth: birth,
+      birthOpen: 1,
+      email: email,
+      // gender: genderPickedIdx,
+      gender: 1,
+      genderOpen: 1,
+      nickname: name,
+      type: type,
+    });
 
-      console.log(res);
-    } catch (err) {
-      console.error(err);
-    }
+    // try {
+    //   const res = await axios.post(
+    //     "https://j8a804.p.ssafy.io/api/member/register",
+    //     {
+    //       alarmOpen: 1,
+    //       birth: birth,
+    //       birthOpen: 1,
+    //       email: email,
+    //       // gender: genderPickedIdx,
+    //       gender: 1,
+    //       genderOpen: 1,
+    //       nickname: name,
+    //       type: type,
+    //     }
+    //   );
+
+    //   console.log(res);
+    // } catch (err) {
+    //   console.error(err);
+    // }
   };
 
   useEffect(() => {

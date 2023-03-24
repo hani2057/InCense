@@ -1,6 +1,5 @@
 import { defaultInstance } from ".";
 
-// const BASE_URL = "https://j8a804.p.ssafy.io/api";
 const USERS = "/member";
 const TEST = "/test";
 const PERFUMES = "/perfume";
@@ -11,7 +10,7 @@ const ALARM = "/alarm";
 const api = {
   user: {
     login: (type, params) => defaultInstance.get(`/auth/login/${type}`, params),
-    resister: () => USERS + "/resister",
+    resister: (data) => defaultInstance.post(`/${USERS}/resister`, data),
   },
   share: {
     getList: () => defaultInstance.get("/deal"),
