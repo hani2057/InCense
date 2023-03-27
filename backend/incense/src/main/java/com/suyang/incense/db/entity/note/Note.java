@@ -32,7 +32,7 @@ public class Note {
   private Long id;
 
   @NotNull
-  @Column(length = 30)
+  @Column(length = 100)
   private String name;
 
   @Enumerated(EnumType.STRING)

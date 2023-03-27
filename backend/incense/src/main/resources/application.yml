@@ -11,16 +11,22 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.MySQL57Dialect
     hibernate:
-      ddl-auto: update
-#      ddl-auto: create
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true
         show_sql: true
+    data: classpath:data.sql
+    defer-datasource-initialization: true
+  datasource:
+    initialization-mode: always
   data:
     web:
       pageable:
         one-indexed-parameters: true
+#  sql:
+#    init:
+#      mode: always
   mvc:
     throw-exception-if-no-handler-found: true
     pathmatch:
