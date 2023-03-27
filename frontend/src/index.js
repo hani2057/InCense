@@ -13,6 +13,7 @@ import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import store from "./store";
 import { Provider } from "react-redux";
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 
 const persistor = persistStore(store);
 
@@ -29,6 +30,7 @@ root.render(
             <Route path="/login" element={<LogInPage />} />
             <Route path="/oauth/callback/kakao" element={<KakaoRedirect />} />
             <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/404" element={<NotFoundPage />} />
             <Route path="/*" element={<App />} />
           </Routes>
         </PersistGate>

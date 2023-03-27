@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 import NavBar from "./components/NavBar/NavBar";
 // import LogInPage from "./pages/LogInPage/LogInPage";
 // import KakaoRedirect from "./components/LogIn/KakaoRedirect/KakaoRedirect";
@@ -30,14 +30,15 @@ function App() {
         <Route path="/detail" element={<DetailPage />} />
         <Route path="/share" element={<SharePage />} />
         <Route path="/share/register" element={<RegisterPage />} />
+        <Route path="/share/registertest" element={<RegisterOrEdit />} />
+        <Route path="/share/article" element={<ArticleDetail />} />
         <Route path="/profile" element={<ProfilePage />}>
           <Route index element={<ProfileMainPage />} />
           <Route path="perfumes" element={<ProfilePerfumePage />} />
           <Route path="analysis" element={<ProfileAnalysisPage />} />
           <Route path="activity" element={<ProfileActivityPage />} />
         </Route>
-        <Route path="/share/registertest" element={<RegisterOrEdit />} />
-        <Route path="/share/article" element={<ArticleDetail />} />
+        <Route path="*" element={<Navigate replace to="/404" />} />
       </Routes>
     </>
   );
