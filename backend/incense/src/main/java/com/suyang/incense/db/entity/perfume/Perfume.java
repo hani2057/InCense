@@ -30,7 +30,6 @@ import lombok.Setter;
 public class Perfume {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "perfume_id")
   private Long id;
 
@@ -50,8 +49,11 @@ public class Perfume {
   @NotNull
   private double rating;  //엑셀 데이터 평점
 
+  @NotNull
+  private String concentration;
   @Column(length = 2500)
   private String image;
+
 
   @OneToMany(mappedBy = "perfume")
   private List<TestPerfumeResult> testPerfumeResultList = new ArrayList<>();
