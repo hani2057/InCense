@@ -1,6 +1,7 @@
 package com.suyang.incense.api.controller;
 
 import com.suyang.incense.api.request.deal.DealCommentReq;
+import com.suyang.incense.api.request.deal.DealConditionReq;
 import com.suyang.incense.api.request.deal.DealReq;
 import com.suyang.incense.api.response.deal.DealCommentRes;
 import com.suyang.incense.api.response.deal.DealDetailRes;
@@ -108,21 +109,23 @@ public class DealController {
   //원래는 Page<DealListRes> 반환해야 한다.
   @ApiOperation(value = "나눔/판매 글 리스트 조회")
   @GetMapping("")
-  public ResponseEntity<List<DealListRes>> getAllDeals(
-          @RequestParam(value = "gubun", required = false) String gubun,
-          @RequestParam(value = "brands", required = false) List<Long> brands,
-          @RequestParam(value = "scents", required = false) List<Long> scents,
-          @RequestParam(value = "transaction", required = false) Integer transaction,
-          @RequestParam(value = "end", required = false) Integer end,
+  public ResponseEntity<Page<DealListRes>> getAllDeals(
+          @ModelAttribute DealConditionReq dealConditionReq,
           @PageableDefault(value = Integer.MAX_VALUE) Pageable pageable) {
 
 
     /* dummy */
-    List<DealListRes> result = new ArrayList<>();
-    DealListRes temp = new DealListRes(1l, "2023.03.20", "글 제목", 100, 10000, (byte)0, (byte)0, 1, "헤일리", "Chanel", "No.5", "향수 이미지 url");
-    result.add(temp);
+//    List<DealListRes> result = new ArrayList<>();
+//    DealListRes temp = new DealListRes(1l, "2023.03.20", "글 제목", 100, 10000, (byte)0, (byte)0, 1, "헤일리", "Chanel", "No.5", "향수 이미지 url");
+//    result.add(temp);
+//
+//    return ResponseEntity.status(200).body(result);
+    Page<DealListRes> result = dealService.getAllDeals(dealConditionReq, pageable);
 
     return ResponseEntity.status(200).body(result);
+
+
+
 
   }
 
