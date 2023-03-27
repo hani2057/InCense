@@ -1,6 +1,8 @@
 package com.suyang.incense.api.service.member;
 
+import com.suyang.incense.api.request.member.MemberModifyReq;
 import com.suyang.incense.api.request.member.MemberRegisterReq;
+import com.suyang.incense.common.FileHandler;
 import com.suyang.incense.db.entity.member.Member;
 import com.suyang.incense.db.entity.member.Role;
 import com.suyang.incense.db.entity.member.SocialType;
@@ -9,8 +11,11 @@ import com.suyang.incense.db.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.io.File;
+import java.io.IOException;
 import java.util.Optional;
 
 
@@ -21,6 +26,7 @@ public class MemberServiceImpl implements MemberService {
     private final AuthService authService;
     private final MemberRepository memberRepository;
     private final GradeRepository gradeRepository;
+    private final FileHandler fileHandler;
 
     @Override
     public void registerMember(MemberRegisterReq registerInfo) {
@@ -56,8 +62,23 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public void modifyNickname(String nickname, Authentication authentication) {
+    public void modifyMember(MemberModifyReq memberModifyReq, Authentication authentication) throws IOException {
         Member member = memberRepository.findById(authService.getIdByAuthentication(authentication)).get();
-        member.setNickname(nickname);
+        member.setProfile(updateProfile(member.getId(), memberModifyReq.getImage()));
+        member.setNickname(memberModifyReq.getNickname());
+        member.setBirthOpen(memberModifyReq.getBirthOpen());
+        member.setGenderOpen(memberModifyReq.getGenderOpen());
+        member.setAlarmOpen(memberModifyReq.getAlarmOpen());
+    }
+
+    @Override
+    @Transactional
+    public String updateProfile(Long memId, MultipartFile profile) throws IOException {
+        // 서버에서 이미지 삭제
+        Member member = memberRepository.findById(memId).get();
+        File file = new File(member.getProfile());
+        file.delete();
+        // 이미지 새로 등록
+        return fileHandler.parseProfileImageInfo(profile);
     }
 }

@@ -1,5 +1,6 @@
 package com.suyang.incense.api.controller;
 
+import com.suyang.incense.api.request.member.MemberModifyReq;
 import com.suyang.incense.api.request.member.MemberRegisterReq;
 import com.suyang.incense.api.response.member.NicknameCheckRes;
 import com.suyang.incense.api.response.member.RegisterInfoRes;
@@ -13,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
+
+import java.io.IOException;
 
 @Api(value = "사용자 API", tags = {"Member"})
 @RestController
@@ -39,11 +42,11 @@ public class MemberController {
         return ResponseEntity.status(200).body(response);
     }
 
-    @PutMapping("/nickname/modify")
-    @ApiOperation(value = "닉네임 변경", notes = "사용자의 닉네임을 변경")
-    public ResponseEntity<? extends BaseResponseBody> nicknameModify(@RequestParam String nickname,
-                                                           @ApiIgnore Authentication authentication) {
-        memberService.modifyNickname(nickname, authentication);
+    @PutMapping(path = "/modify", consumes = {"multipart/form-data"})
+    @ApiOperation(value = "회원 정보 변경", notes = "이미 등록되어 있는 기존 회원의 정보를 변경")
+    public ResponseEntity<? extends BaseResponseBody> modifyMember(@ModelAttribute MemberModifyReq memberModifyReq,
+                                                                   @ApiIgnore Authentication authentication) throws IOException {
+        memberService.modifyMember(memberModifyReq, authentication);
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
 
