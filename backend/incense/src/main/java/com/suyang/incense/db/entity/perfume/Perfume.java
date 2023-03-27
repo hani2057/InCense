@@ -30,7 +30,6 @@ import lombok.Setter;
 public class Perfume {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "perfume_id")
   private Long id;
 

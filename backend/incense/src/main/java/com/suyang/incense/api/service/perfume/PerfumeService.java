@@ -8,4 +8,6 @@ import java.util.List;
 public interface PerfumeService {
 
     public List<Perfume> getPerfumeList(PerfumeReq perfumeReq);
+
+    public Perfume getPerfume(Long perfumeId);
 }
