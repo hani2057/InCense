@@ -2,7 +2,9 @@ package com.suyang.incense.api.service.member;
 
 import com.suyang.incense.api.request.member.MemberModifyReq;
 import com.suyang.incense.api.request.member.MemberRegisterReq;
+import com.suyang.incense.api.response.member.MemberInfoRes;
 import com.suyang.incense.common.FileHandler;
+import com.suyang.incense.db.entity.member.Grade;
 import com.suyang.incense.db.entity.member.Member;
 import com.suyang.incense.db.entity.member.Role;
 import com.suyang.incense.db.entity.member.SocialType;
@@ -50,7 +52,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member getMemeberByEmail(String email) {
+    public Member getMemberByEmail(String email) {
         return memberRepository.findByEmail(email).get();
     }
 
@@ -58,6 +60,16 @@ public class MemberServiceImpl implements MemberService {
     public boolean isPossibleNickname(String nickname) {
         Optional<Member> member = memberRepository.findByNickname(nickname);
         return member.isEmpty();
+    }
+
+    @Override
+    public MemberInfoRes getMemberInfo(Authentication authentication) {
+        Member member = memberRepository.findById(authService.getIdByAuthentication(authentication)).get();
+        Grade grade = member.getGrade();
+        String profile = "";
+        if(member.getProfile() == null) profile = "./images/member/default/default.png";
+        return new MemberInfoRes(grade.getName(), grade.getImage(), member.getNickname(), member.getGender(),
+                member.getBirth(), profile, member.getBirthOpen(), member.getGenderOpen(), member.getAlarmOpen());
     }
 
     @Override

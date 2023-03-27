@@ -2,6 +2,7 @@ package com.suyang.incense.api.controller;
 
 import com.suyang.incense.api.request.member.MemberModifyReq;
 import com.suyang.incense.api.request.member.MemberRegisterReq;
+import com.suyang.incense.api.response.member.MemberInfoRes;
 import com.suyang.incense.api.response.member.NicknameCheckRes;
 import com.suyang.incense.api.response.member.RegisterInfoRes;
 import com.suyang.incense.common.util.BaseResponseBody;
@@ -42,8 +43,15 @@ public class MemberController {
         return ResponseEntity.status(200).body(response);
     }
 
+    @GetMapping("/info")
+    @ApiOperation(value = "회원정보 조회", notes = "로그인한 회원의 전체 회원정보를 조회")
+    public ResponseEntity<MemberInfoRes> MemberInfo(@ApiIgnore Authentication authentication) {
+        MemberInfoRes response = memberService.getMemberInfo(authentication);
+        return ResponseEntity.status(200).body(response);
+    }
+
     @PutMapping(path = "/modify", consumes = {"multipart/form-data"})
-    @ApiOperation(value = "회원 정보 변경", notes = "이미 등록되어 있는 기존 회원의 정보를 변경")
+    @ApiOperation(value = "회원 정보 변경", notes = "로그인한 회원의 정보를 변경")
     public ResponseEntity<? extends BaseResponseBody> modifyMember(@ModelAttribute MemberModifyReq memberModifyReq,
                                                                    @ApiIgnore Authentication authentication) throws IOException {
         memberService.modifyMember(memberModifyReq, authentication);
