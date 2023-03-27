@@ -24,9 +24,9 @@ spring:
     web:
       pageable:
         one-indexed-parameters: true
-#  sql:
-#    init:
-#      mode: always
+  sql:
+    init:
+      mode: always
   mvc:
     throw-exception-if-no-handler-found: true
     pathmatch:
