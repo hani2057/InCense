@@ -13,6 +13,7 @@ const ProfileTitleBox = ({ bgimgNo, title, subtitle }) => {
       height="10rem"
       direction="column"
       gap="0.5rem"
+      margin="0 0 3rem 0"
       style={{ backgroundImage: `url("/assets/images/bgimg${bgimgNo}.png")` }}
     >
       {subtitle || <ProfileTitle isSub={true}>{subtitle}</ProfileTitle>}
