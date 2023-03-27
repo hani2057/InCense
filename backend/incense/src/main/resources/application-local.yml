@@ -7,4 +7,5 @@ spring:
     hikari:
       username: root
       password: ssafy
+#    password: root       # YURIM
     driver-class-name: com.mysql.cj.jdbc.Driver

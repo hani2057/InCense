@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import customParseFormat from "dayjs/plugin/customParseFormat";
@@ -6,19 +7,25 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import CheckboxWithIcon from "../../components/common/CheckboxWithIcon/CheckboxWithIcon";
 import { FlexDiv } from "../../components/common/FlexDiv/FlexDiv";
 import { TitleSpan } from "../LogInPage/style";
-import { SignUpItemWrapper, SignUpSpan } from "./style";
 import SignUpItem from "../../components/SignUpItem/SignUpItem";
+import { SignUpItemWrapper, SignUpSpan } from "./style";
+import api from "../../apis/api";
 
 dayjs.extend(isBetween);
 dayjs.extend(customParseFormat);
 // dayjs.locale("ko");
 
 const SignUpPage = () => {
+  const navigate = useNavigate();
+  const { email, type } = useLocation().state;
+
   // 값 저장할 state
   const [name, setName] = useState("");
   const [birth, setBirth] = useState("");
   const [genderPickedIdx, setGenderPickedIdx] = useState(null);
-  console.log("aa", name);
+
+  console.log(name, birth, genderPickedIdx);
+  console.log(dayjs(birth, "YYYYMMDD").format("YYYY-MM-DD"));
 
   // validation 관련 state
   const [nameChecked, setNameChecked] = useState(false);
@@ -67,12 +74,24 @@ const SignUpPage = () => {
     console.log(day > 31);
   };
 
-  const fetchPostMemberInfo = (name, birth, genderPickedIdx) => {
-    // 닉네임 유효성 검사
-    // if (!checkName(name))
-    // 생년월일 유효성 검사
-    // 성별 체크 검사
-    // api 요청
+  const fetchPostMemberInfo = async (name, birth, genderPickedIdx) => {
+    await api.user.register({
+      alarmOpen: 1,
+      birth: birth,
+      birthOpen: 1,
+      email: email,
+      // gender: genderPickedIdx,
+      gender: 1,
+      genderOpen: 1,
+      nickname: name,
+      type: type,
+    });
+
+    // accessToken 리덕스에 저장
+
+    // 홈으로 이동
+    navigate("/");
+    // navigate(-1, { replace: true });
   };
 
   useEffect(() => {
@@ -156,7 +175,19 @@ const SignUpPage = () => {
           </FlexDiv>
         </div>
         <div style={{ height: "20%" }}>
-          <button type="submit">완료</button>
+          <button
+            type="submit"
+            onClick={(e) => {
+              e.preventDefault();
+              fetchPostMemberInfo(
+                name,
+                dayjs(birth).format("YYYY-MM-DD"),
+                genderPickedIdx
+              );
+            }}
+          >
+            완료
+          </button>
         </div>
       </FlexDiv>
     </FlexDiv>

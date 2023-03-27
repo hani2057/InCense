@@ -38,7 +38,7 @@ export default function SharePage() {
   const navigate = useNavigate()
   const registerPost = () => {
     if (isLoggedIn === true) {
-      navigate('/register')
+      navigate('/share/register')
     } else {
       alert('로그인이 필요합니다.')
       navigate('/login')
@@ -49,7 +49,7 @@ export default function SharePage() {
     <Box sx={{marginBottom:'5rem'}}>
       <Box
         sx={{
-          mt: "10rem",
+          
           display: "flex",
           flexDirection: "column",
           alignItems: "center",

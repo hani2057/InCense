@@ -1,8 +1,11 @@
 package com.suyang.incense.api.controller;
 
+import com.suyang.incense.api.request.deal.DealCommentReq;
 import com.suyang.incense.api.request.deal.DealReq;
+import com.suyang.incense.api.response.deal.DealCommentRes;
 import com.suyang.incense.api.response.deal.DealDetailRes;
 import com.suyang.incense.api.response.deal.DealListRes;
+import com.suyang.incense.api.service.deal.DealCommentService;
 import com.suyang.incense.api.service.deal.DealPhotoService;
 import com.suyang.incense.api.service.deal.DealService;
 import com.suyang.incense.db.entity.deal.Deal;
@@ -16,6 +19,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +31,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.validation.Valid;
+
 @Api(value = "판매 나눔 API", tags = {"Deal"})
 @RestController
 @RequiredArgsConstructor
@@ -35,6 +42,7 @@ public class DealController {
 
   private final DealService dealService;
   private final DealPhotoService dealPhotoService;
+  private final DealCommentService dealCommentService;
 
   @ApiOperation(value = "나눔/판매 글 생성")
   @PostMapping(consumes = {"multipart/form-data"})
@@ -125,22 +133,73 @@ public class DealController {
           @PathVariable(value = "deal-id") Long dealId) {
 
     /* dummy */
-    DealDetailRes result = new DealDetailRes(
-            Gubun.SALE,
-            "나눔/판매 글 제목",
-            "나눔/판매 글 내용",
-            "2023.03.21",
-            (byte)0,
-            (byte)0,
-            "헤일리",
-            "등급1",
-            "등급 이미지 url",
-            "Chanel",
-            "No.5",
-            "2023.01",
-            10000,
-            100
-    );
+//    DealDetailRes result = new DealDetailRes(
+//            Gubun.SALE,
+//            "나눔/판매 글 제목",
+//            "나눔/판매 글 내용",
+//            "2023.03.21",
+//            (byte)0,
+//            (byte)0,
+//            "헤일리",
+//            "등급1",
+//            "등급 이미지 url",
+//            "Chanel",
+//            "No.5",
+//            "2023.01",
+//            10000,
+//            100
+//    );
+
+    DealDetailRes result = dealService.getDeal(dealId);
+
+    return ResponseEntity.status(200).body(result);
+  }
+
+  @ApiOperation(value = "나눔/판매 글 댓글 생성")
+  @PostMapping("/comment/{deal-id}")
+  public ResponseEntity<?> createDealComment(
+          @PathVariable(value = "deal-id") Long dealId,
+          @RequestBody @ApiParam(value = "나눔/판매 글 댓글 생성 정보", required = true) DealCommentReq dealCommentReq) {
+
+//    dealCommentService.create(dealId, memberId, dealCommentReq);
+    dealCommentService.create(dealId, 1l, dealCommentReq);
+
+    return ResponseEntity.status(200).body("success");
+
+  }
+
+  @ApiOperation(value = "나눔/판매 댓글 수정")
+  @PutMapping("/comment/{comment-id}")
+  public ResponseEntity<?> updateDealComment(
+          @PathVariable(value = "comment-id") Long commentId,
+          @RequestBody @ApiParam(value = "나눔/판매 댓글 수정 정보", required = true) DealCommentReq dealCommentReq) {
+
+//    dealCommentService.update(commentId, memberId, dealCommentReq);
+    dealCommentService.update(commentId, 1l, dealCommentReq);
+
+    return ResponseEntity.status(200).body("success");
+  }
+
+  @ApiOperation(value = "나눔/판매 댓글 삭제")
+  @DeleteMapping("/comment/{comment-id}")
+  public ResponseEntity<?> deleteDealComment(
+          @PathVariable(value = "comment-id") Long commentId,
+          @RequestBody Map<String, String> type) {
+
+    String typeArg = type.get("type");
+
+//    dealCommentService.delete(typeArg, commentId, memberId);
+    dealCommentService.delete(typeArg, commentId, 1l);
+
+    return ResponseEntity.status(200).body("success");
+  }
+
+  @ApiOperation(value = "나눔/판매 댓글 조회")
+  @GetMapping("/comment/{deal-id}")
+  public ResponseEntity<?> getComments(
+          @PathVariable(value = "deal-id") Long dealId){
+
+    List<DealCommentRes> result = dealCommentService.getComments(dealId);
 
     return ResponseEntity.status(200).body(result);
   }

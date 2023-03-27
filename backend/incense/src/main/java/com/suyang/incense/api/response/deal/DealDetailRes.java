@@ -1,11 +1,13 @@
 package com.suyang.incense.api.response.deal;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.suyang.incense.db.entity.deal.Gubun;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +24,8 @@ public class DealDetailRes {
     @ApiModelProperty(name = "나눔/판매 글 내용", example = "글 내용")
     private String content;
     @ApiModelProperty(name = "나눔/판매 글 작성일", example = "2023.02.01")
-    private String createdDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+    private LocalDateTime createdDate;
     @ApiModelProperty(name = "배달 가능 여부: 0 불가능, 1 가능", example = "0")
     private byte isDelivery;
     @ApiModelProperty(name = "판매/나눔 마감 여부: 0 판매/나눔중, 1 마감", example = "0")
@@ -59,7 +62,7 @@ public class DealDetailRes {
 
     public DealDetailRes() {}
 
-    public DealDetailRes(Gubun gubun, String title, String content, String createdDate, byte isDelivery, byte isClosed, String nickname, String gradeName, String gradeImage, String perfumeBrand, String perfumeName, String buyDate, int price, int volume) {
+    public DealDetailRes(Gubun gubun, String title, String content, LocalDateTime createdDate, byte isDelivery, byte isClosed, String nickname, String gradeName, String gradeImage, String perfumeBrand, String perfumeName, String buyDate, int price, int volume) {
         this.gubun = gubun;
         this.title = title;
         this.content = content;
