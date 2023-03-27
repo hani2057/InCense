@@ -59,7 +59,7 @@ public class Member {
     private String nickname;
 
     @NotNull
-    private Byte gender;        // 0: 남자, 1:여자
+    private byte gender;        // 0: 남자, 1:여자
 
     @NotNull
     private LocalDate birth;
