@@ -8,6 +8,7 @@ import com.suyang.incense.db.entity.member.Grade;
 import com.suyang.incense.db.entity.member.Member;
 import com.suyang.incense.db.entity.member.Role;
 import com.suyang.incense.db.entity.member.SocialType;
+import com.suyang.incense.db.repository.member.GradeCustomRepository;
 import com.suyang.incense.db.repository.member.GradeRepository;
 import com.suyang.incense.db.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,7 @@ public class MemberServiceImpl implements MemberService {
     private final AuthService authService;
     private final MemberRepository memberRepository;
     private final GradeRepository gradeRepository;
+    private final GradeCustomRepository gradeCustomRepository;
     private final FileHandler fileHandler;
 
     @Override
@@ -86,11 +88,17 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional
     public String updateProfile(Long memId, MultipartFile profile) throws IOException {
-        // 서버에서 이미지 삭제
         Member member = memberRepository.findById(memId).get();
         File file = new File(member.getProfile());
-        file.delete();
-        // 이미지 새로 등록
-        return fileHandler.parseProfileImageInfo(profile);
+        file.delete();  // 서버에서 이미지 삭제
+        return fileHandler.parseProfileImageInfo(profile);  // 이미지 새로 등록
+    }
+
+    @Override
+    public void checkRank(Long memberId) {
+        String rank = gradeCustomRepository.checkMemberRank(memberId);
+        System.out.println("Rank = " + rank);
+        Member member = memberRepository.findById(memberId).get();
+        member.setGrade(gradeRepository.findByName(rank).get());
     }
 }
