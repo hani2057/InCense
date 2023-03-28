@@ -2,8 +2,8 @@ import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { Link, useParams,useLocation,useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { articleActions } from "../../slice/articleSlice";
-import { articleReducers } from "../../slice/articleSlice";
+import { articleActions, articleReducers } from "../../store/slice/articleSlice";
+
 // import RegisterOrEdit from "./RegisterOrEdit";
 
 
