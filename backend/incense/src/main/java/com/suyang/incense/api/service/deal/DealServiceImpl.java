@@ -6,9 +6,11 @@ import com.suyang.incense.api.response.deal.DealDetailRes;
 import com.suyang.incense.api.response.deal.DealListRes;
 import com.suyang.incense.api.response.deal.DealPhotoListRes;
 import com.suyang.incense.db.entity.deal.Deal;
+import com.suyang.incense.db.entity.deal.DealComment;
 import com.suyang.incense.db.entity.deal.Gubun;
 import com.suyang.incense.db.entity.member.Member;
 import com.suyang.incense.db.entity.perfume.Perfume;
+import com.suyang.incense.db.repository.deal.DealCommentRepository;
 import com.suyang.incense.db.repository.deal.DealPhotoRepository;
 import com.suyang.incense.db.repository.deal.DealRepository;
 import com.suyang.incense.db.repository.member.MemberRepository;
@@ -29,6 +31,7 @@ import java.util.List;
 public class DealServiceImpl implements DealService  {
 
   private final DealRepository dealRepository;
+  private final DealCommentRepository dealCommentRepository;
   private final MemberRepository memberRepository;
   private final PerfumeRepository perfumeRepository;
   private final DealPhotoRepository dealPhotoRepository;
@@ -133,6 +136,12 @@ public class DealServiceImpl implements DealService  {
   public Page<DealListRes> getAllDeals(DealConditionReq dealConditionReq, Pageable pageable) {
 
     Page<DealListRes> result = dealRepository.getAllDeals(dealConditionReq, pageable);
+
+    //댓글 개수 setting
+    for(DealListRes dealListRes : result){
+      int totalCommentCount = dealCommentRepository.getCommentCount(dealListRes.getDealId());
+      dealListRes.setCommentCount(totalCommentCount);
+    }
 
     return result;
   }
