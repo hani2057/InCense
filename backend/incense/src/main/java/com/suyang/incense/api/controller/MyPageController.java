@@ -8,7 +8,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
@@ -26,8 +28,8 @@ public class MyPageController {
     @GetMapping("/perfume")
     @ApiOperation(value = "향수 조회", notes = "등록한 Have / Had / Want 향수 조회")
     public ResponseEntity<List<PerfumeRes>> getPerfumeList(@RequestParam String type,
-                                                           @RequestParam Long memberId) {
-        List<PerfumeRes> response = myPageService.getMyPerfume(type, memberId);
+                                                           @ApiIgnore Authentication authentication) {
+        List<PerfumeRes> response = myPageService.getMyPerfume(type, authentication);
         return ResponseEntity.status(200).body(response);
     }
 }
