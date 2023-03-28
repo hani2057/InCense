@@ -21,7 +21,7 @@ function ArticleCard() {
       <img src='assets/images/936.jpg' alt='sample1' style={{width:'9rem',height:'12rem',marginTop:'1rem',marginLeft:'1rem'}}/>
       <Box sx={{margin:'1rem',width:'60%'}}>
         <p style={{color:'grey'}}>2023.03.24</p>
-        <p style={{marginTop:'0.5rem',fontSize:'1.7rem',fontWeight:'bold'}}>이건 나눔/판매글 제목</p>
+        <p style={{marginTop:'0.5rem',fontSize:'1.7rem',fontWeight:'bold'}}>이건 제목</p>
         <p style={{marginTop:'1.5rem'}}>향수 브랜드</p>
         <p style={{marginTop:'0.5rem',fontWeight:'bold'}}>이건 향수 이름</p>
         <p style={{marginTop:'1rem',fontWeight:'bold',marginBottom:'0.5rem'}}>by NickName</p>

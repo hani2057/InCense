@@ -8,11 +8,17 @@ import CardComponent from "../ListPage/CardComponent";
 import DivideLine from "../../components/common/DivideLine/DivideLine";
 import ReviewTable from "./ReviewTable";
 import { useNavigate } from "react-router";
+import CheckStatus from "./CheckStatus";
+import CheckModal from "./CheckModal";
+
 
 const DetailPage = () => {
+
   const [alarmStatus, setAlarmStatus] = useState(false)
   const isLoggedIn = true
   const navigate = useNavigate()
+
+  // 알람 설정
   const onChangeAlarm = () => {
     if (isLoggedIn === true) {
       if(alarmStatus === false) {
@@ -28,6 +34,7 @@ const DetailPage = () => {
     }
   }
 
+  // 유사도 보여주기 설정
   const [showSimilarity, setShowSimilarity] = useState(false)
   const onClickButton = () => {
     if (isLoggedIn === true) {
@@ -39,6 +46,18 @@ const DetailPage = () => {
       navigate('/login')
     }
   }
+
+  // had/have/want 설정
+  const [typeIdx, setTypeIdx] = useState(null);
+
+  const [isOpen, setIsOpen] = useState(false)
+  const onClickModal = () => {
+    setIsOpen(true)
+  }
+  
+  console.log('333333', isOpen)
+  // console.log(typeIdx)
+  
 
   return (
 
@@ -95,8 +114,27 @@ const DetailPage = () => {
             <img style={{width:'auto', height:'20rem', position:'relative', top:'2.5rem'}} src="assets/images/fluer.png" alt='detailimage'></img>
           </Box>
           <Box
-            sx={{width:'25rem', height:'5rem', backgroundColor:'lightgrey'}}>
-            모달 자리.
+            sx={{width:'25rem', height:'5rem'}}>
+            <CheckStatus
+              onClickModal = {onClickModal}
+              textArr={["I had it", "I have it", "I want it"]}
+              pickedIdx={typeIdx}
+              setPickedIdx={setTypeIdx}
+              width="100%"
+              padding="0 5%"
+              color="dark-gray"
+              isOpen = {isOpen}
+              setIsOpen = {setIsOpen}/>
+              
+
+              {isOpen && (<CheckModal
+                open={isOpen}
+                setIsOpen = {setIsOpen}
+                onClose={() => {
+                  setIsOpen(false)
+                }}
+                idx={typeIdx}
+                />)}
           </Box>
         </Box>
         <Box
