@@ -1,7 +1,9 @@
 package com.suyang.incense.api.service.deal;
 
+import com.suyang.incense.api.request.deal.DealConditionReq;
 import com.suyang.incense.api.request.deal.DealReq;
 import com.suyang.incense.api.response.deal.DealDetailRes;
+import com.suyang.incense.api.response.deal.DealListRes;
 import com.suyang.incense.api.response.deal.DealPhotoListRes;
 import com.suyang.incense.db.entity.deal.Deal;
 import com.suyang.incense.db.entity.deal.Gubun;
@@ -12,6 +14,8 @@ import com.suyang.incense.db.repository.deal.DealRepository;
 import com.suyang.incense.db.repository.member.MemberRepository;
 import com.suyang.incense.db.repository.perfume.PerfumeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -124,5 +128,12 @@ public class DealServiceImpl implements DealService  {
 
     deal.setIsClosed((byte)1);
     return true;
+  }
+
+  public Page<DealListRes> getAllDeals(DealConditionReq dealConditionReq, Pageable pageable) {
+
+    Page<DealListRes> result = dealRepository.getAllDeals(dealConditionReq, pageable);
+
+    return result;
   }
 }
