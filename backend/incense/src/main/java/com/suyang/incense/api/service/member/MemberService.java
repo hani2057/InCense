@@ -11,10 +11,24 @@ import java.io.IOException;
 
 public interface MemberService {
 
+    // 회원가입 - 추가 정보 작성
     void registerMember(MemberRegisterReq memberRegisterReq);
+
+    // email을 통해서 사용자 정보 조회
     Member getMemberByEmail(String email);
+
+    // 닉네임 중복 체크 - 사용가능한 닉네임인지 판단
     boolean isPossibleNickname(String nickname);
+
+    // 사용자 전체 정보 조회
     MemberInfoRes getMemberInfo(Authentication authentication);
+
+    // 사용자 정보 변경
     void modifyMember(MemberModifyReq memberModifyReq, Authentication authentication) throws IOException;
+
+    // 사용자 프로필 이미지 변경
     String updateProfile(Long userId, MultipartFile file) throws IOException;
+
+    // 사용자 등급 변경
+    void checkRank(Long memberId);
 }
