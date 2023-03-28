@@ -21,9 +21,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 
 @Repository
@@ -33,6 +31,7 @@ public class DealCustomRepositoryImpl implements DealCustomRepository {
     private final JPAQueryFactory jpaQueryFactory;
 
     public DealDetailRes findDealById(Long dealId) {
+
         DealDetailRes result = jpaQueryFactory
                 .select(Projections.constructor(
                         DealDetailRes.class,
@@ -89,7 +88,9 @@ public class DealCustomRepositoryImpl implements DealCustomRepository {
                 .where(
                         eqGubun(dealConditionReq.getGubun()),
                         deliveryCheck(dealConditionReq.getTransaction()),
-                        closeCheck(dealConditionReq.getClose())
+                        closeCheck(dealConditionReq.getClose()),
+                        perfumeBrandCheck(dealConditionReq.getBrands()),
+                        noteCheck(dealConditionReq.getScents())
                 )
                 .orderBy(deal.createdDate.desc())
                 .fetch();
@@ -105,10 +106,14 @@ public class DealCustomRepositoryImpl implements DealCustomRepository {
         Long count = jpaQueryFactory
                 .select(deal.count())
                 .from(deal)
+                .innerJoin(perfume).on(deal.perfume.eq(perfume))
+                .innerJoin(perfumeNote).on(perfume.id.eq(perfumeNote.id))
                 .where(
                         eqGubun(dealConditionReq.getGubun()),
                         deliveryCheck(dealConditionReq.getTransaction()),
-                        closeCheck(dealConditionReq.getClose())
+                        closeCheck(dealConditionReq.getClose()),
+                        perfumeBrandCheck(dealConditionReq.getBrands()),
+                        noteCheck(dealConditionReq.getScents())
                 )
                 .fetchOne();
 
@@ -140,25 +145,81 @@ public class DealCustomRepositoryImpl implements DealCustomRepository {
     }
 
     //향수 브랜드 확인
-//    private BooleanExpression perfumeBrandCheck(List<Long> brands){
-//        if(brands == null || brands.size() == 0){
-//            return null;
-//        }
-//
-//        boolean etc = false;
-//        Collections.sort(brands);
-//        if(brands.get(0) < 0) etc = true;
-//
-//        List<Long> brandIds = new ArrayList<>();
-//
-//        if(etc){        //'기타'가 포함된 경우
-//
-//        } else{
-//            return perfume.brand.id.in(brands);
-//        }
-//
-//
-//    }
+    private BooleanExpression perfumeBrandCheck(List<Long> brands){
+        if(brands == null || brands.size() == 0){
+            return null;
+        }
+
+        boolean etc = false;
+        Collections.sort(brands);
+        if(brands.get(0) < 0) etc = true;
+
+        List<Long> brandIds = new ArrayList<>();
+
+        //Calvin Klein, BURBERRY, HUGO BOSS, Roberto Cavalli, DORALL COLLECTION, VERSACE, GUCCI
+        Long[] populars = {54L, 24L, 90L, 141L, 137L, 118L, 35L};
+
+        //'기타'가 포함된 경우
+        if(etc){
+            for(Long id : brands){
+                for(int p = 0, len = populars.length; p<len; p++){
+                    if(id.equals(populars[p])) {
+                        populars[p] = -1L;
+                        break;
+                    }
+                }
+            }
+
+            for(int p = 0, len = populars.length; p<len; p++){
+                if(!populars[p].equals(-1L)){
+                    brandIds.add(populars[p]);
+                }
+            }
+
+            return perfume.brand.id.notIn(brandIds);
+
+        } else{
+            return perfume.brand.id.in(brands);
+        }
+    }
 
     //향수 노트 확인
+    private BooleanExpression noteCheck(List<Long> scents){
+        if(scents == null || scents.size() == 0){
+            return null;
+        }
+
+        boolean etc = false;
+        Collections.sort(scents);
+        if(scents.get(0) < 0) etc = true;
+
+        List<Long> scentIds = new ArrayList<>();
+
+        //must, jasmine, amber, floral, sandalwood, vanilla, patchouli
+        Long[] populars = {319L, 740L, 46L, 8L, 14L, 23L, 122L};
+
+
+        //기타가 포함된 경우
+        if(etc){
+            for(Long id : scents){
+                for(int p = 0, len = populars.length; p<len; p++){
+                    if(id.equals(populars[p])) {
+                        populars[p] = -1L;
+                        break;
+                    }
+                }
+            }
+
+            for(int p = 0, len = populars.length; p<len; p++){
+                if(!populars[p].equals(-1L)){
+                    scentIds.add(populars[p]);
+                }
+            }
+
+            return perfumeNote.note.id.notIn(scentIds);
+
+        } else{
+            return perfumeNote.note.id.in(scents);
+        }
+    }
 }
