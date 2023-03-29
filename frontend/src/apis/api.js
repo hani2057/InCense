@@ -1,4 +1,4 @@
-import { defaultInstance } from ".";
+import { defaultInstance, authInstance } from ".";
 
 const USERS = "/member";
 const TEST = "/test";
@@ -17,8 +17,8 @@ const api = {
   },
   share: {
     getArticle: (id) => SHARE + `/${id}`,
-    register: () => SHARE + "register"
-  }
+    register: () => SHARE + "register",
+  },
 };
 
 export default api;
