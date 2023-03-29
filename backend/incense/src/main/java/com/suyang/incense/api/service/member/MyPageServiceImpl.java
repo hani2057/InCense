@@ -1,5 +1,6 @@
 package com.suyang.incense.api.service.member;
 
+import com.suyang.incense.api.request.member.mypage.PerfumeModifyReq;
 import com.suyang.incense.api.request.member.mypage.PerfumeRegisterReq;
 import com.suyang.incense.api.response.member.mypage.PerfumeRes;
 import com.suyang.incense.db.entity.member.Member;
@@ -61,6 +62,12 @@ public class MyPageServiceImpl implements MyPageService{
             review.setPerfume(perfume);
             reviewRepository.save(review);
         }
+    }
+
+    @Override
+    @Transactional
+    public void modifyPerfume(PerfumeModifyReq perfumeModifyReq, Authentication authentication) {
+
     }
 
     @Override
