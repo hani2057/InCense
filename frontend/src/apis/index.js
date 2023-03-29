@@ -32,20 +32,35 @@ const axiosAuthApi = (url, options) => {
     ...options,
   });
 
-  return instance;
+  // request handling
+  // 세션스토리지에서 토근 가져와 헤더에 적용
+  instance.interceptors.request.use(
+    (request) => {
+      const accessToken = sessionStorage.getItem("accessToken");
+      if (accessToken) {
+        request.headers["Authorization"] = `Bearer ${accessToken}`;
+      }
+      return request;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
 
-  // instance.interceptors.request.use(
-  //   function (config) {
-  //     const accessToken = localStorage.getItem("accessToken");
-  //     if (accessToken) {
-  //       config.headers["Authorization"] = accessToken;
-  //     }
-  //     return config;
-  //   },
-  //   function (error) {
-  //     return Promise.reject(error);
-  //   }
-  // );
+  // response handling
+  // 성공시 콘솔에 response.data 출력, 에러시 콘솔에 에러 출력
+  instance.interceptors.response.use(
+    (response) => {
+      console.log(response.data);
+
+      return response.data;
+    },
+    (error) => {
+      console.error(error);
+    }
+  );
+
+  return instance;
 };
 
 export const defaultInstance = axiosApi(BASE_URL);
