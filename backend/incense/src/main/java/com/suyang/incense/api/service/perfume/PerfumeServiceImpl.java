@@ -26,8 +26,6 @@ public class PerfumeServiceImpl implements PerfumeService{
 
     @Override
     public Perfume getPerfume(Long perfumeId){
-        perfumeRepository.findById(perfumeId);
-
-        return null;
+          return  perfumeRepository.findById(perfumeId).get();
     }
 }

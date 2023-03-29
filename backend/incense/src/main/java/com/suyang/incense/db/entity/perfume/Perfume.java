@@ -21,6 +21,7 @@ import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Getter
@@ -48,6 +49,12 @@ public class Perfume {
   private Byte gender;    //0: 남자, 1:여자, 2:양성, 3:어린이
   @NotNull
   private double rating;  //엑셀 데이터 평점
+
+  @ColumnDefault("0")
+  private Long popularCnt;
+
+  @ColumnDefault("0")
+  private Long commentCnt;
 
   @NotNull
   private String concentration;
