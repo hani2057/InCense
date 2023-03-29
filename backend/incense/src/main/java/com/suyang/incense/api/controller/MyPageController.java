@@ -39,4 +39,11 @@ public class MyPageController {
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
 
+    @DeleteMapping("/perfume/remove")
+    @ApiOperation(value = "향수 삭제", notes = "Have, Had, Want 향수 삭제")
+    public ResponseEntity<? extends BaseResponseBody> removeMyPerfume(@RequestBody PerfumeRegisterReq perfumeRegisterReq,
+                                                                        @ApiIgnore Authentication authentication) {
+
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+    }
 }
