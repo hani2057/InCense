@@ -7,6 +7,7 @@ import CheckboxGroup from "../../components/common/select/CheckboxGroup";
 import { useState } from "react";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router";
+import ArticleCard from "./ArticleCard/ArticleCard";
 
 // 체크박스 필터링시 들어가는 value값 확인하기
 
@@ -222,7 +223,7 @@ export default function SharePage() {
         
         <Box
           sx={{
-            marginRight:"10rem",
+            marginRight:"15rem",
             width:"100%"
           }}>
           <Box
@@ -249,11 +250,21 @@ export default function SharePage() {
               width:"100%",
               display:"flex",
               flexDirection:"row",
-              justifyContent:"space-between",
-              // flexWrap:"wrap",
+              justifyContent:"center",
+              flexWrap:"wrap",
               marginBottom:"5rem"              
             }}>
-            카드 공간
+            <ArticleCard/>
+            <ArticleCard/>
+            <ArticleCard/>
+            <ArticleCard/>
+            <ArticleCard/>
+            <ArticleCard/>
+            <ArticleCard/>
+            <ArticleCard/>
+            <ArticleCard/>
+            <ArticleCard/>
+
           </Box>
 
 
