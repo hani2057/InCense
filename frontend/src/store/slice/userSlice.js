@@ -14,9 +14,8 @@ const userSlice = createSlice({
   },
   reducers: {
     login: (state, action) => {
-      console.log(action.payload);
       state.isLoggedIn = true;
-      state.accessToken = action.payload;
+      state.accessToken = action.payload.accessToken;
     },
     logout: (state, action) => {
       state.isLoggedIn = false;

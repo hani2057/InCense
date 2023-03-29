@@ -25,7 +25,7 @@ const Toggle = ({
   padding,
 }) => {
   return (
-    <FlexDiv justify="space-between" align="center" padding={padding}>
+    <FlexDiv justify="start" align="center" padding={padding}>
       <ToggleWrapper>
         <ToggleInput
           id={id}
