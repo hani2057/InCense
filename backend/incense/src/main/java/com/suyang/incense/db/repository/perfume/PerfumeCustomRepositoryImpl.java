@@ -22,7 +22,7 @@ import static com.suyang.incense.db.entity.relation.QPerfumeNote.perfumeNote;
 @Repository
 public class PerfumeCustomRepositoryImpl implements PerfumeCustomRepository {
 
-    private final int PAGE_CNT=10;
+    private final int PAGE_CNT=20;
     private final JPAQueryFactory jpaQueryFactory;
 
 
@@ -46,7 +46,7 @@ public class PerfumeCustomRepositoryImpl implements PerfumeCustomRepository {
                 .orderBy(
                     orders(perfumeReq)
                 )
-                .offset(perfumeReq.getPage()-1)
+                .offset(perfumeReq.getPage()-1<0?0:perfumeReq.getPage()-1)
                 .limit(PAGE_CNT)
                 .fetch();
 
