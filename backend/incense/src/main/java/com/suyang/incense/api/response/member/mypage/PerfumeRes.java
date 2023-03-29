@@ -11,6 +11,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class PerfumeRes {
 
+    @ApiModelProperty(name = "내 향수 ID")
+    private Long myPerfumeId;
     @ApiModelProperty(name = "향수 ID")
     private Long perfumeId;
     @ApiModelProperty(name = "향수 브랜드 이름")
@@ -23,7 +25,8 @@ public class PerfumeRes {
     private boolean alarm;
 
     @QueryProjection
-    public PerfumeRes(Long perfumeId, String brandName, String perfumeName, String image) {
+    public PerfumeRes(Long myPerfumeId, Long perfumeId, String brandName, String perfumeName, String image) {
+        this.myPerfumeId = myPerfumeId;
         this.perfumeId = perfumeId;
         this.brandName = brandName;
         this.perfumeName = perfumeName;

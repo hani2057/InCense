@@ -27,6 +27,7 @@ public class MemberPerfumeCustomRepositoryImpl implements MemberPerfumeCustomRep
         List<PerfumeRes> result = jpaQueryFactory
                 .select(Projections.constructor(
                         PerfumeRes.class,
+                        memberPerfume.id,
                         perfume.id,
                         perfume.name,
                         brand.name,
