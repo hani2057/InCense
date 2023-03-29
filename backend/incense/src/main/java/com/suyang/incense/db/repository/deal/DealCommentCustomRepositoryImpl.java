@@ -97,6 +97,7 @@ public class DealCommentCustomRepositoryImpl implements DealCommentCustomReposit
                 .select(commentReply.count())
                 .from(commentReply)
                 .innerJoin(dealComment).on(commentReply.dealComment.eq(dealComment))
+                .where(dealComment.id.eq(dealId))
                 .fetchOne();
 
         int comments = Optional.ofNullable(commentCount).orElse(0L).intValue();
