@@ -22,10 +22,6 @@ const api = {
   // },
   share: {
     getArticle: (id) => SHARE + `/${id}`,
-<<<<<<< Updated upstream
-    register: () => SHARE + "register",
-  },
-=======
     register: () => SHARE + "register"
   },
   list: {
@@ -35,7 +31,6 @@ const api = {
   image: {
     getImage: (fileName) => defaultInstance.get(`${IMG}?filename=${fileName}`)
   }
->>>>>>> Stashed changes
 };
 
 export default api;
