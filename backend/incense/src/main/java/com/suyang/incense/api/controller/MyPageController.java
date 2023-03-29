@@ -31,7 +31,7 @@ public class MyPageController {
         return ResponseEntity.status(200).body(response);
     }
 
-    @PostMapping("/perfume/register")
+    @PostMapping("/perfume")
     @ApiOperation(value = "향수 등록", notes = "Have, Had, Want 향수 등록")
     public ResponseEntity<? extends BaseResponseBody> registerMyPerfume(@RequestBody PerfumeRegisterReq perfumeRegisterReq,
                                                                         @ApiIgnore Authentication authentication) {
@@ -39,11 +39,10 @@ public class MyPageController {
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
 
-    @DeleteMapping("/perfume/remove")
+    @DeleteMapping("/perfume")
     @ApiOperation(value = "향수 삭제", notes = "Have, Had, Want 향수 삭제")
-    public ResponseEntity<? extends BaseResponseBody> removeMyPerfume(@RequestBody PerfumeRegisterReq perfumeRegisterReq,
-                                                                        @ApiIgnore Authentication authentication) {
-
+    public ResponseEntity<? extends BaseResponseBody> removeMyPerfume(@RequestParam Long myPerfumeId) {
+        myPageService.removePerfume(myPerfumeId);
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
 }

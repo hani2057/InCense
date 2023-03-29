@@ -107,7 +107,7 @@ public class MemberServiceImpl implements MemberService {
                 break;
             case 2:
                 gradeLog.setScore(10);
-                gradeLog.setReason("댓글 작성");
+                gradeLog.setReason("댓글/대댓글 작성");
                 member.setScore(member.getScore()+10);
                 break;
             case 3:

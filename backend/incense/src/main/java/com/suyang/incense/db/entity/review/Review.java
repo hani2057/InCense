@@ -1,23 +1,13 @@
 package com.suyang.incense.db.entity.review;
 
 import com.suyang.incense.common.BaseTimeEntity;
-import com.suyang.incense.db.entity.relation.MemberPerfume;
-import java.time.LocalDateTime;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import com.suyang.incense.db.entity.member.Member;
+import com.suyang.incense.db.entity.perfume.Perfume;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 @Entity
 @Getter
@@ -31,9 +21,13 @@ public class Review extends BaseTimeEntity {
   @Column(name = "review_id")
   private Long id;
 
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "member_perfume_id")
-  private MemberPerfume memberPerfume;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "member_id")
+  private Member member;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "perfume_id")
+  private Perfume perfume;
 
   @NotNull
   private double preference;

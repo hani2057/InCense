@@ -2,6 +2,7 @@ package com.suyang.incense.api.service.member;
 
 import com.suyang.incense.api.request.member.mypage.PerfumeRegisterReq;
 import com.suyang.incense.api.response.member.mypage.PerfumeRes;
+import com.suyang.incense.db.entity.member.Member;
 import com.suyang.incense.db.entity.perfume.Perfume;
 import com.suyang.incense.db.entity.relation.Category;
 import com.suyang.incense.db.entity.relation.MemberPerfume;
@@ -40,22 +41,30 @@ public class MyPageServiceImpl implements MyPageService{
     public void registerPerfume(PerfumeRegisterReq perfumeRegisterReq, Authentication authentication) {
         String category = perfumeRegisterReq.getCategory();
         Perfume perfume = perfumeRepository.findById(perfumeRegisterReq.getPerfumeId()).get();
+        Member member = memberRepository.findById(authService.getIdByAuthentication(authentication)).get();
         // MemberPerfume
         MemberPerfume memberPerfume = new MemberPerfume();
-        memberPerfume.setMember(memberRepository.findById(authService.getIdByAuthentication(authentication)).get());
+        memberPerfume.setMember(member);
         memberPerfume.setPerfume(perfume);
         memberPerfume.setCategory(Category.valueOf(category));
-        MemberPerfume myPerfume = memberPerfumeRepository.save(memberPerfume);
+        memberPerfumeRepository.save(memberPerfume);
         // review
         if(category.equals("WANT")) {
             // popular_cnt +1 : 향수 Service로 빼서 구성할지 미정
             perfume.setPopularCnt(perfume.getPopularCnt() + 1);
         } else {
+            perfume.setCommentCnt(perfume.getCommentCnt() + 1);
             Review review = new Review();
-            review.setMemberPerfume(myPerfume);
             review.setPreference(perfumeRegisterReq.getPreference());
             review.setComment(perfumeRegisterReq.getComment());
+            review.setMember(member);
+            review.setPerfume(perfume);
             reviewRepository.save(review);
         }
+    }
+
+    @Override
+    public void removePerfume(Long myPerfumeId) {
+        memberPerfumeRepository.deleteById(myPerfumeId);
     }
 }
