@@ -45,4 +45,11 @@ public class MyPageController {
         myPageService.removePerfume(myPerfumeId);
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
+
+    @PutMapping("/perfume")
+    @ApiOperation(value = "향수 카테고리 수정", notes = "Have, Had, Want 향수 카테고리 서로 변경")
+    public ResponseEntity<? extends BaseResponseBody> modifyMyPerfume(@RequestParam Long myPerfumeId) {
+
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+    }
 }
