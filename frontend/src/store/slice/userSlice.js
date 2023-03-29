@@ -1,11 +1,28 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import api from "../../apis/api";
 
-export const userSlice = createSlice({
+// export const login = createAsyncThunk("user/login", async (code) => {
+//   const res = await api.user.login("kakao", { params: { code: code } });
+//   return res.data;
+// });
+
+const userSlice = createSlice({
   name: "user",
   initialState: {
-    isLogedIn: false,
+    isLoggedIn: false,
+    accessToken: null,
   },
-  reducers: {},
+  reducers: {
+    login: (state, action) => {
+      console.log(action.payload);
+      state.isLoggedIn = true;
+      state.accessToken = action.payload;
+    },
+    logout: (state, action) => {
+      state.isLoggedIn = false;
+      state.accessToken = null;
+    },
+  },
   // extraReducers: (builder) => {
   //   builder.addCase(login.fulfilled, (state, action) => {
   //     state.isLogedIn = true
@@ -14,4 +31,5 @@ export const userSlice = createSlice({
 });
 
 export const userReducers = userSlice.reducer;
+export const { login, logout } = userSlice.actions;
 export default userSlice;

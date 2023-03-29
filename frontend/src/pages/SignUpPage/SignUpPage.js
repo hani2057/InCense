@@ -10,12 +10,15 @@ import { TitleSpan } from "../LogInPage/style";
 import SignUpItem from "../../components/SignUpItem/SignUpItem";
 import { SignUpItemWrapper, SignUpSpan } from "./style";
 import api from "../../apis/api";
+import { useDispatch } from "react-redux";
+import { login } from "../../store/slice/userSlice";
 
 dayjs.extend(isBetween);
 dayjs.extend(customParseFormat);
 // dayjs.locale("ko");
 
 const SignUpPage = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { email, type } = useLocation().state;
 
@@ -78,7 +81,7 @@ const SignUpPage = () => {
   };
 
   const fetchPostMemberInfo = async (name, birth, genderPickedIdx) => {
-    await api.user.register({
+    const res = await api.user.register({
       alarmOpen: 1,
       birth: birth,
       birthOpen: 1,
@@ -91,6 +94,7 @@ const SignUpPage = () => {
     });
 
     // accessToken 리덕스에 저장
+    dispatch(login({ accessToken: res.accessToken }));
 
     // 홈으로 이동
     navigate("/");
