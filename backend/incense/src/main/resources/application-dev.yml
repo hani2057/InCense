@@ -8,10 +8,10 @@ spring:
       username: root
       password: ssafy
     driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    hibernate:
-      ddl-auto: create
-  sql:
-    init:
-      mode: always
-  data: classpath:data.sql
+  # jpa:
+  #   hibernate:
+  #     ddl-auto: create
+  # sql:
+  #   init:
+  #     mode: always
+  # data: classpath:data.sql
