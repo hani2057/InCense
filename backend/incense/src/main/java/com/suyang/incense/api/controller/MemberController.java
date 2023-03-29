@@ -58,4 +58,11 @@ public class MemberController {
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
 
+//    @PostMapping("/rank/add")
+//    @ApiOperation(value = "점수 로그 작성", notes = "점수 추가")
+//    public ResponseEntity<? extends BaseResponseBody> temp(@RequestParam int type, @RequestParam Long memberId) {
+//        memberService.addRank(type, memberId);
+//        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+//    }
+
 }

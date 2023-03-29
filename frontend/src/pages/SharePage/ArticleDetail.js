@@ -6,14 +6,15 @@ import { Button } from "@mui/material";
 import {Checkbox} from '@mui/material';
 import {FormControlLabel} from '@mui/material';
 import SimpleImageSlider from "react-simple-image-slider";
-import perfumeImage from './fluer.png'
-import bg1Image from './bgimg1.png'
-import bg2Image from './bgimg2.png'
-import bg3Image from './bgimg3.png'
+import perfumeImage1 from './990.jpg'
+import perfumeImage2 from './991.jpg'
+import perfumeImage3 from './992.jpg'
+import perfumeImage4 from './993.jpg'
 import CommentBox from './CommentBox';
 import star1 from './star1.svg'
 import star2 from './star2.svg'
 import MenuButton from './MenuButton';
+// import DropdownMenu from './DropdownMenu';
 // import CommentSample from './CommentSample';
 
 
@@ -23,10 +24,10 @@ import MenuButton from './MenuButton';
 function ArticleDetail() {
 
   const images = [
-    {url: perfumeImage},
-    {url: bg1Image},
-    {url: bg2Image},
-    {url: bg3Image},
+    {url: perfumeImage1},
+    {url: perfumeImage2},
+    {url: perfumeImage3},
+    {url: perfumeImage4},
     
   ]
 
@@ -99,21 +100,23 @@ function ArticleDetail() {
           </Box>
           <P3>제품명 : fleur de peau</P3>
           <P3>브랜드 : Diptyque</P3>
+          <Box
+            sx={{width:'100%', height:'0.1rem', backgroundColor:'#DCDCDC',marginTop:'2rem',marginBottom:'2rem'}}>
+          </Box>
+
+          <Box sx={{width:'100%', marginBottom:'5rem'}}>
+            <p style={{ marginBottom:'1rem'}}>내용1</p>
+            <p style={{ marginBottom:'1rem'}}>내용2</p>
+            <p style={{ marginBottom:'20rem'}}>내용3</p>
+          </Box>
         </Box>
-        <Box sx={{width:'40%', display:'flex',flexDirection:'column'}}>
+        <Box sx={{width:'40%', display:'flex',flexDirection:'column',marginTop:'3rem'}}>
           <SimpleImageSlider
-            style={{marginLeft:'2rem'}} width={300} height={300} navMargin={0} images={images} showBullets={true} showNavs={true} />
+            style={{marginLeft:'2rem'}} width={300} height={400} navMargin={0} images={images} showBullets={true} showNavs={true} />
         </Box>
         
       </Box>
-      <Box
-        sx={{width:'100%', height:'0.1rem', backgroundColor:'#DCDCDC',marginTop:'2rem',marginBottom:'2rem',marginLeft:'1rem'}}>
-      </Box>
-      <Box sx={{width:'100%', marginBottom:'5rem'}}>
-        <p style={{marginLeft:'1rem', marginBottom:'1rem'}}>내용1</p>
-        <p style={{marginLeft:'1rem', marginBottom:'1rem'}}>내용2</p>
-        <p style={{marginLeft:'1rem', marginBottom:'20rem'}}>내용3</p>
-      </Box>
+
       
       <h1 style={{marginLeft:'1rem', fontSize:'1.3rem',fontWeight:'bold'}}>댓글</h1>
       <Box

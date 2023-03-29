@@ -4,11 +4,9 @@ import com.suyang.incense.api.request.member.MemberModifyReq;
 import com.suyang.incense.api.request.member.MemberRegisterReq;
 import com.suyang.incense.api.response.member.MemberInfoRes;
 import com.suyang.incense.common.FileHandler;
-import com.suyang.incense.db.entity.member.Grade;
-import com.suyang.incense.db.entity.member.Member;
-import com.suyang.incense.db.entity.member.Role;
-import com.suyang.incense.db.entity.member.SocialType;
+import com.suyang.incense.db.entity.member.*;
 import com.suyang.incense.db.repository.member.GradeCustomRepository;
+import com.suyang.incense.db.repository.member.GradeLogRepository;
 import com.suyang.incense.db.repository.member.GradeRepository;
 import com.suyang.incense.db.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +28,7 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final GradeRepository gradeRepository;
     private final GradeCustomRepository gradeCustomRepository;
+    private final GradeLogRepository gradeLogRepository;
     private final FileHandler fileHandler;
 
     @Override
@@ -95,9 +94,43 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    @Transactional
+    public void addRank(int type, Long memberId) {
+        GradeLog gradeLog = new GradeLog();
+        Member member = memberRepository.findById(memberId).get();
+        gradeLog.setMember(member);
+        switch (type) {
+            case 1:
+                gradeLog.setScore(20);
+                gradeLog.setReason("나눔/판매 글 업로드");
+                member.setScore(member.getScore()+20);
+                break;
+            case 2:
+                gradeLog.setScore(10);
+                gradeLog.setReason("댓글 작성");
+                member.setScore(member.getScore()+10);
+                break;
+            case 3:
+                gradeLog.setScore(20);
+                gradeLog.setReason("후기 작성");
+                member.setScore(member.getScore()+20);
+                break;
+            case 4:
+                gradeLog.setScore(100);
+                gradeLog.setReason("첫번째 테스트 완료");
+                member.setScore(member.getScore()+100);
+                break;
+            default:
+                gradeLog.setScore(0);
+                gradeLog.setReason("버그");
+                break;
+        }
+        gradeLogRepository.save(gradeLog);
+    }
+
+    @Override
     public void checkRank(Long memberId) {
         String rank = gradeCustomRepository.checkMemberRank(memberId);
-        System.out.println("Rank = " + rank);
         Member member = memberRepository.findById(memberId).get();
         member.setGrade(gradeRepository.findByName(rank).get());
     }
