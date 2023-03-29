@@ -11,7 +11,7 @@ const axiosApi = (url, options) => {
   // 성공시 콘솔에 response.data 출력, 에러시 콘솔에 에러 출력
   instance.interceptors.response.use(
     (response) => {
-      console.log(response.data);
+      // console.log(response.data);
 
       return response.data;
     },

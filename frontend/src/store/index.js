@@ -4,12 +4,17 @@ import storageSession from "redux-persist/lib/storage/session";
 // import persistStore from 'redux-persist/es/persistStore';
 import { articleReducers } from "./slice/articleSlice";
 import { userReducers } from "./slice/userSlice";
+import { perfumeInfoReducers } from "./slice/perfumeInfoSlice";
+import { perfumeListReducers } from "./slice/perfumeListSlice";
 
 // const customHistory = createBrowserHistory();
 
 const rootReducer = combineReducers({
   articleReducers,
   userReducers,
+  perfumeInfoReducers,
+  perfumeListReducers,
+
 });
 
 const persistConfig = {
