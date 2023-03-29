@@ -9,8 +9,13 @@ const ALARM = "/alarm";
 
 const api = {
   user: {
-    login: (type, params) => defaultInstance.get(`/auth/login/${type}`, params),
+    login: (type, code) =>
+      defaultInstance.get(`/auth/login/${type}`, { params: { code: code } }),
     register: (data) => defaultInstance.post(`${USERS}/register`, data),
+    checkName: (name) =>
+      defaultInstance.get(`${USERS}/nickname/check`, {
+        params: { nickname: name },
+      }),
   },
   share: {
     getList: () => defaultInstance.get("/deal"),

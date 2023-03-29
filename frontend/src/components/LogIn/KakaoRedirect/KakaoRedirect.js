@@ -21,7 +21,7 @@ const KakaoRedirect = (props) => {
   // }, []);
 
   const kakaoLogin = async (code) => {
-    const res = await api.user.login("kakao", { params: { code: code } });
+    const res = await api.user.login("kakao", code);
     if (res.accessToken) {
       dispatch(login({ accessToken: res.accessToken }));
       navigate("/");
