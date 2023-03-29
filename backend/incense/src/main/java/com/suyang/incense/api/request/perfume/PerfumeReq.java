@@ -6,7 +6,7 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Builder
+
 @Getter
 @Setter
 public class PerfumeReq {
@@ -16,5 +16,5 @@ public class PerfumeReq {
     private List<Long> scent;
     private List<String> concentration;
     private String sorted;
-    private int page;
+    private int page = 0;
 }
