@@ -96,16 +96,6 @@ const SignUpPage = () => {
       });
       setGenderMsg("성별을 선택해주세요");
     } else {
-      // console.log({
-      //   email: email,
-      //   type: type,
-      //   nickname: name,
-      //   birth: dayjs(birth).format("YYYY-MM-DD"),
-      //   birthOpen: birthOpen ? 1 : 0,
-      //   gender: genderPickedIdx,
-      //   genderOpen: genderOpen ? 1 : 0,
-      //   alarmOpen: 1,
-      // });
       const res = await api.user.register({
         email: email,
         type: type,
