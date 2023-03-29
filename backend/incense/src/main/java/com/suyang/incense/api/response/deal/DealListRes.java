@@ -68,7 +68,6 @@ public class DealListRes {
         this.price = price;
         this.isDelivery = isDelivery;
         this.isClosed = isClosed;
-//        this.commentCount = commentCount;
         this.nickName = nickName;
         this.perfumeBrand = perfumeBrand;
         this.perfumeName = perfumeName;

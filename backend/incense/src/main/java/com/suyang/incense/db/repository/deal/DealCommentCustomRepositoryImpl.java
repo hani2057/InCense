@@ -5,13 +5,11 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.suyang.incense.api.response.deal.CommentReplyRes;
 import com.suyang.incense.api.response.deal.DealCommentRes;
+import com.suyang.incense.db.entity.deal.DealComment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.suyang.incense.db.entity.deal.QCommentReply.commentReply;
 import static com.suyang.incense.db.entity.deal.QDealComment.dealComment;
@@ -87,4 +85,26 @@ public class DealCommentCustomRepositoryImpl implements DealCommentCustomReposit
 
         return result;
     }
+
+    public int getCommentCount(Long dealId) {
+
+        Long commentCount = jpaQueryFactory
+                .select(dealComment.count())
+                .from(dealComment)
+                .where(dealComment.deal.id.eq(dealId)).fetchOne();
+
+        Long replyCount = jpaQueryFactory
+                .select(commentReply.count())
+                .from(commentReply)
+                .innerJoin(dealComment).on(commentReply.dealComment.eq(dealComment))
+                .fetchOne();
+
+        int comments = Optional.ofNullable(commentCount).orElse(0L).intValue();
+        int replys = Optional.ofNullable(replyCount).orElse(0L).intValue();
+
+        return comments + replys;
+
+    }
+
+
 }
