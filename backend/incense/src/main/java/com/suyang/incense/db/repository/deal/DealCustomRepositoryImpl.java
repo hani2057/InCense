@@ -80,11 +80,12 @@ public class DealCustomRepositoryImpl implements DealCustomRepository {
                         perfume.name,
                         perfume.image
                         ))
+                .distinct()
                 .from(deal)
-                .innerJoin(member).on(deal.member.eq(member))
-                .innerJoin(perfume).on(deal.perfume.eq(perfume))
-                .innerJoin(perfumeNote).on(perfume.id.eq(perfumeNote.id))
-                .innerJoin(brand).on(perfume.brand.eq(brand))
+                .innerJoin(member).on(deal.member.id.eq(member.id))
+                .innerJoin(perfume).on(deal.perfume.id.eq(perfume.id))
+                .innerJoin(perfumeNote).on(perfume.id.eq(perfumeNote.perfume.id))
+                .innerJoin(brand).on(perfume.brand.id.eq(brand.id))
                 .where(
                         eqGubun(dealConditionReq.getGubun()),
                         deliveryCheck(dealConditionReq.getTransaction()),
@@ -105,9 +106,10 @@ public class DealCustomRepositoryImpl implements DealCustomRepository {
 
         Long count = jpaQueryFactory
                 .select(deal.count())
+                .distinct()
                 .from(deal)
-                .innerJoin(perfume).on(deal.perfume.eq(perfume))
-                .innerJoin(perfumeNote).on(perfume.id.eq(perfumeNote.id))
+                .innerJoin(perfume).on(deal.perfume.id.eq(perfume.id))
+                .innerJoin(perfumeNote).on(perfume.id.eq(perfumeNote.perfume.id))
                 .where(
                         eqGubun(dealConditionReq.getGubun()),
                         deliveryCheck(dealConditionReq.getTransaction()),

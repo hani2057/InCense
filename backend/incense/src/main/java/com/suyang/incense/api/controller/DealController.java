@@ -6,12 +6,14 @@ import com.suyang.incense.api.request.deal.DealReq;
 import com.suyang.incense.api.response.deal.DealCommentRes;
 import com.suyang.incense.api.response.deal.DealDetailRes;
 import com.suyang.incense.api.response.deal.DealListRes;
+import com.suyang.incense.api.service.deal.DealBookmarkService;
 import com.suyang.incense.api.service.deal.DealCommentService;
 import com.suyang.incense.api.service.deal.DealPhotoService;
 import com.suyang.incense.api.service.deal.DealService;
 import com.suyang.incense.db.entity.deal.Deal;
 import com.suyang.incense.db.entity.deal.DealPhoto;
 import com.suyang.incense.db.entity.deal.Gubun;
+import com.suyang.incense.db.entity.member.Member;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -19,6 +21,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,6 +47,7 @@ public class DealController {
   private final DealService dealService;
   private final DealPhotoService dealPhotoService;
   private final DealCommentService dealCommentService;
+  private final DealBookmarkService dealBookmarkService;
 
   @ApiOperation(value = "나눔/판매 글 생성")
   @PostMapping(consumes = {"multipart/form-data"})
@@ -124,9 +128,6 @@ public class DealController {
 
     return ResponseEntity.status(200).body(result);
 
-
-
-
   }
 
   //나눔/판매 글 상세 조회 컨트롤러
@@ -205,6 +206,34 @@ public class DealController {
     List<DealCommentRes> result = dealCommentService.getComments(dealId);
 
     return ResponseEntity.status(200).body(result);
+  }
+
+  @ApiOperation(value = "나눔/판매 북마크 ON/OFF")
+  @PutMapping("/bookmark/{deal-id}")
+  public ResponseEntity<?> setBookmarkStatus(
+          @PathVariable(value = "deal-id") Long dealId) {
+
+    //북마크 등록되어 있는 경우 북마크 해제, 해제되어 있는 경우 등록
+//    Boolean isRegistered = dealBookmarkService.setBookmarkStatus(dealId, memberId);
+    Boolean isRegistered = dealBookmarkService.setBookmarkStatus(dealId, 1L);
+
+    return ResponseEntity.status(200).body(isRegistered);
+
+  }
+
+  @ApiOperation(value = "나눔/판매 북마크 여부 조회")
+  @GetMapping("/bookmark/{deal-id}")
+  public ResponseEntity<Map<String, Boolean>> getBookmartStatus(
+          @PathVariable(value = "deal-id") Long dealId) {
+
+//    Boolean isRegistered = dealBookmarkService.getBookmarkStatus(dealId, memberId);
+    Boolean isRegistered = dealBookmarkService.getBookmarkStatus(dealId, 1L);
+
+    Map<String, Boolean> result = new HashMap<>();
+    result.put("bookmark", isRegistered);
+
+    return ResponseEntity.status(200).body(result);
+
   }
 
 }
