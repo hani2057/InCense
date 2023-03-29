@@ -1,9 +1,9 @@
 package com.suyang.incense.api.controller;
 
+import com.suyang.incense.api.request.member.mypage.PerfumeRegisterReq;
 import com.suyang.incense.api.response.member.mypage.PerfumeRes;
-import com.suyang.incense.api.service.member.AuthService;
-import com.suyang.incense.api.service.member.MemberService;
 import com.suyang.incense.api.service.member.MyPageService;
+import com.suyang.incense.common.util.BaseResponseBody;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -21,15 +21,23 @@ import java.util.List;
 @RequestMapping("/mypage")
 public class MyPageController {
 
-    private final MemberService memberService;
     private final MyPageService myPageService;
-    private final AuthService authService;
 
     @GetMapping("/perfume")
-    @ApiOperation(value = "향수 조회", notes = "등록한 Have / Had / Want 향수 조회")
+    @ApiOperation(value = "향수 조회", notes = "등록한 Have, Had, Want 향수 조회")
     public ResponseEntity<List<PerfumeRes>> getPerfumeList(@RequestParam String type,
                                                            @ApiIgnore Authentication authentication) {
         List<PerfumeRes> response = myPageService.getMyPerfume(type, authentication);
         return ResponseEntity.status(200).body(response);
     }
+
+    @PostMapping("/perfume/register")
+    @ApiOperation(value = "향수 등록", notes = "Have, Had, Want 향수 등록")
+    public ResponseEntity<? extends BaseResponseBody> registerMyPerfume(@RequestBody PerfumeRegisterReq perfumeRegisterReq,
+                                                                        @RequestParam Long id) {
+        System.out.println("### perfumeRegisterReq.getPerfumeId() = " + perfumeRegisterReq.getPerfumeId() );
+        myPageService.registerPerfume(perfumeRegisterReq, id);
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+    }
+
 }
