@@ -1,4 +1,4 @@
-import { defaultInstance } from ".";
+import { defaultInstance, authInstance } from ".";
 
 const USERS = "/member";
 const TEST = "/test";
@@ -9,16 +9,21 @@ const ALARM = "/alarm";
 
 const api = {
   user: {
-    login: (type, params) => defaultInstance.get(`/auth/login/${type}`, params),
+    login: (type, code) =>
+      defaultInstance.get(`/auth/login/${type}`, { params: { code: code } }),
     register: (data) => defaultInstance.post(`${USERS}/register`, data),
+    checkName: (name) =>
+      defaultInstance.get(`${USERS}/nickname/check`, {
+        params: { nickname: name },
+      }),
   },
   share: {
     getList: () => defaultInstance.get("/deal"),
   },
   share: {
     getArticle: (id) => SHARE + `/${id}`,
-    register: () => SHARE + "register"
-  }
+    register: () => SHARE + "register",
+  },
 };
 
 export default api;
