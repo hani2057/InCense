@@ -19,7 +19,7 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/list" element={<ListPage />} />
-        <Route path="/detail" element={<DetailPage />} />
+        <Route path="/detail/:detailId" element={<DetailPage />} />
         <Route path="/share" element={<SharePage />} />
         <Route path="/share/register" element={<RegisterPage />} />
         <Route

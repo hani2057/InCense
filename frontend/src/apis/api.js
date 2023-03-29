@@ -17,13 +17,25 @@ const api = {
         params: { nickname: name },
       }),
   },
-  share: {
-    getList: () => defaultInstance.get("/deal"),
-  },
+  // share: {
+  //   getList: () => defaultInstance.get("/deal"),
+  // },
   share: {
     getArticle: (id) => SHARE + `/${id}`,
+<<<<<<< Updated upstream
     register: () => SHARE + "register",
   },
+=======
+    register: () => SHARE + "register"
+  },
+  list: {
+    getList: (page) => defaultInstance.get(`${PERFUMES}?page=${page}`),
+    getDetail: (detailId) => defaultInstance.get(`${PERFUMES}/${detailId}`)
+  },
+  image: {
+    getImage: (fileName) => defaultInstance.get(`${IMG}?filename=${fileName}`)
+  }
+>>>>>>> Stashed changes
 };
 
 export default api;
