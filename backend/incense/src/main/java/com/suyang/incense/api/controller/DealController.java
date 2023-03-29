@@ -2,14 +2,12 @@ package com.suyang.incense.api.controller;
 
 import com.suyang.incense.api.request.deal.DealCommentReq;
 import com.suyang.incense.api.request.deal.DealConditionReq;
+import com.suyang.incense.api.request.deal.DealReportReq;
 import com.suyang.incense.api.request.deal.DealReq;
 import com.suyang.incense.api.response.deal.DealCommentRes;
 import com.suyang.incense.api.response.deal.DealDetailRes;
 import com.suyang.incense.api.response.deal.DealListRes;
-import com.suyang.incense.api.service.deal.DealBookmarkService;
-import com.suyang.incense.api.service.deal.DealCommentService;
-import com.suyang.incense.api.service.deal.DealPhotoService;
-import com.suyang.incense.api.service.deal.DealService;
+import com.suyang.incense.api.service.deal.*;
 import com.suyang.incense.db.entity.deal.Deal;
 import com.suyang.incense.db.entity.deal.DealPhoto;
 import com.suyang.incense.db.entity.deal.Gubun;
@@ -48,6 +46,7 @@ public class DealController {
   private final DealPhotoService dealPhotoService;
   private final DealCommentService dealCommentService;
   private final DealBookmarkService dealBookmarkService;
+  private final DealReportService dealReportService;
 
   @ApiOperation(value = "나눔/판매 글 생성")
   @PostMapping(consumes = {"multipart/form-data"})
@@ -234,6 +233,16 @@ public class DealController {
 
     return ResponseEntity.status(200).body(result);
 
+  }
+
+  @ApiOperation(value = "나눔/판매 글 신고")
+  @PostMapping("/report")
+  public ResponseEntity<?> createReport(
+          @RequestBody @ApiParam(value = "나눔/판매 신고 정보", required = true) DealReportReq dealReportReq){
+
+//    dealReportService.createReport(dealReportReq, memberId);
+    dealReportService.createReport(dealReportReq, 1L);
+    return ResponseEntity.status(200).body("success");
   }
 
 }
