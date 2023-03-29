@@ -35,7 +35,7 @@ const axiosAuthApi = (url, options) => {
   // 스토어에서 토큰 가져와 헤더에 적용
   instance.interceptors.request.use(
     (request) => {
-      const accessToken = useSelector((state) => state.user.accessToken);
+      const accessToken = useSelector((state) => state.userReducer.accessToken);
       if (accessToken) {
         request.headers["Authorization"] = `Bearer ${accessToken}`;
       }
