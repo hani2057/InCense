@@ -15,6 +15,10 @@ const api = {
   share: {
     getList: () => defaultInstance.get("/deal"),
   },
+  share: {
+    getArticle: (id) => SHARE + `/${id}`,
+    register: () => SHARE + "register"
+  }
 };
 
 export default api;

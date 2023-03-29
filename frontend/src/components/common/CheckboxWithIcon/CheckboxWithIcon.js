@@ -31,8 +31,12 @@ const CheckboxWithIcon = ({
         style={{
           color: `${
             isChecked
-              ? `var(--${colorPicked}-color` || "var(--main-color)"
-              : `var(--${color}-color` || "var(--gray-color)"
+              ? colorPicked
+                ? `var(--${colorPicked}-color`
+                : "var(--main-color)"
+              : color
+              ? `var(--${color}-color`
+              : "var(--gray-color)"
           }`,
         }}
       />
@@ -40,8 +44,12 @@ const CheckboxWithIcon = ({
         style={{
           color: `${
             isChecked
-              ? `var(--${colorPicked}-color` || "var(--main-color)"
-              : `var(--${color}-color` || "var(--gray-color)"
+              ? colorPicked
+                ? `var(--${colorPicked}-color`
+                : "var(--main-color)"
+              : color
+              ? `var(--${color}-color`
+              : "var(--gray-color)"
           }`,
           paddingLeft: "0.5rem",
         }}

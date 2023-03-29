@@ -37,8 +37,6 @@ public class MemberPerfumeCustomRepositoryImpl implements MemberPerfumeCustomRep
                         memberPerfume.member.id.eq(memberId), memberPerfume.category.eq(Category.valueOf(type)))
                 .fetch();
 
-
-
 //        select exists (
 //                select member_perfume_alarm_id
 //        from member_perfume_alarm
