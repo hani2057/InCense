@@ -39,17 +39,17 @@ public class MyPageServiceImpl implements MyPageService{
     @Transactional
     public void registerPerfume(PerfumeRegisterReq perfumeRegisterReq, Authentication authentication) {
         String category = perfumeRegisterReq.getCategory();
+        Perfume perfume = perfumeRepository.findById(perfumeRegisterReq.getPerfumeId()).get();
         // MemberPerfume
         MemberPerfume memberPerfume = new MemberPerfume();
         memberPerfume.setMember(memberRepository.findById(authService.getIdByAuthentication(authentication)).get());
-        memberPerfume.setPerfume(perfumeRepository.findById(perfumeRegisterReq.getPerfumeId()).get());
+        memberPerfume.setPerfume(perfume);
         memberPerfume.setCategory(Category.valueOf(category));
         MemberPerfume myPerfume = memberPerfumeRepository.save(memberPerfume);
         // review
         if(category.equals("WANT")) {
             // popular_cnt +1 : 향수 Service로 빼서 구성할지 미정
-            Perfume perfume = perfumeRepository.findById(myPerfume.getId()).get();
-            perfume.setPopularCnt(perfume.getPopularCnt()+1);
+            perfume.setPopularCnt(perfume.getPopularCnt() + 1);
         } else {
             Review review = new Review();
             review.setMemberPerfume(myPerfume);
