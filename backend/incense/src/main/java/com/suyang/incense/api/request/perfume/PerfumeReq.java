@@ -12,8 +12,8 @@ import java.util.List;
 public class PerfumeReq {
 
     private String search;
-    private List<String> brand;
-    private List<String> scent;
+    private List<Long> brand;
+    private List<Long> scent;
     private List<String> concentration;
     private String sorted;
     private int page;
