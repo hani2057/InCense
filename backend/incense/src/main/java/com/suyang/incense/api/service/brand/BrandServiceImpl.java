@@ -16,4 +16,9 @@ public class BrandServiceImpl implements BrandService{
 
         return brandRepository.getBrandList();
     }
+
+    @Override
+    public List<Brand> searchNotInBrandList(List<Brand> brandList){
+        return brandRepository.getNotInBrandList(brandList);
+    }
 }

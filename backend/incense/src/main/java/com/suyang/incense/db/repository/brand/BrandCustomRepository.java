@@ -8,4 +8,7 @@ import java.util.List;
 public interface BrandCustomRepository {
 
     public List<Brand> getBrandList();
+    public List<Brand> getNotInBrandList(List<Brand> brandList);
+
+
 }

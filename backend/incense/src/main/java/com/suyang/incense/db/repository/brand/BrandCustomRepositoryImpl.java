@@ -21,14 +21,29 @@ public class BrandCustomRepositoryImpl implements BrandCustomRepository{
 
     @Override
     public List<Brand> getBrandList(){
-        List<Tuple> tuples = jpaQueryFactory.select(brand,brand.id.count())
+        List<Brand> brands = jpaQueryFactory.select(brand)
                 .from(brand)
                 .leftJoin(brand.perfumeList,perfume)
                 .orderBy(brand.id.count().desc())
                 .groupBy(brand)
+                .offset(0)
+                .limit(6)
                 .fetch();
 
-        return null;
+
+        return brands;
+    }
+
+    @Override
+    public List<Brand> getNotInBrandList(List<Brand> brandList){
+        List<Brand> brands = jpaQueryFactory.select(brand)
+                .from(brand)
+                .leftJoin(brand.perfumeList,perfume)
+                .where(brand.notIn(brandList))
+                .orderBy(brand.id.count().desc())
+                .groupBy(brand)
+                .fetch();
+        return brands;
     }
 
 

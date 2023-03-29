@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface BrandService {
     public List<Brand> searchBrandList();
+
+    public List<Brand> searchNotInBrandList(List<Brand> brandList);
 }
