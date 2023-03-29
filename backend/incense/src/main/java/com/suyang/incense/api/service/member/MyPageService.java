@@ -10,4 +10,5 @@ public interface MyPageService {
 
     List<PerfumeRes> getMyPerfume(String type, Authentication Authentication);
     void registerPerfume(PerfumeRegisterReq perfumeRegisterReq, Authentication authentication);
+    void removePerfume(Long myPerfumeId);
 }
