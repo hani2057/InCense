@@ -2,6 +2,7 @@ package com.suyang.incense.api.service.member;
 
 import com.suyang.incense.api.request.member.mypage.PerfumeRegisterReq;
 import com.suyang.incense.api.response.member.mypage.PerfumeRes;
+import com.suyang.incense.db.entity.perfume.Perfume;
 import com.suyang.incense.db.entity.relation.Category;
 import com.suyang.incense.db.entity.relation.MemberPerfume;
 import com.suyang.incense.db.entity.review.Review;
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -34,19 +36,23 @@ public class MyPageServiceImpl implements MyPageService{
     }
 
     @Override
-    public void registerPerfume(PerfumeRegisterReq perfumeRegisterReq, Long id) {
+    @Transactional
+    public void registerPerfume(PerfumeRegisterReq perfumeRegisterReq, Authentication authentication) {
         String category = perfumeRegisterReq.getCategory();
-        System.out.println("### perfumeRegisterReq.getPerfumeId() = " + perfumeRegisterReq.getPerfumeId() );
         // MemberPerfume
         MemberPerfume memberPerfume = new MemberPerfume();
-        memberPerfume.setMember(memberRepository.findById(id).get());
+        memberPerfume.setMember(memberRepository.findById(authService.getIdByAuthentication(authentication)).get());
         memberPerfume.setPerfume(perfumeRepository.findById(perfumeRegisterReq.getPerfumeId()).get());
         memberPerfume.setCategory(Category.valueOf(category));
-        MemberPerfume perfume = memberPerfumeRepository.save(memberPerfume);
+        MemberPerfume myPerfume = memberPerfumeRepository.save(memberPerfume);
         // review
-        if(!category.equals("WANT")) {
+        if(category.equals("WANT")) {
+            // popular_cnt +1 : 향수 Service로 빼서 구성할지 미정
+            Perfume perfume = perfumeRepository.findById(myPerfume.getId()).get();
+            perfume.setPopularCnt(perfume.getPopularCnt()+1);
+        } else {
             Review review = new Review();
-            review.setMemberPerfume(perfume);
+            review.setMemberPerfume(myPerfume);
             review.setPreference(perfumeRegisterReq.getPreference());
             review.setComment(perfumeRegisterReq.getComment());
             reviewRepository.save(review);

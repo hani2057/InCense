@@ -34,9 +34,8 @@ public class MyPageController {
     @PostMapping("/perfume/register")
     @ApiOperation(value = "향수 등록", notes = "Have, Had, Want 향수 등록")
     public ResponseEntity<? extends BaseResponseBody> registerMyPerfume(@RequestBody PerfumeRegisterReq perfumeRegisterReq,
-                                                                        @RequestParam Long id) {
-        System.out.println("### perfumeRegisterReq.getPerfumeId() = " + perfumeRegisterReq.getPerfumeId() );
-        myPageService.registerPerfume(perfumeRegisterReq, id);
+                                                                        @ApiIgnore Authentication authentication) {
+        myPageService.registerPerfume(perfumeRegisterReq, authentication);
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
 
