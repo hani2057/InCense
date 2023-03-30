@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import api from "../../../apis/api";
 import CheckboxPickOne from "../../../components/common/CheckboxPickOne/CheckboxPickOne";
 import { FlexDiv } from "../../../components/common/FlexDiv/FlexDiv";
-// import SearchModal from "../../../components/SearchModal/SearchModal";
+import SearchModal from "../../../components/Profile/SearchModal/SearchModal";
+// import CheckModal from "../../DetailPage/CheckModal";
 import PerfumeItem from "../../../components/Profile/PerfumeItem/PerfumeItem";
 // import CardComponent from "../../ListPage/CardComponent";
 import { ProfileOutletContainer } from "../ProfilePage/style";
@@ -10,7 +11,7 @@ import { ProfilePerfumeHeader, ProfilePerfumeHeaderSpan } from "./style";
 
 const ProfilePerfumes = () => {
   const [typeIdx, setTypeIdx] = useState(0);
-  // const [serchModalOpen, setSearchModalOpen] = useState(false);
+  const [serchModalOpen, setSearchModalOpen] = useState(false);
 
   const data = [
     {
@@ -147,19 +148,6 @@ const ProfilePerfumes = () => {
     },
   ];
 
-  // {
-  //   id: 0,
-  //   name: "향수 이름입니다",
-  //   brandName: "brand입니다",
-  //   topNoteName: ["note1", "note2", "note3", "note4"],
-  //   middleNoteName: ["note1", "note2", "note3", "note4"],
-  //   baseNoteName: ["note1", "note2", "note3", "note4"],
-  //   price: 1,
-  //   volume: 0,
-  //   gender: 0,
-  //   rating: 0,
-  // }
-
   const fetchGetPerfumeList = async () => {
     const arr = ["HAVE", "HAD", "WANT"];
     const res = await api.profile.getPerfumeList(arr[typeIdx]);
@@ -194,7 +182,7 @@ const ProfilePerfumes = () => {
                 style={{ cursor: "pointer" }}
               />
               <span
-                // onClick={() => setSearchModalOpen(true)}
+                onClick={() => setSearchModalOpen(true)}
                 style={{ cursor: "pointer" }}
               >
                 목록에 향수 추가
@@ -225,7 +213,8 @@ const ProfilePerfumes = () => {
         </FlexDiv>
       </ProfileOutletContainer>
 
-      {/* {serchModalOpen && <SearchModal setModalOpen={setSearchModalOpen} />} */}
+      {serchModalOpen && <SearchModal setModalOpen={setSearchModalOpen} />}
+      {/* {serchModalOpen && <CheckModal setModalOpen={setSearchModalOpen} />} */}
     </>
   );
 };
