@@ -77,7 +77,8 @@ public class FileHandler {
         fileList.add(dealPhoto);
 
         //파일 저장 완료
-        file = new File(absolutePath + path + "/" + newFileName);
+//        file = new File(absolutePath + path + "/" + newFileName);
+        file = new File(path + "/" + newFileName);
         multipartFile.transferTo(file);
       }
     }
