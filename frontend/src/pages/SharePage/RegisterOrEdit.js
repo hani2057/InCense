@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TextField } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import { Box } from "@mui/system";
 import { Button } from "@mui/material";
 import ImageUpload from "./ImageUpload";
+import FormHelperText from '@mui/material/FormHelperText';
+import styled from "styled-components";
 
 
-const RegisterOrEdit = () => {
+const RegisterOrEdit = (props) => {
+
+  
 
   const categories = [
     {
@@ -72,6 +76,39 @@ const RegisterOrEdit = () => {
   }
   console.log('내용==', contentValue)
 
+  const [buyDateValue, setBuyDateValue] = useState('')
+  const onChangeBuyDate = (e) => {
+    const buyDateValue = e.target.value
+    setBuyDateValue(buyDateValue)
+  }
+  console.log('구매시기==', buyDateValue)
+
+  const [volumeValue, setVolumeValue] = useState(0)
+  const onChangeVolume = (e) => {
+    const volumeValue = e.target.value
+    setVolumeValue(volumeValue)
+  }
+  console.log('용량==',volumeValue)
+
+  // 가격,구매시기 error text
+  // const [priceError, setPriceError] = useState('')
+  // const [buyDateError, setBuyDateError] = useState('')
+
+  // const priceRegex = /^[0-9]+$/;
+  // if (!priceRegex.test(priceValue)) {
+  //   setPriceError('숫자만 입력하세요.')
+  // } else {
+  //   setPriceError('')
+  // }
+
+  // const buyDateRegex = /([12]\d{3}\.(0[1-9]|1[0-2]))/;
+  // if (!buyDateRegex.test(buyDateValue)) {
+  //   setBuyDateError('YYYY.MM 형식으로 입력하세요')
+  // } else { 
+  //   setBuyDateError('')
+  // }
+
+
   return (
     <Box sx={{ width: "60%", margin: "1rem auto" }}>
       <Box
@@ -115,6 +152,7 @@ const RegisterOrEdit = () => {
             size='small'
             helperText='판매일 경우만 입력 가능합니다.'
             />}
+            {/* <FormHelperText>{priceError}</FormHelperText> */}
             
             
           </Box>
@@ -139,11 +177,13 @@ const RegisterOrEdit = () => {
             id="buyDate"
             label="구매시기"
             type="number"
+            // inputProps={{ pattern:([12]\d{3}\.(0[1-9]|1[0-2])) }}
             size='small'
             helperText='YYYY.MM으로 입력해주세요'
-            onChange={onChangePrice}
+            onChange={onChangeBuyDate}
             sx={{width:'12rem'}}
             />
+            {/* <FormHelperText>{buyDateError}</FormHelperText> */}
           {/* <input onChange={props.handleRegisterChange}
             value={props.titleValue} type='text' name='title'/>
           <hr></hr>
@@ -153,8 +193,12 @@ const RegisterOrEdit = () => {
           {/* <PictureUploader2 formData={props.formData}/> */}
           {/* <input type='file'>파일2</input> */}
           </Box>
-          <Box sx={{width:'50%'}}>
-            <TextField  label="검색 코드 추가하기" id="fullWidth" size='small' sx={{width:'27rem',margin:'1rem'}} />
+          <Box sx={{width:'50rem',display:'flex',flexDirection:'row',justifyContent:'start',margin:'1rem'}}>
+            
+            {/* ###검색 코드... */}
+            <TextField  label="검색 코드 추가하기" id="fullWidth" size='small' sx={{width:'18rem', marginTop:'1rem', marginRight:'2rem'}} />
+            <TextField  label="용량 (ml)" id="fullWidth" type='number' onChange={onChangeVolume} size='small' sx={{width:'7rem',marginTop:'1rem',marginRight:'0.5rem'}} />
+
           </Box>
           <TextField fullWidth label="제목을 입력하세요" id="fullWidth" size='small' sx={{margin:'1rem'}}
             onChange={onChangeTitle}/>
@@ -165,7 +209,7 @@ const RegisterOrEdit = () => {
               사진 업로드
               <input onChange={} hidden accept="image/*" multiple type="file" />
             </Button> */}
-          <ImageUpload/>
+          <ImageUpload onSubmitArticle={props.handleSubmit} formData={props.formData} picture={props.picture}/>
 
         </Box>
         {/* <input onChange={props.onImageHandler} type="file" name="picture" 
@@ -180,3 +224,11 @@ const RegisterOrEdit = () => {
 };
 
 export default RegisterOrEdit;
+
+
+const FormHelperTexts = styled(FormHelperText)`
+width: 100%;
+padding-left: 16px;
+font-weight: 700 !important;
+color: #d32f2f !important;
+`;
