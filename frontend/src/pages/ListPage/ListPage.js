@@ -51,16 +51,18 @@ const ListPage = () => {
         console.log(err)
         alert(err)
       })
-  }, [page])
+    }, [page])
+    
+    console.log('페이지==',page)
 
-  console.log('페이지==',page)
+    const perfumeList = useSelector((state) => (
+      state.perfumeListReducers.perfumeList
+      ))
+      
+      // console.log('777',perfumeList)
 
-  const perfumeList = useSelector((state) => (
-    state.perfumeListReducers.perfumeList
-  ))
-
-  // console.log('777',perfumeList)
-
+    // if (!perfumeList.content) return null  
+    // 
   return (
     <Box sx={{marginBottom:'5rem'}}>
       <Box
@@ -240,7 +242,8 @@ const ListPage = () => {
               flexWrap:"wrap",
               marginBottom:"5rem"              
             }}>
-            {perfumeList && perfumeList.map((perfume, index) => {
+
+            {Array.isArray(perfumeList.content) && perfumeList.content.length > 0 && perfumeList.content.map((perfume, index) => {
               return (
               <CardComponent key={index} perfume={perfume}/>
 
