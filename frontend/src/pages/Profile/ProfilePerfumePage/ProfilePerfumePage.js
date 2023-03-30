@@ -213,7 +213,13 @@ const ProfilePerfumes = () => {
         </FlexDiv>
       </ProfileOutletContainer>
 
-      {serchModalOpen && <SearchModal setModalOpen={setSearchModalOpen} />}
+      {serchModalOpen && (
+        <SearchModal
+          setModalOpen={setSearchModalOpen}
+          typeIdx={typeIdx}
+          setTypeIdx={setTypeIdx}
+        />
+      )}
       {/* {serchModalOpen && <CheckModal setModalOpen={setSearchModalOpen} />} */}
     </>
   );

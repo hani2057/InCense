@@ -33,6 +33,10 @@ const api = {
   profile: {
     getPerfumeList: (type) =>
       authInstance.get(`${PROFILE}/perfume`, { params: { type: type } }),
+    addPerfumeToCategory: (data) =>
+      authInstance.post(`${PROFILE}/perfume`, data),
+    searchPerfume: (query) =>
+      defaultInstance.get(`${PERFUMES}`, { params: { search: query } }),
   },
   image: {
     getImage: (fileName) => defaultInstance.get(`${IMG}?filename=${fileName}`),
