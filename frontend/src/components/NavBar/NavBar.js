@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { BsBell } from "react-icons/bs";
 import { BsFillBellFill } from "react-icons/bs";
 import { FlexDiv } from "../common/FlexDiv/FlexDiv";
 import { NavWrapper, NavTitle, NavItem, NavLogInStatus } from "./style";
-import { useDispatch, useSelector } from "react-redux";
+import AlarmModal from "../AlarmModal/AlarmModal";
 import { logout } from "../../store/slice/userSlice";
 
 const NavBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const [alarmOpen, setAlarmOpen] = useState(false);
   const isLoggedIn = useSelector((state) => state.userReducers.isLoggedIn);
 
   return (
@@ -31,7 +33,10 @@ const NavBar = () => {
           <NavItem to="/profile">My Page</NavItem>
         </FlexDiv>
         <FlexDiv width="auto">
-          <BsBell />
+          <BsBell
+            onClick={() => setAlarmOpen((prev) => !prev)}
+            style={{ cursor: "pointer" }}
+          />
           <NavLogInStatus
             onClick={() => {
               if (isLoggedIn) dispatch(logout());
@@ -42,6 +47,8 @@ const NavBar = () => {
           </NavLogInStatus>
         </FlexDiv>
       </NavWrapper>
+
+      {alarmOpen && <AlarmModal />}
 
       <div style={{ paddingTop: "var(--nav-height)" }}>
         <Outlet />
