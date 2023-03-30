@@ -27,6 +27,11 @@ export const articleSlice = createSlice({
 
   },
   reducers: {
+    getArticleDetail: (state, {payload}) => {
+      console.log('Article상세조회!')
+      state.article = payload
+    }
+    ,
     saveArticle: (state, {payload}) => {
       console.log('article 저장 액션 호출');
       // console.log(data)

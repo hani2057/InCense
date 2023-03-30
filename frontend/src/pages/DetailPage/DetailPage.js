@@ -92,7 +92,7 @@ const DetailPage = () => {
     setIsOpen(true)
   }
   
-  console.log('333333', isOpen)
+  console.log('isopen==', isOpen)
   // console.log(typeIdx)
   
 

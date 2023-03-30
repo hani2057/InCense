@@ -9,7 +9,7 @@ import ProfilePerfumePage from "./pages/Profile/ProfilePerfumePage/ProfilePerfum
 import ProfileAnalysisPage from "./pages/Profile/ProfileAnalysisPage/ProfileAnalysisPage";
 import ProfileActivityPage from "./pages/Profile/ProfileActivityPage/ProfileActivityPage";
 import RegisterPage from "./pages/SharePage/RegisterPage";
-import RegisterOrEdit from "./pages/SharePage/RegisterOrEdit";
+// import RegisterOrEdit from "./pages/SharePage/RegisterOrEdit";
 import ArticleDetail from "./pages/SharePage/ArticleDetail";
 import { PrivateRoute } from "./components/LogIn/PrivateRoute.js/PrivateRoute";
 
@@ -21,16 +21,14 @@ function App() {
         <Route path="/list" element={<ListPage />} />
         <Route path="/detail/:detailId" element={<DetailPage />} />
         <Route path="/share" element={<SharePage />} />
-        <Route path="/share/register" element={<RegisterPage />} />
-        <Route
-          path="/share/registertest"
-          element={
+        <Route path="/share/register" element={
             <PrivateRoute>
-              <RegisterOrEdit />
+              <RegisterPage />
             </PrivateRoute>
-          }
-        />
-        <Route path="/share/article" element={<ArticleDetail />} />
+          }/>
+
+
+        <Route path="/share/article/:articleId" element={<ArticleDetail />} />
         <Route
           path="/profile"
           element={

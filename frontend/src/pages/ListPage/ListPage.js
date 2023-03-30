@@ -34,7 +34,7 @@ const ListPage = () => {
   }
 
   // 페이지네이션
-  const [limit, setLimit] = useState(10)
+  const [limit, setLimit] = useState(20)
   const [page, setPage] = useState(1)
   const offset = (page - 1) * limit;
 
@@ -51,7 +51,7 @@ const ListPage = () => {
         console.log(err)
         alert(err)
       })
-  }, [])
+  }, [page])
 
   console.log('페이지==',page)
 
@@ -188,11 +188,11 @@ const ListPage = () => {
               values={checklist3}
               onChange={setChecklist3}>
               <Box sx={{display:'flex', flexDirection:'column', fontSize:'1.2rem',height:'10rem', justifyContent:'space-around'}}>
-                <Checkbox value='impact1'> EP </Checkbox>
+                <Checkbox value='impact1'> EDC </Checkbox>
                 <Checkbox value='impact2'> EDP </Checkbox>
                 <Checkbox value='impact3'> EDT </Checkbox>
-                <Checkbox value='impact4'> EDC </Checkbox>
-                <Checkbox value='impact5'> 기타 </Checkbox>
+                <Checkbox value='impact4'> Oil </Checkbox>
+                <Checkbox value='impact5'> PDT </Checkbox>
               </Box>
             </CheckboxGroup>
             </ul>
@@ -250,7 +250,7 @@ const ListPage = () => {
             sx={{width:'100%',display:'flex',flexDirection:'row',marginBottom:'3rem',justifyContent:'center'}}>
             <Pagination
               // total={Object.keys(perfumeList).length}
-              total={20}
+              total={200}
               limit={limit}
               page={page}
               setPage={setPage}

@@ -2,9 +2,8 @@ import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { Link, useParams,useLocation,useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { articleActions, articleReducers } from "../../store/slice/articleSlice";
-
-// import RegisterOrEdit from "./RegisterOrEdit";
+import { articleActions } from "../../store/slice/articleSlice";
+import RegisterOrEdit from "./RegisterOrEdit";
 
 
 
@@ -63,12 +62,12 @@ const RegisterPage = () => {
     console.log("image", image)
   }
 
-  const formdata = new FormData();
+  const formData = new FormData();
   const onSubmitArticle = (event) => {
     event.preventDefault();
 
     if (article.title === "" || article.title === null || article.title === undefined) {
-      alert("제목을 작성하십시오.");
+      alert("제목을 입력하세요.");
       return false;
     }
     if (
@@ -76,13 +75,29 @@ const RegisterPage = () => {
       article.content === null ||
       article.content === undefined
     ) {
-      alert("내용을 작성하십시오.");
+      alert("내용을 입력하세요.");
       return false;
+    }
+    if (
+      article.gubun === '판매' && (article.price === null || article.price === 0)
+    ) {
+      alert('가격을 입력하세요.')
+      return false;
+    }
+    if (
+      article.perfumeId === null || article.perfumeId === ''
+    ) {
+      alert('향수를 선택하세요.')
+    }
+    if (
+      article.buyDate === null
+    ) {
+      alert('구매시기를 입력하세요.')
     }
 
     // const formdata = new FormData();
-    formdata.append('picture', image)
-    console.log(formdata, '이건 폼데이터')
+    formData.append('picture', image)
+    console.log(formData, '이건 폼데이터')
     const articleForRegister = {
       article: article, navigate:navigate
     };
@@ -112,12 +127,10 @@ const RegisterPage = () => {
     <Box sx={{display:'flex',flexDirection:'column', alignItems:'center'}}>
       <Box
         sx={{
-          width:'70%',
-          backgroundColor:'lightgrey',
+          width:'100%',
           justifyContent:'center'
         }}>
-        <h1>나눔/판매글 작성 페이지</h1>
-        {/* <RegisterOrEdit
+        <RegisterOrEdit
           id={article.id}
           titleValue={article.title}
           contentValue={article.content}
@@ -126,9 +139,9 @@ const RegisterPage = () => {
           onImageHandler={onImageChange}
           handleSubmit={onSubmitArticle}
           updateRequest={IsForUpdate}
-          formData = {formdata}
+          formData = {formData}
           picture={image.name}
-        /> */}
+        />
       </Box>
     </Box>
 
