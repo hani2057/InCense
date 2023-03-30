@@ -22,18 +22,18 @@ const CardComponent = (props) => {
     // 해당id디테일로가게
     navigate(`/detail/${id}`)
   }
-  useEffect(() => {
-    api.image.getImage(fileName)
-      .then((res) => {
-        // console.log('이미지가져오기')
-        // console.log(res)
-        // dispatch(perfumeListActions.getPerfumeList(res))
-      })
-      .catch((err) => {
-        console.log(err)
-        alert(err)
-      })
-  }, [])
+  // useEffect(() => {
+  //   api.image.getImage(fileName)
+  //     .then((res) => {
+  //       // console.log('이미지가져오기')
+  //       // console.log(res)
+  //       // dispatch(perfumeListActions.getPerfumeList(res))
+  //     })
+  //     .catch((err) => {
+  //       console.log(err)
+  //       alert(err)
+  //     })
+  // }, [])
 
   return (
     <Card 

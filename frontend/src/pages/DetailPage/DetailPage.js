@@ -27,6 +27,14 @@ const DetailPage = () => {
   const detailId = params.detailId
 
   useEffect(() => {
+    console.log('호출')
+    api.image.getImage(fileName)
+      .then((res) => {
+        
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     api.list.getDetail(detailId)
       .then((res) => {
         console.log('Detail가져오기')
@@ -40,30 +48,23 @@ const DetailPage = () => {
       })
   }, [])
 
-  const perfumeInfo = useSelector((state) => (
-    state.perfumeInfoReducers.perfumeInfo
-  ))
+  const perfumeInfo = useSelector((state) => {
+    console.log(state)
+    return state.perfumeInfoReducers.perfumeInfo
+  })
+  // console.log('!!!!!!'+perfumeInfo)
 
   const fileName = perfumeInfo.image
-  useEffect(() => {
-    api.image.getImage(fileName)
-      .then((res) => {
-        
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }, [])
 
   // 알람 설정
   const onChangeAlarm = () => {
     if (isLoggedIn === true) {
       if(alarmStatus === false) {
         setAlarmStatus(true)
-        console.log('알람on')
+        // console.log('알람on')
       } else if (alarmStatus === true) {
         setAlarmStatus(false)
-        console.log('알람off')
+        // console.log('알람off')
       }
     } else {
       alert('로그인이 필요합니다.')
