@@ -72,16 +72,16 @@ public class Deal extends BaseTimeEntity {
     @OneToMany(mappedBy = "deal", cascade = CascadeType.REMOVE)
     private List<DealPhoto> dealPhotoList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "deal")
+    @OneToMany(mappedBy = "deal", cascade = CascadeType.REMOVE)
     private List<DealComment> dealCommentList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "deal")
+    @OneToMany(mappedBy = "deal", cascade = CascadeType.REMOVE)
     private List<DealReport> dealReportList = new ArrayList<>();
 
     @OneToMany(mappedBy = "deal", cascade = CascadeType.REMOVE)
     private List<MemberDealBookmark> memberDealBookmarkList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "deal")
+    @OneToMany(mappedBy = "deal", cascade = CascadeType.REMOVE)
     private List<AlarmSend> alarmSendList = new ArrayList<>();
 
 }
