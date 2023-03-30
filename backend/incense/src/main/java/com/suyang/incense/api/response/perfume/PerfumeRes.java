@@ -24,4 +24,6 @@ public class PerfumeRes {
     private double rating;
     private String image;
 
+    private String concentration;
+
 }

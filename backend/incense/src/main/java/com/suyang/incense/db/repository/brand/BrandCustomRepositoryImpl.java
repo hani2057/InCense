@@ -35,11 +35,11 @@ public class BrandCustomRepositoryImpl implements BrandCustomRepository{
     }
 
     @Override
-    public List<Brand> getNotInBrandList(List<Brand> brandList){
+    public List<Brand> getNotInBrandList(List<Long> brandList){
         List<Brand> brands = jpaQueryFactory.select(brand)
                 .from(brand)
                 .leftJoin(brand.perfumeList,perfume)
-                .where(brand.notIn(brandList))
+                .where(brand.id.notIn(brandList))
                 .orderBy(brand.id.count().desc())
                 .groupBy(brand)
                 .fetch();

@@ -4,6 +4,7 @@ import com.suyang.incense.api.response.brand.BrandRes;
 import com.suyang.incense.api.response.perfume.PerfumeRes;
 import com.suyang.incense.api.service.brand.BrandService;
 import com.suyang.incense.db.entity.perfume.Brand;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -12,6 +13,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
+@Api(value = "브랜드 API", tags = {"Brand"})
+@CrossOrigin("*")
 @RequiredArgsConstructor
 @RequestMapping("/brand")
 @RestController

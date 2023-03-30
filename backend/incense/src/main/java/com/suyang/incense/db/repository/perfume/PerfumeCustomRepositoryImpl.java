@@ -3,13 +3,18 @@ package com.suyang.incense.db.repository.perfume;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.*;;
 import com.querydsl.core.util.StringUtils;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.suyang.incense.api.request.perfume.PerfumeReq;
 import com.suyang.incense.api.request.perfume.PerfumeSort;
+import com.suyang.incense.api.response.perfume.PerfumeRes;
 import com.suyang.incense.db.entity.perfume.Perfume;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 import static com.suyang.incense.db.entity.note.QNote.note;
@@ -22,12 +27,13 @@ import static com.suyang.incense.db.entity.relation.QPerfumeNote.perfumeNote;
 @Repository
 public class PerfumeCustomRepositoryImpl implements PerfumeCustomRepository {
 
-    private final int PAGE_CNT=20;
+
     private final JPAQueryFactory jpaQueryFactory;
 
 
     @Override
-    public List<Perfume> getPerfumeList(PerfumeReq perfumeReq) {
+    public List<Perfume> getPerfumeList(PerfumeReq perfumeReq, Pageable pageable) {
+
         List<Perfume> perfumeList = null;
 
         perfumeList =  jpaQueryFactory.select(perfume)
@@ -46,15 +52,29 @@ public class PerfumeCustomRepositoryImpl implements PerfumeCustomRepository {
                 .orderBy(
                     orders(perfumeReq)
                 )
-                .offset(perfumeReq.getPage()-1<0?0:perfumeReq.getPage()-1)
-                .limit(PAGE_CNT)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .fetch();
-
 
         return perfumeList;
     }
+    @Override
+    public Long getCount(PerfumeReq perfumeReq) {
+        JPAQuery<Long> countQuery =  jpaQueryFactory.select(perfume.id.countDistinct())
+                .from(perfume)
+                .leftJoin(perfume.memberPerfumeList,memberPerfume)
+                .leftJoin(perfume.perfumeNoteList,perfumeNote)
+                .leftJoin(perfumeNote.note,note)
+                .leftJoin(perfume.brand,brand)
+                .where(
+                        eqSearch(perfumeReq),
+                        eqBrandList(perfumeReq),
+                        eqConcentrationList(perfumeReq),
+                        eqTopNoteList(perfumeReq)
+                );
 
-
+        return countQuery.fetchOne();
+    }
 
     public BooleanExpression eqSearch(PerfumeReq perfumeReq){
         if(StringUtils.isNullOrEmpty(perfumeReq.getSearch())){
