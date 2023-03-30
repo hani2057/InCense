@@ -104,7 +104,7 @@ public class DealServiceImpl implements DealService  {
 
     List<String> mappedImageInfo = new ArrayList<>();
     for(int i = 0, size = dealPhotos.size(); i<size; i++){
-      mappedImageInfo.add(String.valueOf(dealPhotos.get(i)));
+      mappedImageInfo.add(String.valueOf(dealPhotos.get(i).getImage()));
     }
 
     deal.setImageInfo(mappedImageInfo);
