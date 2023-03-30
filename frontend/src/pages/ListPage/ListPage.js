@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Box from '@mui/material/Box'
 import CardComponent from "./CardComponent";
 // import { Link } from "react-router-dom";
@@ -10,10 +10,6 @@ import Checkbox from "../../components/common/select/Checkbox111";
 import CheckboxGroup from "../../components/common/select/CheckboxGroup";
 import Pagination from "../../components/common/Pagination/Pagination";
 import { Button } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-// import { perfumeInfoActions } from "../../store/slice/perfumeInfoSlice";
-import api from "../../apis/api";
-import { perfumeListActions } from "../../store/slice/perfumeListSlice";
 
 
 const ListPage = () => {
@@ -32,34 +28,6 @@ const ListPage = () => {
   const applyFilter = () => {
     console.log('필터 적용하기')
   }
-
-  // 페이지네이션
-  const [limit, setLimit] = useState(10)
-  const [page, setPage] = useState(1)
-  const offset = (page - 1) * limit;
-
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    api.list.getList(page)
-      .then((res) => {
-        console.log('list가져오기')
-        console.log(res)
-        dispatch(perfumeListActions.getPerfumeList(res))
-      })
-      .catch((err) => {
-        console.log(err)
-        alert(err)
-      })
-  }, [])
-
-  console.log('페이지==',page)
-
-  const perfumeList = useSelector((state) => (
-    state.perfumeListReducers.perfumeList
-  ))
-
-  // console.log('777',perfumeList)
 
   return (
     <Box sx={{marginBottom:'5rem'}}>
@@ -228,8 +196,6 @@ const ListPage = () => {
             {/* <p>인기순 | 후기 많은 순</p> */}
             <ToggleFilter/>
           </Box>
-
-          {/* 여기부터 카드리스트 */}
           <Box
             sx={{
               // margin:"3rem",
@@ -237,23 +203,81 @@ const ListPage = () => {
               display:"flex",
               flexDirection:"row",
               justifyContent:"space-between",
-              flexWrap:"wrap",
+              // flexWrap:"wrap",
               marginBottom:"5rem"              
             }}>
-            {perfumeList && perfumeList.map((perfume, index) => {
-              return (
-              <CardComponent key={index} perfume={perfume}/>
-
-            )})}
+            <CardComponent/>
+            <CardComponent/>
+            <CardComponent/>
+            <CardComponent/>
+          </Box>
+          <Box
+            sx={{
+              // margin:"3rem",
+              width:"100%",
+              display:"flex",
+              flexDirection:"row",
+              justifyContent:"space-between",
+              // flexWrap:"wrap",
+              marginBottom:"5rem"              
+            }}>
+            <CardComponent/>
+            <CardComponent/>
+            <CardComponent/>
+            <CardComponent/>
+          </Box>
+          <Box
+            sx={{
+              // margin:"3rem",
+              width:"100%",
+              display:"flex",
+              flexDirection:"row",
+              justifyContent:"space-between",
+              // flexWrap:"wrap",
+              marginBottom:"5rem"              
+            }}>
+            <CardComponent/>
+            <CardComponent/>
+            <CardComponent/>
+            <CardComponent/>
+          </Box>
+          <Box
+            sx={{
+              // margin:"3rem",
+              width:"100%",
+              display:"flex",
+              flexDirection:"row",
+              justifyContent:"space-between",
+              // flexWrap:"wrap",
+              marginBottom:"5rem"              
+            }}>
+            <CardComponent/>
+            <CardComponent/>
+            <CardComponent/>
+            <CardComponent/>
+          </Box>
+          <Box
+            sx={{
+              // margin:"3rem",
+              width:"100%",
+              display:"flex",
+              flexDirection:"row",
+              justifyContent:"space-between",
+              // flexWrap:"wrap",
+              marginBottom:"5rem"              
+            }}>
+            <CardComponent/>
+            <CardComponent/>
+            <CardComponent/>
+            <CardComponent/>
           </Box>
           <Box
             sx={{width:'100%',display:'flex',flexDirection:'row',marginBottom:'3rem',justifyContent:'center'}}>
             <Pagination
-              // total={Object.keys(perfumeList).length}
-              total={20}
-              limit={limit}
-              page={page}
-              setPage={setPage}
+              total={10}
+              limit={5}
+              page={5}
+              setPage={1}
             />
           </Box>
         </Box>

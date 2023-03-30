@@ -13,7 +13,7 @@ public class PerfumeRes {
 
     @ApiModelProperty(name = "내 향수 ID")
     private Long myPerfumeId;
-    @ApiModelProperty(name = "향수 ID")       // 필요한가?
+    @ApiModelProperty(name = "향수 ID")
     private Long perfumeId;
     @ApiModelProperty(name = "향수 브랜드 이름")
     private String brandName;
