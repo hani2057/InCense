@@ -41,11 +41,8 @@ public class DealServiceImpl implements DealService  {
   public Deal create(DealReq dealReq, Long memberId) {
 
     //나눔판매 글 생성
-//    Member member = memberRepository.findById(memberId);
+    Member member = memberRepository.findById(memberId).orElseThrow(IllegalArgumentException::new);
     Perfume perfume = perfumeRepository.findById(dealReq.getPerfumeId()).orElseThrow(IllegalArgumentException::new);
-
-    Member member = memberRepository.findById(1l).orElseThrow();
-//    Perfume perfume = perfumeRepository.findById(1l).orElseThrow();
 
     Deal deal = new Deal();
 
@@ -70,7 +67,6 @@ public class DealServiceImpl implements DealService  {
   public Deal update(DealReq dealReq, Long dealId, Long memberId) {
 
     Perfume perfume = perfumeRepository.findById(dealReq.getPerfumeId()).orElseThrow(IllegalArgumentException::new);
-//    Perfume perfume = perfumeRepository.findById(1l).orElseThrow();
 
     Deal deal = dealRepository.findById(dealId).orElseThrow(IllegalArgumentException::new);
 
@@ -106,12 +102,9 @@ public class DealServiceImpl implements DealService  {
     DealDetailRes deal = dealRepository.findDealById(dealId);
     List<DealPhotoListRes> dealPhotos = dealPhotoRepository.findImagesByDealId(dealId);
 
-    List<String> mappedImageInfo = new ArrayList<>();
     for(int i = 0, size = dealPhotos.size(); i<size; i++){
-      mappedImageInfo.add(String.valueOf(dealPhotos.get(i)));
+      deal.getImageInfo().add(String.valueOf(dealPhotos.get(i).getImage()));
     }
-
-    deal.setImageInfo(mappedImageInfo);
 
     return deal;
   }
