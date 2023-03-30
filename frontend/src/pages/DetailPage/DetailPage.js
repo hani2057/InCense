@@ -29,7 +29,7 @@ const DetailPage = () => {
   useEffect(() => {
     api.list.getDetail(detailId)
       .then((res) => {
-        console.log('list가져오기')
+        console.log('Detail가져오기')
         console.log(res)
         dispatch(perfumeInfoActions.getPerfumeInfo(res))
         

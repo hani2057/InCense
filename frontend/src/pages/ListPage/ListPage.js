@@ -240,7 +240,7 @@ const ListPage = () => {
               flexWrap:"wrap",
               marginBottom:"5rem"              
             }}>
-            {perfumeList && perfumeList.map((perfume, index) => {
+            {perfumeList && perfumeList.content.map((perfume, index) => {
               return (
               <CardComponent key={index} perfume={perfume}/>
 
