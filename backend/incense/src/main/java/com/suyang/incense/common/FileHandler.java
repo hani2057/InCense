@@ -78,7 +78,7 @@ public class FileHandler {
 
         //파일 저장 완료
 //        file = new File(absolutePath + path + "/" + newFileName);
-        file = new File(path + "/" + newFileName);
+        file = new File( "deal/" + currentDate + newFileName);
         multipartFile.transferTo(file);
       }
     }
