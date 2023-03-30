@@ -8,6 +8,7 @@ import com.suyang.incense.api.response.deal.DealCommentRes;
 import com.suyang.incense.api.response.deal.DealDetailRes;
 import com.suyang.incense.api.response.deal.DealListRes;
 import com.suyang.incense.api.service.deal.*;
+import com.suyang.incense.api.service.member.MemberService;
 import com.suyang.incense.db.entity.deal.Deal;
 import com.suyang.incense.db.entity.deal.DealPhoto;
 import com.suyang.incense.db.entity.deal.Gubun;
@@ -47,6 +48,7 @@ public class DealController {
   private final DealCommentService dealCommentService;
   private final DealBookmarkService dealBookmarkService;
   private final DealReportService dealReportService;
+  private final MemberService memberService;
 
   @ApiOperation(value = "나눔/판매 글 생성")
   @PostMapping(consumes = {"multipart/form-data"})
@@ -62,6 +64,12 @@ public class DealController {
     boolean imageExist = dealPhotoService.saveImage(deal.getId(), dealReq.getFiles());
 
     //알람 전송 : 나눔/판매글 id, 향수 id 전송
+
+    //점수 갱신
+//    memberService.addRank(1, memberId);
+//    memberService.checkRank(memberId);
+    memberService.addRank(1, 1l);
+    memberService.checkRank(1l);
 
     return ResponseEntity.status(200).body("success");
   }
