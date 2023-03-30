@@ -299,7 +299,7 @@ export default function SharePage() {
             <ArticleCard/> */}
             <Pagination 
               // total={Object.keys(perfumeList).length}
-              total={20}
+              total={2}
               limit={limit}
               page={page}
               setPage={setPage}/>
