@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import api from "../../../apis/api";
 import CheckboxPickOne from "../../../components/common/CheckboxPickOne/CheckboxPickOne";
 import { FlexDiv } from "../../../components/common/FlexDiv/FlexDiv";
 import PerfumeItem from "../../../components/Profile/PerfumeItem/PerfumeItem";
-import CardComponent from "../../ListPage/CardComponent";
+// import CardComponent from "../../ListPage/CardComponent";
 import { ProfileOutletContainer } from "../ProfilePage/style";
-import { ProfilePerfumeHeader } from "./style";
+import { ProfilePerfumeHeader, ProfilePerfumeHeaderSpan } from "./style";
 
 const ProfilePerfumes = () => {
   const [typeIdx, setTypeIdx] = useState(0);
@@ -157,6 +158,16 @@ const ProfilePerfumes = () => {
   //   rating: 0,
   // }
 
+  const fetchGetPerfumeList = async () => {
+    const arr = ["HAVE", "HAD", "WANT"];
+    const res = await api.profile.getPerfumeList(arr[typeIdx]);
+    console.log(res);
+  };
+
+  useEffect(() => {
+    fetchGetPerfumeList();
+  }, [typeIdx]);
+
   return (
     <ProfileOutletContainer>
       <ProfilePerfumeHeader>
@@ -182,7 +193,9 @@ const ProfilePerfumes = () => {
             <span style={{ cursor: "pointer" }}>목록에 향수 추가</span>
           </FlexDiv>
           <FlexDiv direction="column" align="end">
-            <span style={{ cursor: "pointer" }}>내 취향에 반영하기</span>
+            <ProfilePerfumeHeaderSpan>
+              내 취향에 반영하기
+            </ProfilePerfumeHeaderSpan>
             <span
               style={{
                 fontSize: "0.625rem",

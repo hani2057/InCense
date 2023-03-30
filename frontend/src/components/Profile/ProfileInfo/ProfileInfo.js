@@ -12,6 +12,7 @@ import {
 const ProfileInfo = () => {
   const [userInfo, setUserInfo] = useState(null);
 
+  // 유저 정보 불러오기
   const fetchGetUserInfo = async () => {
     const res = await api.user.getUserInfo();
     setUserInfo(res);
@@ -25,12 +26,6 @@ const ProfileInfo = () => {
 
   const ageRange =
     Math.floor((dayjs().year() - userInfo.birth[0] + 1) / 10) * 10;
-
-  console.log(
-    typeof userInfo.gender,
-    userInfo.gender,
-    Boolean(userInfo.gender)
-  );
 
   return (
     <ProfileInfoWrapper direction="column" justify="start">

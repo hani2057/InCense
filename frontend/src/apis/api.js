@@ -4,6 +4,7 @@ const USERS = "/member";
 const TEST = "/test";
 const PERFUMES = "/perfume";
 const SHARE = "/deal";
+const PROFILE = "/mypage";
 const IMG = "/display";
 const ALARM = "/alarm";
 
@@ -28,6 +29,10 @@ const api = {
   list: {
     getList: (page) => defaultInstance.get(`${PERFUMES}?page=${page}`),
     getDetail: (detailId) => defaultInstance.get(`${PERFUMES}/${detailId}`),
+  },
+  profile: {
+    getPerfumeList: (type) =>
+      authInstance.get(`${PROFILE}/perfume`, { params: { type: type } }),
   },
   image: {
     getImage: (fileName) => defaultInstance.get(`${IMG}?filename=${fileName}`),

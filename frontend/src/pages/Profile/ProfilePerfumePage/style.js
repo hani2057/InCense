@@ -8,10 +8,22 @@ const ProfilePerfumeHeader = styled(FlexDiv)`
   background-size: cover;
 `;
 
+const ProfilePerfumeHeaderSpan = styled.span`
+  cursor: pointer;
+
+  &:hover {
+    color: var(--main-color);
+  }
+`;
+
 const ProfilePerfumeContentContainer = styled(FlexDiv)`
   & > * {
     align-self: flex-start;
   }
 `;
 
-export { ProfilePerfumeHeader, ProfilePerfumeContentContainer };
+export {
+  ProfilePerfumeHeader,
+  ProfilePerfumeHeaderSpan,
+  ProfilePerfumeContentContainer,
+};
