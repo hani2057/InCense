@@ -8,10 +8,7 @@ import com.suyang.incense.db.entity.perfume.Perfume;
 import com.suyang.incense.db.entity.relation.Category;
 import com.suyang.incense.db.entity.relation.MemberPerfume;
 import com.suyang.incense.db.entity.review.Review;
-import com.suyang.incense.db.repository.member.MemberPerfumeCustomRepository;
-import com.suyang.incense.db.repository.member.MemberPerfumeRepository;
-import com.suyang.incense.db.repository.member.MemberRepository;
-import com.suyang.incense.db.repository.member.ReviewRepository;
+import com.suyang.incense.db.repository.member.*;
 import com.suyang.incense.db.repository.perfume.PerfumeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -26,6 +23,7 @@ public class MyPageServiceImpl implements MyPageService{
 
     public final MemberPerfumeCustomRepository memberPerfumeCustomRepository;
     private final MemberPerfumeRepository memberPerfumeRepository;
+    private final ReviewCustomRepository reviewCustomRepository;
     private final MemberRepository memberRepository;
     private final ReviewRepository reviewRepository;
     private final PerfumeRepository perfumeRepository;
@@ -51,10 +49,9 @@ public class MyPageServiceImpl implements MyPageService{
         memberPerfumeRepository.save(memberPerfume);
         // review
         if(category.equals("WANT")) {
-            // popular_cnt +1 : 향수 Service로 빼서 구성할지 미정
-            perfume.setPopularCnt(perfume.getPopularCnt() + 1);
+            perfume.setPopularCnt(perfume.getPopularCnt() + 1);     // popular_cnt +1 : 향수 Service로 빼서 구성할지 미정
         } else {
-            perfume.setCommentCnt(perfume.getCommentCnt() + 1);
+            perfume.setCommentCnt(perfume.getCommentCnt() + 1);     // comment_cnt +1 : 향수 Service로 빼서 구성할지 미정
             Review review = new Review();
             review.setPreference(perfumeRegisterReq.getPreference());
             review.setComment(perfumeRegisterReq.getComment());
@@ -66,8 +63,14 @@ public class MyPageServiceImpl implements MyPageService{
 
     @Override
     @Transactional
-    public void modifyPerfume(PerfumeModifyReq perfumeModifyReq, Authentication authentication) {
-
+    public void modifyPerfume(PerfumeModifyReq perfumeModifyReq) {
+        // MemberPerfume
+        MemberPerfume memberPerfume = memberPerfumeRepository.findById(perfumeModifyReq.getMemberPerfumeId()).get();
+        memberPerfume.setCategory(Category.valueOf(perfumeModifyReq.getCategory()));
+        // review
+        Review review = reviewCustomRepository.getReviewByMemberAndPerfume(memberPerfume.getMember(), memberPerfume.getPerfume());
+        review.setPreference(perfumeModifyReq.getPreference());
+        review.setComment(perfumeModifyReq.getComment());
     }
 
     @Override
