@@ -27,7 +27,7 @@ const api = {
   },
   list: {
     getList: (page) => defaultInstance.get(`${PERFUMES}?page=${page}`),
-    getDetail: (detailId) => defaultInstance.get(`${PERFUMES}/${detailId}`)
+    getDetail: (detailId) => defaultInstance.get(`${PERFUMES}/${detailId}`),
   },
   image: {
     getImage: (fileName) => defaultInstance.get(`${IMG}?filename=${fileName}`)

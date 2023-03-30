@@ -60,7 +60,7 @@ export default function SharePage() {
   useEffect(() => {
     api.share.getList(page)
       .then((res) => {
-        console.log('list가져오기')
+        console.log('sharelist가져오기')
         console.log(res)
         dispatch(articleListActions.getArticleList(res))
       })
