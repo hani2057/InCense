@@ -80,7 +80,6 @@ public class DealCustomRepositoryImpl implements DealCustomRepository {
                         perfume.name,
                         perfume.image
                         ))
-                .distinct()
                 .from(deal)
                 .innerJoin(member).on(deal.member.id.eq(member.id))
                 .innerJoin(perfume).on(deal.perfume.id.eq(perfume.id))
@@ -94,9 +93,12 @@ public class DealCustomRepositoryImpl implements DealCustomRepository {
                         noteCheck(dealConditionReq.getScents())
                 )
                 .orderBy(deal.createdDate.desc())
-                .fetch();
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .distinct().fetch();
 
         Long count = getAllDealsCount(dealConditionReq);
+        System.out.println("count................................................." + count);
 
         return new PageImpl<>(result, pageable, count);
     }
@@ -105,8 +107,7 @@ public class DealCustomRepositoryImpl implements DealCustomRepository {
     private Long getAllDealsCount(DealConditionReq dealConditionReq){
 
         Long count = jpaQueryFactory
-                .select(deal.count())
-                .distinct()
+                .select(deal.countDistinct())
                 .from(deal)
                 .innerJoin(perfume).on(deal.perfume.id.eq(perfume.id))
                 .innerJoin(perfumeNote).on(perfume.id.eq(perfumeNote.perfume.id))
