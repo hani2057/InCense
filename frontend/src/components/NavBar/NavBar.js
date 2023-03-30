@@ -1,14 +1,19 @@
 import React, { useState } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { BsBell } from "react-icons/bs";
 import { BsFillBellFill } from "react-icons/bs";
 import { FlexDiv } from "../common/FlexDiv/FlexDiv";
 import { NavWrapper, NavTitle, NavItem, NavLogInStatus } from "./style";
 import AlarmModal from "../AlarmModal/AlarmModal";
+import { logout } from "../../store/slice/userSlice";
 
 const NavBar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const [alarmOpen, setAlarmOpen] = useState(false);
+  const isLoggedIn = useSelector((state) => state.userReducers.isLoggedIn);
 
   return (
     <>
@@ -32,7 +37,14 @@ const NavBar = () => {
             onClick={() => setAlarmOpen((prev) => !prev)}
             style={{ cursor: "pointer" }}
           />
-          <NavLogInStatus>Log out</NavLogInStatus>
+          <NavLogInStatus
+            onClick={() => {
+              if (isLoggedIn) dispatch(logout());
+              else navigate("/login");
+            }}
+          >
+            {isLoggedIn ? "Log out" : "Log in"}
+          </NavLogInStatus>
         </FlexDiv>
       </NavWrapper>
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Box from '@mui/material/Box'
 import CardComponent from "./CardComponent";
 // import { Link } from "react-router-dom";
@@ -10,6 +10,10 @@ import Checkbox from "../../components/common/select/Checkbox111";
 import CheckboxGroup from "../../components/common/select/CheckboxGroup";
 import Pagination from "../../components/common/Pagination/Pagination";
 import { Button } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+// import { perfumeInfoActions } from "../../store/slice/perfumeInfoSlice";
+import api from "../../apis/api";
+import { perfumeListActions } from "../../store/slice/perfumeListSlice";
 
 
 const ListPage = () => {
@@ -28,6 +32,34 @@ const ListPage = () => {
   const applyFilter = () => {
     console.log('필터 적용하기')
   }
+
+  // 페이지네이션
+  const [limit, setLimit] = useState(20)
+  const [page, setPage] = useState(1)
+  const offset = (page - 1) * limit;
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    api.list.getList(page)
+      .then((res) => {
+        console.log('list가져오기')
+        console.log(res)
+        dispatch(perfumeListActions.getPerfumeList(res))
+      })
+      .catch((err) => {
+        console.log(err)
+        alert(err)
+      })
+  }, [page])
+
+  console.log('페이지==',page)
+
+  const perfumeList = useSelector((state) => (
+    state.perfumeListReducers.perfumeList
+  ))
+
+  // console.log('777',perfumeList)
 
   return (
     <Box sx={{marginBottom:'5rem'}}>
@@ -156,11 +188,11 @@ const ListPage = () => {
               values={checklist3}
               onChange={setChecklist3}>
               <Box sx={{display:'flex', flexDirection:'column', fontSize:'1.2rem',height:'10rem', justifyContent:'space-around'}}>
-                <Checkbox value='impact1'> EP </Checkbox>
+                <Checkbox value='impact1'> EDC </Checkbox>
                 <Checkbox value='impact2'> EDP </Checkbox>
                 <Checkbox value='impact3'> EDT </Checkbox>
-                <Checkbox value='impact4'> EDC </Checkbox>
-                <Checkbox value='impact5'> 기타 </Checkbox>
+                <Checkbox value='impact4'> Oil </Checkbox>
+                <Checkbox value='impact5'> PDT </Checkbox>
               </Box>
             </CheckboxGroup>
             </ul>
@@ -196,6 +228,8 @@ const ListPage = () => {
             {/* <p>인기순 | 후기 많은 순</p> */}
             <ToggleFilter/>
           </Box>
+
+          {/* 여기부터 카드리스트 */}
           <Box
             sx={{
               // margin:"3rem",
@@ -203,81 +237,23 @@ const ListPage = () => {
               display:"flex",
               flexDirection:"row",
               justifyContent:"space-between",
-              // flexWrap:"wrap",
+              flexWrap:"wrap",
               marginBottom:"5rem"              
             }}>
-            <CardComponent/>
-            <CardComponent/>
-            <CardComponent/>
-            <CardComponent/>
-          </Box>
-          <Box
-            sx={{
-              // margin:"3rem",
-              width:"100%",
-              display:"flex",
-              flexDirection:"row",
-              justifyContent:"space-between",
-              // flexWrap:"wrap",
-              marginBottom:"5rem"              
-            }}>
-            <CardComponent/>
-            <CardComponent/>
-            <CardComponent/>
-            <CardComponent/>
-          </Box>
-          <Box
-            sx={{
-              // margin:"3rem",
-              width:"100%",
-              display:"flex",
-              flexDirection:"row",
-              justifyContent:"space-between",
-              // flexWrap:"wrap",
-              marginBottom:"5rem"              
-            }}>
-            <CardComponent/>
-            <CardComponent/>
-            <CardComponent/>
-            <CardComponent/>
-          </Box>
-          <Box
-            sx={{
-              // margin:"3rem",
-              width:"100%",
-              display:"flex",
-              flexDirection:"row",
-              justifyContent:"space-between",
-              // flexWrap:"wrap",
-              marginBottom:"5rem"              
-            }}>
-            <CardComponent/>
-            <CardComponent/>
-            <CardComponent/>
-            <CardComponent/>
-          </Box>
-          <Box
-            sx={{
-              // margin:"3rem",
-              width:"100%",
-              display:"flex",
-              flexDirection:"row",
-              justifyContent:"space-between",
-              // flexWrap:"wrap",
-              marginBottom:"5rem"              
-            }}>
-            <CardComponent/>
-            <CardComponent/>
-            <CardComponent/>
-            <CardComponent/>
+            {perfumeList && perfumeList.map((perfume, index) => {
+              return (
+              <CardComponent key={index} perfume={perfume}/>
+
+            )})}
           </Box>
           <Box
             sx={{width:'100%',display:'flex',flexDirection:'row',marginBottom:'3rem',justifyContent:'center'}}>
             <Pagination
-              total={10}
-              limit={5}
-              page={5}
-              setPage={1}
+              // total={Object.keys(perfumeList).length}
+              total={200}
+              limit={limit}
+              page={page}
+              setPage={setPage}
             />
           </Box>
         </Box>

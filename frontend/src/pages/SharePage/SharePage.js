@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box } from "@mui/system";
 import ToggleFilter2 from "./ToggleFilter2";
 import Dropdown from "../../components/common/Dropdown/Dropdown";
@@ -8,6 +8,10 @@ import { useState } from "react";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router";
 import ArticleCard from "./ArticleCard/ArticleCard";
+import Pagination from "../../components/common/Pagination/Pagination";
+import api from "../../apis/api";
+import { articleListActions } from "../../store/slice/articleListSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 // 체크박스 필터링시 들어가는 value값 확인하기
 
@@ -45,6 +49,30 @@ export default function SharePage() {
       navigate('/login')
     }
   }
+
+  // 페이지네이션
+  const [limit, setLimit] = useState(10)
+  const [page, setPage] = useState(1)
+  const offset = (page - 1) * limit;
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    api.share.getList(page)
+      .then((res) => {
+        console.log('list가져오기')
+        console.log(res)
+        dispatch(articleListActions.getArticleList(res))
+      })
+      .catch((err) => {
+        console.log(err)
+        alert(err)
+      })
+  }, [])
+
+  const articleList = useSelector((state) => (
+    state.articleListReducers.articleList.content
+  ))
 
   return (
     <Box sx={{marginBottom:'5rem'}}>
@@ -254,6 +282,12 @@ export default function SharePage() {
               flexWrap:"wrap",
               marginBottom:"5rem"              
             }}>
+            {articleList && articleList.map((article, index) => {
+              return (
+                <ArticleCard key={index} article={article}/>
+              )
+            })}
+            {/* <ArticleCard/>
             <ArticleCard/>
             <ArticleCard/>
             <ArticleCard/>
@@ -262,9 +296,13 @@ export default function SharePage() {
             <ArticleCard/>
             <ArticleCard/>
             <ArticleCard/>
-            <ArticleCard/>
-            <ArticleCard/>
-
+            <ArticleCard/> */}
+            <Pagination 
+              // total={Object.keys(perfumeList).length}
+              total={20}
+              limit={limit}
+              page={page}
+              setPage={setPage}/>
           </Box>
 
 

@@ -1,18 +1,61 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box } from "@mui/system";
 // import BellIcon from './bell1.svg'
 import {BsBell} from 'react-icons/bs'
 import {BsFillBellFill} from 'react-icons/bs'
 import { Button } from "@mui/material";
-import CardComponent from "../ListPage/CardComponent";
+// import CardComponent from "../ListPage/CardComponent";
 import DivideLine from "../../components/common/DivideLine/DivideLine";
 import ReviewTable from "./ReviewTable";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import CheckStatus from "./CheckStatus";
+import CheckModal from "./CheckModal";
+import { useDispatch, useSelector } from "react-redux";
+import api from "../../apis/api";
+import { perfumeInfoActions } from "../../store/slice/perfumeInfoSlice";
+
 
 const DetailPage = () => {
+
   const [alarmStatus, setAlarmStatus] = useState(false)
   const isLoggedIn = true
   const navigate = useNavigate()
+
+  const dispatch = useDispatch()
+
+  const params = useParams()
+  const detailId = params.detailId
+
+  useEffect(() => {
+    api.list.getDetail(detailId)
+      .then((res) => {
+        console.log('list가져오기')
+        console.log(res)
+        dispatch(perfumeInfoActions.getPerfumeInfo(res))
+        
+      })
+      .catch((err) => {
+        console.log(err)
+        alert(err)
+      })
+  }, [])
+
+  const perfumeInfo = useSelector((state) => (
+    state.perfumeInfoReducers.perfumeInfo
+  ))
+
+  const fileName = perfumeInfo.image
+  useEffect(() => {
+    api.image.getImage(fileName)
+      .then((res) => {
+        
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [])
+
+  // 알람 설정
   const onChangeAlarm = () => {
     if (isLoggedIn === true) {
       if(alarmStatus === false) {
@@ -28,6 +71,7 @@ const DetailPage = () => {
     }
   }
 
+  // 유사도 보여주기 설정
   const [showSimilarity, setShowSimilarity] = useState(false)
   const onClickButton = () => {
     if (isLoggedIn === true) {
@@ -39,6 +83,18 @@ const DetailPage = () => {
       navigate('/login')
     }
   }
+
+  // had/have/want 설정
+  const [typeIdx, setTypeIdx] = useState(null);
+
+  const [isOpen, setIsOpen] = useState(false)
+  const onClickModal = () => {
+    setIsOpen(true)
+  }
+  
+  console.log('isopen==', isOpen)
+  // console.log(typeIdx)
+  
 
   return (
 
@@ -92,11 +148,32 @@ const DetailPage = () => {
                 onClick={onChangeAlarm}></BsBell>
                 :<BsFillBellFill style={{position:'absolute',right:'1rem',top:'1rem', fontSize:'2rem', color:'#706DFF',cursor:'pointer' }}
                 onClick={onChangeAlarm}></BsFillBellFill>}
-            <img style={{width:'auto', height:'20rem', position:'relative', top:'2.5rem'}} src="assets/images/fluer.png" alt='detailimage'></img>
+            <img style={{width:'auto', height:'20rem', position:'relative', top:'2.5rem'}} src={`https://j8a804.p.ssafy.io/api/display?filename=${fileName}`} alt='detailimage'></img>
           </Box>
           <Box
-            sx={{width:'25rem', height:'5rem', backgroundColor:'lightgrey'}}>
-            모달 자리.
+            sx={{width:'25rem', height:'5rem'}}>
+            <CheckStatus
+              onClickModal = {onClickModal}
+              textArr={["I had it", "I have it", "I want it"]}
+              pickedIdx={typeIdx}
+              setPickedIdx={setTypeIdx}
+              width="100%"
+              padding="0 5%"
+              color="dark-gray"
+              isOpen = {isOpen}
+              setIsOpen = {setIsOpen}/>
+              
+
+              {isOpen && (<CheckModal
+                open={isOpen}
+                setIsOpen = {setIsOpen}
+                imageURL={`https://j8a804.p.ssafy.io/api/display?filename=${fileName}`}
+                onClose={() => {
+                  setIsOpen(false)
+                }}
+                idx={typeIdx}
+                perfumeInfo={perfumeInfo}
+                />)}
           </Box>
         </Box>
         <Box
@@ -107,12 +184,13 @@ const DetailPage = () => {
             marginLeft:'8rem'
         }}>
           {/* <h1>설명 자리</h1> */}
-          <p>Diptyque</p>
-          <p style={{fontSize:'2rem', fontWeight:'bold', marginTop:'1rem', marginBottom:'1.5rem'}}>fluer de peau</p>
+          <p>{perfumeInfo.brandName}</p>
+          <p style={{fontSize:'2rem', fontWeight:'bold', marginTop:'1rem', marginBottom:'1.5rem'}}>{perfumeInfo.name}</p>
           <ul>
-            <li style={{fontWeight:'bold', marginTop:'1rem', marginBottom:'1rem'}}>Top Note  &nbsp;:&nbsp;  Woody</li>
-            <li style={{fontWeight:'bold', marginTop:'1rem', marginBottom:'1rem'}}>Middle Note  &nbsp;:&nbsp;  Black Pepper</li>
-            <li style={{fontWeight:'bold', marginTop:'1rem', marginBottom:'5rem'}}>Base Note  &nbsp;:&nbsp;  Vanilla, Sandalwood, And Patchouli</li>
+
+            <li style={{fontWeight:'bold', marginTop:'1rem', marginBottom:'1rem'}}>Top Note  &nbsp;:&nbsp; {perfumeInfo.topNoteName.join(', ')} </li>
+            <li style={{fontWeight:'bold', marginTop:'1rem', marginBottom:'1rem'}}>Middle Note  &nbsp;:&nbsp; {perfumeInfo.middleNoteName.join(', ')}</li>
+            <li style={{fontWeight:'bold', marginTop:'1rem', marginBottom:'5rem'}}>Base Note  &nbsp;:&nbsp;  {perfumeInfo.baseNoteName.join(', ')}</li>
           </ul>
           <p style={{fontSize:'2rem', fontWeight:'bold', marginTop:'1rem', marginBottom:'1.5rem'}}>내 취향과의 유사도 : &nbsp; 
             {showSimilarity === false
@@ -137,10 +215,12 @@ const DetailPage = () => {
       </Box>
       <Box
         sx={{width:'80rem',display:'flex',flexDirection:'row',justifyContent:'space-between',marginTop:'2rem',marginBottom:'2rem'}}>
+        {
+          // 해당 향수 비슷한 향수 식 필요
+        /* <CardComponent/>
         <CardComponent/>
         <CardComponent/>
-        <CardComponent/>
-        <CardComponent/>
+        <CardComponent/> */}
       </Box>
       <DivideLine/>
       <Box

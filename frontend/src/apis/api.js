@@ -1,4 +1,4 @@
-import { defaultInstance } from ".";
+import { defaultInstance, authInstance } from ".";
 
 const USERS = "/member";
 const TEST = "/test";
@@ -9,15 +9,28 @@ const ALARM = "/alarm";
 
 const api = {
   user: {
-    login: (type, params) => defaultInstance.get(`/auth/login/${type}`, params),
+    login: (type, code) =>
+      defaultInstance.get(`/auth/login/${type}`, { params: { code: code } }),
     register: (data) => defaultInstance.post(`${USERS}/register`, data),
+    checkName: (name) =>
+      defaultInstance.get(`${USERS}/nickname/check`, {
+        params: { nickname: name },
+      }),
   },
+  // share: {
+  //   getList: () => defaultInstance.get("/deal"),
+  // },
   share: {
-    getList: () => defaultInstance.get("/deal"),
+    getArticle: (articleId) => defaultInstance.get(`${SHARE}`, {params: {articleId: articleId}}),
+    getList: (page) => defaultInstance.get(`${SHARE}`, {params:{page:page}}),
+    register: (data) => defaultInstance.post(`${SHARE}`, data),
   },
-  share: {
-    getArticle: (id) => SHARE + `/${id}`,
-    register: () => SHARE + "register"
+  list: {
+    getList: (page) => defaultInstance.get(`${PERFUMES}?page=${page}`),
+    getDetail: (detailId) => defaultInstance.get(`${PERFUMES}/${detailId}`)
+  },
+  image: {
+    getImage: (fileName) => defaultInstance.get(`${IMG}?filename=${fileName}`)
   }
 };
 
