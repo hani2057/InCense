@@ -3,6 +3,7 @@ package com.suyang.incense.api.service.member;
 import com.suyang.incense.api.request.member.mypage.PerfumeModifyReq;
 import com.suyang.incense.api.request.member.mypage.PerfumeRegisterReq;
 import com.suyang.incense.api.response.member.mypage.PerfumeRes;
+import com.suyang.incense.api.response.member.mypage.ReviewRes;
 import com.suyang.incense.db.entity.member.Member;
 import com.suyang.incense.db.entity.perfume.Perfume;
 import com.suyang.incense.db.entity.relation.Category;
@@ -95,5 +96,11 @@ public class MyPageServiceImpl implements MyPageService{
     @Override
     public void removePerfume(Long myPerfumeId) {
         memberPerfumeRepository.deleteById(myPerfumeId);
+    }
+
+    @Override
+    public List<ReviewRes> getMyReview(Authentication authentication) {
+        Member member = memberRepository.findById(authService.getIdByAuthentication(authentication)).get();
+        return reviewCustomRepository.getReviewByMember(member);
     }
 }

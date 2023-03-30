@@ -3,6 +3,7 @@ package com.suyang.incense.api.controller;
 import com.suyang.incense.api.request.member.mypage.PerfumeModifyReq;
 import com.suyang.incense.api.request.member.mypage.PerfumeRegisterReq;
 import com.suyang.incense.api.response.member.mypage.PerfumeRes;
+import com.suyang.incense.api.response.member.mypage.ReviewRes;
 import com.suyang.incense.api.service.member.MyPageService;
 import com.suyang.incense.common.util.BaseResponseBody;
 import io.swagger.annotations.Api;
@@ -52,5 +53,12 @@ public class MyPageController {
     public ResponseEntity<? extends BaseResponseBody> removeMyPerfume(@RequestParam Long myPerfumeId) {
         myPageService.removePerfume(myPerfumeId);
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+    }
+
+    @GetMapping("/review")
+    @ApiOperation(value = "작성한 후기 조회", notes = "category와 상관없이 작성한 모든 후기 조회")
+    public ResponseEntity<List<ReviewRes>> getPerfumeReview(@ApiIgnore Authentication authentication) {
+        List<ReviewRes> response = myPageService.getMyReview(authentication);
+        return ResponseEntity.status(200).body(response);
     }
 }
