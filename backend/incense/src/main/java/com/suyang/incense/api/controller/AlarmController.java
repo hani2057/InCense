@@ -5,6 +5,8 @@ import com.suyang.incense.api.response.alarm.AlarmRes;
 import com.suyang.incense.api.response.alarm.AlarmSendRes;
 import com.suyang.incense.api.response.perfume.PerfumeRes;
 import com.suyang.incense.api.service.alarm.AlarmService;
+import com.suyang.incense.db.entity.deal.Deal;
+import com.suyang.incense.db.entity.perfume.Perfume;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -54,6 +56,12 @@ public class AlarmController {
     @ApiOperation(value = "알람 테스트")
     @GetMapping("/send/test")
     public void sendTest(){
-        alarmService.sendAlarmToAllMembers();
+        Deal deal = new Deal();
+        Perfume perfume = new Perfume();
+        perfume.setId((long)1);
+        deal.setId((long)1);
+        deal.setTitle("나품 제목1");
+        deal.setPerfume(perfume);
+        alarmService.sendAlarmToAllMembers(deal);
     }
 }

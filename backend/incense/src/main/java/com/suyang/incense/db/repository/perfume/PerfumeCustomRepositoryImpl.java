@@ -7,16 +7,16 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.suyang.incense.api.request.perfume.PerfumeReq;
 import com.suyang.incense.api.request.perfume.PerfumeSort;
-import com.suyang.incense.api.response.perfume.PerfumeRes;
+import com.suyang.incense.db.entity.member.Member;
 import com.suyang.incense.db.entity.perfume.Perfume;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import static com.suyang.incense.db.entity.member.QMember.member;
 import static com.suyang.incense.db.entity.note.QNote.note;
 import static com.suyang.incense.db.entity.perfume.QBrand.brand;
 import static com.suyang.incense.db.entity.perfume.QPerfume.perfume;
@@ -58,6 +58,16 @@ public class PerfumeCustomRepositoryImpl implements PerfumeCustomRepository {
 
         return perfumeList;
     }
+
+    @Override
+    public List<Member>  getAlarmMembers(Long perfumeId){
+        return jpaQueryFactory.select(member)
+                .from(memberPerfume)
+                .innerJoin(memberPerfume.member,member)
+                .where(memberPerfume.perfume.id.eq(perfumeId))
+                .fetch();
+    }
+
     @Override
     public Long getCount(PerfumeReq perfumeReq) {
         JPAQuery<Long> countQuery =  jpaQueryFactory.select(perfume.id.countDistinct())
