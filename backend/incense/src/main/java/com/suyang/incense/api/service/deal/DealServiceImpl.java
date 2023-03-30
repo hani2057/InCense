@@ -41,11 +41,8 @@ public class DealServiceImpl implements DealService  {
   public Deal create(DealReq dealReq, Long memberId) {
 
     //나눔판매 글 생성
-//    Member member = memberRepository.findById(memberId);
-//    Perfume perfume = perfumeRepository.findById(dealReq.getPerfumeId());
-
-    Member member = memberRepository.findById(1l).orElseThrow();
-    Perfume perfume = perfumeRepository.findById(1l).orElseThrow();
+    Member member = memberRepository.findById(memberId).orElseThrow(IllegalArgumentException::new);
+    Perfume perfume = perfumeRepository.findById(dealReq.getPerfumeId()).orElseThrow(IllegalArgumentException::new);
 
     Deal deal = new Deal();
 
@@ -69,8 +66,7 @@ public class DealServiceImpl implements DealService  {
   @Transactional
   public Deal update(DealReq dealReq, Long dealId, Long memberId) {
 
-//    Perfume perfume = perfumeRepository.findById(dealReq.getPerfumeId());
-    Perfume perfume = perfumeRepository.findById(1l).orElseThrow();
+    Perfume perfume = perfumeRepository.findById(dealReq.getPerfumeId()).orElseThrow(IllegalArgumentException::new);
 
     Deal deal = dealRepository.findById(dealId).orElseThrow(IllegalArgumentException::new);
 

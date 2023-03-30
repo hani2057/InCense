@@ -1,5 +1,6 @@
 package com.suyang.incense.api.controller;
 
+import com.suyang.incense.api.request.member.mypage.PerfumeModifyReq;
 import com.suyang.incense.api.request.member.mypage.PerfumeRegisterReq;
 import com.suyang.incense.api.response.member.mypage.PerfumeRes;
 import com.suyang.incense.api.service.member.MyPageService;
@@ -31,7 +32,7 @@ public class MyPageController {
         return ResponseEntity.status(200).body(response);
     }
 
-    @PostMapping("/perfume/register")
+    @PostMapping("/perfume")
     @ApiOperation(value = "향수 등록", notes = "Have, Had, Want 향수 등록")
     public ResponseEntity<? extends BaseResponseBody> registerMyPerfume(@RequestBody PerfumeRegisterReq perfumeRegisterReq,
                                                                         @ApiIgnore Authentication authentication) {
@@ -39,4 +40,17 @@ public class MyPageController {
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
 
+    @PutMapping("/perfume")
+    @ApiOperation(value = "향수 정보 수정", notes = "Have, Had, Want 등록한 향수 정보 수정")
+    public ResponseEntity<? extends BaseResponseBody> modifyMyPerfume(@RequestBody PerfumeModifyReq perfumeModifyReq) {
+        myPageService.modifyPerfume(perfumeModifyReq);
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+    }
+
+    @DeleteMapping("/perfume")
+    @ApiOperation(value = "향수 삭제", notes = "Have, Had, Want 향수 삭제")
+    public ResponseEntity<? extends BaseResponseBody> removeMyPerfume(@RequestParam Long myPerfumeId) {
+        myPageService.removePerfume(myPerfumeId);
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+    }
 }

@@ -6,6 +6,7 @@ import com.suyang.incense.db.entity.deal.DealComment;
 import com.suyang.incense.db.entity.deal.DealReport;
 import com.suyang.incense.db.entity.relation.*;
 import com.suyang.incense.db.entity.deal.Deal;
+import com.suyang.incense.db.entity.review.Review;
 import com.suyang.incense.db.entity.test.Test;
 import lombok.Builder;
 import lombok.Getter;
@@ -42,9 +43,6 @@ public class Member {
     @Column(length = 50)
     private String email;
 
-//    @NotNull
-//    @Column(length = 100)
-//    private String password;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -114,6 +112,9 @@ public class Member {
 
     @OneToMany(mappedBy = "member")
     private List<Test> testList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<Review> reviewList = new ArrayList<>();
 
     @Builder
     public Member(Grade grade, String email, Role role, SocialType type, String nickname, Byte gender,
