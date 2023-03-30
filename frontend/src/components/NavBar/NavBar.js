@@ -1,16 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { BsBell } from "react-icons/bs";
 import { BsFillBellFill } from "react-icons/bs";
 import { FlexDiv } from "../common/FlexDiv/FlexDiv";
 import { NavWrapper, NavTitle, NavItem, NavLogInStatus } from "./style";
+import AlarmModal from "../AlarmModal/AlarmModal";
 
 const NavBar = () => {
   const { pathname } = useLocation();
-
-  useEffect(() => {
-    console.log(pathname);
-  }, [pathname]);
+  const [alarmOpen, setAlarmOpen] = useState(false);
 
   return (
     <>
@@ -30,10 +28,15 @@ const NavBar = () => {
           <NavItem to="/profile">My Page</NavItem>
         </FlexDiv>
         <FlexDiv width="auto">
-          <BsBell />
+          <BsBell
+            onClick={() => setAlarmOpen((prev) => !prev)}
+            style={{ cursor: "pointer" }}
+          />
           <NavLogInStatus>Log out</NavLogInStatus>
         </FlexDiv>
       </NavWrapper>
+
+      {alarmOpen && <AlarmModal />}
 
       <div style={{ paddingTop: "var(--nav-height)" }}>
         <Outlet />
