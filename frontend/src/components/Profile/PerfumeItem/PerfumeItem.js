@@ -1,4 +1,5 @@
 import React from "react";
+import { BsBell } from "react-icons/bs";
 import { FlexDiv } from "../../common/FlexDiv/FlexDiv";
 
 const PerfumeItem = () => {
@@ -10,11 +11,11 @@ const PerfumeItem = () => {
       style={{ border: "1px solid var(--gray-color)" }}
     >
       <FlexDiv justify="end">
-        <img src="/assets/icons/edit.svg" alt="edit" />
+        <BsBell style={{ color: "var(--dark-gray-color)", strokeWidth: "1" }} />
       </FlexDiv>
       <img
         // src="/assets/images/fluer.png"
-        src="https://j8a804.p.ssafy.io/api/display?filename=perfumes/test.jpg"
+        src="https://j8a804.p.ssafy.io/api/display?filename=perfumes/1.jpg"
         alt="perfume"
         style={{ width: "60%" }}
       />
@@ -25,7 +26,11 @@ const PerfumeItem = () => {
         </FlexDiv>
         <FlexDiv justify="end">
           <img src="/assets/icons/edit.svg" alt="edit" />
-          <img src="/assets/icons/edit.svg" alt="delete" />
+          <img
+            src="/assets/icons/delete.svg"
+            alt="delete"
+            style={{ marginLeft: "0.5rem", stroke: "1" }}
+          />
         </FlexDiv>
       </FlexDiv>
     </FlexDiv>
