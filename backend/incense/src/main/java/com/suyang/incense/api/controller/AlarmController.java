@@ -50,4 +50,10 @@ public class AlarmController {
 
         return ResponseEntity.ok(alarmSendResList);
     }
+
+    @ApiOperation(value = "알람 테스트")
+    @GetMapping("/send/test")
+    public void sendTest(){
+        alarmService.sendAlarmToAllMembers();
+    }
 }
