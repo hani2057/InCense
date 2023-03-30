@@ -8,7 +8,6 @@ import { useState } from "react";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router";
 import ArticleCard from "./ArticleCard/ArticleCard";
-import Pagination from "../../components/common/Pagination/Pagination";
 
 // 체크박스 필터링시 들어가는 value값 확인하기
 
@@ -265,10 +264,7 @@ export default function SharePage() {
             <ArticleCard/>
             <ArticleCard/>
             <ArticleCard/>
-            <Pagination total={20}
-              limit={5}
-              page={5}
-              setPage={1}/>
+
           </Box>
 
 

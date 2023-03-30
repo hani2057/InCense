@@ -5,10 +5,7 @@ const TitleSpan = styled.span`
   font-size: 2rem;
 `;
 
-const LoginBtn = styled.a`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const LoginBtn = styled.button`
   border: 1px solid var(--dark-gray-color);
   width: 60%;
   max-width: 30rem;

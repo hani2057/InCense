@@ -40,9 +40,23 @@ const NavItem = styled(NavLink)`
   }
 `;
 
+// h1 {
+//   --s: 0.1em;   /* the thickness of the line */
+//   --c: #2c4bff; /* the color */
+
+//   color: #0000;
+//   padding-bottom: var(--s);
+//   background:
+//     linear-gradient(90deg,var(--c) 50%,#000 0) calc(100% - var(--_p,0%))/200% 100%,
+//     linear-gradient(var(--c) 0 0) 0% 100%/var(--_p,0%) var(--s) no-repeat;
+//   -webkit-background-clip: text,padding-box;
+//           background-clip: text,padding-box;
+//   transition: 0.5s;
+// }
+// h1:hover {--_p: 100%}
+
 const NavLogInStatus = styled.span`
   padding: 0 1rem;
-  cursor: pointer;
 `;
 
 export { NavWrapper, NavTitle, NavItem, NavLogInStatus };

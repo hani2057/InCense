@@ -74,7 +74,7 @@ function ArticleDetail() {
       <Box
         sx={{width:'100%', height:'0.2rem', backgroundColor:'#DCDCDC',marginTop:'2rem',marginBottom:'2rem',marginLeft:'1rem'}}>
       </Box>
-      <Box sx={{width:'100%',display:'flex',flexDirection:'row',justifyContent:'space-between',marginLeft:'1rem'}}>
+      <Box sx={{display:'flex',flexDirection:'row',justifyContent:'space-between',marginLeft:'1rem'}}>
         <h1 style={{fontSize:'1.3rem', fontWeight:'bold', marginBottom:'2rem'}}>제목 : 어쩌구 저쩌구 몇ml 나눔합니다.</h1>
         <Box sx={{display:'flex',flexDirection:'row',justifyContent:'flex-end'}}>
           {isBookmark === false

@@ -20,7 +20,9 @@ const LogInPage = () => {
       </FlexDiv>
       <FlexDiv direction="column" gap="1rem">
         <span style={{ fontSize: "2rem", marginBottom: "4rem" }}>Log In</span>
-        <LoginBtn href={KAKAO_AUTH_URL}>KaKao</LoginBtn>
+        <a href={KAKAO_AUTH_URL}>
+          <LoginBtn>KaKao</LoginBtn>
+        </a>
         <LoginBtn>Naver</LoginBtn>
         <LoginBtn>Google</LoginBtn>
       </FlexDiv>

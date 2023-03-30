@@ -1,17 +1,16 @@
-import React from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Outlet, useLocation } from "react-router-dom";
 import { BsBell } from "react-icons/bs";
 import { BsFillBellFill } from "react-icons/bs";
 import { FlexDiv } from "../common/FlexDiv/FlexDiv";
 import { NavWrapper, NavTitle, NavItem, NavLogInStatus } from "./style";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../store/slice/userSlice";
 
 const NavBar = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { pathname } = useLocation();
-  const isLoggedIn = useSelector((state) => state.userReducers.isLoggedIn);
+
+  useEffect(() => {
+    console.log(pathname);
+  }, [pathname]);
 
   return (
     <>
@@ -32,14 +31,7 @@ const NavBar = () => {
         </FlexDiv>
         <FlexDiv width="auto">
           <BsBell />
-          <NavLogInStatus
-            onClick={() => {
-              if (isLoggedIn) dispatch(logout());
-              else navigate("/login");
-            }}
-          >
-            {isLoggedIn ? "Log out" : "Log in"}
-          </NavLogInStatus>
+          <NavLogInStatus>Log out</NavLogInStatus>
         </FlexDiv>
       </NavWrapper>
 
