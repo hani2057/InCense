@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface MemberPerfumeCustomRepository {
 
-    List<PerfumeRes> getMyPerfume(String type, Long memberId);
+    List<PerfumeRes> getMyWantPerfume(Long memberId);
+    List<PerfumeRes> getMyHaveHadPerfume(String type, Long memberId);
 }

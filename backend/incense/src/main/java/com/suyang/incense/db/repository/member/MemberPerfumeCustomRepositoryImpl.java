@@ -13,6 +13,7 @@ import static com.suyang.incense.db.entity.perfume.QBrand.brand;
 import static com.suyang.incense.db.entity.perfume.QPerfume.perfume;
 import static com.suyang.incense.db.entity.relation.QMemberPerfume.memberPerfume;
 import static com.suyang.incense.db.entity.relation.QMemberPerfumeAlarm.memberPerfumeAlarm;
+import static com.suyang.incense.db.entity.review.QReview.review;
 
 @Repository
 public class MemberPerfumeCustomRepositoryImpl implements MemberPerfumeCustomRepository{
@@ -22,28 +23,53 @@ public class MemberPerfumeCustomRepositoryImpl implements MemberPerfumeCustomRep
 
 
     @Override
-    public List<PerfumeRes> getMyPerfume(String type, Long memberId) {
+    public List<PerfumeRes> getMyWantPerfume(Long memberId) {
 
         List<PerfumeRes> result = jpaQueryFactory
                 .select(Projections.constructor(
                         PerfumeRes.class,
                         memberPerfume.id,
                         perfume.id,
-                        perfume.name,
                         brand.name,
+                        perfume.name,
                         perfume.image
                 ))
                 .from(perfume, memberPerfume, brand)
                 .where(perfume.id.eq(memberPerfume.perfume.id), perfume.brand.id.eq(brand.id),
-                        memberPerfume.member.id.eq(memberId), memberPerfume.category.eq(Category.valueOf(type)))
+                        memberPerfume.member.id.eq(memberId), memberPerfume.category.eq(Category.WANT))
                 .fetch();
 
-//        select exists (
-//                select member_perfume_alarm_id
-//        from member_perfume_alarm
-//        where member_id=1 and perfume_id=67);
+        for (PerfumeRes perfume : result) {
+            if (jpaQueryFactory.selectFrom(memberPerfumeAlarm)
+                    .where(memberPerfumeAlarm.member.id.eq(memberId),
+                            memberPerfumeAlarm.perfume.id.eq(perfume.getPerfumeId()))
+                    .fetchFirst() != null) {
+                perfume.setAlarm(true);
+            }
+        }
 
-//        https://suyou.tistory.com/286
+        return result;
+    }
+
+    @Override
+    public List<PerfumeRes> getMyHaveHadPerfume(String type, Long memberId) {
+
+        List<PerfumeRes> result = jpaQueryFactory
+                .select(Projections.constructor(
+                        PerfumeRes.class,
+                        memberPerfume.id,
+                        perfume.id,
+                        brand.name,
+                        perfume.name,
+                        perfume.image,
+                        review.preference,
+                        review.comment
+                ))
+                .from(perfume, memberPerfume, brand, review)
+                .where(perfume.eq(memberPerfume.perfume), perfume.brand.eq(brand),
+                        memberPerfume.member.id.eq(memberId), memberPerfume.category.eq(Category.valueOf(type)),
+                        review.member.id.eq(memberId), review.perfume.eq(perfume))
+                .fetch();
 
         for (PerfumeRes perfume : result) {
             if (jpaQueryFactory.selectFrom(memberPerfumeAlarm)

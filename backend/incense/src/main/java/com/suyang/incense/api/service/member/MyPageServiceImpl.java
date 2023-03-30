@@ -32,7 +32,11 @@ public class MyPageServiceImpl implements MyPageService{
     @Override
     public List<PerfumeRes> getMyPerfume(String type, Authentication authentication) {
         Long memberId = authService.getIdByAuthentication(authentication);
-        return memberPerfumeCustomRepository.getMyPerfume(type, memberId);
+        if(type.equals("WANT")) {
+            return memberPerfumeCustomRepository.getMyWantPerfume(memberId);
+        } else {
+            return memberPerfumeCustomRepository.getMyHaveHadPerfume(type, memberId);
+        }
     }
 
     @Override
