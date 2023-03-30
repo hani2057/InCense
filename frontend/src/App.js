@@ -1,9 +1,5 @@
 import { Navigate, Route, Routes } from "react-router";
 import NavBar from "./components/NavBar/NavBar";
-// import LogInPage from "./pages/LogInPage/LogInPage";
-// import KakaoRedirect from "./components/LogIn/KakaoRedirect/KakaoRedirect";
-// import SignUpPage from "./pages/SignUpPage/SignUpPage";
-// import MainPage from "./pages/MainPage/MainPage";
 import ListPage from "./pages/ListPage/ListPage";
 import DetailPage from "./pages/DetailPage/DetailPage";
 import SharePage from "./pages/SharePage/SharePage";
@@ -15,24 +11,34 @@ import ProfileActivityPage from "./pages/Profile/ProfileActivityPage/ProfileActi
 import RegisterPage from "./pages/SharePage/RegisterPage";
 import RegisterOrEdit from "./pages/SharePage/RegisterOrEdit";
 import ArticleDetail from "./pages/SharePage/ArticleDetail";
+import { PrivateRoute } from "./components/LogIn/PrivateRoute.js/PrivateRoute";
 
 function App() {
   return (
     <>
       <NavBar />
       <Routes>
-        {/* <Route index element={<MainPage />} />
-        <Route path="/login" element={<LogInPage />} />
-        <Route path="/oauth/callback/kakao" element={<KakaoRedirect />} />
-        <Route path="/signup" element={<SignUpPage />} />
-        <Route element={<NavBar />}></Route> */}
         <Route path="/list" element={<ListPage />} />
-        <Route path="/detail" element={<DetailPage />} />
+        <Route path="/detail/:detailId" element={<DetailPage />} />
         <Route path="/share" element={<SharePage />} />
         <Route path="/share/register" element={<RegisterPage />} />
-        <Route path="/share/registertest" element={<RegisterOrEdit />} />
+        <Route
+          path="/share/registertest"
+          element={
+            <PrivateRoute>
+              <RegisterOrEdit />
+            </PrivateRoute>
+          }
+        />
         <Route path="/share/article" element={<ArticleDetail />} />
-        <Route path="/profile" element={<ProfilePage />}>
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoute>
+              <ProfilePage />
+            </PrivateRoute>
+          }
+        >
           <Route index element={<ProfileMainPage />} />
           <Route path="perfumes" element={<ProfilePerfumePage />} />
           <Route path="analysis" element={<ProfileAnalysisPage />} />

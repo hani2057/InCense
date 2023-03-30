@@ -7,17 +7,17 @@ import StarRating from './StarRating';
 
 
 
-function CheckModal({setIsOpen, idx}) {
+function CheckModal(props) {
 
   const handleClose = () => {
-    setIsOpen(false)
+    props.setIsOpen(false)
   }
 
   const onSubmitForm = () => {
     console.log('form제출!')
   }
 
-  console.log(idx)
+  console.log(props.idx)
 
   const [reviewValue, setReviewValue] = useState('')
 
@@ -32,21 +32,21 @@ function CheckModal({setIsOpen, idx}) {
     <Overlay>
       <ModalWrap>
         <Box sx={{width:'100%',height:'100%',backgroundColor:'white', display:'flex',flexDirection:'column',alignContent:'center',position:'relative'}}>
-          {idx === 0
+          {props.idx === 0
           ?<h1 style={{marginTop:'3rem',fontSize:'3rem',fontWeight:'bold',color:'#8785FF'}}>I HAD IT!</h1>
-          :idx === 1
+          :props.idx === 1
           ?<h1 style={{marginTop:'3rem',fontSize:'3rem',fontWeight:'bold',color:'#8785FF'}}>I HAVE IT!</h1>
           :<h1 style={{marginTop:'3rem',fontSize:'3rem',fontWeight:'bold',color:'#8785FF'}}>I WANT IT!</h1>}
           <Box sx={{display:'flex',flexDirection:'row',marginTop:'2rem'}}>
-            <img style={{marginLeft:'2rem',width:'25%'}} src='assets/images/935.jpg' alt='perfumeImage'/>
+            <img style={{marginLeft:'2rem',width:'25%'}} src={props.imageURL} alt='perfumeImage'/>
             <Box sx={{display:'flex',flexDirection:'column',textAlign:'start',marginLeft:'2rem',marginTop:'2rem'}}>
-              <h1 style={{fontSize:'1rem',marginBottom:'1rem'}}>Diptyque</h1>
-              <h1 style={{fontSize:'1.5rem',marginBottom:'2rem',fontWeight:'bold'}}>fleur de peau</h1>
+              <h1 style={{fontSize:'1rem',marginBottom:'1rem'}}>{props.perfumeInfo.brandName}</h1>
+              <h1 style={{fontSize:'1.5rem',marginBottom:'2rem',fontWeight:'bold'}}>{props.perfumeInfo.name}</h1>
               <StarRating/>
             </Box>
           </Box>
 
-          {idx !== 2
+          {props.idx !== 2
           ?<Box sx={{width:'95%'}}>
             <TextField fullWidth multiline rows={4} label="다른 사람들을 위해 후기를 남겨주세요." id="fullWidth" size='small' sx={{margin:'1rem'}}
             onChange={onChangeReview}/>
@@ -57,7 +57,7 @@ function CheckModal({setIsOpen, idx}) {
               >
               <p style={{fontSize:'1.5rem',fontWeight:'bold',cursor:'pointer'}}>추가하기</p>
             </Box>
-            <p onClick={()=>setIsOpen(false)} style={{fontSize:'2rem',position:'absolute',top:'2%',right:'2%',cursor:'pointer'}}>x</p>
+            <p onClick={()=>props.setIsOpen(false)} style={{fontSize:'2rem',position:'absolute',top:'2%',right:'2%',cursor:'pointer'}}>x</p>
               {/* <CButton onClick={()=>setIsOpen(false)}>뒤로</CButton> */}
         </Box>
       </ModalWrap>
@@ -100,11 +100,10 @@ const Overlay = styled.div`
   width: 100%;
   // background: rgba(0, 0, 0, 0.2);
   z-index: 999;
-  border: 2px solid lightgrey;
 `;
 
 const ModalWrap = styled.div`
-  position: absolute;
+  position: fixed;
   width: 600px;
   height: 580px;
   display: flex;
@@ -115,7 +114,7 @@ const ModalWrap = styled.div`
   left: 50%;
   box-Shadow: 2px 2px 3px;
   transform: translate(-50%, -50%);
-  
+  z-index:997
   
 `;
 const Contents = styled.div`

@@ -30,6 +30,11 @@ export default function MenuButton() {
     console.log('삭제하기')
     alert('삭제하시겠습니까?')
   }
+
+  const onClickEl3 = () => {
+    console.log('마감하기')
+    alert('마감하시겠습니까?')
+  }
   
   return (
     <div style={{}}>
@@ -66,7 +71,9 @@ export default function MenuButton() {
           <MenuItem onClick={onClickEl2}>
             삭제하기
           </MenuItem>
-
+          <MenuItem onClick={onClickEl3}>
+            마감하기
+          </MenuItem>
 
       </Menu>
     </div>
