@@ -90,7 +90,7 @@ const SignUpPage = () => {
         return { ...prev, birth: true };
       });
       setBirthMsg("유효하지 않은 생년월일입니다");
-    } else if (!genderPickedIdx) {
+    } else if (genderPickedIdx === null) {
       setIsError((prev) => {
         return { ...prev, gender: true };
       });
