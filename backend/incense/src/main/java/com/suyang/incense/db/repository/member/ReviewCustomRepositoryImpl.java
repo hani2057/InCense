@@ -22,4 +22,5 @@ public class ReviewCustomRepositoryImpl implements ReviewCustomRepository {
                 .where(review.member.eq(member), review.perfume.eq(perfume))
                 .fetchOne();
     }
+
 }
