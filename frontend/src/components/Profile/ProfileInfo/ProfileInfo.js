@@ -1,4 +1,6 @@
-import React from "react";
+import dayjs from "dayjs";
+import React, { useState, useEffect } from "react";
+import api from "../../../apis/api";
 import { FlexDiv } from "../../common/FlexDiv/FlexDiv";
 import {
   ProfileInfoWrapper,
@@ -8,6 +10,28 @@ import {
 } from "./style";
 
 const ProfileInfo = () => {
+  const [userInfo, setUserInfo] = useState(null);
+
+  const fetchGetUserInfo = async () => {
+    const res = await api.user.getUserInfo();
+    setUserInfo(res);
+  };
+
+  useEffect(() => {
+    fetchGetUserInfo();
+  }, []);
+
+  if (!userInfo) return null;
+
+  const ageRange =
+    Math.floor((dayjs().year() - userInfo.birth[0] + 1) / 10) * 10;
+
+  console.log(
+    typeof userInfo.gender,
+    userInfo.gender,
+    Boolean(userInfo.gender)
+  );
+
   return (
     <ProfileInfoWrapper direction="column" justify="start">
       <ProfileImg alt="profile" />
@@ -17,7 +41,7 @@ const ProfileInfo = () => {
         padding="1rem 0 2.5rem 0"
         style={{ position: "relative" }}
       >
-        <span style={{ fontWeight: "700" }}>닉네임</span>
+        <span style={{ fontWeight: "700" }}>{userInfo.nickname}</span>
         <img
           src="/assets/icons/edit.svg"
           alt="modify"
@@ -25,23 +49,33 @@ const ProfileInfo = () => {
         />
       </FlexDiv>
       <FlexDiv height="auto" justify="start">
-        <ProfileGrade alt="grade" grade={"1"} />
+        <ProfileGrade alt="grade" grade={userInfo.grade_name} />
         <FlexDiv direction="column" align="start" width="auto">
           <FlexDiv justify="start">
-            <ProfileInfoSpan>여성</ProfileInfoSpan>
+            <ProfileInfoSpan bold={true}>
+              {userInfo.gender ? "여성" : "남성"}
+            </ProfileInfoSpan>
             <ProfileInfoSpan>
-              <img src="/assets/icons/lock.svg" alt="locked" />
+              {/* {userInfo.genderOpen ? null : (
+                <img src="/assets/icons/lock.svg" alt="locked" />
+              )} */}
+              {userInfo.genderOpen ? "공개" : "비공개"}
             </ProfileInfoSpan>
           </FlexDiv>
           <FlexDiv justify="start">
-            <ProfileInfoSpan>1999.01.01.</ProfileInfoSpan>
+            <ProfileInfoSpan bold={true}>{`${ageRange}대`}</ProfileInfoSpan>
             <ProfileInfoSpan>
-              <img src="/assets/icons/lock.svg" alt="locked" />
+              {/* {userInfo.birthOpen ? null : (
+                <img src="/assets/icons/lock.svg" alt="locked" />
+              )} */}
+              {userInfo.birthOpen ? "공개" : "비공개"}
             </ProfileInfoSpan>
           </FlexDiv>
           <FlexDiv justify="start">
-            <ProfileInfoSpan>알림</ProfileInfoSpan>
-            <ProfileInfoSpan>받음</ProfileInfoSpan>
+            <ProfileInfoSpan bold={true}>알림</ProfileInfoSpan>
+            <ProfileInfoSpan>
+              {userInfo.alarmOpen ? "받음" : "받지 않음"}
+            </ProfileInfoSpan>
           </FlexDiv>
         </FlexDiv>
       </FlexDiv>

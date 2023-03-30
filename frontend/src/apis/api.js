@@ -16,21 +16,22 @@ const api = {
       defaultInstance.get(`${USERS}/nickname/check`, {
         params: { nickname: name },
       }),
+    getUserInfo: () => authInstance.get(`${USERS}/info`),
   },
   // share: {
   //   getList: () => defaultInstance.get("/deal"),
   // },
   share: {
     getArticle: (id) => SHARE + `/${id}`,
-    register: () => SHARE + "register"
+    register: () => SHARE + "register",
   },
   list: {
     getList: (page) => defaultInstance.get(`${PERFUMES}?page=${page}`),
-    getDetail: (detailId) => defaultInstance.get(`${PERFUMES}/${detailId}`)
+    getDetail: (detailId) => defaultInstance.get(`${PERFUMES}/${detailId}`),
   },
   image: {
-    getImage: (fileName) => defaultInstance.get(`${IMG}?filename=${fileName}`)
-  }
+    getImage: (fileName) => defaultInstance.get(`${IMG}?filename=${fileName}`),
+  },
 };
 
 export default api;

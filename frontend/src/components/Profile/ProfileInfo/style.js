@@ -26,6 +26,7 @@ const ProfileGrade = styled.img.attrs((props) => ({
 const ProfileInfoSpan = styled.span`
   font-size: 0.75rem;
   padding-left: 0.5rem;
+  font-weight: ${(props) => (props.bold ? "700" : "400")};
 `;
 
 export { ProfileInfoWrapper, ProfileImg, ProfileGrade, ProfileInfoSpan };
