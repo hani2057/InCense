@@ -72,7 +72,7 @@ public class FileHandler {
         String newFileName = Long.toString(System.nanoTime()) + originalFileExtension;
         DealPhoto dealPhoto = DealPhoto.builder()
             .deal(deal)
-            .image("deal/" + currentDate + newFileName)
+            .image("deal/" + currentDate + "/" + newFileName)
             .build();
         fileList.add(dealPhoto);
 
