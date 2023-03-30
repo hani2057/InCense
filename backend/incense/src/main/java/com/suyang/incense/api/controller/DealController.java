@@ -8,18 +8,13 @@ import com.suyang.incense.api.response.deal.DealCommentRes;
 import com.suyang.incense.api.response.deal.DealDetailRes;
 import com.suyang.incense.api.response.deal.DealListRes;
 import com.suyang.incense.api.service.deal.*;
+import com.suyang.incense.api.service.member.AuthService;
 import com.suyang.incense.api.service.member.MemberService;
 import com.suyang.incense.db.entity.deal.Deal;
-import com.suyang.incense.db.entity.deal.DealPhoto;
-import com.suyang.incense.db.entity.deal.Gubun;
-import com.suyang.incense.db.entity.member.Member;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,13 +23,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
-
-import javax.validation.Valid;
 
 @Api(value = "판매 나눔 API", tags = {"Deal"})
 @RestController
@@ -49,27 +41,27 @@ public class DealController {
   private final DealBookmarkService dealBookmarkService;
   private final DealReportService dealReportService;
   private final MemberService memberService;
+  private final AuthService authService;
 
   @ApiOperation(value = "나눔/판매 글 생성")
   @PostMapping(consumes = {"multipart/form-data"})
   public ResponseEntity<?> createDeal(
-          @ModelAttribute @ApiParam(value = "나눔/판매 글 생성 정보", required = true) DealReq dealReq)
+          @ModelAttribute @ApiParam(value = "나눔/판매 글 생성 정보", required = true) DealReq dealReq,
+          @ApiIgnore Authentication authentication)
           throws IOException {
 
     //판매/나눔 글 생성
-//    Deal deal = dealService.create(dealReq, memberId);
-    Deal deal = dealService.create(dealReq, 1l);
+    Long memberId = authService.getIdByAuthentication(authentication);
+    Deal deal = dealService.create(dealReq, memberId);
 
     //이미지 넣기
     boolean imageExist = dealPhotoService.saveImage(deal.getId(), dealReq.getFiles());
 
-    //알람 전송 : 나눔/판매글 id, 향수 id 전송
-
     //점수 갱신
-//    memberService.addRank(1, memberId);
-//    memberService.checkRank(memberId);
-    memberService.addRank(1, 1l);
-    memberService.checkRank(1l);
+    memberService.addRank(1, memberId);
+    memberService.checkRank(memberId);
+
+    //알람 전송 : 나눔/판매글 id, 향수 id 전송
 
     return ResponseEntity.status(200).body("success");
   }
@@ -78,12 +70,13 @@ public class DealController {
   @PutMapping(path = "/{deal-id}", consumes = {"multipart/form-data"})
   public ResponseEntity<?> updateDeal(
           @PathVariable(value = "deal-id") Long dealId,
-          @ModelAttribute @ApiParam(value = "나눔/판매 글 생성 정보", required = true) DealReq dealReq)
+          @ModelAttribute @ApiParam(value = "나눔/판매 글 생성 정보", required = true) DealReq dealReq,
+          @ApiIgnore Authentication authentication)
           throws IOException {
 
     //판매/나눔 글 정보 수정
-//    Deal deal = dealService.update(dealReq, dealId, memberId);
-    Deal deal = dealService.update(dealReq, dealId, 1l);
+    Long memberId = authService.getIdByAuthentication(authentication);
+    Deal deal = dealService.update(dealReq, dealId, memberId);
 
     //이미지 수정
     dealPhotoService.updateImage(deal.getId(), dealReq.getFiles());
@@ -93,11 +86,13 @@ public class DealController {
 
   @ApiOperation(value = "나눔/판매 글 삭제")
   @DeleteMapping("/{deal-id}")
-  public ResponseEntity<?> deleteDeal(@PathVariable(value = "deal-id") Long dealId) throws IOException {
+  public ResponseEntity<?> deleteDeal(
+          @PathVariable(value = "deal-id") Long dealId,
+          @ApiIgnore Authentication authentication) throws IOException {
 
-//    dealService.delete(dealId, memberId);
+    Long memberId = authService.getIdByAuthentication(authentication);
 
-    if (!dealService.delete(dealId, 1l)) {
+    if (!dealService.delete(dealId, memberId)) {
       return ResponseEntity.status(404).body("유효하지 않은 사용자");
     }
 
@@ -106,24 +101,24 @@ public class DealController {
 
   @ApiOperation(value = "나눔/판매 글 마감")
   @PutMapping("/close/{deal-id}")
-  public ResponseEntity<?> closeDeal(@PathVariable(value = "deal-id") Long dealId) {
+  public ResponseEntity<?> closeDeal(
+          @PathVariable(value = "deal-id") Long dealId,
+          @ApiIgnore Authentication authentication) {
 
-//    dealService.closeDeal(dealId, memberId);
-    if(!dealService.closeDeal(dealId, 1l)){
+    Long memberId = authService.getIdByAuthentication(authentication);
+
+    if(!dealService.closeDeal(dealId, memberId)){
       return ResponseEntity.status(404).body("유효하지 않은 사용자");
     }
 
     return ResponseEntity.status(200).body("success");
   }
 
-
-  //원래는 Page<DealListRes> 반환해야 한다.
   @ApiOperation(value = "나눔/판매 글 리스트 조회")
   @GetMapping("")
   public ResponseEntity<Page<DealListRes>> getAllDeals(
           @ModelAttribute DealConditionReq dealConditionReq,
           @PageableDefault(value = Integer.MAX_VALUE) Pageable pageable) {
-
 
     /* dummy */
 //    List<DealListRes> result = new ArrayList<>();
@@ -170,10 +165,12 @@ public class DealController {
   @PostMapping("/comment/{deal-id}")
   public ResponseEntity<?> createDealComment(
           @PathVariable(value = "deal-id") Long dealId,
-          @RequestBody @ApiParam(value = "나눔/판매 글 댓글 생성 정보", required = true) DealCommentReq dealCommentReq) {
+          @RequestBody @ApiParam(value = "나눔/판매 글 댓글 생성 정보", required = true) DealCommentReq dealCommentReq,
+          @ApiIgnore Authentication authentication) {
 
-//    dealCommentService.create(dealId, memberId, dealCommentReq);
-    dealCommentService.create(dealId, 1l, dealCommentReq);
+    Long memberId = authService.getIdByAuthentication(authentication);
+
+    dealCommentService.create(dealId, memberId, dealCommentReq);
 
     return ResponseEntity.status(200).body("success");
 
@@ -183,10 +180,12 @@ public class DealController {
   @PutMapping("/comment/{comment-id}")
   public ResponseEntity<?> updateDealComment(
           @PathVariable(value = "comment-id") Long commentId,
-          @RequestBody @ApiParam(value = "나눔/판매 댓글 수정 정보", required = true) DealCommentReq dealCommentReq) {
+          @RequestBody @ApiParam(value = "나눔/판매 댓글 수정 정보", required = true) DealCommentReq dealCommentReq,
+          @ApiIgnore Authentication authentication) {
 
-//    dealCommentService.update(commentId, memberId, dealCommentReq);
-    dealCommentService.update(commentId, 1l, dealCommentReq);
+    Long memberId = authService.getIdByAuthentication(authentication);
+
+    dealCommentService.update(commentId, memberId, dealCommentReq);
 
     return ResponseEntity.status(200).body("success");
   }
@@ -195,12 +194,14 @@ public class DealController {
   @DeleteMapping("/comment/{comment-id}")
   public ResponseEntity<?> deleteDealComment(
           @PathVariable(value = "comment-id") Long commentId,
-          @RequestBody Map<String, String> type) {
+          @RequestBody Map<String, String> type,
+          @ApiIgnore Authentication authentication) {
 
     String typeArg = type.get("type");
 
-//    dealCommentService.delete(typeArg, commentId, memberId);
-    dealCommentService.delete(typeArg, commentId, 1l);
+    Long memberId = authService.getIdByAuthentication(authentication);
+
+    dealCommentService.delete(typeArg, commentId, memberId);
 
     return ResponseEntity.status(200).body("success");
   }
@@ -218,11 +219,13 @@ public class DealController {
   @ApiOperation(value = "나눔/판매 북마크 ON/OFF")
   @PutMapping("/bookmark/{deal-id}")
   public ResponseEntity<?> setBookmarkStatus(
-          @PathVariable(value = "deal-id") Long dealId) {
+          @PathVariable(value = "deal-id") Long dealId,
+          @ApiIgnore Authentication authentication) {
+
+    Long memberId = authService.getIdByAuthentication(authentication);
 
     //북마크 등록되어 있는 경우 북마크 해제, 해제되어 있는 경우 등록
-//    Boolean isRegistered = dealBookmarkService.setBookmarkStatus(dealId, memberId);
-    Boolean isRegistered = dealBookmarkService.setBookmarkStatus(dealId, 1L);
+    Boolean isRegistered = dealBookmarkService.setBookmarkStatus(dealId, memberId);
 
     return ResponseEntity.status(200).body(isRegistered);
 
@@ -231,10 +234,12 @@ public class DealController {
   @ApiOperation(value = "나눔/판매 북마크 여부 조회")
   @GetMapping("/bookmark/{deal-id}")
   public ResponseEntity<Map<String, Boolean>> getBookmartStatus(
-          @PathVariable(value = "deal-id") Long dealId) {
+          @PathVariable(value = "deal-id") Long dealId,
+          @ApiIgnore Authentication authentication) {
 
-//    Boolean isRegistered = dealBookmarkService.getBookmarkStatus(dealId, memberId);
-    Boolean isRegistered = dealBookmarkService.getBookmarkStatus(dealId, 1L);
+    Long memberId = authService.getIdByAuthentication(authentication);
+
+    Boolean isRegistered = dealBookmarkService.getBookmarkStatus(dealId, memberId);
 
     Map<String, Boolean> result = new HashMap<>();
     result.put("bookmark", isRegistered);
@@ -246,10 +251,13 @@ public class DealController {
   @ApiOperation(value = "나눔/판매 글 신고")
   @PostMapping("/report")
   public ResponseEntity<?> createReport(
-          @RequestBody @ApiParam(value = "나눔/판매 신고 정보", required = true) DealReportReq dealReportReq){
+          @RequestBody @ApiParam(value = "나눔/판매 신고 정보", required = true) DealReportReq dealReportReq,
+          @ApiIgnore Authentication authentication){
 
-//    dealReportService.createReport(dealReportReq, memberId);
-    dealReportService.createReport(dealReportReq, 1L);
+    Long memberId = authService.getIdByAuthentication(authentication);
+
+    dealReportService.createReport(dealReportReq, memberId);
+
     return ResponseEntity.status(200).body("success");
   }
 
