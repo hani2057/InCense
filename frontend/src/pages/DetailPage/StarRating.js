@@ -1,12 +1,16 @@
 import React from "react";
 import "./StarRating.css";
 
-function StarRating({ setStarValue, size }) {
+function StarRating({ setStarValue, size, isSearch, setErrorMsg }) {
   const drawStar = (e) => {
     document.querySelector(`.star span`).style.width = `${
       e.target.value * 10
     }%`;
-    setStarValue(e.target.value);
+
+    if (isSearch) {
+      setStarValue((prev) => ({ ...prev, preference: e.target.value }));
+      setErrorMsg("");
+    } else setStarValue(e.target.value);
   };
 
   return (
