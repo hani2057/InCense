@@ -5,6 +5,7 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { articleActions } from "../../store/slice/articleSlice";
 import RegisterOrEdit from "./RegisterOrEdit";
 import api from "../../apis/api";
+import axios from "axios";
 
 
 
@@ -65,8 +66,23 @@ const RegisterPage = () => {
     setImage(()=>event.target.files[0])
     console.log("image", image)
   }
+  console.log(article)
 
   const formData = new FormData();
+  formData.append('perfumeId', article.perfumeId)
+  formData.append('price', article.price)
+  formData.append('buyDate', article.buyDate)
+  formData.append('content', article.content)
+  formData.append('gubun', article.gubun)
+  formData.append('isClosed', article.isClosed)
+  formData.append('isDelivery', article.isDelivery)
+  formData.append('title', article.title)
+  formData.append('volume', article.volume)
+
+  
+
+
+
   const onSubmitArticle = (event) => {
     event.preventDefault();
 
@@ -122,7 +138,12 @@ const RegisterPage = () => {
       console.log('작성ㄱㄱ')
       console.log(articleForRegister)
       // axios로 post  
-      api.share.register(articleForRegister)
+      // const accessToken = sessionStorage.getItem("accessToken")
+      // axios.post('https://j8a804.p.ssafy.io/api/deal', formData, {
+      //   headers: {
+      //     'Content-Type': 'multipart/form-data', 'Authorization': `Bearer ${accessToken}`
+      //   }})
+      api.share.register(formData)
       alert('등록되었습니다.')
       dispatch(articleActions.reset())
       navigate('/share')
