@@ -2,6 +2,7 @@ package com.suyang.incense.api.controller;
 
 import com.suyang.incense.api.request.member.mypage.PerfumeModifyReq;
 import com.suyang.incense.api.request.member.mypage.PerfumeRegisterReq;
+import com.suyang.incense.api.request.member.mypage.ReviewModifyReq;
 import com.suyang.incense.api.response.member.mypage.PerfumeRes;
 import com.suyang.incense.api.response.member.mypage.ReviewRes;
 import com.suyang.incense.api.service.member.MyPageService;
@@ -60,5 +61,12 @@ public class MyPageController {
     public ResponseEntity<List<ReviewRes>> getPerfumeReview(@ApiIgnore Authentication authentication) {
         List<ReviewRes> response = myPageService.getMyReview(authentication);
         return ResponseEntity.status(200).body(response);
+    }
+
+    @PutMapping("/review")
+    @ApiOperation(value = "후기 수정", notes = "후기 정보를 수정(카테고리 변경X)")
+    public ResponseEntity<? extends BaseResponseBody> modifyMyReview(@RequestBody ReviewModifyReq reviewModifyReq) {
+        myPageService.modifyMyReview(reviewModifyReq);
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
 }
