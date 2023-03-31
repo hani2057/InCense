@@ -115,6 +115,22 @@ const ModalSubmit = styled.div`
   cursor: pointer;
 `;
 
+const ModalErrorMsg = styled.div`
+  position: absolute;
+  width: 20rem;
+  height: 2rem;
+  top: calc(50% - 1rem);
+  left: calc(50% - 10rem);
+  border: none;
+  // border-radius: 5px;
+  background-color: var(--red-color);
+  opacity: 0.4;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export {
   ModalContainer,
   ModalWrapper,
@@ -127,4 +143,5 @@ export {
   ModalSpan,
   ModalReview,
   ModalSubmit,
+  ModalErrorMsg,
 };

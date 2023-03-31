@@ -16,6 +16,7 @@ import {
   ModalSpan,
   ModalReview,
   ModalSubmit,
+  ModalErrorMsg,
 } from "./style";
 
 const SearchModal = ({
@@ -25,23 +26,37 @@ const SearchModal = ({
   perfumeToModify,
   modalType,
 }) => {
+  // 모달
   const ref = useRef();
-  useModal(ref, () => {
-    setModalOpen(false);
-  });
+  useModal(ref, () => setModalOpen(false));
 
   const [perfumeInfo, setPerfumeInfo] = useState(perfumeToModify || null);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResult, setSearchResult] = useState(null);
-  console.log(searchQuery);
-  console.log(searchResult);
+  const [errorMsg, setErrorMsg] = useState("");
+  console.log(perfumeInfo);
 
   const textArr = ["I have it", "I had it", "I want it"];
 
   const fetchSearch = async () => {
     const res = await api.profile.searchPerfume(searchQuery);
     setSearchResult(res.content);
-    console.log(res);
+  };
+
+  const fetchPostPerfume = async () => {
+    if (!perfumeInfo) setErrorMsg("향수를 선택해주세요");
+    else if (!perfumeInfo.preference) setErrorMsg("평점을 선택해주세요");
+    else {
+      const data = {
+        category: textArr[typeIdx].split(" ")[1].toUpperCase(),
+        comment: perfumeInfo.review || null,
+        perfumeId: perfumeInfo.id,
+        preference: perfumeInfo.preference,
+      };
+
+      await api.profile.addPerfumeToCategory(data);
+      setModalOpen(false);
+    }
   };
 
   return (
@@ -71,7 +86,10 @@ const SearchModal = ({
                 <ModalInput
                   placeholder="향수를 검색하세요"
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    setErrorMsg("");
+                  }}
                   onKeyUp={(e) => {
                     if (e.key === "Enter") {
                       fetchSearch();
@@ -103,7 +121,12 @@ const SearchModal = ({
               <FlexDiv justify="space-between" height="auto">
                 <ModalSpan bold={true}>{perfumeInfo?.name}</ModalSpan>
                 {perfumeInfo && typeIdx !== 2 ? (
-                  <StarRating size="1rem" />
+                  <StarRating
+                    size="1rem"
+                    setStarValue={setPerfumeInfo}
+                    setErrorMsg={setErrorMsg}
+                    isSearch={true}
+                  />
                 ) : (
                   <></>
                 )}
@@ -128,9 +151,11 @@ const SearchModal = ({
           {typeIdx !== 2 && (
             <ModalReview placeholder="다른 사람들을 위해 후기를 남겨주세요"></ModalReview>
           )}
-          <ModalSubmit>
+          <ModalSubmit onClick={() => fetchPostPerfume()}>
             {modalType === "modify" ? "수정하기" : "추가하기"}
           </ModalSubmit>
+
+          {errorMsg && <ModalErrorMsg>{errorMsg}</ModalErrorMsg>}
         </ModalContent>
       </ModalWrapper>
     </ModalContainer>
