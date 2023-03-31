@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import styled from 'styled-components';
 import { TextField } from "@mui/material";
 import StarRating from './StarRating';
+import api from '../../apis/api';
+
 
 
 
@@ -15,9 +17,11 @@ function CheckModal(props) {
 
   const onSubmitForm = () => {
     console.log('form제출!')
+    api.review.postReview(reviewArticle)
+    
   }
 
-  console.log(props.idx)
+  // console.log(props)
 
   const [reviewValue, setReviewValue] = useState('')
 
@@ -27,6 +31,18 @@ function CheckModal(props) {
 
   }
   console.log('후기내용==',reviewValue)
+
+  const [starValue, setStarValue] = useState(0)
+  console.log('별점==',starValue)
+
+  const category = ['HAD', 'HAVE', 'WANT']
+
+  const reviewArticle = {
+    category: category[props.idx], comment: reviewValue, perfumeId: props.perfumeInfo.id, preference: starValue
+  }
+  console.log(reviewArticle)
+
+
 
   return (
     <Overlay>
@@ -42,7 +58,7 @@ function CheckModal(props) {
             <Box sx={{display:'flex',flexDirection:'column',textAlign:'start',marginLeft:'2rem',marginTop:'2rem'}}>
               <h1 style={{fontSize:'1rem',marginBottom:'1rem'}}>{props.perfumeInfo.brandName}</h1>
               <h1 style={{fontSize:'1.5rem',marginBottom:'2rem',fontWeight:'bold'}}>{props.perfumeInfo.name}</h1>
-              <StarRating/>
+              <StarRating starValue={starValue} setStarValue={setStarValue}/>
             </Box>
           </Box>
 

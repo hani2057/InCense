@@ -36,59 +36,60 @@ const RegisterOrEdit = (props) => {
   const onSubmitForm = () => {
     console.log('submit form')
   }
-  const [categoryValue, setCategoryValue] = useState('SALE')
-  const onChangeCategory = (e) => {
-    const categoryValue = e.target.value
-    categoryValue === 'SALE' ? setCategoryValue(categoryValue) : setCategoryValue('SHARE')
-    setPriceValue(priceValue)
-  }
-  console.log('카테고리==', categoryValue)
 
-  const [priceValue, setPriceValue] = useState(0)
-  const onChangePrice = (e) => {
-    const priceValue = e.target.value
-    setPriceValue(priceValue)
-  }
-  console.log('가격==',priceValue)
+  // const [categoryValue, setCategoryValue] = useState('SALE')
+  // const onChangeCategory = (e) => {
+  //   const categoryValue = e.target.value
+  //   categoryValue === 'SALE' ? setCategoryValue(categoryValue) : setCategoryValue('SHARE')
+  //   setPriceValue(priceValue)
+  // }
+  // console.log('카테고리==', categoryValue)
 
-  const [isDelivery, setIsDelivery] = useState(1)
-  const onChangeDelivery = (e) => {
-    const isDelivery = e.target.value
-    isDelivery === 1 ? setIsDelivery(isDelivery) : setIsDelivery(0)
-  }
-  console.log('거래방식==',isDelivery)
+  // const [priceValue, setPriceValue] = useState(0)
+  // const onChangePrice = (e) => {
+  //   const priceValue = e.target.value
+  //   setPriceValue(priceValue)
+  // }
+  // console.log('가격==',priceValue)
 
-  const [titleValue, setTitleValue] = useState('')
-  const onChangeTitle = (e) => {
-    const titleValue = e.target.value
-    titleValue === null
-    ? alert('제목을 입력하세요')
-    : setTitleValue(titleValue)
-  }
-  console.log('제목==', titleValue)
+  // const [isDelivery, setIsDelivery] = useState(1)
+  // const onChangeDelivery = (e) => {
+  //   const isDelivery = e.target.value
+  //   isDelivery === 1 ? setIsDelivery(isDelivery) : setIsDelivery(0)
+  // }
+  // console.log('거래방식==',isDelivery)
 
-  const [contentValue, setContentValue] = useState('')
-  const onChangeContent = (e) => {
-    const contentValue = e.target.value
-    contentValue === null
-    ? alert('내용을 입력하세요')
-    : setContentValue(contentValue)
-  }
-  console.log('내용==', contentValue)
+  // const [titleValue, setTitleValue] = useState('')
+  // const onChangeTitle = (e) => {
+  //   const titleValue = e.target.value
+  //   titleValue === null
+  //   ? alert('제목을 입력하세요')
+  //   : setTitleValue(titleValue)
+  // }
+  // console.log('제목==', titleValue)
 
-  const [buyDateValue, setBuyDateValue] = useState('')
-  const onChangeBuyDate = (e) => {
-    const buyDateValue = e.target.value
-    setBuyDateValue(buyDateValue)
-  }
-  console.log('구매시기==', buyDateValue)
+  // const [contentValue, setContentValue] = useState('')
+  // const onChangeContent = (e) => {
+  //   const contentValue = e.target.value
+  //   contentValue === null
+  //   ? alert('내용을 입력하세요')
+  //   : setContentValue(contentValue)
+  // }
+  // console.log('내용==', contentValue)
 
-  const [volumeValue, setVolumeValue] = useState(0)
-  const onChangeVolume = (e) => {
-    const volumeValue = e.target.value
-    setVolumeValue(volumeValue)
-  }
-  console.log('용량==',volumeValue)
+  // const [buyDateValue, setBuyDateValue] = useState('')
+  // const onChangeBuyDate = (e) => {
+  //   const buyDateValue = e.target.value
+  //   setBuyDateValue(buyDateValue)
+  // }
+  // console.log('구매시기==', buyDateValue)
+
+  // const [volumeValue, setVolumeValue] = useState(0)
+  // const onChangeVolume = (e) => {
+  //   const volumeValue = e.target.value
+  //   setVolumeValue(volumeValue)
+  // }
+  // console.log('용량==',volumeValue)
 
   // 가격,구매시기 error text
   // const [priceError, setPriceError] = useState('')
@@ -119,13 +120,14 @@ const RegisterOrEdit = (props) => {
         <Box sx={{width:'100%', display:'flex', flexDirection:'column', justifyContent:'space-around'}}>
           <Box sx={{ width: "50rem", margin: "1rem", marginBottom:'0',display:'flex',flexDirection:'row', justifyContent:'start' }}>
             <TextField
-              id="outlined-select-category"
+              id="outlined-select-category-uncontrolled"
               select
               label="카테고리"
-              defaultValue="SALE"
+              name="category"
+              value={props.categoryValue}
               helperText="카테고리를 선택하세요"
               size='small'
-              onChange={onChangeCategory}
+              onChange={props.handleRegisterChange}
               sx={{width:'12rem',marginRight:'3rem'}}
             >
               {categories.map((option) => (
@@ -134,23 +136,27 @@ const RegisterOrEdit = (props) => {
                 </MenuItem>
               ))}
             </TextField>
-            {categoryValue === 'SALE'
+            {props.categoryValue === 'SALE'
             ?<TextField
-            id="outlined-number"
+            id="outlined-number-uncontrolled"
             label="가격 (원)"
             type="number"
+            name='price'
             size='small'
             helperText='가격을 입력하세요'
-            onChange={onChangePrice}
+            onChange={props.handleRegisterChange}
+            value={props.priceValue}
             sx={{width:'12rem'}}
             />
             :<TextField
             disabled
             id="price"
+            name='price'
             label="가격 (원)"
             type="number"
             size='small'
-            helperText='판매일 경우만 입력 가능합니다.'
+            sx={{width:'12rem'}}
+            helperText='판매일 경우만 입력'
             />}
             {/* <FormHelperText>{priceError}</FormHelperText> */}
             
@@ -162,9 +168,11 @@ const RegisterOrEdit = (props) => {
               select
               label="거래방식"
               defaultValue="1"
+              name="isDelivery"
+              value={props.idDeliveryValue}
               helperText="거래방식을 선택하세요"
               size='small'
-              onChange={onChangeDelivery}
+              onChange={props.handleRegisterChange}
               sx={{width:'12rem',marginRight:'3rem'}}
             >
               {deliveryMethods.map((option) => (
@@ -180,7 +188,9 @@ const RegisterOrEdit = (props) => {
             // inputProps={{ pattern:([12]\d{3}\.(0[1-9]|1[0-2])) }}
             size='small'
             helperText='YYYY.MM으로 입력해주세요'
-            onChange={onChangeBuyDate}
+            name="buyDate"
+            value={props.buyDateValue}
+            onChange={props.handleRegisterChange}
             sx={{width:'12rem'}}
             />
             {/* <FormHelperText>{buyDateError}</FormHelperText> */}
@@ -196,14 +206,14 @@ const RegisterOrEdit = (props) => {
           <Box sx={{width:'50rem',display:'flex',flexDirection:'row',justifyContent:'start',margin:'1rem'}}>
             
             {/* ###검색 코드... */}
-            <TextField  label="검색 코드 추가하기" id="fullWidth" size='small' sx={{width:'18rem', marginTop:'1rem', marginRight:'2rem'}} />
-            <TextField  label="용량 (ml)" id="fullWidth" type='number' onChange={onChangeVolume} size='small' sx={{width:'7rem',marginTop:'1rem',marginRight:'0.5rem'}} />
+            <TextField  label="검색 코드 추가하기" id="fullWidth" size='small' name="perfumeId" value={props.perfumeIdValue} onChange={props.handleRegisterChange} sx={{width:'18rem', marginTop:'1rem', marginRight:'2rem'}} />
+            <TextField  label="용량 (ml)" id="fullWidth" type='number' name="volume" value={props.volumeValue} onChange={props.handleRegisterChange} size='small' sx={{width:'7rem',marginTop:'1rem',marginRight:'0.5rem'}} />
 
           </Box>
-          <TextField fullWidth label="제목을 입력하세요" id="fullWidth" size='small' sx={{margin:'1rem'}}
-            onChange={onChangeTitle}/>
-          <TextField fullWidth multiline rows={20} label="내용을 입력하세요" id="fullWidth" size='small' sx={{margin:'1rem'}}
-            onChange={onChangeContent}/>
+          <TextField fullWidth label="제목을 입력하세요" id="fullWidth" name="title" size='small' sx={{margin:'1rem'}}
+            onChange={props.handleRegisterChange} value={props.titleValue}/>
+          <TextField fullWidth multiline rows={20} label="내용을 입력하세요" name='content' id="fullWidth" size='small' sx={{margin:'1rem'}}
+            onChange={props.handleRegisterChange} value={props.contentValue}/>
             {/* <Button variant="contained" component="label" 
               sx={{margin:'1rem', width:'7rem'}}>
               사진 업로드
