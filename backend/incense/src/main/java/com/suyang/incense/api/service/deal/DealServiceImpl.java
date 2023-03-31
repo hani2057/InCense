@@ -59,6 +59,8 @@ public class DealServiceImpl implements DealService  {
     deal.setMember(member);
     deal.setPerfume(perfume);
 
+    System.out.println("gubun......................................:" + dealReq.getGubun());
+
     deal.setGubun(Gubun.valueOf(dealReq.getGubun()));
     deal.setTitle(dealReq.getTitle());
     deal.setContent(dealReq.getContent());
