@@ -98,8 +98,8 @@ public class FileHandler {
     String currentDate = simpleDateFormat.format(new Date());
 
     //프로젝트 폴더에 저장하기 위해 절대경로, 경로 설정
-    String absolutePath = new File("").getAbsolutePath() + "\\";
-    String path = "./images/member/" + currentDate;
+//    String absolutePath = new File("").getAbsolutePath() + "\\";
+    String path = "/asset/images/profile/" + currentDate;
     File file = new File(path);
 
     //저장할 위치의 디렉토리가 존재하지 않는 경우
@@ -127,9 +127,9 @@ public class FileHandler {
     String newFileName = System.nanoTime() + originalFileExtension;
 
     //파일 저장 완료
-    file = new File(absolutePath + path + "/" + newFileName);
+    file = new File(path + "/" + newFileName);
     profile.transferTo(file);
 
-    return path + "/" + newFileName;
+    return "profile/" + currentDate + "/" + newFileName;
   }
 }

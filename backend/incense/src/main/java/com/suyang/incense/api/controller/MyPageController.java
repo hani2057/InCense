@@ -3,6 +3,8 @@ package com.suyang.incense.api.controller;
 import com.suyang.incense.api.request.member.mypage.PerfumeModifyReq;
 import com.suyang.incense.api.request.member.mypage.PerfumeRegisterReq;
 import com.suyang.incense.api.request.member.mypage.ReviewModifyReq;
+import com.suyang.incense.api.response.member.mypage.BookmarkRes;
+import com.suyang.incense.api.response.member.mypage.DealRes;
 import com.suyang.incense.api.response.member.mypage.PerfumeRes;
 import com.suyang.incense.api.response.member.mypage.ReviewRes;
 import com.suyang.incense.api.service.member.MyPageService;
@@ -68,5 +70,19 @@ public class MyPageController {
     public ResponseEntity<? extends BaseResponseBody> modifyMyReview(@RequestBody ReviewModifyReq reviewModifyReq) {
         myPageService.modifyMyReview(reviewModifyReq);
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+    }
+
+    @GetMapping("/deal")
+    @ApiOperation(value = "작성한 나눔/판매 글 목록 조회", notes = "나눔/판매 글 정보와 함께 조회")
+    public ResponseEntity<List<DealRes>> getDealList(@ApiIgnore Authentication authentication) {
+        List<DealRes> response = myPageService.getMyDeal(authentication);
+        return ResponseEntity.status(200).body(response);
+    }
+
+    @GetMapping("/bookmark")
+    @ApiOperation(value = "북마크한 나눔/판매 글 목록 조회", notes = "북마크한 나눔/판매 글 정보와 함께 조회")
+    public ResponseEntity<List<BookmarkRes>> getBookmarkList(@ApiIgnore Authentication authentication) {
+        List<BookmarkRes> response = myPageService.getMyBookmark(authentication);
+        return ResponseEntity.status(200).body(response);
     }
 }
