@@ -6,6 +6,7 @@ import { articleReducers } from "./slice/articleSlice";
 import { userReducers } from "./slice/userSlice";
 import { perfumeInfoReducers } from "./slice/perfumeInfoSlice";
 import { perfumeListReducers } from "./slice/perfumeListSlice";
+import { articleListReducers } from "./slice/articleListSlice";
 
 // const customHistory = createBrowserHistory();
 
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   userReducers,
   perfumeInfoReducers,
   perfumeListReducers,
-
+  articleListReducers,
+  
 });
 
 const persistConfig = {

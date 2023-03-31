@@ -14,9 +14,10 @@ export const perfumeInfoSlice = createSlice({
         baseNoteName: [],
         price: 0,
         volume: 0,
-        gender: 0,
+        gender: '',
         rating: 0,
-        image: ''      
+        image: '',
+        concentration: ''      
     }
   },
   reducers: {

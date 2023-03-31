@@ -23,8 +23,11 @@ const api = {
   //   getList: () => defaultInstance.get("/deal"),
   // },
   share: {
-    getArticle: (id) => SHARE + `/${id}`,
-    register: () => SHARE + "register",
+    getArticle: (articleId) =>
+      defaultInstance.get(`${SHARE}`, { params: { articleId: articleId } }),
+    getList: (page) =>
+      defaultInstance.get(`${SHARE}`, { params: { page: page } }),
+    register: (data) => defaultInstance.post(`${SHARE}`, data),
   },
   list: {
     getList: (page) => defaultInstance.get(`${PERFUMES}?page=${page}`),
