@@ -40,9 +40,16 @@ public class DealServiceImpl implements DealService  {
   @Transactional
   public Deal create(DealReq dealReq, Long memberId) {
 
+    System.out.println("create Service start...................................................");
+
     //나눔판매 글 생성
     Member member = memberRepository.findById(memberId).orElseThrow(IllegalArgumentException::new);
+
+    System.out.println("member......................................: "+member.toString());
+
     Perfume perfume = perfumeRepository.findById(dealReq.getPerfumeId()).orElseThrow(IllegalArgumentException::new);
+
+    System.out.println("perfume......................................: "+ perfume.toString());
 
     Deal deal = new Deal();
 

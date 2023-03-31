@@ -52,6 +52,9 @@ public class DealController {
 
     //판매/나눔 글 생성
     Long memberId = authService.getIdByAuthentication(authentication);
+
+    System.out.println("memberId............................................: " + memberId);
+
     Deal deal = dealService.create(dealReq, memberId);
 
     //이미지 넣기
