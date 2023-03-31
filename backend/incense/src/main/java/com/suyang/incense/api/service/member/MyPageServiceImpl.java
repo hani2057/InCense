@@ -3,6 +3,7 @@ package com.suyang.incense.api.service.member;
 import com.suyang.incense.api.request.member.mypage.PerfumeModifyReq;
 import com.suyang.incense.api.request.member.mypage.PerfumeRegisterReq;
 import com.suyang.incense.api.request.member.mypage.ReviewModifyReq;
+import com.suyang.incense.api.response.member.mypage.BookmarkRes;
 import com.suyang.incense.api.response.member.mypage.DealRes;
 import com.suyang.incense.api.response.member.mypage.PerfumeRes;
 import com.suyang.incense.api.response.member.mypage.ReviewRes;
@@ -11,6 +12,7 @@ import com.suyang.incense.db.entity.perfume.Perfume;
 import com.suyang.incense.db.entity.relation.Category;
 import com.suyang.incense.db.entity.relation.MemberPerfume;
 import com.suyang.incense.db.entity.review.Review;
+import com.suyang.incense.db.repository.deal.DealBookmarkRepository;
 import com.suyang.incense.db.repository.deal.DealRepository;
 import com.suyang.incense.db.repository.member.*;
 import com.suyang.incense.db.repository.perfume.PerfumeRepository;
@@ -25,7 +27,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MyPageServiceImpl implements MyPageService{
 
-    public final MemberPerfumeCustomRepository memberPerfumeCustomRepository;
+    private final MemberPerfumeCustomRepository memberPerfumeCustomRepository;
+    private final DealBookmarkRepository dealBookmarkRepository;
     private final MemberPerfumeRepository memberPerfumeRepository;
     private final DealRepository dealRepository;
     private final ReviewCustomRepository reviewCustomRepository;
@@ -120,7 +123,12 @@ public class MyPageServiceImpl implements MyPageService{
     @Override
     public List<DealRes> getMyDeal(Authentication authentication) {
         Member member = authService.getMemberByAuthentication(authentication).get();
-        System.out.println("###" + member.getId() + "," + member.getEmail());
         return dealRepository.getDealByMember(member);
+    }
+
+    @Override
+    public List<BookmarkRes> getMyBookmark(Authentication authentication) {
+        Long memberId = authService.getIdByAuthentication(authentication);
+        return dealBookmarkRepository.getBookmarkByMember(memberId);
     }
 }
