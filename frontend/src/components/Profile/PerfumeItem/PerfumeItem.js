@@ -4,6 +4,7 @@ import { BsBell } from "react-icons/bs";
 import { FlexDiv } from "../../common/FlexDiv/FlexDiv";
 import { ModalSpan } from "../SearchModal/style";
 import SearchModal from "../SearchModal/SearchModal";
+import api from "../../../apis/api";
 
 const PerfumeItem = ({
   perfumeId,
@@ -16,11 +17,17 @@ const PerfumeItem = ({
   alarm,
   typeIdx,
   setTypeIdx,
-  fetchGetPerfumeList,
 }) => {
   const navigate = useNavigate();
 
   const [modifyModalOpen, setModifyModalOpen] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+
+  const fetchDeletePerfume = async () => {
+    console.log(memberPerfumeId);
+    const res = await api.profile.deletePerfumeFromCategory(memberPerfumeId);
+    console.log(res);
+  };
 
   return (
     <>
@@ -61,6 +68,7 @@ const PerfumeItem = ({
               src="/assets/icons/delete.svg"
               alt="delete"
               style={{ marginLeft: "0.5rem", stroke: "1", cursor: "pointer" }}
+              onClick={() => fetchDeletePerfume()}
             />
           </FlexDiv>
         </FlexDiv>

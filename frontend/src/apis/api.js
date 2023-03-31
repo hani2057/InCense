@@ -43,8 +43,13 @@ const api = {
       authInstance.post(`${PROFILE}/perfume`, data),
     putPerfumeToCategory: (data) =>
       authInstance.put(`${PROFILE}/perfume`, data),
+    deletePerfumeFromCategory: (myPerfumeId) =>
+      authInstance.delete(`${PROFILE}/perfume`, {
+        data: { myPerfumeId: myPerfumeId },
+      }),
     searchPerfume: (query) =>
-      defaultInstance.get(`${PERFUMES}`, { params: { search: query } }),
+      // defaultInstance.get(`${PERFUMES}`, { params: { search: query } }),
+      defaultInstance.post(`${PERFUMES}/in`, { search: query }),
   },
   image: {
     getImage: (fileName) => defaultInstance.get(`${IMG}?filename=${fileName}`),
