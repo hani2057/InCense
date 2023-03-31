@@ -36,4 +36,9 @@ public class TestServiceImpl implements TestService{
 
         return response;
     }
+
+    @Override
+    public boolean savePreference(Long memberId, TestResultDto testResultDto) {
+        return false;
+    }
 }
