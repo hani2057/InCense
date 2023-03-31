@@ -13,6 +13,8 @@ public class ReviewRes {
 
     @ApiModelProperty(name = "향수 ID")
     private Long perfumeId;
+    @ApiModelProperty(name = "후기 ID")
+    private Long reviewId;
     @ApiModelProperty(name = "향수 브랜드 이름")
     private String brandName;
     @ApiModelProperty(name = "향수 이름")
@@ -26,9 +28,10 @@ public class ReviewRes {
     private LocalDateTime time;
 
 //    @QueryProjection
-    public ReviewRes(Long perfumeId, String brandName, String perfumeName,
+    public ReviewRes(Long perfumeId, Long reviewId, String brandName, String perfumeName,
                      double preference, String comment, LocalDateTime time) {
         this.perfumeId = perfumeId;
+        this.reviewId = reviewId;
         this.brandName = brandName;
         this.perfumeName = perfumeName;
         this.preference = preference;

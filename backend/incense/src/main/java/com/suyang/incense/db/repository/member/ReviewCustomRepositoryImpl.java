@@ -35,6 +35,7 @@ public class ReviewCustomRepositoryImpl implements ReviewCustomRepository {
                 .select(Projections.constructor(
                         ReviewRes.class,
                         perfume.id,
+                        review.id,
                         brand.name,
                         perfume.name,
                         review.preference,
