@@ -35,8 +35,13 @@ public class MemberServiceImpl implements MemberService {
     public void registerMember(MemberRegisterReq registerInfo) {
         // 회원 정보 저장
         SocialType type = null;
+        String profile = "";
         if(registerInfo.getType().equals("kakao")) type = SocialType.kakao;
         else type = SocialType.naver;
+
+        byte gender = registerInfo.getGender();
+        if(gender == 0) profile = "profile/male.png";
+        else profile = "profile/female.png";
 
         Member member = Member.builder()
                 .grade(gradeRepository.findById(1L).get())
@@ -44,8 +49,9 @@ public class MemberServiceImpl implements MemberService {
                 .role(Role.ROLE_USER)
                 .type(type)
                 .nickname(registerInfo.getNickname())
-                .gender(registerInfo.getGender())
+                .gender(gender)
                 .birth(registerInfo.getBirth())
+                .profile(profile)
                 .birthOpen(registerInfo.getBirthOpen())
                 .genderOpen(registerInfo.getGenderOpen())
                 .build();
@@ -66,11 +72,8 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public MemberInfoRes getMemberInfo(Authentication authentication) {
         Member member = authService.getMemberByAuthentication(authentication).get();
-        Grade grade = member.getGrade();
-        String profile = "";
-        if(member.getProfile() == null) profile = "./images/member/default/default.png";
-        return new MemberInfoRes(grade.getName(), grade.getImage(), member.getNickname(), member.getGender(),
-                member.getBirth(), profile, member.getBirthOpen(), member.getGenderOpen(), member.getAlarmOpen());
+        return new MemberInfoRes(member.getGrade().getName(), member.getNickname(), member.getGender(),
+                member.getBirth(), member.getProfile(), member.getBirthOpen(), member.getGenderOpen(), member.getAlarmOpen());
     }
 
     @Override
