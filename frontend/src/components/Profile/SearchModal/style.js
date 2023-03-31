@@ -76,6 +76,10 @@ const SearchResultWrapper = styled.div`
 const SearchResultItem = styled.div`
   width: 100%;
   height: 4rem;
+  display: flex;
+  justify-content: start;
+  padding: 0.5rem;
+  cursor: pointer;
 `;
 
 const ModalSpan = styled.span`

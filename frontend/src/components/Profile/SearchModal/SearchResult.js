@@ -1,4 +1,5 @@
 import React from "react";
+import { FlexDiv } from "../../common/FlexDiv/FlexDiv";
 import { SearchResultItem, ModalImg, ModalSpan } from "./style";
 
 const SearchResult = ({
@@ -16,11 +17,15 @@ const SearchResult = ({
         setSearchResult(null);
       }}
     >
-      <ModalImg src={img} alt="perfume" height="3.5rem" />
-      <ModalSpan size="0.75rem" margin="1.5rem 0 0.5rem 0">
-        {brand}
-      </ModalSpan>
-      <ModalSpan bold={true}>{name}</ModalSpan>
+      <div style={{ width: "20%" }}>
+        <ModalImg src={img} alt="perfume" height="3.5rem" />
+      </div>
+      <FlexDiv direction="column" width="auto" align="start">
+        <ModalSpan size="0.75rem" margin="0 0 0.2rem 0">
+          {brand}
+        </ModalSpan>
+        <ModalSpan bold={true}>{name}</ModalSpan>
+      </FlexDiv>
     </SearchResultItem>
   );
 };
