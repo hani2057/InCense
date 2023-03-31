@@ -29,7 +29,7 @@ const ProfileInfo = () => {
 
   return (
     <ProfileInfoWrapper direction="column" justify="start">
-      <ProfileImg alt="profile" />
+      <ProfileImg src={userInfo.profile} alt="profile" />
       <FlexDiv
         width="10rem"
         height="auto"

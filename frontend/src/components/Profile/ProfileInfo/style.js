@@ -10,7 +10,9 @@ const ProfileInfoWrapper = styled(FlexDiv)`
 `;
 
 const ProfileImg = styled.img.attrs((props) => ({
-  src: props.src || "/assets/images/profile-default.png",
+  src:
+    `https://j8a804.p.ssafy.io/api/display?filename=${props.src}` ||
+    "/assets/images/profile-default.png",
 }))`
   width: 10rem;
   height: 10rem;
