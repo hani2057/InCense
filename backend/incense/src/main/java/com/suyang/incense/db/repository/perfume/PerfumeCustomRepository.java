@@ -12,7 +12,5 @@ import java.util.List;
 public interface PerfumeCustomRepository {
     public List<Perfume> getPerfumeList(PerfumeReq perfumeReq,Pageable pageable);
 
-    List<Member>  getAlarmMembers(Long perfumeId);
-
     Long getCount(PerfumeReq perfumeReq);
 }

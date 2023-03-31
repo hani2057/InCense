@@ -10,8 +10,10 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableJpaAuditing
 public class IncenseApplication {
 
+
 	public static void main(String[] args) {
 		SpringApplication.run(IncenseApplication.class, args);
 	}
+
 
 }

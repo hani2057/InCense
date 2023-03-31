@@ -59,14 +59,6 @@ public class PerfumeCustomRepositoryImpl implements PerfumeCustomRepository {
         return perfumeList;
     }
 
-    @Override
-    public List<Member>  getAlarmMembers(Long perfumeId){
-        return jpaQueryFactory.select(member)
-                .from(memberPerfume)
-                .innerJoin(memberPerfume.member,member)
-                .where(memberPerfume.perfume.id.eq(perfumeId))
-                .fetch();
-    }
 
     @Override
     public Long getCount(PerfumeReq perfumeReq) {
