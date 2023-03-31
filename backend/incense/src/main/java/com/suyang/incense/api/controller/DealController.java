@@ -44,7 +44,7 @@ public class DealController {
   private final AuthService authService;
 
   @ApiOperation(value = "나눔/판매 글 생성")
-  @PostMapping(consumes = {"multipart/form-data"})
+  @PostMapping(/*consumes = {"multipart/form-data"}*/)
   public ResponseEntity<?> createDeal(
           @ModelAttribute @ApiParam(value = "나눔/판매 글 생성 정보", required = true) DealReq dealReq,
           @ApiIgnore Authentication authentication)
