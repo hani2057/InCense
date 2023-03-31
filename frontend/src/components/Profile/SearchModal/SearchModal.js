@@ -25,6 +25,7 @@ const SearchModal = ({
   setTypeIdx,
   perfumeToModify,
   modalType,
+  fetchGetPerfumeList,
 }) => {
   // 모달
   const ref = useRef();
@@ -40,12 +41,16 @@ const SearchModal = ({
 
   const fetchSearch = async () => {
     const res = await api.profile.searchPerfume(searchQuery);
-    setSearchResult(res.content);
+    if (res.content.length) setSearchResult(res.content);
+    else {
+      setErrorMsg("검색 결과가 없습니다");
+    }
   };
 
   const fetchPostPerfume = async () => {
     if (!perfumeInfo) setErrorMsg("향수를 선택해주세요");
-    else if (!perfumeInfo.preference) setErrorMsg("평점을 선택해주세요");
+    else if (!perfumeInfo.preference && typeIdx !== 2)
+      setErrorMsg("평점을 선택해주세요");
     else {
       const data = {
         category: textArr[typeIdx].split(" ")[1].toUpperCase(),
@@ -56,6 +61,7 @@ const SearchModal = ({
 
       await api.profile.addPerfumeToCategory(data);
       setModalOpen(false);
+      fetchGetPerfumeList();
     }
   };
 

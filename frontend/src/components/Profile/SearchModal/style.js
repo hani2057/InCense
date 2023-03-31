@@ -64,6 +64,7 @@ const SearchResultWrapper = styled.div`
   overflow: scroll;
   border: 1px solid var(--gray-color);
   background: white;
+  z-index: 1;
 
   -ms-overflow-style: none; /* 인터넷 익스플로러 */
   scrollbar-width: none; /* 파이어폭스 */

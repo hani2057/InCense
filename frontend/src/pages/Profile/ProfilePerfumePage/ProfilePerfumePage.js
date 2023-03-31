@@ -229,6 +229,7 @@ const ProfilePerfumes = () => {
           setModalOpen={setSearchModalOpen}
           typeIdx={typeIdx}
           setTypeIdx={setTypeIdx}
+          fetchGetPerfumeList={fetchGetPerfumeList}
         />
       )}
       {/* {serchModalOpen && <CheckModal setModalOpen={setSearchModalOpen} />} */}
