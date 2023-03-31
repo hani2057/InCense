@@ -3,6 +3,7 @@ package com.suyang.incense.api.service.member;
 import com.suyang.incense.api.request.member.mypage.PerfumeModifyReq;
 import com.suyang.incense.api.request.member.mypage.PerfumeRegisterReq;
 import com.suyang.incense.api.request.member.mypage.ReviewModifyReq;
+import com.suyang.incense.api.response.member.mypage.BookmarkRes;
 import com.suyang.incense.api.response.member.mypage.DealRes;
 import com.suyang.incense.api.response.member.mypage.PerfumeRes;
 import com.suyang.incense.api.response.member.mypage.ReviewRes;
@@ -24,4 +25,5 @@ public interface MyPageService {
 
     // [나눔/판매]
     List<DealRes> getMyDeal(Authentication authentication);
+    List<BookmarkRes> getMyBookmark(Authentication authentication);
 }
