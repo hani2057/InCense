@@ -231,6 +231,25 @@ public class DealCustomRepositoryImpl implements DealCustomRepository {
 
     @Override
     public List<DealRes> getDealByMember(Member member) {
+//        List<DealRes> result = jpaQueryFactory
+//                .select(Projections.constructor(
+//                        DealRes.class,
+//                        deal.id,
+//                        deal.gubun,
+//                        deal.createdDate,
+//                        deal.title,
+//                        brand.name,
+//                        perfume.name,
+//                        perfume.image,
+//                        deal.volume,
+//                        deal.price,
+//                        deal.isDelivery,
+//                        deal.isClosed
+//                ))
+//                .from(deal, perfume, brand)
+//                .where(deal.member.eq(member), deal.perfume.eq(perfume), perfume.brand.eq(brand))
+//                .fetch();
+
         List<DealRes> result = jpaQueryFactory
                 .select(Projections.constructor(
                         DealRes.class,
@@ -238,16 +257,16 @@ public class DealCustomRepositoryImpl implements DealCustomRepository {
                         deal.gubun,
                         deal.createdDate,
                         deal.title,
-                        brand.name,
-                        perfume.name,
-                        perfume.image,
+                        deal.perfume.brand.name,
+                        deal.perfume.name,
+                        deal.perfume.image,
                         deal.volume,
                         deal.price,
                         deal.isDelivery,
                         deal.isClosed
                 ))
-                .from(deal, perfume, brand)
-                .where(deal.member.eq(member), deal.perfume.eq(perfume), perfume.brand.eq(brand))
+                .from(deal)
+                .where(deal.member.eq(member))
                 .fetch();
 
         for (DealRes res : result) {
