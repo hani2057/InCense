@@ -3,9 +3,7 @@ import api from "../../../apis/api";
 import CheckboxPickOne from "../../../components/common/CheckboxPickOne/CheckboxPickOne";
 import { FlexDiv } from "../../../components/common/FlexDiv/FlexDiv";
 import SearchModal from "../../../components/Profile/SearchModal/SearchModal";
-// import CheckModal from "../../DetailPage/CheckModal";
 import PerfumeItem from "../../../components/Profile/PerfumeItem/PerfumeItem";
-// import CardComponent from "../../ListPage/CardComponent";
 import { ProfileOutletContainer } from "../ProfilePage/style";
 import { ProfilePerfumeHeader, ProfilePerfumeHeaderSpan } from "./style";
 
@@ -13,141 +11,6 @@ const ProfilePerfumes = () => {
   const [typeIdx, setTypeIdx] = useState(0);
   const [perfumes, setPerfumes] = useState(null);
   const [serchModalOpen, setSearchModalOpen] = useState(false);
-
-  // const data = [
-  //   {
-  //     id: 0,
-  //     name: "향수 이름입니다",
-  //     brandName: "brand입니다",
-  //     topNoteName: ["note1", "note2", "note3", "note4"],
-  //     middleNoteName: ["note1", "note2", "note3", "note4"],
-  //     baseNoteName: ["note1", "note2", "note3", "note4"],
-  //     price: 1,
-  //     volume: 0,
-  //     gender: 0,
-  //     rating: 0,
-  //   },
-  //   {
-  //     id: 1,
-  //     name: "향수 이름입니다",
-  //     brandName: "brand입니다",
-  //     topNoteName: ["note1", "note2", "note3", "note4"],
-  //     middleNoteName: ["note1", "note2", "note3", "note4"],
-  //     baseNoteName: ["note1", "note2", "note3", "note4"],
-  //     price: 1,
-  //     volume: 0,
-  //     gender: 0,
-  //     rating: 0,
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "향수 이름입니다",
-  //     brandName: "brand입니다",
-  //     topNoteName: ["note1", "note2", "note3", "note4"],
-  //     middleNoteName: ["note1", "note2", "note3", "note4"],
-  //     baseNoteName: ["note1", "note2", "note3", "note4"],
-  //     price: 1,
-  //     volume: 0,
-  //     gender: 0,
-  //     rating: 0,
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "향수 이름입니다",
-  //     brandName: "brand입니다",
-  //     topNoteName: ["note1", "note2", "note3", "note4"],
-  //     middleNoteName: ["note1", "note2", "note3", "note4"],
-  //     baseNoteName: ["note1", "note2", "note3", "note4"],
-  //     price: 1,
-  //     volume: 0,
-  //     gender: 0,
-  //     rating: 0,
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "향수 이름입니다",
-  //     brandName: "brand입니다",
-  //     topNoteName: ["note1", "note2", "note3", "note4"],
-  //     middleNoteName: ["note1", "note2", "note3", "note4"],
-  //     baseNoteName: ["note1", "note2", "note3", "note4"],
-  //     price: 1,
-  //     volume: 0,
-  //     gender: 0,
-  //     rating: 0,
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "향수 이름입니다",
-  //     brandName: "brand입니다",
-  //     topNoteName: ["note1", "note2", "note3", "note4"],
-  //     middleNoteName: ["note1", "note2", "note3", "note4"],
-  //     baseNoteName: ["note1", "note2", "note3", "note4"],
-  //     price: 1,
-  //     volume: 0,
-  //     gender: 0,
-  //     rating: 0,
-  //   },
-  //   {
-  //     id: 6,
-  //     name: "향수 이름입니다",
-  //     brandName: "brand입니다",
-  //     topNoteName: ["note1", "note2", "note3", "note4"],
-  //     middleNoteName: ["note1", "note2", "note3", "note4"],
-  //     baseNoteName: ["note1", "note2", "note3", "note4"],
-  //     price: 1,
-  //     volume: 0,
-  //     gender: 0,
-  //     rating: 0,
-  //   },
-  //   {
-  //     id: 7,
-  //     name: "향수 이름입니다",
-  //     brandName: "brand입니다",
-  //     topNoteName: ["note1", "note2", "note3", "note4"],
-  //     middleNoteName: ["note1", "note2", "note3", "note4"],
-  //     baseNoteName: ["note1", "note2", "note3", "note4"],
-  //     price: 1,
-  //     volume: 0,
-  //     gender: 0,
-  //     rating: 0,
-  //   },
-  //   {
-  //     id: 8,
-  //     name: "향수 이름입니다",
-  //     brandName: "brand입니다",
-  //     topNoteName: ["note1", "note2", "note3", "note4"],
-  //     middleNoteName: ["note1", "note2", "note3", "note4"],
-  //     baseNoteName: ["note1", "note2", "note3", "note4"],
-  //     price: 1,
-  //     volume: 0,
-  //     gender: 0,
-  //     rating: 0,
-  //   },
-  //   {
-  //     id: 9,
-  //     name: "향수 이름입니다",
-  //     brandName: "brand입니다",
-  //     topNoteName: ["note1", "note2", "note3", "note4"],
-  //     middleNoteName: ["note1", "note2", "note3", "note4"],
-  //     baseNoteName: ["note1", "note2", "note3", "note4"],
-  //     price: 1,
-  //     volume: 0,
-  //     gender: 0,
-  //     rating: 0,
-  //   },
-  //   {
-  //     id: 10,
-  //     name: "향수 이름입니다",
-  //     brandName: "brand입니다",
-  //     topNoteName: ["note1", "note2", "note3", "note4"],
-  //     middleNoteName: ["note1", "note2", "note3", "note4"],
-  //     baseNoteName: ["note1", "note2", "note3", "note4"],
-  //     price: 1,
-  //     volume: 0,
-  //     gender: 0,
-  //     rating: 0,
-  //   },
-  // ];
 
   const fetchGetPerfumeList = async () => {
     const arr = ["HAVE", "HAD", "WANT"];
@@ -211,12 +74,28 @@ const ProfilePerfumes = () => {
 
         <FlexDiv wrap="wrap" justify="start" margin="3rem 0">
           {perfumes.map(
-            ({ perfumeId, image, perfumeName, brandName, alarm }) => (
+            ({
+              perfumeId,
+              myPerfumeId,
+              image,
+              perfumeName,
+              brandName,
+              alarm,
+              preference,
+              comment,
+            }) => (
               <PerfumeItem
+                perfumeId={perfumeId}
+                memberPerfumeId={myPerfumeId}
                 img={image}
                 name={perfumeName}
                 brand={brandName}
                 alarm={alarm}
+                preference={preference}
+                review={comment}
+                typeIdx={typeIdx}
+                setTypeIdx={setTypeIdx}
+                fetchGetPerfumeList={fetchGetPerfumeList}
                 key={perfumeId}
               />
             )
@@ -229,10 +108,8 @@ const ProfilePerfumes = () => {
           setModalOpen={setSearchModalOpen}
           typeIdx={typeIdx}
           setTypeIdx={setTypeIdx}
-          fetchGetPerfumeList={fetchGetPerfumeList}
         />
       )}
-      {/* {serchModalOpen && <CheckModal setModalOpen={setSearchModalOpen} />} */}
     </>
   );
 };

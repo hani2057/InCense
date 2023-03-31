@@ -25,13 +25,13 @@ const SearchModal = ({
   setTypeIdx,
   perfumeToModify,
   modalType,
-  fetchGetPerfumeList,
 }) => {
   // 모달
   const ref = useRef();
   useModal(ref, () => setModalOpen(false));
 
   const [perfumeInfo, setPerfumeInfo] = useState(perfumeToModify || null);
+  const [newTypeIdx, setNewTypeIdx] = useState(typeIdx);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResult, setSearchResult] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
@@ -47,21 +47,32 @@ const SearchModal = ({
     }
   };
 
-  const fetchPostPerfume = async () => {
+  const fetchPerfumeToList = async () => {
     if (!perfumeInfo) setErrorMsg("향수를 선택해주세요");
     else if (!perfumeInfo.preference && typeIdx !== 2)
       setErrorMsg("평점을 선택해주세요");
-    else {
+    else if (modalType === "modify") {
       const data = {
-        category: textArr[typeIdx].split(" ")[1].toUpperCase(),
+        category: textArr[newTypeIdx].split(" ")[1].toUpperCase(),
+        comment: perfumeInfo.review || null,
+        memberPerfumeId: perfumeInfo.id,
+        preference: perfumeInfo.preference,
+      };
+
+      await api.profile.putPerfumeToCategory(data);
+      setModalOpen(false);
+      setTypeIdx(newTypeIdx);
+    } else {
+      const data = {
+        category: textArr[newTypeIdx].split(" ")[1].toUpperCase(),
         comment: perfumeInfo.review || null,
         perfumeId: perfumeInfo.id,
         preference: perfumeInfo.preference,
       };
 
-      await api.profile.addPerfumeToCategory(data);
+      await api.profile.postPerfumeToCategory(data);
       setModalOpen(false);
-      fetchGetPerfumeList();
+      setTypeIdx(newTypeIdx);
     }
   };
 
@@ -79,31 +90,33 @@ const SearchModal = ({
               )}
             </FlexDiv>
             <FlexDiv direction="column" width="70%" align="start">
-              <FlexDiv
-                height="2.5rem"
-                gap="0.7rem"
-                justify="start"
-                style={{
-                  border: "1px solid var(--gray-color)",
-                  padding: "0.5rem",
-                }}
-              >
-                <img src="/assets/icons/search.svg" alt="search" />
-                <ModalInput
-                  placeholder="향수를 검색하세요"
-                  value={searchQuery}
-                  onChange={(e) => {
-                    setSearchQuery(e.target.value);
-                    setErrorMsg("");
+              {modalType === "modify" || (
+                <FlexDiv
+                  height="2.5rem"
+                  gap="0.7rem"
+                  justify="start"
+                  style={{
+                    border: "1px solid var(--gray-color)",
+                    padding: "0.5rem",
                   }}
-                  onKeyUp={(e) => {
-                    if (e.key === "Enter") {
-                      fetchSearch();
-                      setSearchQuery("");
-                    }
-                  }}
-                />
-              </FlexDiv>
+                >
+                  <img src="/assets/icons/search.svg" alt="search" />
+                  <ModalInput
+                    placeholder="향수를 검색하세요"
+                    value={searchQuery}
+                    onChange={(e) => {
+                      setSearchQuery(e.target.value);
+                      setErrorMsg("");
+                    }}
+                    onKeyUp={(e) => {
+                      if (e.key === "Enter") {
+                        fetchSearch();
+                        setSearchQuery("");
+                      }
+                    }}
+                  />
+                </FlexDiv>
+              )}
 
               {searchResult && (
                 <SearchResultWrapper>
@@ -129,6 +142,7 @@ const SearchModal = ({
                 {perfumeInfo && typeIdx !== 2 ? (
                   <StarRating
                     size="1rem"
+                    starValue={perfumeInfo.preference}
                     setStarValue={setPerfumeInfo}
                     setErrorMsg={setErrorMsg}
                     isSearch={true}
@@ -149,15 +163,15 @@ const SearchModal = ({
           </ModalSpan>
           <CheckboxPickOne
             textArr={textArr}
-            pickedIdx={typeIdx}
-            setPickedIdx={setTypeIdx}
+            pickedIdx={newTypeIdx}
+            setPickedIdx={setNewTypeIdx}
             width="70%"
             height="auto"
           />
           {typeIdx !== 2 && (
             <ModalReview placeholder="다른 사람들을 위해 후기를 남겨주세요"></ModalReview>
           )}
-          <ModalSubmit onClick={() => fetchPostPerfume()}>
+          <ModalSubmit onClick={() => fetchPerfumeToList()}>
             {modalType === "modify" ? "수정하기" : "추가하기"}
           </ModalSubmit>
 

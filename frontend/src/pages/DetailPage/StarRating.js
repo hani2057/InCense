@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./StarRating.css";
 
-function StarRating({ setStarValue, size, isSearch, setErrorMsg }) {
+function StarRating({ setStarValue, size, isSearch, setErrorMsg, starValue }) {
+  useEffect(() => {
+    console.log(starValue);
+    if (starValue) {
+      document.querySelector(`.star span`).style.width = `${starValue * 10}%`;
+    }
+  }, []);
+
   const drawStar = (e) => {
     document.querySelector(`.star span`).style.width = `${
       e.target.value * 10

@@ -39,8 +39,10 @@ const api = {
   profile: {
     getPerfumeList: (type) =>
       authInstance.get(`${PROFILE}/perfume`, { params: { type: type } }),
-    addPerfumeToCategory: (data) =>
+    postPerfumeToCategory: (data) =>
       authInstance.post(`${PROFILE}/perfume`, data),
+    putPerfumeToCategory: (data) =>
+      authInstance.put(`${PROFILE}/perfume`, data),
     searchPerfume: (query) =>
       defaultInstance.get(`${PERFUMES}`, { params: { search: query } }),
   },
