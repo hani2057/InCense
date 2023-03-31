@@ -2,6 +2,10 @@ package com.suyang.incense.api.service.test;
 
 
 import com.suyang.incense.api.request.test.TestResultDto;
+import com.suyang.incense.db.entity.test.Test;
+import com.suyang.incense.db.repository.deal.TestRepository;
+import com.suyang.incense.db.repository.member.MemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -14,7 +18,11 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TestServiceImpl implements TestService{
+
+    private final TestRepository testRepository;
+    private final MemberRepository memberRepository;
 
     public ResponseEntity<TestResultDto> getPreferenceData(String url, List<Integer> testAnswer) {
 
@@ -37,8 +45,11 @@ public class TestServiceImpl implements TestService{
         return response;
     }
 
-    @Override
     public boolean savePreference(Long memberId, TestResultDto testResultDto) {
+
+        Test test = new Test();
+
+
         return false;
     }
 }
