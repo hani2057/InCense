@@ -19,15 +19,18 @@ const api = {
       }),
     getUserInfo: () => authInstance.get(`${USERS}/info`),
   },
-  // share: {
-  //   getList: () => defaultInstance.get("/deal"),
-  // },
   share: {
     getArticle: (articleId) =>
       defaultInstance.get(`${SHARE}`, { params: { articleId: articleId } }),
     getList: (page) =>
       defaultInstance.get(`${SHARE}`, { params: { page: page } }),
-    register: (data) => defaultInstance.post(`${SHARE}`, data),
+    register: (article) =>
+      authInstance.post(`${SHARE}`, article, {
+        headers: { "Content-Type": "multipart/form-data" },
+      }),
+    update: (articleId, article) =>
+      authInstance.put(`${SHARE}/${articleId}`, article),
+    delete: (articleId) => authInstance.delete(`${SHARE}/${articleId}`),
   },
   list: {
     getList: (page) => defaultInstance.get(`${PERFUMES}?page=${page}`),
@@ -43,6 +46,13 @@ const api = {
   },
   image: {
     getImage: (fileName) => defaultInstance.get(`${IMG}?filename=${fileName}`),
+  },
+  review: {
+    postReview: (reviewArticle) =>
+      authInstance.post(`/mypage/perfume`, reviewArticle),
+  },
+  alarm: {
+    setAlarm: (perfumeId) => authInstance.post(`${ALARM}/${perfumeId}`),
   },
 };
 

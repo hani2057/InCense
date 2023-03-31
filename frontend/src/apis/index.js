@@ -25,27 +25,27 @@ const axiosApi = (url, options) => {
 // accessToken이 필요한 요청시
 
 const axiosAuthApi = (url, options) => {
-  const accessToken = `Bearer ${sessionStorage.getItem("accessToken")}`;
+  // const accessToken = `Bearer ${sessionStorage.getItem("accessToken")}`;
   const instance = axios.create({
     baseURL: url,
-    headers: { Authorization: accessToken },
+    // headers: { Authorization: accessToken },
     ...options,
   });
 
   // request handling
   // 세션스토리지에서 토큰 가져와 헤더에 적용
-  // instance.interceptors.request.use(
-  //   (request) => {
-  //     const accessToken = sessionStorage.getItem("accessToken");
-  //     if (accessToken) {
-  //       request.headers["Authorization"] = `Bearer ${accessToken}`;
-  //     }
-  //     return request;
-  //   },
-  //   (error) => {
-  //     return Promise.reject(error);
-  //   }
-  // );
+  instance.interceptors.request.use(
+    (request) => {
+      const accessToken = sessionStorage.getItem("accessToken");
+      if (accessToken) {
+        request.headers["Authorization"] = `Bearer ${accessToken}`;
+      }
+      return request;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
 
   // response handling
   // 성공시 콘솔에 response.data 출력, 에러시 콘솔에 에러 출력

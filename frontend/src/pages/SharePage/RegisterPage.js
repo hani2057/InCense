@@ -4,6 +4,7 @@ import { Link, useParams,useLocation,useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { articleActions } from "../../store/slice/articleSlice";
 import RegisterOrEdit from "./RegisterOrEdit";
+import api from "../../apis/api";
 
 
 
@@ -50,6 +51,9 @@ const RegisterPage = () => {
 
   const onRegisterChange = (event) => {
     const { name, value } = event.target;
+    console.log('dispatch changeRegister')
+    console.log(name, value)
+    
     dispatch(articleActions.changeRegisterInput({ name: name, value: value }));
   };
   
@@ -88,11 +92,13 @@ const RegisterPage = () => {
       article.perfumeId === null || article.perfumeId === ''
     ) {
       alert('향수를 선택하세요.')
+      return false;
     }
     if (
       article.buyDate === null
     ) {
       alert('구매시기를 입력하세요.')
+      return false;
     }
 
     // const formdata = new FormData();
@@ -113,8 +119,14 @@ const RegisterPage = () => {
       dispatch(articleActions.updateArticle(articleForUpdate)); // 추가
       // navigate(`/group/${groupId}/board`);
     } else {
-      
-      dispatch(articleActions.registerArticle(articleForRegister));
+      console.log('작성ㄱㄱ')
+      console.log(articleForRegister)
+      // axios로 post  
+      api.share.register(articleForRegister)
+      alert('등록되었습니다.')
+      dispatch(articleActions.reset())
+      navigate('/share')
+      // dispatch(articleActions.registerArticle(articleForRegister));
       // navigate(`/group/${groupId}/board`);
     } 
 
@@ -131,9 +143,17 @@ const RegisterPage = () => {
           justifyContent:'center'
         }}>
         <RegisterOrEdit
+          article={article}
           id={article.id}
           titleValue={article.title}
           contentValue={article.content}
+          categoryValue={article.gubun}
+          priceValue={article.price}
+          isDeliveryValue={article.isDelivery}
+          buyDateValue={article.buyDate}
+          perfumeIdValue={article.perfumeId}
+          volumeValue={article.volume}
+
           userNickname={article.userNickname}
           handleRegisterChange={onRegisterChange}
           onImageHandler={onImageChange}

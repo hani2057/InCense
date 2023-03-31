@@ -1,12 +1,12 @@
 import React from "react";
 import "./StarRating.css";
 
-function StarRating({ size }) {
+function StarRating({ setStarValue, size }) {
   const drawStar = (e) => {
     document.querySelector(`.star span`).style.width = `${
       e.target.value * 10
     }%`;
-    console.log(e.target.value);
+    setStarValue(e.target.value);
   };
 
   return (

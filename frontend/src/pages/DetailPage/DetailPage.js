@@ -52,7 +52,6 @@ const DetailPage = () => {
     console.log(state)
     return state.perfumeInfoReducers.perfumeInfo
   })
-  // console.log('!!!!!!'+perfumeInfo)
 
   const fileName = perfumeInfo.image
 
