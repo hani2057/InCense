@@ -1,3 +1,4 @@
+import axios from "axios";
 import { defaultInstance, authInstance } from ".";
 
 const USERS = "/member";
@@ -29,6 +30,7 @@ const api = {
   },
   list: {
     getList: (page) => defaultInstance.get(`${PERFUMES}?page=${page}`),
+    getFilteredList: (page, checklist1, checklist2, checklist3) => axios.get(`https://j8a804.p.ssafy.io${PERFUMES}`, {params: {"page":page, "brand":checklist1, "scent":checklist2, "concentration":checklist3}}),
     getDetail: (detailId) => defaultInstance.get(`${PERFUMES}/${detailId}`),
   },
   image: {

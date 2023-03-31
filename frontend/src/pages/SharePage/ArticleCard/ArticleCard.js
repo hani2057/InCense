@@ -66,7 +66,7 @@ function ArticleCard(props) {
           </Box>}
           <Box sx={{display:'flex',flexDirection:'row',justifyContent:'center',marginBottom:'1rem'}}>
             <img src={'assets/icons/comment.svg'} alt='comment' style={{width:'1.5rem',height:'1.5rem'}}/>
-            <p style={{fontSize:'1.5rem'}}>3</p>
+            <p style={{fontSize:'1.5rem'}}>{article.commentCount}</p>
           </Box>
       </Box>
     </Box>

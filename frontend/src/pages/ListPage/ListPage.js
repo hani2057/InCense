@@ -24,14 +24,9 @@ const ListPage = () => {
   const [checklist, setChecklist] = useState([])
   const [checklist2, setChecklist2] = useState([])
   const [checklist3, setChecklist3] = useState([])
+  // const totalCheck = {brand:checklist, scent:checklist2, concentration: checklist3, }
+  
 
-  console.log(checklist)
-  console.log(checklist2)
-  console.log(checklist3)
-
-  const applyFilter = () => {
-    console.log('필터 적용하기')
-  }
 
   // 페이지네이션
   const [limit, setLimit] = useState(20)
@@ -59,10 +54,24 @@ const ListPage = () => {
       state.perfumeListReducers.perfumeList
       ))
       
-      // console.log('777',perfumeList)
+  
+    const applyFilter = () => {
+      console.log('필터 적용하기')
+      console.log(checklist)
+      console.log(checklist2)
+      console.log(checklist3)
+      api.list.getFilteredList(page, checklist, checklist2, checklist3)
+        .then((res) => {
+          console.log('filter list가져오기')
+          console.log(res)
+          dispatch(perfumeListActions.getPerfumeList(res))
+        })
+        .catch((err) => {
+          console.log(err)
+          alert(err)
+        })
+    }
 
-    // if (!perfumeList.content) return null  
-    // 
   return (
     <Box sx={{marginBottom:'5rem'}}>
       <Box
@@ -108,22 +117,21 @@ const ListPage = () => {
                 }
           </span>
           </Box>
-          <Box sx={{display:"flex", flexDirection:"row",justifyContent:"space-between", width:"50%", alignItems:"center", marginBottom:"1rem"}}>
+          <Box sx={{display:"flex", flexDirection:"row",justifyContent:"space-between", width:"100%", alignItems:"center", marginBottom:"1rem"}}>
           <Dropdown visibility={dropdownVisibility}>
             <ul>
             <CheckboxGroup
               
               values={checklist}
               onChange={setChecklist}>
-              <Box sx={{display:'flex', flexDirection:'column', fontSize:'1.2rem',height:'15rem', justifyContent:'space-around'}}>
-                <Checkbox value='brand1'> brand1 </Checkbox>
-                <Checkbox value='brand2'> brand2 </Checkbox>
-                <Checkbox value='brand3'> brand3 </Checkbox>
-                <Checkbox value='brand4'> brand4 </Checkbox>
-                <Checkbox value='brand5'> brand5 </Checkbox>
-                <Checkbox value='brand6'> brand6 </Checkbox>
-                <Checkbox value='brand7'> brand7 </Checkbox>
-                <Checkbox value='brand8'> 기타 </Checkbox>
+              <Box sx={{display:'flex',width:'100%', flexDirection:'column', fontSize:'1rem',height:'15rem', justifyContent:'space-around'}}>
+                <Checkbox value={54}> Calvin Klein </Checkbox>
+                <Checkbox value={24}> BERBERRY </Checkbox>
+                <Checkbox value={90}> HUGO BOSS </Checkbox>
+                <Checkbox value={141}> Roberto Cavalli </Checkbox>
+                <Checkbox value={137}> DORALL COLLECTION </Checkbox>
+                <Checkbox value={118}> VERSACE </Checkbox>
+                <Checkbox value={-1}> 기타 </Checkbox>
               </Box>
             </CheckboxGroup>
             </ul>
@@ -153,14 +161,13 @@ const ListPage = () => {
               values={checklist2}
               onChange={setChecklist2}>
               <Box sx={{display:'flex', flexDirection:'column', fontSize:'1.2rem',height:'15rem', justifyContent:'space-around'}}>
-                <Checkbox value='scent1'> scent1 </Checkbox>
-                <Checkbox value='scent2'> scent2 </Checkbox>
-                <Checkbox value='scent3'> scent3 </Checkbox>
-                <Checkbox value='scent4'> scent4 </Checkbox>
-                <Checkbox value='scent5'> scent5 </Checkbox>
-                <Checkbox value='scent6'> scent6 </Checkbox>
-                <Checkbox value='scent7'> scent7 </Checkbox>
-                <Checkbox value='scent8'> 기타 </Checkbox>
+                <Checkbox value={8}> floral </Checkbox>
+                <Checkbox value={2}> woody </Checkbox>
+                <Checkbox value={6}> spicy </Checkbox>
+                <Checkbox value={5}> citrus </Checkbox>
+                <Checkbox value={11}> fruity </Checkbox>
+                <Checkbox value={9}> arabian </Checkbox>
+                <Checkbox value={-1}> 기타 </Checkbox>
               </Box>
             </CheckboxGroup>
             </ul>
@@ -190,11 +197,11 @@ const ListPage = () => {
               values={checklist3}
               onChange={setChecklist3}>
               <Box sx={{display:'flex', flexDirection:'column', fontSize:'1.2rem',height:'10rem', justifyContent:'space-around'}}>
-                <Checkbox value='impact1'> EDC </Checkbox>
-                <Checkbox value='impact2'> EDP </Checkbox>
-                <Checkbox value='impact3'> EDT </Checkbox>
-                <Checkbox value='impact4'> Oil </Checkbox>
-                <Checkbox value='impact5'> PDT </Checkbox>
+                <Checkbox value='EDC'> EDC </Checkbox>
+                <Checkbox value='EDP'> EDP </Checkbox>
+                <Checkbox value='EDT'> EDT </Checkbox>
+                <Checkbox value='Oil'> Oil </Checkbox>
+                <Checkbox value='PDT'> PDT </Checkbox>
               </Box>
             </CheckboxGroup>
             </ul>
@@ -226,7 +233,7 @@ const ListPage = () => {
               justifyContent: "space-between",
               textAlign: "center"
             }}>
-            <p style={{fontWeight:'bold'}}>총 n개의 향수가 등록되어 있습니다.</p>
+            <p style={{fontWeight:'bold'}}>총 {perfumeList.totalElements}개의 향수가 등록되어 있습니다.</p>
             {/* <p>인기순 | 후기 많은 순</p> */}
             <ToggleFilter/>
           </Box>

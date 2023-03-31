@@ -72,6 +72,7 @@ export default function SharePage() {
 
   const articleList = useSelector((state) => (
     state.articleListReducers.articleList.content
+    // console.log(state)
   ))
 
   return (
