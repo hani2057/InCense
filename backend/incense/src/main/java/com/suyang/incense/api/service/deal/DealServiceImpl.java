@@ -46,6 +46,7 @@ public class DealServiceImpl implements DealService  {
     Member member = memberRepository.findById(memberId).orElseThrow(IllegalArgumentException::new);
 
     System.out.println("member......................................: "+member.toString());
+    System.out.println("perfumeId..................................: " + dealReq.getPerfumeId());
 
     Perfume perfume = perfumeRepository.findById(dealReq.getPerfumeId()).orElseThrow(IllegalArgumentException::new);
 
