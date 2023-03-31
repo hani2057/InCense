@@ -11,152 +11,156 @@ import { ProfilePerfumeHeader, ProfilePerfumeHeaderSpan } from "./style";
 
 const ProfilePerfumes = () => {
   const [typeIdx, setTypeIdx] = useState(0);
+  const [perfumes, setPerfumes] = useState(null);
   const [serchModalOpen, setSearchModalOpen] = useState(false);
 
-  const data = [
-    {
-      id: 0,
-      name: "향수 이름입니다",
-      brandName: "brand입니다",
-      topNoteName: ["note1", "note2", "note3", "note4"],
-      middleNoteName: ["note1", "note2", "note3", "note4"],
-      baseNoteName: ["note1", "note2", "note3", "note4"],
-      price: 1,
-      volume: 0,
-      gender: 0,
-      rating: 0,
-    },
-    {
-      id: 1,
-      name: "향수 이름입니다",
-      brandName: "brand입니다",
-      topNoteName: ["note1", "note2", "note3", "note4"],
-      middleNoteName: ["note1", "note2", "note3", "note4"],
-      baseNoteName: ["note1", "note2", "note3", "note4"],
-      price: 1,
-      volume: 0,
-      gender: 0,
-      rating: 0,
-    },
-    {
-      id: 2,
-      name: "향수 이름입니다",
-      brandName: "brand입니다",
-      topNoteName: ["note1", "note2", "note3", "note4"],
-      middleNoteName: ["note1", "note2", "note3", "note4"],
-      baseNoteName: ["note1", "note2", "note3", "note4"],
-      price: 1,
-      volume: 0,
-      gender: 0,
-      rating: 0,
-    },
-    {
-      id: 3,
-      name: "향수 이름입니다",
-      brandName: "brand입니다",
-      topNoteName: ["note1", "note2", "note3", "note4"],
-      middleNoteName: ["note1", "note2", "note3", "note4"],
-      baseNoteName: ["note1", "note2", "note3", "note4"],
-      price: 1,
-      volume: 0,
-      gender: 0,
-      rating: 0,
-    },
-    {
-      id: 4,
-      name: "향수 이름입니다",
-      brandName: "brand입니다",
-      topNoteName: ["note1", "note2", "note3", "note4"],
-      middleNoteName: ["note1", "note2", "note3", "note4"],
-      baseNoteName: ["note1", "note2", "note3", "note4"],
-      price: 1,
-      volume: 0,
-      gender: 0,
-      rating: 0,
-    },
-    {
-      id: 5,
-      name: "향수 이름입니다",
-      brandName: "brand입니다",
-      topNoteName: ["note1", "note2", "note3", "note4"],
-      middleNoteName: ["note1", "note2", "note3", "note4"],
-      baseNoteName: ["note1", "note2", "note3", "note4"],
-      price: 1,
-      volume: 0,
-      gender: 0,
-      rating: 0,
-    },
-    {
-      id: 6,
-      name: "향수 이름입니다",
-      brandName: "brand입니다",
-      topNoteName: ["note1", "note2", "note3", "note4"],
-      middleNoteName: ["note1", "note2", "note3", "note4"],
-      baseNoteName: ["note1", "note2", "note3", "note4"],
-      price: 1,
-      volume: 0,
-      gender: 0,
-      rating: 0,
-    },
-    {
-      id: 7,
-      name: "향수 이름입니다",
-      brandName: "brand입니다",
-      topNoteName: ["note1", "note2", "note3", "note4"],
-      middleNoteName: ["note1", "note2", "note3", "note4"],
-      baseNoteName: ["note1", "note2", "note3", "note4"],
-      price: 1,
-      volume: 0,
-      gender: 0,
-      rating: 0,
-    },
-    {
-      id: 8,
-      name: "향수 이름입니다",
-      brandName: "brand입니다",
-      topNoteName: ["note1", "note2", "note3", "note4"],
-      middleNoteName: ["note1", "note2", "note3", "note4"],
-      baseNoteName: ["note1", "note2", "note3", "note4"],
-      price: 1,
-      volume: 0,
-      gender: 0,
-      rating: 0,
-    },
-    {
-      id: 9,
-      name: "향수 이름입니다",
-      brandName: "brand입니다",
-      topNoteName: ["note1", "note2", "note3", "note4"],
-      middleNoteName: ["note1", "note2", "note3", "note4"],
-      baseNoteName: ["note1", "note2", "note3", "note4"],
-      price: 1,
-      volume: 0,
-      gender: 0,
-      rating: 0,
-    },
-    {
-      id: 10,
-      name: "향수 이름입니다",
-      brandName: "brand입니다",
-      topNoteName: ["note1", "note2", "note3", "note4"],
-      middleNoteName: ["note1", "note2", "note3", "note4"],
-      baseNoteName: ["note1", "note2", "note3", "note4"],
-      price: 1,
-      volume: 0,
-      gender: 0,
-      rating: 0,
-    },
-  ];
+  // const data = [
+  //   {
+  //     id: 0,
+  //     name: "향수 이름입니다",
+  //     brandName: "brand입니다",
+  //     topNoteName: ["note1", "note2", "note3", "note4"],
+  //     middleNoteName: ["note1", "note2", "note3", "note4"],
+  //     baseNoteName: ["note1", "note2", "note3", "note4"],
+  //     price: 1,
+  //     volume: 0,
+  //     gender: 0,
+  //     rating: 0,
+  //   },
+  //   {
+  //     id: 1,
+  //     name: "향수 이름입니다",
+  //     brandName: "brand입니다",
+  //     topNoteName: ["note1", "note2", "note3", "note4"],
+  //     middleNoteName: ["note1", "note2", "note3", "note4"],
+  //     baseNoteName: ["note1", "note2", "note3", "note4"],
+  //     price: 1,
+  //     volume: 0,
+  //     gender: 0,
+  //     rating: 0,
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "향수 이름입니다",
+  //     brandName: "brand입니다",
+  //     topNoteName: ["note1", "note2", "note3", "note4"],
+  //     middleNoteName: ["note1", "note2", "note3", "note4"],
+  //     baseNoteName: ["note1", "note2", "note3", "note4"],
+  //     price: 1,
+  //     volume: 0,
+  //     gender: 0,
+  //     rating: 0,
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "향수 이름입니다",
+  //     brandName: "brand입니다",
+  //     topNoteName: ["note1", "note2", "note3", "note4"],
+  //     middleNoteName: ["note1", "note2", "note3", "note4"],
+  //     baseNoteName: ["note1", "note2", "note3", "note4"],
+  //     price: 1,
+  //     volume: 0,
+  //     gender: 0,
+  //     rating: 0,
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "향수 이름입니다",
+  //     brandName: "brand입니다",
+  //     topNoteName: ["note1", "note2", "note3", "note4"],
+  //     middleNoteName: ["note1", "note2", "note3", "note4"],
+  //     baseNoteName: ["note1", "note2", "note3", "note4"],
+  //     price: 1,
+  //     volume: 0,
+  //     gender: 0,
+  //     rating: 0,
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "향수 이름입니다",
+  //     brandName: "brand입니다",
+  //     topNoteName: ["note1", "note2", "note3", "note4"],
+  //     middleNoteName: ["note1", "note2", "note3", "note4"],
+  //     baseNoteName: ["note1", "note2", "note3", "note4"],
+  //     price: 1,
+  //     volume: 0,
+  //     gender: 0,
+  //     rating: 0,
+  //   },
+  //   {
+  //     id: 6,
+  //     name: "향수 이름입니다",
+  //     brandName: "brand입니다",
+  //     topNoteName: ["note1", "note2", "note3", "note4"],
+  //     middleNoteName: ["note1", "note2", "note3", "note4"],
+  //     baseNoteName: ["note1", "note2", "note3", "note4"],
+  //     price: 1,
+  //     volume: 0,
+  //     gender: 0,
+  //     rating: 0,
+  //   },
+  //   {
+  //     id: 7,
+  //     name: "향수 이름입니다",
+  //     brandName: "brand입니다",
+  //     topNoteName: ["note1", "note2", "note3", "note4"],
+  //     middleNoteName: ["note1", "note2", "note3", "note4"],
+  //     baseNoteName: ["note1", "note2", "note3", "note4"],
+  //     price: 1,
+  //     volume: 0,
+  //     gender: 0,
+  //     rating: 0,
+  //   },
+  //   {
+  //     id: 8,
+  //     name: "향수 이름입니다",
+  //     brandName: "brand입니다",
+  //     topNoteName: ["note1", "note2", "note3", "note4"],
+  //     middleNoteName: ["note1", "note2", "note3", "note4"],
+  //     baseNoteName: ["note1", "note2", "note3", "note4"],
+  //     price: 1,
+  //     volume: 0,
+  //     gender: 0,
+  //     rating: 0,
+  //   },
+  //   {
+  //     id: 9,
+  //     name: "향수 이름입니다",
+  //     brandName: "brand입니다",
+  //     topNoteName: ["note1", "note2", "note3", "note4"],
+  //     middleNoteName: ["note1", "note2", "note3", "note4"],
+  //     baseNoteName: ["note1", "note2", "note3", "note4"],
+  //     price: 1,
+  //     volume: 0,
+  //     gender: 0,
+  //     rating: 0,
+  //   },
+  //   {
+  //     id: 10,
+  //     name: "향수 이름입니다",
+  //     brandName: "brand입니다",
+  //     topNoteName: ["note1", "note2", "note3", "note4"],
+  //     middleNoteName: ["note1", "note2", "note3", "note4"],
+  //     baseNoteName: ["note1", "note2", "note3", "note4"],
+  //     price: 1,
+  //     volume: 0,
+  //     gender: 0,
+  //     rating: 0,
+  //   },
+  // ];
 
   const fetchGetPerfumeList = async () => {
     const arr = ["HAVE", "HAD", "WANT"];
     const res = await api.profile.getPerfumeList(arr[typeIdx]);
+    setPerfumes(res);
     console.log(res);
   };
 
   useEffect(() => {
     fetchGetPerfumeList();
   }, [typeIdx]);
+
+  if (!perfumes) return null;
 
   return (
     <>
@@ -206,10 +210,17 @@ const ProfilePerfumes = () => {
         </ProfilePerfumeHeader>
 
         <FlexDiv wrap="wrap" justify="start" margin="3rem 0">
-          {data.map(({ id, name }) => (
-            // <CardComponent key={id} />
-            <PerfumeItem key={id} />
-          ))}
+          {perfumes.map(
+            ({ perfumeId, image, perfumeName, brandName, alarm }) => (
+              <PerfumeItem
+                img={image}
+                name={perfumeName}
+                brand={brandName}
+                alarm={alarm}
+                key={perfumeId}
+              />
+            )
+          )}
         </FlexDiv>
       </ProfileOutletContainer>
 
