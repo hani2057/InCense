@@ -65,7 +65,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberInfoRes getMemberInfo(Authentication authentication) {
-        Member member = memberRepository.findById(authService.getIdByAuthentication(authentication)).get();
+        Member member = authService.getMemberByAuthentication(authentication).get();
         Grade grade = member.getGrade();
         String profile = "";
         if(member.getProfile() == null) profile = "./images/member/default/default.png";

@@ -3,6 +3,7 @@ package com.suyang.incense.api.service.member;
 import com.suyang.incense.api.request.member.mypage.PerfumeModifyReq;
 import com.suyang.incense.api.request.member.mypage.PerfumeRegisterReq;
 import com.suyang.incense.api.request.member.mypage.ReviewModifyReq;
+import com.suyang.incense.api.response.member.mypage.DealRes;
 import com.suyang.incense.api.response.member.mypage.PerfumeRes;
 import com.suyang.incense.api.response.member.mypage.ReviewRes;
 import com.suyang.incense.db.entity.member.Member;
@@ -10,6 +11,7 @@ import com.suyang.incense.db.entity.perfume.Perfume;
 import com.suyang.incense.db.entity.relation.Category;
 import com.suyang.incense.db.entity.relation.MemberPerfume;
 import com.suyang.incense.db.entity.review.Review;
+import com.suyang.incense.db.repository.deal.DealRepository;
 import com.suyang.incense.db.repository.member.*;
 import com.suyang.incense.db.repository.perfume.PerfumeRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,7 @@ public class MyPageServiceImpl implements MyPageService{
 
     public final MemberPerfumeCustomRepository memberPerfumeCustomRepository;
     private final MemberPerfumeRepository memberPerfumeRepository;
+    private final DealRepository dealRepository;
     private final ReviewCustomRepository reviewCustomRepository;
     private final MemberRepository memberRepository;
     private final ReviewRepository reviewRepository;
@@ -46,7 +49,7 @@ public class MyPageServiceImpl implements MyPageService{
     public void registerPerfume(PerfumeRegisterReq perfumeRegisterReq, Authentication authentication) {
         String category = perfumeRegisterReq.getCategory();
         Perfume perfume = perfumeRepository.findById(perfumeRegisterReq.getPerfumeId()).get();
-        Member member = memberRepository.findById(authService.getIdByAuthentication(authentication)).get();
+        Member member = authService.getMemberByAuthentication(authentication).get();
         // MemberPerfume
         MemberPerfume memberPerfume = new MemberPerfume();
         memberPerfume.setMember(member);
@@ -101,8 +104,9 @@ public class MyPageServiceImpl implements MyPageService{
 
     @Override
     public List<ReviewRes> getMyReview(Authentication authentication) {
-        Member member = memberRepository.findById(authService.getIdByAuthentication(authentication)).get();
-        return reviewCustomRepository.getReviewByMember(member);
+//        Member member = memberRepository.findById(authService.getIdByAuthentication(authentication)).get();
+//        return reviewCustomRepository.getReviewByMember(member);
+        return reviewCustomRepository.getReviewByMember(authService.getMemberByAuthentication(authentication).get());
     }
 
     @Override
@@ -111,5 +115,12 @@ public class MyPageServiceImpl implements MyPageService{
         Review review = reviewRepository.findById(reviewModifyReq.getReviewId()).get();
         review.setComment(reviewModifyReq.getComment());
         review.setPreference(reviewModifyReq.getPreference());
+    }
+
+    @Override
+    public List<DealRes> getMyDeal(Authentication authentication) {
+        Member member = authService.getMemberByAuthentication(authentication).get();
+        System.out.println("###" + member.getId() + "," + member.getEmail());
+        return dealRepository.getDealByMember(member);
     }
 }
