@@ -61,6 +61,7 @@ const api = {
       defaultInstance.get(`${PERFUMES}`, { params: { search: query } }),
     // defaultInstance.post(`${PERFUMES}/in`, { search: query }),
     getUserReviews: () => authInstance.get(`${PROFILE}/review`),
+    putUserReview: (data) => authInstance.put(`${PROFILE}/review`, data),
     getUserArticles: () => authInstance.get(`${PROFILE}/deal`),
     getUserBookmarks: () => authInstance.get(`${PROFILE}/bookmark`),
   },

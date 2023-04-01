@@ -58,6 +58,7 @@ const ProfileActivityPage = () => {
               review={comment}
               reviewId={reviewId}
               perfumeId={perfumeId}
+              fetchGetReviews={fetchGetReviews}
               key={reviewId}
             />
           )
