@@ -40,8 +40,8 @@ public class MyPageController {
     @ApiOperation(value = "향수 등록", notes = "Have, Had, Want 향수 등록")
     public ResponseEntity<? extends BaseResponseBody> registerMyPerfume(@RequestBody PerfumeRegisterReq perfumeRegisterReq,
                                                                         @ApiIgnore Authentication authentication) {
-        myPageService.registerPerfume(perfumeRegisterReq, authentication);
-        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+        BaseResponseBody response = myPageService.registerPerfume(perfumeRegisterReq, authentication);
+        return ResponseEntity.status(200).body(response);
     }
 
     @PutMapping("/perfume")

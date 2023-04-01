@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface GradeRepository extends JpaRepository<Grade, Long> {
+public interface GradeRepository extends JpaRepository<Grade, Long>, GradeCustomRepository {
 
     Optional<Grade> findById(Long id);
     Optional<Grade> findByName(String name);

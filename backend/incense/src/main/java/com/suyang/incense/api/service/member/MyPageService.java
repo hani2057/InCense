@@ -7,6 +7,7 @@ import com.suyang.incense.api.response.member.mypage.BookmarkRes;
 import com.suyang.incense.api.response.member.mypage.DealRes;
 import com.suyang.incense.api.response.member.mypage.PerfumeRes;
 import com.suyang.incense.api.response.member.mypage.ReviewRes;
+import com.suyang.incense.common.util.BaseResponseBody;
 import org.springframework.security.core.Authentication;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public interface MyPageService {
 
     // [향수]
     List<PerfumeRes> getMyPerfume(String type, Authentication Authentication);
-    void registerPerfume(PerfumeRegisterReq perfumeRegisterReq, Authentication authentication);
+    BaseResponseBody registerPerfume(PerfumeRegisterReq perfumeRegisterReq, Authentication authentication);
     void modifyPerfume(PerfumeModifyReq perfumeModifyReq);
     void removePerfume(Long myPerfumeId);
 

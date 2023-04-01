@@ -3,6 +3,7 @@ package com.suyang.incense.db.repository.member;
 import com.suyang.incense.api.response.member.mypage.PerfumeRes;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MemberPerfumeCustomRepository {
 

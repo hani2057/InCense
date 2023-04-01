@@ -82,4 +82,5 @@ public class MemberPerfumeCustomRepositoryImpl implements MemberPerfumeCustomRep
 
         return result;
     }
+
 }

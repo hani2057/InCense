@@ -7,6 +7,7 @@ import com.suyang.incense.api.response.member.mypage.BookmarkRes;
 import com.suyang.incense.api.response.member.mypage.DealRes;
 import com.suyang.incense.api.response.member.mypage.PerfumeRes;
 import com.suyang.incense.api.response.member.mypage.ReviewRes;
+import com.suyang.incense.common.util.BaseResponseBody;
 import com.suyang.incense.db.entity.member.Member;
 import com.suyang.incense.db.entity.perfume.Perfume;
 import com.suyang.incense.db.entity.relation.Category;
@@ -27,11 +28,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MyPageServiceImpl implements MyPageService{
 
-    private final MemberPerfumeCustomRepository memberPerfumeCustomRepository;
     private final DealBookmarkRepository dealBookmarkRepository;
     private final MemberPerfumeRepository memberPerfumeRepository;
     private final DealRepository dealRepository;
-    private final ReviewCustomRepository reviewCustomRepository;
     private final MemberRepository memberRepository;
     private final ReviewRepository reviewRepository;
     private final PerfumeRepository perfumeRepository;
@@ -41,20 +40,21 @@ public class MyPageServiceImpl implements MyPageService{
     public List<PerfumeRes> getMyPerfume(String type, Authentication authentication) {
         Long memberId = authService.getIdByAuthentication(authentication);
         if(type.equals("WANT")) {
-            return memberPerfumeCustomRepository.getMyWantPerfume(memberId);
+            return memberPerfumeRepository.getMyWantPerfume(memberId);
         } else {
-            return memberPerfumeCustomRepository.getMyHaveHadPerfume(type, memberId);
+            return memberPerfumeRepository.getMyHaveHadPerfume(type, memberId);
         }
     }
 
     @Override
     @Transactional
-    public void registerPerfume(PerfumeRegisterReq perfumeRegisterReq, Authentication authentication) {
+    public BaseResponseBody registerPerfume(PerfumeRegisterReq perfumeRegisterReq, Authentication authentication) {
         String category = perfumeRegisterReq.getCategory();
         Perfume perfume = perfumeRepository.findById(perfumeRegisterReq.getPerfumeId()).orElseThrow(IllegalArgumentException::new);
         Member member = authService.getMemberByAuthentication(authentication).orElseThrow(IllegalArgumentException::new);
-        // Exception 이미 동일한 member / perfume으로 등록되어 있으면 예외 발생
-
+        // 이미 동일한 member / perfume으로 등록되어 있으면 예외 발생
+        if(memberPerfumeRepository.findByMemberAndPerfume(member, perfume).isPresent())
+            return BaseResponseBody.of(418, "이미 등록되어 있는 향수입니다. ");
         // MemberPerfume
         MemberPerfume memberPerfume = new MemberPerfume();
         memberPerfume.setMember(member);
@@ -73,6 +73,7 @@ public class MyPageServiceImpl implements MyPageService{
             review.setPerfume(perfume);
             reviewRepository.save(review);
         }
+        return BaseResponseBody.of(200, "Success");
     }
 
     @Override
@@ -86,7 +87,7 @@ public class MyPageServiceImpl implements MyPageService{
         if(!category.equals("WANT")) {
             Member member = memberRepository.findById(myPerfume.getMember().getId()).orElseThrow(IllegalArgumentException::new);
             Perfume perfume = perfumeRepository.findById(myPerfume.getPerfume().getId()).orElseThrow(IllegalArgumentException::new);
-            Review review = reviewCustomRepository.getReviewByMemberAndPerfume(member, perfume);
+            Review review = reviewRepository.getReviewByMemberAndPerfume(member, perfume);
             if(review == null) {
                 Review newReview = new Review();
                 newReview.setMember(member);
@@ -110,7 +111,7 @@ public class MyPageServiceImpl implements MyPageService{
     public List<ReviewRes> getMyReview(Authentication authentication) {
 //        Member member = memberRepository.findById(authService.getIdByAuthentication(authentication)).get();
 //        return reviewCustomRepository.getReviewByMember(member);
-        return reviewCustomRepository.getReviewByMember(authService.getMemberByAuthentication(authentication).orElseThrow(IllegalArgumentException::new));
+        return reviewRepository.getReviewByMember(authService.getMemberByAuthentication(authentication).orElseThrow(IllegalArgumentException::new));
     }
 
     @Override

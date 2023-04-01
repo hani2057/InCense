@@ -5,7 +5,6 @@ import com.suyang.incense.api.request.member.MemberRegisterReq;
 import com.suyang.incense.api.response.member.MemberInfoRes;
 import com.suyang.incense.common.FileHandler;
 import com.suyang.incense.db.entity.member.*;
-import com.suyang.incense.db.repository.member.GradeCustomRepository;
 import com.suyang.incense.db.repository.member.GradeLogRepository;
 import com.suyang.incense.db.repository.member.GradeRepository;
 import com.suyang.incense.db.repository.member.MemberRepository;
@@ -27,7 +26,6 @@ public class MemberServiceImpl implements MemberService {
     private final AuthService authService;
     private final MemberRepository memberRepository;
     private final GradeRepository gradeRepository;
-    private final GradeCustomRepository gradeCustomRepository;
     private final GradeLogRepository gradeLogRepository;
     private final FileHandler fileHandler;
 
@@ -138,7 +136,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void checkRank(Long memberId) {
-        String rank = gradeCustomRepository.checkMemberRank(memberId);
+        String rank = gradeRepository.checkMemberRank(memberId);
         Member member = memberRepository.findById(memberId).orElseThrow(IllegalArgumentException::new);
         member.setGrade(gradeRepository.findByName(rank).orElseThrow(IllegalArgumentException::new));
     }
