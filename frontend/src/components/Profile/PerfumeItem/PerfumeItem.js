@@ -8,7 +8,7 @@ import api from "../../../apis/api";
 
 const PerfumeItem = ({
   perfumeId,
-  memberPerfumeId,
+  myPerfumeId,
   img,
   name,
   brand,
@@ -17,6 +17,7 @@ const PerfumeItem = ({
   alarm,
   typeIdx,
   setTypeIdx,
+  fetchGetPerfumeList,
 }) => {
   const navigate = useNavigate();
 
@@ -24,9 +25,10 @@ const PerfumeItem = ({
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
   const fetchDeletePerfume = async () => {
-    console.log(memberPerfumeId);
-    const res = await api.profile.deletePerfumeFromCategory(memberPerfumeId);
+    console.log(myPerfumeId);
+    const res = await api.profile.deletePerfumeFromCategory(myPerfumeId);
     console.log(res);
+    setDeleteModalOpen(false);
   };
 
   return (
@@ -35,7 +37,7 @@ const PerfumeItem = ({
         width="25%"
         direction="column"
         padding="1rem"
-        style={{ border: "1px solid var(--gray-color)" }}
+        style={{ border: "1px solid var(--gray-color)", position: "relative" }}
       >
         <FlexDiv justify="end">
           {alarm && (
@@ -68,11 +70,46 @@ const PerfumeItem = ({
               src="/assets/icons/delete.svg"
               alt="delete"
               style={{ marginLeft: "0.5rem", stroke: "1", cursor: "pointer" }}
-              onClick={() => fetchDeletePerfume()}
+              onClick={() => setDeleteModalOpen(true)}
             />
           </FlexDiv>
         </FlexDiv>
+
+        {deleteModalOpen && (
+          <FlexDiv
+            direction="column"
+            padding="1rem"
+            style={{
+              backgroundColor: "var(--dark-gray-color)",
+              opacity: "0.8",
+              position: "absolute",
+            }}
+          >
+            <ModalSpan color="white" size="1.2rem">
+              목록에서 삭제할까요?
+            </ModalSpan>
+            <FlexDiv height="auto">
+              <ModalSpan
+                color="white"
+                margin="2rem 0.5rem"
+                pointer={true}
+                onClick={() => fetchDeletePerfume()}
+              >
+                삭제
+              </ModalSpan>
+              <ModalSpan
+                color="white"
+                margin="2rem 0.5rem"
+                pointer={true}
+                onClick={() => setDeleteModalOpen(false)}
+              >
+                취소
+              </ModalSpan>
+            </FlexDiv>
+          </FlexDiv>
+        )}
       </FlexDiv>
+
       {modifyModalOpen && (
         <SearchModal
           setModalOpen={setModifyModalOpen}
@@ -83,10 +120,11 @@ const PerfumeItem = ({
             name: name,
             preference: preference,
             review: review,
-            id: memberPerfumeId,
+            id: myPerfumeId,
           }}
           typeIdx={typeIdx}
           setTypeIdx={setTypeIdx}
+          fetchGetPerfumeList={fetchGetPerfumeList}
         />
       )}
     </>

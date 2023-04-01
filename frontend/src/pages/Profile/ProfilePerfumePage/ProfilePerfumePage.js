@@ -86,7 +86,7 @@ const ProfilePerfumes = () => {
             }) => (
               <PerfumeItem
                 perfumeId={perfumeId}
-                memberPerfumeId={myPerfumeId}
+                myPerfumeId={myPerfumeId}
                 img={image}
                 name={perfumeName}
                 brand={brandName}
@@ -108,6 +108,7 @@ const ProfilePerfumes = () => {
           setModalOpen={setSearchModalOpen}
           typeIdx={typeIdx}
           setTypeIdx={setTypeIdx}
+          fetchGetPerfumeList={fetchGetPerfumeList}
         />
       )}
     </>

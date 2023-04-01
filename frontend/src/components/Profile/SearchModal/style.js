@@ -84,11 +84,12 @@ const SearchResultItem = styled.div`
 `;
 
 const ModalSpan = styled.span`
-  ${({ size, bold, color, margin }) => css`
+  ${({ size, bold, color, margin, pointer }) => css`
     font-size: ${size || "1rem"};
     font-weight: ${bold ? "700" : "400"};
     color: ${color ? "var(--" + color + "-color)" : "var(--font-color)"};
     margin: ${margin || "0"};
+    cursor: ${pointer ? "pointer" : "auto"};
   `}
 `;
 

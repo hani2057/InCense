@@ -25,6 +25,7 @@ const SearchModal = ({
   setTypeIdx,
   perfumeToModify,
   modalType,
+  fetchGetPerfumeList,
 }) => {
   // 모달
   const ref = useRef();
@@ -62,6 +63,7 @@ const SearchModal = ({
       await api.profile.putPerfumeToCategory(data);
       setModalOpen(false);
       setTypeIdx(newTypeIdx);
+      fetchGetPerfumeList();
     } else {
       const data = {
         category: textArr[newTypeIdx].split(" ")[1].toUpperCase(),
@@ -73,6 +75,7 @@ const SearchModal = ({
       await api.profile.postPerfumeToCategory(data);
       setModalOpen(false);
       setTypeIdx(newTypeIdx);
+      fetchGetPerfumeList();
     }
   };
 
