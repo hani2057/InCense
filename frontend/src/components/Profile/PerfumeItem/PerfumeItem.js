@@ -5,6 +5,7 @@ import { FlexDiv } from "../../common/FlexDiv/FlexDiv";
 import { ModalSpan } from "../SearchModal/style";
 import SearchModal from "../SearchModal/SearchModal";
 import api from "../../../apis/api";
+import { ProfilePerfumeItemWrapper } from "../../../pages/Profile/ProfilePerfumePage/style";
 
 const PerfumeItem = ({
   perfumeId,
@@ -33,12 +34,7 @@ const PerfumeItem = ({
 
   return (
     <>
-      <FlexDiv
-        width="25%"
-        direction="column"
-        padding="1rem"
-        style={{ border: "1px solid var(--gray-color)", position: "relative" }}
-      >
+      <ProfilePerfumeItemWrapper width="25%" direction="column" padding="1rem">
         <FlexDiv justify="end">
           {alarm && (
             <BsBell
@@ -59,17 +55,22 @@ const PerfumeItem = ({
             </ModalSpan>
             <ModalSpan bold={true}>{name}</ModalSpan>
           </FlexDiv>
-          <FlexDiv justify="end">
+          <FlexDiv justify="end" width="auto">
             <img
               src="/assets/icons/edit.svg"
               alt="edit"
-              style={{ cursor: "pointer" }}
+              style={{ cursor: "pointer", width: "1rem" }}
               onClick={() => setModifyModalOpen(true)}
             />
             <img
               src="/assets/icons/delete.svg"
               alt="delete"
-              style={{ marginLeft: "0.5rem", stroke: "1", cursor: "pointer" }}
+              style={{
+                cursor: "pointer",
+                width: "1rem",
+                marginLeft: "0.3rem",
+                stroke: "1",
+              }}
               onClick={() => setDeleteModalOpen(true)}
             />
           </FlexDiv>
@@ -108,7 +109,7 @@ const PerfumeItem = ({
             </FlexDiv>
           </FlexDiv>
         )}
-      </FlexDiv>
+      </ProfilePerfumeItemWrapper>
 
       {modifyModalOpen && (
         <SearchModal
