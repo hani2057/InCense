@@ -35,7 +35,15 @@ const api = {
   },
   list: {
     getList: (page) => defaultInstance.get(`${PERFUMES}?page=${page}`),
-    getFilteredList: (page, checklist1, checklist2, checklist3) => axios.get(`https://j8a804.p.ssafy.io${PERFUMES}`, {params: {"page":page, "brand":checklist1, "scent":checklist2, "concentration":checklist3}}),
+    getFilteredList: (page, checklist1, checklist2, checklist3) =>
+      axios.get(`https://j8a804.p.ssafy.io${PERFUMES}`, {
+        params: {
+          page: page,
+          brand: checklist1,
+          scent: checklist2,
+          concentration: checklist3,
+        },
+      }),
     getDetail: (detailId) => defaultInstance.get(`${PERFUMES}/${detailId}`),
   },
   profile: {
@@ -52,6 +60,7 @@ const api = {
     searchPerfume: (query) =>
       // defaultInstance.get(`${PERFUMES}`, { params: { search: query } }),
       defaultInstance.post(`${PERFUMES}/in`, { search: query }),
+    getUserReviews: () => authInstance.get(`${PROFILE}/review`),
   },
   image: {
     getImage: (fileName) => defaultInstance.get(`${IMG}?filename=${fileName}`),
