@@ -81,19 +81,20 @@ public class PerfumeCustomRepositoryImpl implements PerfumeCustomRepository {
             return null;
         }
 
-        return   perfume.name.like("%" + perfumeReq.getSearch() + "%")
-                .or(perfume.brand.name.like("%" + perfumeReq.getSearch() + "%"));
+        System.out.println("확인!!!");
+        return   perfume.name.upper().like("%" + perfumeReq.getSearch().toUpperCase() + "%")
+                .or(perfume.brand.name.upper().like("%" + perfumeReq.getSearch().toUpperCase()+ "%"));
     }
 
     public BooleanExpression eqBrandList(PerfumeReq perfumeReq) {
-        if(perfumeReq.getBrand()==null){
+        if(perfumeReq.getBrand()==null || perfumeReq.getBrand().size()==0){
             return null;
         }
         return  perfume.brand.id.in(perfumeReq.getBrand());
     }
 
     public BooleanExpression eqConcentrationList(PerfumeReq perfumeReq){
-        if(perfumeReq.getConcentration()==null){
+        if(perfumeReq.getConcentration()==null || perfumeReq.getConcentration().size()==0){
             return null;
         }
 
@@ -101,7 +102,7 @@ public class PerfumeCustomRepositoryImpl implements PerfumeCustomRepository {
     }
 
     public BooleanExpression eqTopNoteList(PerfumeReq perfumeReq){
-        if(perfumeReq.getScent()==null){
+        if(perfumeReq.getScent()==null || perfumeReq.getScent().size()==0){
             return null;
         }
 
@@ -119,7 +120,13 @@ public class PerfumeCustomRepositoryImpl implements PerfumeCustomRepository {
             perfumeEnum = PerfumeSort.COMMON;
         }
         else{
-            perfumeEnum = PerfumeSort.valueOf(perfumeReq.getSorted());
+            try{
+                perfumeEnum = PerfumeSort.valueOf(perfumeReq.getSorted());
+            }
+            catch (Exception e){
+                perfumeEnum = PerfumeSort.COMMON;
+            }
+
         }
 
         switch(perfumeEnum){

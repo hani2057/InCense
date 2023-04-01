@@ -39,6 +39,7 @@ public class PerfumeController {
             content = @Content(array = @ArraySchema(schema = @Schema( implementation = PerfumeRes.class))))})
     @PostMapping(path="/in")
     public ResponseEntity<Page<PerfumeRes>> getPerfumeList(@RequestBody PerfumeReq perfumeReq){
+        System.out.println(perfumeReq.getSearch()+"search!!!");
         Pageable pageable = PageRequest.of(perfumeReq.getPage()-1<0?0:perfumeReq.getPage()-1,PAGE_CNT);
         List<Perfume> perfumeList = perfumeService.getPerfumeList(perfumeReq,pageable);
         List<PerfumeRes>perfumeResList = new ArrayList<>();
