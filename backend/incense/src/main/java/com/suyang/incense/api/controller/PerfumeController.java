@@ -37,9 +37,8 @@ public class PerfumeController {
     @ApiOperation(value = "향수 목록 검색 기능")
     @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "성공",
             content = @Content(array = @ArraySchema(schema = @Schema( implementation = PerfumeRes.class))))})
-    @PostMapping(path="/in")
-    public ResponseEntity<Page<PerfumeRes>> getPerfumeList(@RequestBody PerfumeReq perfumeReq){
-        System.out.println(perfumeReq.getSearch()+"search!!!");
+    @GetMapping(path="")
+    public ResponseEntity<Page<PerfumeRes>> getPerfumeList(@ModelAttribute  PerfumeReq perfumeReq){
         Pageable pageable = PageRequest.of(perfumeReq.getPage()-1<0?0:perfumeReq.getPage()-1,PAGE_CNT);
         List<Perfume> perfumeList = perfumeService.getPerfumeList(perfumeReq,pageable);
         List<PerfumeRes>perfumeResList = new ArrayList<>();
