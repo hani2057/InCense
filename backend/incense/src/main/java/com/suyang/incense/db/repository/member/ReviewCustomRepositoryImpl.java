@@ -11,8 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.suyang.incense.db.entity.perfume.QBrand.brand;
-import static com.suyang.incense.db.entity.perfume.QPerfume.perfume;
 import static com.suyang.incense.db.entity.review.QReview.review;
 
 @Repository
@@ -34,16 +32,17 @@ public class ReviewCustomRepositoryImpl implements ReviewCustomRepository {
         return jpaQueryFactory
                 .select(Projections.constructor(
                         ReviewRes.class,
-                        perfume.id,
+                        review.perfume.id,
                         review.id,
-                        brand.name,
-                        perfume.name,
+                        review.perfume.brand.name,
+                        review.perfume.name,
+                        review.perfume.image,
                         review.preference,
                         review.comment,
                         review.modifiedDate
                 ))
-                .from(perfume, brand, review)
-                .where(review.member.eq(member), review.perfume.eq(perfume), perfume.brand.eq(brand))
+                .from(review)
+                .where(review.member.eq(member))
                 .fetch();
     }
 
