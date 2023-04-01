@@ -62,7 +62,7 @@ const ReviewItem = ({
   } = data;
 
   return (
-    <ShareItemWrapper>
+    <ShareItemWrapper color={gubun === "SALE" ? "main" : null}>
       <FlexDiv width="35%">
         <img
           src={`https://j8a804.p.ssafy.io/api/display?filename=${img}`}
