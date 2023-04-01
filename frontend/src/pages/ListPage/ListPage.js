@@ -54,6 +54,8 @@ const ListPage = () => {
       state.perfumeListReducers.perfumeList
       ))
       
+    const totalParams = {page,}
+    
   
     const applyFilter = () => {
       console.log('필터 적용하기')
