@@ -2,8 +2,8 @@ import React from "react";
 import dayjs from "dayjs";
 import { FlexDiv } from "../../common/FlexDiv/FlexDiv";
 import { ModalSpan } from "../SearchModal/style";
-import { ReviewItemWrapper } from "./style";
 import { useNavigate } from "react-router-dom";
+import { ShareItemWrapper } from "../ShareItem/style";
 
 const ReviewItem = ({
   img,
@@ -18,7 +18,7 @@ const ReviewItem = ({
   const navigate = useNavigate();
 
   return (
-    <ReviewItemWrapper>
+    <ShareItemWrapper>
       <FlexDiv width="35%">
         <img
           src={`https://j8a804.p.ssafy.io/api/display?filename=${img}`}
@@ -61,7 +61,7 @@ const ReviewItem = ({
         </FlexDiv>
         <ModalSpan>{review}</ModalSpan>
       </FlexDiv>
-    </ReviewItemWrapper>
+    </ShareItemWrapper>
   );
 };
 

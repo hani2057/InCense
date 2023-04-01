@@ -70,7 +70,7 @@ const ProfileActivityPage = () => {
         subtitle={"SHARE&SELL"}
       />
       <ProfileActivityItemContainer>
-        <ShareItem />
+        <ShareItem isMine={true} />
       </ProfileActivityItemContainer>
 
       <ProfileTitleBox
@@ -78,6 +78,9 @@ const ProfileActivityPage = () => {
         title={"BOOKMARKS"}
         subtitle={"SHARE&SELL"}
       />
+      <ProfileActivityItemContainer>
+        <ShareItem />
+      </ProfileActivityItemContainer>
     </ProfileOutletContainer>
   );
 };
