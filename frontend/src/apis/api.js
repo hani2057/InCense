@@ -58,9 +58,11 @@ const api = {
         data: { myPerfumeId: myPerfumeId },
       }),
     searchPerfume: (query) =>
-      // defaultInstance.get(`${PERFUMES}`, { params: { search: query } }),
-      defaultInstance.post(`${PERFUMES}/in`, { search: query }),
+      defaultInstance.get(`${PERFUMES}`, { params: { search: query } }),
+    // defaultInstance.post(`${PERFUMES}/in`, { search: query }),
     getUserReviews: () => authInstance.get(`${PROFILE}/review`),
+    getUserArticles: () => authInstance.get(`${PROFILE}/deal`),
+    getUserBookmarks: () => authInstance.get(`${PROFILE}/bookmark`),
   },
   image: {
     getImage: (fileName) => defaultInstance.get(`${IMG}?filename=${fileName}`),
