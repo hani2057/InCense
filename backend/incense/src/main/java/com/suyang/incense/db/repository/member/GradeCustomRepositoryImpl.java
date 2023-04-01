@@ -13,16 +13,6 @@ public class GradeCustomRepositoryImpl implements GradeCustomRepository{
     @Autowired
     private JPAQueryFactory jpaQueryFactory;
 
-//    select case
-//    when member.score between 0 and 99 then "1"
-//    when member.score between 100 and 299 then "2"
-//    when member.score between 300 and 699 then "3"
-//    when member.score between 700 and 1299 then "4"
-//            else "5"
-//    end as member_rank
-//    from member;
-
-
     @Override
     public String checkMemberRank(Long memberId) {
         return jpaQueryFactory
