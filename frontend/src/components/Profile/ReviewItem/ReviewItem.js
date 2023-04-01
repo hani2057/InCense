@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import { FlexDiv } from "../../common/FlexDiv/FlexDiv";
 import { ModalSpan } from "../SearchModal/style";
 import { ReviewItemWrapper } from "./style";
+import { useNavigate } from "react-router-dom";
 
 const ReviewItem = ({
   img,
@@ -12,11 +13,18 @@ const ReviewItem = ({
   preference,
   review,
   reviewId,
+  perfumeId,
 }) => {
+  const navigate = useNavigate();
+
   return (
     <ReviewItemWrapper>
       <FlexDiv width="35%">
-        <img src="/assets/images/936.jpg" style={{ height: "10rem" }} />
+        <img
+          src={`https://j8a804.p.ssafy.io/api/display?filename=${img}`}
+          style={{ height: "10rem", cursor: "pointer" }}
+          onClick={() => navigate(`/detail/${perfumeId}`)}
+        />
       </FlexDiv>
       <FlexDiv
         direction="column"
