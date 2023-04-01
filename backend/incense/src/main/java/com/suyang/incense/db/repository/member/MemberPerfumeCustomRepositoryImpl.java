@@ -9,8 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.suyang.incense.db.entity.perfume.QBrand.brand;
-import static com.suyang.incense.db.entity.perfume.QPerfume.perfume;
 import static com.suyang.incense.db.entity.relation.QMemberPerfume.memberPerfume;
 import static com.suyang.incense.db.entity.relation.QMemberPerfumeAlarm.memberPerfumeAlarm;
 import static com.suyang.incense.db.entity.review.QReview.review;
@@ -29,14 +27,13 @@ public class MemberPerfumeCustomRepositoryImpl implements MemberPerfumeCustomRep
                 .select(Projections.constructor(
                         PerfumeRes.class,
                         memberPerfume.id,
-                        perfume.id,
-                        brand.name,
-                        perfume.name,
-                        perfume.image
+                        memberPerfume.perfume.id,
+                        memberPerfume.perfume.brand.name,
+                        memberPerfume.perfume.name,
+                        memberPerfume.perfume.image
                 ))
-                .from(perfume, memberPerfume, brand)
-                .where(perfume.id.eq(memberPerfume.perfume.id), perfume.brand.id.eq(brand.id),
-                        memberPerfume.member.id.eq(memberId), memberPerfume.category.eq(Category.WANT))
+                .from(memberPerfume)
+                .where(memberPerfume.member.id.eq(memberId), memberPerfume.category.eq(Category.WANT))
                 .fetch();
 
         for (PerfumeRes perfume : result) {
@@ -58,17 +55,16 @@ public class MemberPerfumeCustomRepositoryImpl implements MemberPerfumeCustomRep
                 .select(Projections.constructor(
                         PerfumeRes.class,
                         memberPerfume.id,
-                        perfume.id,
-                        brand.name,
-                        perfume.name,
-                        perfume.image,
+                        memberPerfume.perfume.id,
+                        memberPerfume.perfume.brand.name,
+                        memberPerfume.perfume.name,
+                        memberPerfume.perfume.image,
                         review.preference,
                         review.comment
                 ))
-                .from(perfume, memberPerfume, brand, review)
-                .where(perfume.eq(memberPerfume.perfume), perfume.brand.eq(brand),
-                        memberPerfume.member.id.eq(memberId), memberPerfume.category.eq(Category.valueOf(type)),
-                        review.member.id.eq(memberId), review.perfume.eq(perfume))
+                .from(memberPerfume, review)
+                .where(memberPerfume.member.id.eq(memberId), memberPerfume.category.eq(Category.valueOf(type)),
+                        review.member.id.eq(memberId), review.perfume.eq(memberPerfume.perfume))
                 .fetch();
 
         for (PerfumeRes perfume : result) {
@@ -82,4 +78,5 @@ public class MemberPerfumeCustomRepositoryImpl implements MemberPerfumeCustomRep
 
         return result;
     }
+
 }
