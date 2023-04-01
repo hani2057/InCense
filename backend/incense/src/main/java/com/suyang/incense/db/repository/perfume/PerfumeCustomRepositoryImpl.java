@@ -121,6 +121,7 @@ public class PerfumeCustomRepositoryImpl implements PerfumeCustomRepository {
             perfumeEnum = PerfumeSort.COMMON;
         }
         else{
+
             perfumeEnum = PerfumeSort.valueOf(perfumeReq.getSorted());
         }
 
