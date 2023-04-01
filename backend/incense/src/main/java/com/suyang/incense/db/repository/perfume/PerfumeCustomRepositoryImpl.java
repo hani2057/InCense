@@ -81,7 +81,6 @@ public class PerfumeCustomRepositoryImpl implements PerfumeCustomRepository {
             return null;
         }
 
-        System.out.println("확인!!!");
         return   perfume.name.upper().like("%" + perfumeReq.getSearch().toUpperCase() + "%")
                 .or(perfume.brand.name.upper().like("%" + perfumeReq.getSearch().toUpperCase()+ "%"));
     }
