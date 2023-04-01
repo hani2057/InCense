@@ -22,8 +22,25 @@ const ProfilePerfumeContentContainer = styled(FlexDiv)`
   }
 `;
 
+const ProfilePerfumeItemWrapper = styled(FlexDiv)`
+  position: "relative";
+  border: 1px solid transparent;
+  border-image: linear-gradient(
+    to right,
+    #ffd6f8 0%,
+    #fffbd6 50%,
+    #e1ffe9 100%
+  );
+  border-image-slice: 1;
+
+  &:hover {
+    box-shadow: 0 0 20px -5px var(--pink-sub-color);
+  }
+`;
+
 export {
   ProfilePerfumeHeader,
   ProfilePerfumeHeaderSpan,
   ProfilePerfumeContentContainer,
+  ProfilePerfumeItemWrapper,
 };
