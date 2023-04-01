@@ -51,8 +51,10 @@ public class MyPageServiceImpl implements MyPageService{
     @Transactional
     public void registerPerfume(PerfumeRegisterReq perfumeRegisterReq, Authentication authentication) {
         String category = perfumeRegisterReq.getCategory();
-        Perfume perfume = perfumeRepository.findById(perfumeRegisterReq.getPerfumeId()).get();
-        Member member = authService.getMemberByAuthentication(authentication).get();
+        Perfume perfume = perfumeRepository.findById(perfumeRegisterReq.getPerfumeId()).orElseThrow(IllegalArgumentException::new);
+        Member member = authService.getMemberByAuthentication(authentication).orElseThrow(IllegalArgumentException::new);
+        // Exception 이미 동일한 member / perfume으로 등록되어 있으면 예외 발생
+
         // MemberPerfume
         MemberPerfume memberPerfume = new MemberPerfume();
         memberPerfume.setMember(member);
@@ -61,7 +63,6 @@ public class MyPageServiceImpl implements MyPageService{
         memberPerfumeRepository.save(memberPerfume);
         // review
         if(category.equals("WANT")) {
-            // popular_cnt +1 : 향수 Service로 빼서 구성할지 미정
             perfume.setPopularCnt(perfume.getPopularCnt() + 1);
         } else {
             perfume.setCommentCnt(perfume.getCommentCnt() + 1);
@@ -79,12 +80,12 @@ public class MyPageServiceImpl implements MyPageService{
     public void modifyPerfume(PerfumeModifyReq perfumeModifyReq) {
         String category = perfumeModifyReq.getCategory();
         // memberPerfume
-        MemberPerfume myPerfume = memberPerfumeRepository.findById(perfumeModifyReq.getMemberPerfumeId()).get();
+        MemberPerfume myPerfume = memberPerfumeRepository.findById(perfumeModifyReq.getMemberPerfumeId()).orElseThrow(IllegalArgumentException::new);
         myPerfume.setCategory(Category.valueOf(category));
         // review
         if(!category.equals("WANT")) {
-            Member member = memberRepository.findById(myPerfume.getMember().getId()).get();
-            Perfume perfume = perfumeRepository.findById(myPerfume.getPerfume().getId()).get();
+            Member member = memberRepository.findById(myPerfume.getMember().getId()).orElseThrow(IllegalArgumentException::new);
+            Perfume perfume = perfumeRepository.findById(myPerfume.getPerfume().getId()).orElseThrow(IllegalArgumentException::new);
             Review review = reviewCustomRepository.getReviewByMemberAndPerfume(member, perfume);
             if(review == null) {
                 Review newReview = new Review();
@@ -109,20 +110,20 @@ public class MyPageServiceImpl implements MyPageService{
     public List<ReviewRes> getMyReview(Authentication authentication) {
 //        Member member = memberRepository.findById(authService.getIdByAuthentication(authentication)).get();
 //        return reviewCustomRepository.getReviewByMember(member);
-        return reviewCustomRepository.getReviewByMember(authService.getMemberByAuthentication(authentication).get());
+        return reviewCustomRepository.getReviewByMember(authService.getMemberByAuthentication(authentication).orElseThrow(IllegalArgumentException::new));
     }
 
     @Override
     @Transactional
     public void modifyMyReview(ReviewModifyReq reviewModifyReq) {
-        Review review = reviewRepository.findById(reviewModifyReq.getReviewId()).get();
+        Review review = reviewRepository.findById(reviewModifyReq.getReviewId()).orElseThrow(IllegalArgumentException::new);
         review.setComment(reviewModifyReq.getComment());
         review.setPreference(reviewModifyReq.getPreference());
     }
 
     @Override
     public List<DealRes> getMyDeal(Authentication authentication) {
-        Member member = authService.getMemberByAuthentication(authentication).get();
+        Member member = authService.getMemberByAuthentication(authentication).orElseThrow(IllegalArgumentException::new);
         return dealRepository.getDealByMember(member);
     }
 
