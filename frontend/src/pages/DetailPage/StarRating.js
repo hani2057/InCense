@@ -3,7 +3,6 @@ import "./StarRating.css";
 
 function StarRating({ setStarValue, size, isSearch, setErrorMsg, starValue }) {
   useEffect(() => {
-    console.log(starValue);
     if (starValue) {
       document.querySelector(`.star span`).style.width = `${starValue * 10}%`;
     }

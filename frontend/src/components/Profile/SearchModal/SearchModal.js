@@ -172,7 +172,12 @@ const SearchModal = ({
             height="auto"
           />
           {typeIdx !== 2 && (
-            <ModalReview placeholder="다른 사람들을 위해 후기를 남겨주세요"></ModalReview>
+            <ModalReview
+              placeholder="다른 사람들을 위해 후기를 남겨주세요"
+              onChange={(e) =>
+                setPerfumeInfo((prev) => ({ ...prev, review: e.target.value }))
+              }
+            ></ModalReview>
           )}
           <ModalSubmit onClick={() => fetchPerfumeToList()}>
             {modalType === "modify" ? "수정하기" : "추가하기"}

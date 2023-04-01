@@ -34,8 +34,16 @@ const api = {
     delete: (articleId) => authInstance.delete(`${SHARE}/${articleId}`),
   },
   list: {
-    getList: (page) => defaultInstance.post(`${PERFUMES}/in`, page),
-    getFilteredList: (page, checklist1, checklist2, checklist3) => axios.post(`https://j8a804.p.ssafy.io/api${PERFUMES}/in`, {page:page, brand:checklist1, scent:checklist2,concentration:checklist3}),
+    getList: (page) => defaultInstance.get(`${PERFUMES}?page=${page}`),
+    getFilteredList: (page, checklist1, checklist2, checklist3) =>
+      axios.get(`https://j8a804.p.ssafy.io${PERFUMES}`, {
+        params: {
+          page: page,
+          brand: checklist1,
+          scent: checklist2,
+          concentration: checklist3,
+        },
+      }),
     getDetail: (detailId) => defaultInstance.get(`${PERFUMES}/${detailId}`),
   },
   profile: {
@@ -50,8 +58,12 @@ const api = {
         data: { myPerfumeId: myPerfumeId },
       }),
     searchPerfume: (query) =>
-      // defaultInstance.get(`${PERFUMES}`, { params: { search: query } }),
-      defaultInstance.post(`${PERFUMES}/in`, { search: query }),
+      defaultInstance.get(`${PERFUMES}`, { params: { search: query } }),
+    // defaultInstance.post(`${PERFUMES}/in`, { search: query }),
+    getUserReviews: () => authInstance.get(`${PROFILE}/review`),
+    putUserReview: (data) => authInstance.put(`${PROFILE}/review`, data),
+    getUserArticles: () => authInstance.get(`${PROFILE}/deal`),
+    getUserBookmarks: () => authInstance.get(`${PROFILE}/bookmark`),
   },
   image: {
     getImage: (fileName) => defaultInstance.get(`${IMG}?filename=${fileName}`),

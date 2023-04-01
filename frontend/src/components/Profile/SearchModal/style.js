@@ -96,11 +96,11 @@ const ModalSpan = styled.span`
 const ModalReview = styled.textarea`
   resize: none;
   width: 100%;
-  height: 4rem;
+  height: ${(props) => props.height || "4rem"};
   border: 1px solid var(--gray-color);
   outline: var(--gray-color);
   padding: 0.5rem;
-  margin-top: 4.5rem;
+  margin-top: ${(props) => props.marginTop || "4.5rem"};
 
   &::placeholder {
     color: var(--gray-color);
