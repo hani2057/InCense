@@ -2,7 +2,10 @@ package com.suyang.incense.api.controller;
 
 
 import com.suyang.incense.api.request.perfume.PerfumeReq;
+import com.suyang.incense.api.response.perfume.SimilarPerfumeDto;
+import com.suyang.incense.api.response.perfume.TasteSimilarityDto;
 import com.suyang.incense.api.response.perfume.PerfumeRes;
+import com.suyang.incense.api.service.member.AuthService;
 import com.suyang.incense.api.service.perfume.PerfumeService;
 import com.suyang.incense.db.entity.perfume.Perfume;
 import com.suyang.incense.db.entity.relation.PerfumeNote;
@@ -18,8 +21,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +39,7 @@ public class PerfumeController {
 
     private final int PAGE_CNT = 20;
     private final PerfumeService perfumeService;
+    private final AuthService authService;
 
     @ApiOperation(value = "향수 목록 검색 기능")
     @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "성공",
@@ -129,11 +136,44 @@ public class PerfumeController {
     }
 
 
-    @ApiOperation(value = "취향 유사도 확인")
+    @ApiOperation(value = "내 취향과 유사도 확인")
     @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "성공",
             content = @Content(schema = @Schema(implementation = String.class)))})
-    @GetMapping(path="/similarity")
-    public ResponseEntity<String> getSimilarity(){
-        return ResponseEntity.ok("향수 유사도 확인");
+    @GetMapping(path="/similarity/{perfume-id}")
+    public ResponseEntity<?> getSimilarity(
+            @PathVariable(value = "perfume-id") Long perfumeId,
+            @ApiIgnore Authentication authentication) {
+
+        //flask server api uri
+        String path = "/api/ml/predict/detail";
+
+        Long memberId = authService.getIdByAuthentication(authentication);
+
+        ResponseEntity<TasteSimilarityDto> response = perfumeService.getSimilarityDataOfMine(path, memberId, perfumeId);
+
+        if(response.getStatusCode() == HttpStatus.OK){
+            return ResponseEntity.status(200).body(response.getBody());
+        } else {
+            return ResponseEntity.status(500).body("data response fail.......");
+        }
+    }
+
+    @ApiOperation(value = "현재 향수와 유사한 향수 리스트 조회")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "성공",
+            content = @Content(schema = @Schema(implementation = String.class)))})
+    @GetMapping(path="/similar/list/{perfume-id}")
+    public ResponseEntity<?> getSimilarPerfumeList(@PathVariable(value = "perfume-id") Long perfumeId) {
+
+        //flask server api uri
+        String path = "/api/ml/predict/detail/similar";
+
+        ResponseEntity<SimilarPerfumeDto> response = perfumeService.getSimilarPerfumeList(path, perfumeId);
+
+        if(response.getStatusCode() == HttpStatus.OK){
+            return ResponseEntity.status(200).body(response.getBody());
+        } else{
+            return ResponseEntity.status(500).body("data response fail.......");
+        }
+
     }
 }

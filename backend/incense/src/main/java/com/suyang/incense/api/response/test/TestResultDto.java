@@ -1,4 +1,4 @@
-package com.suyang.incense.api.request.test;
+package com.suyang.incense.api.response.test;
 
 import lombok.Getter;
 import lombok.Setter;
