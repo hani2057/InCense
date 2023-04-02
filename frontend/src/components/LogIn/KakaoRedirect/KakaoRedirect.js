@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../../../store/slice/userSlice";
 import api from "../../../apis/api";
 import Loading from "../../common/Loading/Loading";
+
 // import Spinner from "./Spinner";
 
 const KakaoRedirect = (props) => {
@@ -24,6 +25,7 @@ const KakaoRedirect = (props) => {
     const res = await api.user.login("kakao", code);
     if (res.accessToken) {
       dispatch(login({ accessToken: res.accessToken }));
+      dispatch({ type: "START_WEBSOCKET" });
       navigate("/");
     } else
       navigate("/signup", {

@@ -1,21 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AlarmItem from "./AlarmItem";
 import { AlarmContainer } from "./style";
+import api from "../../apis/api";
 
 const AlarmModal = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    api.alarm
+      .getAlarmSend()
+      .then(function (res) {
+        console.log(res + "getalarmsend success");
+        setData(res);
+      })
+      .catch((err) => {
+        console.log("axios alarm send err");
+      });
+  }, []);
   // 더미데이터
-  const data = [
-    { createdAt: "2023-03-29", brand: "Diptyque", name: "fleur de peau" },
-    { createdAt: "2023-03-29", brand: "Diptyque", name: "fleur de peau" },
-    { createdAt: "2023-03-29", brand: "Diptyque", name: "fleur de peau" },
-    { createdAt: "2023-03-29", brand: "Diptyque", name: "fleur de peau" },
-  ];
 
   return (
     <AlarmContainer>
-      {data.map(({ createdAt, brand, name }, idx) => (
-        <AlarmItem createdAt={createdAt} brand={brand} name={name} key={idx} />
-      ))}
+      {data.map(
+        (
+          { createdAt, brandName, perfumeName, dealTitle, dealId, isReceived },
+          idx
+        ) => (
+          <AlarmItem
+            createdAt={createdAt}
+            brandName={brandName}
+            perfumeName={perfumeName}
+            dealTitle={dealTitle}
+            dealId={dealId}
+            isReceived={isReceived}
+            key={idx}
+          />
+        )
+      )}
     </AlarmContainer>
   );
 };
