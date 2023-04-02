@@ -42,6 +42,7 @@ public class DealServiceImpl implements DealService  {
 
     //나눔판매 글 생성
     Member member = memberRepository.findById(memberId).orElseThrow(IllegalArgumentException::new);
+
     Perfume perfume = perfumeRepository.findById(dealReq.getPerfumeId()).orElseThrow(IllegalArgumentException::new);
 
     Deal deal = new Deal();
@@ -102,12 +103,9 @@ public class DealServiceImpl implements DealService  {
     DealDetailRes deal = dealRepository.findDealById(dealId);
     List<DealPhotoListRes> dealPhotos = dealPhotoRepository.findImagesByDealId(dealId);
 
-    List<String> mappedImageInfo = new ArrayList<>();
     for(int i = 0, size = dealPhotos.size(); i<size; i++){
-      mappedImageInfo.add(String.valueOf(dealPhotos.get(i)));
+      deal.getImageInfo().add(String.valueOf(dealPhotos.get(i).getImage()));
     }
-
-    deal.setImageInfo(mappedImageInfo);
 
     return deal;
   }

@@ -60,7 +60,7 @@ public class DealPhotoServiceImpl implements DealPhotoService{
 
     List<DealPhotoListRes> images = dealPhotoRepository.findImagesByDealId(dealId);
     for(DealPhotoListRes image : images){
-      String pathAndName = image.getImage();
+      String pathAndName = "/asset/images/" + image.getImage();
       File file = new File(pathAndName);
       if(file.exists()){
         file.delete();

@@ -5,7 +5,6 @@ import com.suyang.incense.api.request.member.MemberRegisterReq;
 import com.suyang.incense.api.response.member.MemberInfoRes;
 import com.suyang.incense.common.FileHandler;
 import com.suyang.incense.db.entity.member.*;
-import com.suyang.incense.db.repository.member.GradeCustomRepository;
 import com.suyang.incense.db.repository.member.GradeLogRepository;
 import com.suyang.incense.db.repository.member.GradeRepository;
 import com.suyang.incense.db.repository.member.MemberRepository;
@@ -27,7 +26,6 @@ public class MemberServiceImpl implements MemberService {
     private final AuthService authService;
     private final MemberRepository memberRepository;
     private final GradeRepository gradeRepository;
-    private final GradeCustomRepository gradeCustomRepository;
     private final GradeLogRepository gradeLogRepository;
     private final FileHandler fileHandler;
 
@@ -35,17 +33,23 @@ public class MemberServiceImpl implements MemberService {
     public void registerMember(MemberRegisterReq registerInfo) {
         // 회원 정보 저장
         SocialType type = null;
+        String profile = "";
         if(registerInfo.getType().equals("kakao")) type = SocialType.kakao;
         else type = SocialType.naver;
 
+        byte gender = registerInfo.getGender();
+        if(gender == 0) profile = "profile/male.png";
+        else profile = "profile/female.png";
+
         Member member = Member.builder()
-                .grade(gradeRepository.findById(1L).get())
+                .grade(gradeRepository.findById(1L).orElseThrow(IllegalArgumentException::new))
                 .email(registerInfo.getEmail())
                 .role(Role.ROLE_USER)
                 .type(type)
                 .nickname(registerInfo.getNickname())
-                .gender(registerInfo.getGender())
+                .gender(gender)
                 .birth(registerInfo.getBirth())
+                .profile(profile)
                 .birthOpen(registerInfo.getBirthOpen())
                 .genderOpen(registerInfo.getGenderOpen())
                 .build();
@@ -54,7 +58,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Member getMemberByEmail(String email) {
-        return memberRepository.findByEmail(email).get();
+        return memberRepository.findByEmail(email).orElseThrow(IllegalArgumentException::new);
     }
 
     @Override
@@ -65,18 +69,15 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberInfoRes getMemberInfo(Authentication authentication) {
-        Member member = memberRepository.findById(authService.getIdByAuthentication(authentication)).get();
-        Grade grade = member.getGrade();
-        String profile = "";
-        if(member.getProfile() == null) profile = "./images/member/default/default.png";
-        return new MemberInfoRes(grade.getName(), grade.getImage(), member.getNickname(), member.getGender(),
-                member.getBirth(), profile, member.getBirthOpen(), member.getGenderOpen(), member.getAlarmOpen());
+        Member member = authService.getMemberByAuthentication(authentication).orElseThrow(IllegalArgumentException::new);
+        return new MemberInfoRes(member.getGrade().getName(), member.getNickname(), member.getGender(),
+                member.getBirth(), member.getProfile(), member.getBirthOpen(), member.getGenderOpen(), member.getAlarmOpen());
     }
 
     @Override
     @Transactional
     public void modifyMember(MemberModifyReq memberModifyReq, Authentication authentication) throws IOException {
-        Member member = memberRepository.findById(authService.getIdByAuthentication(authentication)).get();
+        Member member = memberRepository.findById(authService.getIdByAuthentication(authentication)).orElseThrow(IllegalArgumentException::new);
         member.setProfile(updateProfile(member.getId(), memberModifyReq.getImage()));
         member.setNickname(memberModifyReq.getNickname());
         member.setBirthOpen(memberModifyReq.getBirthOpen());
@@ -87,17 +88,22 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional
     public String updateProfile(Long memId, MultipartFile profile) throws IOException {
-        Member member = memberRepository.findById(memId).get();
+        Member member = memberRepository.findById(memId).orElseThrow(IllegalArgumentException::new);
         File file = new File(member.getProfile());
-        file.delete();  // 서버에서 이미지 삭제
-        return fileHandler.parseProfileImageInfo(profile);  // 이미지 새로 등록
+        if(file.exists()) {     // 서버에서 이미지가 정상적으로 삭제되었다면, 이미지를 새로 등록
+            if(file.delete()) return fileHandler.parseProfileImageInfo(profile);
+            else return member.getProfile();    // 원래 프로필 이미지 경로로 설정
+        } else {
+            if(member.getGender() == 0) return "profile/male.png";
+            else return "profile/female.png";
+        } // 정상적으로 과정이 진행되지 않았으면 에러를 frontend에 보내줘야 하나?
     }
 
     @Override
     @Transactional
     public void addRank(int type, Long memberId) {
         GradeLog gradeLog = new GradeLog();
-        Member member = memberRepository.findById(memberId).get();
+        Member member = memberRepository.findById(memberId).orElseThrow(IllegalArgumentException::new);
         gradeLog.setMember(member);
         switch (type) {
             case 1:
@@ -130,8 +136,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void checkRank(Long memberId) {
-        String rank = gradeCustomRepository.checkMemberRank(memberId);
-        Member member = memberRepository.findById(memberId).get();
-        member.setGrade(gradeRepository.findByName(rank).get());
+        String rank = gradeRepository.checkMemberRank(memberId);
+        Member member = memberRepository.findById(memberId).orElseThrow(IllegalArgumentException::new);
+        member.setGrade(gradeRepository.findByName(rank).orElseThrow(IllegalArgumentException::new));
     }
 }

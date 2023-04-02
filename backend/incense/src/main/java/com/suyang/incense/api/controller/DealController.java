@@ -47,7 +47,7 @@ public class DealController {
   private final AlarmService alarmService;
 
   @ApiOperation(value = "나눔/판매 글 생성")
-  @PostMapping(consumes = {"multipart/form-data"})
+  @PostMapping(/*consumes = {"multipart/form-data"}*/)
   public ResponseEntity<?> createDeal(
           @ModelAttribute @ApiParam(value = "나눔/판매 글 생성 정보", required = true) DealReq dealReq,
           @ApiIgnore Authentication authentication)
@@ -55,6 +55,9 @@ public class DealController {
 
     //판매/나눔 글 생성
     Long memberId = authService.getIdByAuthentication(authentication);
+
+    System.out.println("memberId............................................: " + memberId);
+
     Deal deal = dealService.create(dealReq, memberId);
 
     //이미지 넣기

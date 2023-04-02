@@ -39,6 +39,10 @@ public class Test extends BaseTimeEntity {
   @JoinColumn(name = "member_id")
   private Member member;
 
+  @NotNull
+  @Column(length = 500)
+  private String preference;
+
   @OneToMany(mappedBy = "test")
   private List<TestPerfumeResult> testPerfumeResultList = new ArrayList<>();
 

@@ -123,5 +123,10 @@ public class AuthServiceImpl implements AuthService {
         return memberDetails.getMember().getId();
     }
 
+    @Override
+    public Optional<Member> getMemberByAuthentication(Authentication authentication) {
+        return memberRepository.findById(getIdByAuthentication(authentication));
+    }
+
 
 }

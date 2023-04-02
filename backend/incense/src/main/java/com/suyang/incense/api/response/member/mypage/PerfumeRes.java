@@ -23,9 +23,26 @@ public class PerfumeRes {
     private String image;
     @ApiModelProperty(name = "향수 알람 여부")
     private boolean alarm;
+    @ApiModelProperty(name = "작성한 향수 평점")
+    private double preference;
+    @ApiModelProperty(name = "작성한 향수 후기")
+    private String comment;
 
     @QueryProjection
-    public PerfumeRes(Long myPerfumeId, Long perfumeId, String brandName, String perfumeName, String image) {
+    public PerfumeRes(Long myPerfumeId, Long perfumeId, String brandName, String perfumeName,
+                      String image, double preference, String comment) {
+        this.myPerfumeId = myPerfumeId;
+        this.perfumeId = perfumeId;
+        this.brandName = brandName;
+        this.perfumeName = perfumeName;
+        this.image = image;
+        this.preference = preference;
+        this.comment = comment;
+    }
+
+    @QueryProjection
+    public PerfumeRes(Long myPerfumeId, Long perfumeId, String brandName, String perfumeName,
+                      String image) {
         this.myPerfumeId = myPerfumeId;
         this.perfumeId = perfumeId;
         this.brandName = brandName;

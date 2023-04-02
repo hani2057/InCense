@@ -6,7 +6,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.suyang.incense.api.request.deal.DealConditionReq;
 import com.suyang.incense.api.response.deal.DealDetailRes;
 import static com.suyang.incense.db.entity.deal.QDeal.deal;
-import static com.suyang.incense.db.entity.deal.QDealPhoto.dealPhoto;
 import static com.suyang.incense.db.entity.member.QGrade.grade;
 import static com.suyang.incense.db.entity.member.QMember.member;
 import static com.suyang.incense.db.entity.perfume.QBrand.brand;
@@ -14,7 +13,9 @@ import static com.suyang.incense.db.entity.perfume.QPerfume.perfume;
 import static com.suyang.incense.db.entity.relation.QPerfumeNote.perfumeNote;
 
 import com.suyang.incense.api.response.deal.DealListRes;
+import com.suyang.incense.api.response.member.mypage.DealRes;
 import com.suyang.incense.db.entity.deal.Gubun;
+import com.suyang.incense.db.entity.member.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -27,6 +28,8 @@ import java.util.*;
 @Repository
 @RequiredArgsConstructor
 public class DealCustomRepositoryImpl implements DealCustomRepository {
+
+    private final DealCommentRepository dealCommentRepository;
 
     private final JPAQueryFactory jpaQueryFactory;
 
@@ -224,5 +227,52 @@ public class DealCustomRepositoryImpl implements DealCustomRepository {
         } else{
             return perfumeNote.note.id.in(scents);
         }
+    }
+
+    @Override
+    public List<DealRes> getDealByMember(Member member) {
+//        List<DealRes> result = jpaQueryFactory
+//                .select(Projections.constructor(
+//                        DealRes.class,
+//                        deal.id,
+//                        deal.gubun,
+//                        deal.createdDate,
+//                        deal.title,
+//                        brand.name,
+//                        perfume.name,
+//                        perfume.image,
+//                        deal.volume,
+//                        deal.price,
+//                        deal.isDelivery,
+//                        deal.isClosed
+//                ))
+//                .from(deal, perfume, brand)
+//                .where(deal.member.eq(member), deal.perfume.eq(perfume), perfume.brand.eq(brand))
+//                .fetch();
+
+        List<DealRes> result = jpaQueryFactory
+                .select(Projections.constructor(
+                        DealRes.class,
+                        deal.id,
+                        deal.gubun,
+                        deal.createdDate,
+                        deal.title,
+                        deal.perfume.brand.name,
+                        deal.perfume.name,
+                        deal.perfume.image,
+                        deal.volume,
+                        deal.price,
+                        deal.isDelivery,
+                        deal.isClosed
+                ))
+                .from(deal)
+                .where(deal.member.eq(member))
+                .fetch();
+
+        for (DealRes res : result) {
+            res.setCommentCount(dealCommentRepository.getCommentCount(res.getDealId()));
+        }
+
+        return result;
     }
 }

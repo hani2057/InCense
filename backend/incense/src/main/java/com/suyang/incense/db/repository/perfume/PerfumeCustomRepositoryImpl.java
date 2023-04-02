@@ -7,16 +7,16 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.suyang.incense.api.request.perfume.PerfumeReq;
 import com.suyang.incense.api.request.perfume.PerfumeSort;
-import com.suyang.incense.db.entity.member.Member;
+import com.suyang.incense.api.response.perfume.PerfumeRes;
 import com.suyang.incense.db.entity.perfume.Perfume;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.suyang.incense.db.entity.member.QMember.member;
 import static com.suyang.incense.db.entity.note.QNote.note;
 import static com.suyang.incense.db.entity.perfume.QBrand.brand;
 import static com.suyang.incense.db.entity.perfume.QPerfume.perfume;
@@ -58,8 +58,6 @@ public class PerfumeCustomRepositoryImpl implements PerfumeCustomRepository {
 
         return perfumeList;
     }
-
-
     @Override
     public Long getCount(PerfumeReq perfumeReq) {
         JPAQuery<Long> countQuery =  jpaQueryFactory.select(perfume.id.countDistinct())
@@ -83,19 +81,19 @@ public class PerfumeCustomRepositoryImpl implements PerfumeCustomRepository {
             return null;
         }
 
-        return   perfume.name.like("%" + perfumeReq.getSearch() + "%")
-                .or(perfume.brand.name.like("%" + perfumeReq.getSearch() + "%"));
+        return   perfume.name.upper().like("%" + perfumeReq.getSearch().toUpperCase() + "%")
+                .or(perfume.brand.name.upper().like("%" + perfumeReq.getSearch().toUpperCase()+ "%"));
     }
 
     public BooleanExpression eqBrandList(PerfumeReq perfumeReq) {
-        if(perfumeReq.getBrand()==null){
+        if(perfumeReq.getBrand()==null || perfumeReq.getBrand().size()==0){
             return null;
         }
         return  perfume.brand.id.in(perfumeReq.getBrand());
     }
 
     public BooleanExpression eqConcentrationList(PerfumeReq perfumeReq){
-        if(perfumeReq.getConcentration()==null){
+        if(perfumeReq.getConcentration()==null || perfumeReq.getConcentration().size()==0){
             return null;
         }
 
@@ -103,7 +101,7 @@ public class PerfumeCustomRepositoryImpl implements PerfumeCustomRepository {
     }
 
     public BooleanExpression eqTopNoteList(PerfumeReq perfumeReq){
-        if(perfumeReq.getScent()==null){
+        if(perfumeReq.getScent()==null || perfumeReq.getScent().size()==0){
             return null;
         }
 
@@ -121,8 +119,13 @@ public class PerfumeCustomRepositoryImpl implements PerfumeCustomRepository {
             perfumeEnum = PerfumeSort.COMMON;
         }
         else{
+            try{
+                perfumeEnum = PerfumeSort.valueOf(perfumeReq.getSorted());
+            }
+            catch (Exception e){
+                perfumeEnum = PerfumeSort.COMMON;
+            }
 
-            perfumeEnum = PerfumeSort.valueOf(perfumeReq.getSorted());
         }
 
         switch(perfumeEnum){

@@ -120,7 +120,7 @@ public class Member {
     private List<AlarmSend> alarmSendList = new ArrayList<>();
     @Builder
     public Member(Grade grade, String email, Role role, SocialType type, String nickname, Byte gender,
-                  LocalDate birth, byte birthOpen, byte genderOpen) {
+                  LocalDate birth, String profile, byte birthOpen, byte genderOpen) {
         this.grade = grade;
         this.email = email;
         this.role = role;
@@ -128,6 +128,7 @@ public class Member {
         this.nickname = nickname;
         this.gender = gender;
         this.birth = birth;
+        this.profile = profile;
         this.birthOpen = birthOpen;
         this.genderOpen = genderOpen;
     }

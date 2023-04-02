@@ -32,7 +32,7 @@ public class FileHandler {
     List<DealPhoto> fileList = new ArrayList<>();
 
     //파일이 들어오지 않으면 즉시 반환
-    if(multipartFiles ==null || multipartFiles.isEmpty()){
+    if(multipartFiles == null || multipartFiles.isEmpty()){
       return fileList;
     }
 
@@ -41,7 +41,7 @@ public class FileHandler {
     String currentDate = simpleDateFormat.format(new Date());
 
     //프로젝트 폴더에 저장하기 위해 절대경로, 경로 설정
-    String absolutePath = new File("").getAbsolutePath() + "\\";
+//    String absolutePath = new File("").getAbsolutePath() + "\\";
     String path = "/asset/images/deal/" + currentDate;
     File file = new File(path);
 
@@ -72,12 +72,11 @@ public class FileHandler {
         String newFileName = Long.toString(System.nanoTime()) + originalFileExtension;
         DealPhoto dealPhoto = DealPhoto.builder()
             .deal(deal)
-            .image(path + "/" + newFileName)
+            .image("deal/" + currentDate + "/" + newFileName)
             .build();
         fileList.add(dealPhoto);
 
         //파일 저장 완료
-//        file = new File(absolutePath + path + "/" + newFileName);
         file = new File(path + "/" + newFileName);
         multipartFile.transferTo(file);
       }
@@ -99,8 +98,8 @@ public class FileHandler {
     String currentDate = simpleDateFormat.format(new Date());
 
     //프로젝트 폴더에 저장하기 위해 절대경로, 경로 설정
-    String absolutePath = new File("").getAbsolutePath() + "\\";
-    String path = "./images/member/" + currentDate;
+//    String absolutePath = new File("").getAbsolutePath() + "\\";
+    String path = "/asset/images/profile/" + currentDate;
     File file = new File(path);
 
     //저장할 위치의 디렉토리가 존재하지 않는 경우
@@ -128,9 +127,9 @@ public class FileHandler {
     String newFileName = System.nanoTime() + originalFileExtension;
 
     //파일 저장 완료
-    file = new File(absolutePath + path + "/" + newFileName);
+    file = new File(path + "/" + newFileName);
     profile.transferTo(file);
 
-    return path + "/" + newFileName;
+    return "profile/" + currentDate + "/" + newFileName;
   }
 }
