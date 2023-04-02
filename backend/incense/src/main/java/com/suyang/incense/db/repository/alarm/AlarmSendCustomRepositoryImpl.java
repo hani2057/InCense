@@ -13,7 +13,7 @@ import static com.suyang.incense.db.entity.member.QMember.member;
 @RequiredArgsConstructor
 @Repository
 public class AlarmSendCustomRepositoryImpl implements AlarmSendCustomRepository{
-    private JPAQueryFactory jpaQueryFactory;
+    private final JPAQueryFactory jpaQueryFactory;
     @Override
     public long removeAlarmSend(Long dealId, Long memberId){
 
@@ -24,12 +24,15 @@ public class AlarmSendCustomRepositoryImpl implements AlarmSendCustomRepository{
 
     @Override
     public List<AlarmSend> getAlarmSendList(Long memberId){
-        return jpaQueryFactory.select(alarmSend)
+
+        List<AlarmSend> alarmSendList = jpaQueryFactory.select(alarmSend)
                 .from(alarmSend)
                 .join(alarmSend.member,member)
-                .where(member.id.eq(memberId)
+                .where(alarmSend.member.id.eq(memberId)
                         ,alarmSend.isDeleted.eq((byte)0)
                 )
                 .fetch();
+
+        return alarmSendList;
     }
 }

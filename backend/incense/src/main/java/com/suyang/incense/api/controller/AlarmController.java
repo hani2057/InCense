@@ -10,7 +10,6 @@ import com.suyang.incense.api.service.member.MemberService;
 import com.suyang.incense.db.entity.deal.Deal;
 import com.suyang.incense.db.entity.member.AlarmSend;
 import com.suyang.incense.db.entity.perfume.Perfume;
-import com.suyang.incense.db.entity.relation.MemberPerfumeAlarm;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -23,6 +22,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,23 +35,24 @@ import java.util.List;
 public class AlarmController {
     private final AlarmService alarmService;
     private final AuthService authService;
-    private final MemberService memberService;
-    private final MemberPerfumeAlarm memberPerfumeAlarm;
+
+
 
     @ApiOperation(value = "향수 알람 설정하기")
     @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "성공",
             content = @Content(schema = @Schema(implementation = String.class)))})
     @PostMapping(path="/{perfume_id}")
     public ResponseEntity<String> setAlarm(@PathVariable("perfume_id") Long perfumeId,@ApiIgnore Authentication authentication){
+        System.out.println(perfumeId+"perfumeId");
         Long memberId = authService.getIdByAuthentication(authentication);
         alarmService.setMemberAlarmPerfume(perfumeId,memberId);
         return ResponseEntity.ok("success");
     }
 
-    @ApiOperation(value = "향수 알람 설정하기")
+    @ApiOperation(value = "향수 알람 삭제하기")
     @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "성공",
             content = @Content(schema = @Schema(implementation = String.class)))})
-    @PostMapping(path="/{perfume_id}")
+    @DeleteMapping(path="/{perfume_id}")
     public ResponseEntity<String> deleteAlarm(@PathVariable("perfume_id") Long perfumeId,@ApiIgnore Authentication authentication){
         Long memberId = authService.getIdByAuthentication(authentication);
         alarmService.deleteMemberAlarmPerfume(perfumeId,memberId);
@@ -62,8 +64,7 @@ public class AlarmController {
             content = @Content(schema = @Schema(implementation = String.class)))})
     @DeleteMapping(path="/send/{alarm_send_id}")
     public ResponseEntity<String> deleteAlarmSend(@PathVariable("alarm_send_id") Long alarmSendId){
-       alarmService.deleteAlarmSend(alarmSendId);
-
+        alarmService.deleteAlarmSend(alarmSendId);
         return ResponseEntity.ok("success");
     }
 
@@ -77,8 +78,9 @@ public class AlarmController {
 
         List<AlarmSend> alarmSendList = alarmService.getAlarmSendList(memberId);
         List<AlarmSendRes> alarmSendResList = new ArrayList<>();
-
+        LocalDateTime currentTime = LocalDateTime.now();
         for(AlarmSend alarmSend:alarmSendList){
+            Duration duration = Duration.between(alarmSend.getCreatedDate(),currentTime);
             alarmSendResList.add(
                     AlarmSendRes.builder()
                             .id(alarmSend.getId())
@@ -86,6 +88,8 @@ public class AlarmController {
                             .dealTitle(alarmSend.getDeal().getTitle())
                             .perfumeName(alarmSend.getDeal().getPerfume().getName())
                             .isReceived(alarmSend.getIsReceived())
+                            .brandName(alarmSend.getDeal().getPerfume().getBrand().getName())
+                            .createAt(duration.toHours())
                             .build()
             );
         }
@@ -95,15 +99,4 @@ public class AlarmController {
 
 
 
-    @ApiOperation(value = "알람 테스트")
-    @GetMapping("/send/test")
-    public void sendTest(){
-        Deal deal = new Deal();
-        Perfume perfume = new Perfume();
-        perfume.setId((long)1);
-        deal.setId((long)1);
-        deal.setTitle("나품 제목1");
-        deal.setPerfume(perfume);
-        alarmService.sendAlarmToAllMembers(deal);
-    }
 }

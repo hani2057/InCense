@@ -18,17 +18,17 @@ public class AlarmSendRes {
 
   private Long id;
 
-
   private Long memberId;
 
-
   private Long dealId;
-
 
   private String perfumeName;
 
   private String dealTitle;
 
+  private String brandName;
+
   private Byte isReceived;    // 0: 미수신, 1: 수신완료
 
+  private long createAt;
 }

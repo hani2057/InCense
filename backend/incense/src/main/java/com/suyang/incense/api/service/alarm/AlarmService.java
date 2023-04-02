@@ -15,8 +15,6 @@ public interface AlarmService {
 
     void deleteMemberAlarmPerfume(Long perfumeId, Long memberId);
 
-    void insertAlarmSend(Long dealId, Long memberId);
-
     List<AlarmSend> getAlarmSendList(Long memberId);
 
     void readAlarm(Long alarmSendId);

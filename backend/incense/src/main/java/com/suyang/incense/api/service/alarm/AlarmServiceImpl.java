@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -34,25 +35,28 @@ public class AlarmServiceImpl implements AlarmService {
 
     @Override
     public void sendAlarmToAllMembers(Deal deal){
-        System.out.println("알람 전송 시작!!!");
         List<Member> members = memberRepository.getAlarmMembers(deal.getPerfume().getId());
         AlarmSendRes alarmSendRes = AlarmSendRes.builder()
                 .dealId(deal.getId())
                 .dealTitle(deal.getTitle())
                 .perfumeName(deal.getPerfume().getName())
                 .build();
+        insertAlarmToMembers(members,deal);
         sendAlarmToMembers(members,alarmSendRes);
     }
 
     @Async
     public void sendAlarmToMembers(List<Member> members,AlarmSendRes alarmSendRes){
-//        sendNotification((long)1,alarmSendRes);
-
        for(Member member:members){
-           sendNotification(member.getId(),alarmSendRes);
+           sendNotification(member.getNickname(),alarmSendRes);
        }
     }
 
+    public void insertAlarmToMembers(List<Member> members,Deal deal){
+        for(Member member:members){
+           insertAlarmSend(deal,member);
+        }
+    }
     @Override
     public void setMemberAlarmPerfume(Long perfumeId, Long memberId){
         Perfume perfume = perfumeRepository.findById(perfumeId).get();
@@ -64,23 +68,21 @@ public class AlarmServiceImpl implements AlarmService {
         memberAlarmPerfumeRepository.save(memberPerfumeAlarm);
     }
 
+    @Transactional
     @Override
     public void deleteMemberAlarmPerfume(Long perfumeId, Long memberId){
         memberAlarmPerfumeRepository.removeMemberPerfumeAlarm(perfumeId,memberId);
     }
 
-    @Override
-    public void insertAlarmSend(Long dealId, Long memberId){
+    public void insertAlarmSend(Deal deal, Member member){
         AlarmSend alarmSend = new AlarmSend();
-
-        Deal deal = dealRepository.findById(dealId).get();
-        Member member = memberRepository.findById(memberId).get();
-
-        alarmSend.setId(dealId);
-        alarmSend.setId(memberId);
+        alarmSend.setDeal(deal);
+        alarmSend.setMember(member);
+        alarmSend.setMessage(deal.getContent());
+        alarmSend.setIsDeleted((byte)0);
+        alarmSend.setIsReceived((byte)0);
 
         alarmSendRepository.save(alarmSend);
-
     }
 
     @Override
@@ -104,9 +106,9 @@ public class AlarmServiceImpl implements AlarmService {
     }
 
 
-    public void sendNotification(Long id, AlarmSendRes alarmSendRes) {
-        String destination = "/sub/notification/" +id;
-        simpMessagingTemplate.convertAndSend(destination,alarmSendRes);
+    public void sendNotification(String nickname, AlarmSendRes alarmSendRes) {
+        String destination = "/sub/notification/" +nickname;
+        simpMessagingTemplate.convertAndSend(destination,"나눔/판매 알람이 왔습니다:" + alarmSendRes.getDealTitle());
     }
 
 

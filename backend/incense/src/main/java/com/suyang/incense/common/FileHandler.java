@@ -32,7 +32,7 @@ public class FileHandler {
     List<DealPhoto> fileList = new ArrayList<>();
 
     //파일이 들어오지 않으면 즉시 반환
-    if(multipartFiles.isEmpty()){
+    if(multipartFiles ==null || multipartFiles.isEmpty()){
       return fileList;
     }
 
