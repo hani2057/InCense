@@ -116,6 +116,8 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Review> reviewList = new ArrayList<>();
 
+    @OneToMany(mappedBy ="member")
+    private List<AlarmSend> alarmSendList = new ArrayList<>();
     @Builder
     public Member(Grade grade, String email, Role role, SocialType type, String nickname, Byte gender,
                   LocalDate birth, String profile, byte birthOpen, byte genderOpen) {

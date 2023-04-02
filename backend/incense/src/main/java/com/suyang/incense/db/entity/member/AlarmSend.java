@@ -20,11 +20,12 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.data.annotation.CreatedDate;
 
-@Entity
+
 @Getter
 @Setter
 @NoArgsConstructor
 @DynamicInsert
+@Entity
 @Table(name = "alarm_send")
 public class AlarmSend extends BaseTimeEntity {
 
