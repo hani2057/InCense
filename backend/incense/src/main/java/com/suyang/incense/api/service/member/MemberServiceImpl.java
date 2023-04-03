@@ -135,6 +135,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    @Transactional
     public void checkRank(Long memberId) {
         String rank = gradeRepository.checkMemberRank(memberId);
         Member member = memberRepository.findById(memberId).orElseThrow(IllegalArgumentException::new);
