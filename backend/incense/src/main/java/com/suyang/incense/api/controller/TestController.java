@@ -40,6 +40,10 @@ public class TestController {
 
         Long memberId = authService.getIdByAuthentication(authentication);
 
+        for(Integer i : testAnswer){
+            System.out.print(i + " ");
+        }
+
         ResponseEntity<TestResultDto> response = testService.getPreferenceData(path, testAnswer, memberId);
 
         if(response.getStatusCode() == HttpStatus.OK){

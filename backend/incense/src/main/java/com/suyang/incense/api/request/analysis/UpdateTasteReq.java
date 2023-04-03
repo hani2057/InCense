@@ -11,6 +11,9 @@ public class UpdateTasteReq {
     private Long perfumeIndex;
     private double rating;
 
+    public UpdateTasteReq() {
+    }
+
     @QueryProjection
     public UpdateTasteReq(Long perfumeIndex, double rating) {
         this.perfumeIndex = perfumeIndex;

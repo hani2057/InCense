@@ -85,14 +85,16 @@ public class MemberPerfumeCustomRepositoryImpl implements MemberPerfumeCustomRep
         List<UpdateTasteReq> result = jpaQueryFactory
                 .select(Projections.constructor(
                         UpdateTasteReq.class,
-                        memberPerfume.perfume.id,
+                        review.perfume.id,
                         review.preference
                 ))
-                .from(memberPerfume, review)
+                .from(memberPerfume)
+                .innerJoin(review).on(review.member.eq(memberPerfume.member).and(review.perfume.eq(memberPerfume.perfume)))
                 .where(
                         memberPerfume.category.eq(Category.valueOf("HAVE"))
                                 .or(memberPerfume.category.eq(Category.valueOf("HAD")))
                 )
+                .orderBy(review.perfume.id.desc())
                 .fetch();
 
         return result;

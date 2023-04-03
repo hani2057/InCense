@@ -28,6 +28,11 @@ public class TestServiceImpl implements TestService{
 
     public ResponseEntity<TestResultDto> getPreferenceData(String path, List<Integer> testAnswer, Long memberId) {
 
+        System.out.println("Service 시작.............................getPreferenceData.....................");
+        for(Integer i : testAnswer){
+            System.out.print(i + " ");
+        }
+
         URI uri = UriComponentsBuilder
                 /*.fromUriString("http://j8a804.p.ssafy.io:포트번호")*/
                 .fromUriString("http://localhost:8081")
