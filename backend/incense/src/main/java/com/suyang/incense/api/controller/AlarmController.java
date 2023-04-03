@@ -59,12 +59,22 @@ public class AlarmController {
         return ResponseEntity.ok("success");
     }
 
+
     @ApiOperation(value = "향수 알람 수신 삭제")
     @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "성공",
             content = @Content(schema = @Schema(implementation = String.class)))})
     @DeleteMapping(path="/send/{alarm_send_id}")
     public ResponseEntity<String> deleteAlarmSend(@PathVariable("alarm_send_id") Long alarmSendId){
         alarmService.deleteAlarmSend(alarmSendId);
+        return ResponseEntity.ok("success");
+    }
+
+    @ApiOperation(value = "향수 알람 읽음 표시")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "성공",
+            content = @Content(schema = @Schema(implementation = String.class)))})
+    @PutMapping(path="/send/{alarm_send_id}")
+    public ResponseEntity<String> readAlarm(@PathVariable("alarm_send_id") Long alarmSendId){
+        alarmService.readAlarm(alarmSendId);
         return ResponseEntity.ok("success");
     }
 
