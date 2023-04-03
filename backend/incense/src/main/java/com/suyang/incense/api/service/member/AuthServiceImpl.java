@@ -43,7 +43,7 @@ public class AuthServiceImpl implements AuthService {
         params.add("grant_type", "authorization_code");
         params.add("client_id", "219f3d4b6069d9e1cbc39012ba719f67");
 //        params.add("redirect_uri", "http://localhost:3000/oauth/callback/kakao");\
-        params.add("redirect_uri", "http://j8a804.p.ssafy.io//oauth/callback/kakao");
+        params.add("redirect_uri", "https://j8a804.p.ssafy.io/oauth/callback/kakao");
         params.add("code", code);
 
         // HttpEntity 객체 생성 = HttpBody + HttpHeader
