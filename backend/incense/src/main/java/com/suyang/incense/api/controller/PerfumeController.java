@@ -3,6 +3,8 @@ package com.suyang.incense.api.controller;
 
 import com.suyang.incense.api.request.perfume.PerfumeReq;
 import com.suyang.incense.api.response.perfume.PerfumeRes;
+import com.suyang.incense.api.response.perfume.PerfumeReviewRes;
+import com.suyang.incense.api.service.member.ReviewService;
 import com.suyang.incense.api.service.perfume.PerfumeService;
 import com.suyang.incense.db.entity.perfume.Perfume;
 import com.suyang.incense.db.entity.relation.PerfumeNote;
@@ -34,6 +36,7 @@ public class PerfumeController {
     private final int PAGE_CNT = 20;
     private final PerfumeService perfumeService;
 
+
     @ApiOperation(value = "향수 목록 검색 기능")
     @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "성공",
             content = @Content(array = @ArraySchema(schema = @Schema( implementation = PerfumeRes.class))))})
@@ -42,6 +45,7 @@ public class PerfumeController {
         Pageable pageable = PageRequest.of(perfumeReq.getPage()-1<0?0:perfumeReq.getPage()-1,PAGE_CNT);
         List<Perfume> perfumeList = perfumeService.getPerfumeList(perfumeReq,pageable);
         List<PerfumeRes>perfumeResList = new ArrayList<>();
+
 
         for(Perfume perfume:perfumeList) {
             List<String> topNoteName = new ArrayList<>();
@@ -84,13 +88,15 @@ public class PerfumeController {
         return ResponseEntity.ok(perfumeResPages);
     }
 
+
+
+
     @ApiOperation(value = "향수 상세 검색")
     @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "성공",
             content = @Content(schema = @Schema(implementation = PerfumeRes.class)))})
     @GetMapping(path="/{perfume_id}")
     public ResponseEntity <PerfumeRes> getPerfume(@PathVariable("perfume_id") Long perfumeId){
         Perfume perfume = perfumeService.getPerfume(perfumeId);
-
 
         List<String> topNoteName = new ArrayList<>();
         List<String> middleNoteName = new ArrayList<>();
@@ -111,6 +117,7 @@ public class PerfumeController {
             }
 
         }
+
 
         PerfumeRes perfumeRes = PerfumeRes.builder().brandName(perfume.getBrand().getName())
                 .name(perfume.getName())
