@@ -1,13 +1,12 @@
 package com.suyang.incense.db.entity.member;
 
-import com.suyang.incense.db.entity.analysis.MyAnalysis;
+import com.suyang.incense.db.entity.analysis.Taste;
 import com.suyang.incense.db.entity.deal.CommentReply;
 import com.suyang.incense.db.entity.deal.DealComment;
 import com.suyang.incense.db.entity.deal.DealReport;
 import com.suyang.incense.db.entity.relation.*;
 import com.suyang.incense.db.entity.deal.Deal;
 import com.suyang.incense.db.entity.review.Review;
-import com.suyang.incense.db.entity.test.Test;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -101,9 +100,6 @@ public class Member {
     @OneToMany(mappedBy="member")
     private List<DealReport> dealReportList = new ArrayList<>();
 
-    @OneToMany(mappedBy="member")
-    private List<MyAnalysis> myAnalysisList = new ArrayList<>();
-
     @OneToMany(mappedBy = "member")
     private List<MemberPerfume> memberPerfumeList = new ArrayList<>();
 
@@ -111,10 +107,10 @@ public class Member {
     private List<MemberPerfumeAlarm> memberPerfumeAlarmList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
-    private List<Test> testList = new ArrayList<>();
+    private List<Review> reviewList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
-    private List<Review> reviewList = new ArrayList<>();
+    private List<Taste> tasteList = new ArrayList<>();
 
     @OneToMany(mappedBy ="member")
     private List<AlarmSend> alarmSendList = new ArrayList<>();

@@ -1,6 +1,7 @@
 package com.suyang.incense.db.repository.perfume;
 
 import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.*;;
 import com.querydsl.core.util.StringUtils;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -8,6 +9,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.suyang.incense.api.request.perfume.PerfumeReq;
 import com.suyang.incense.api.request.perfume.PerfumeSort;
 import com.suyang.incense.api.response.perfume.PerfumeRes;
+import com.suyang.incense.api.response.perfume.PerfumeSimpleRes;
 import com.suyang.incense.db.entity.perfume.Perfume;
 
 import lombok.RequiredArgsConstructor;
@@ -74,6 +76,19 @@ public class PerfumeCustomRepositoryImpl implements PerfumeCustomRepository {
                 );
 
         return countQuery.fetchOne();
+    }
+
+    public PerfumeSimpleRes findPerfumeNameAndBrandByPerfumeId(Long perfumeId) {
+
+        return jpaQueryFactory.select(
+                Projections.constructor(PerfumeSimpleRes.class,
+                        perfume.name,
+                        brand.name,
+                        perfume.image
+                        ))
+                .from(perfume)
+                .innerJoin(perfume.brand, brand)
+                .fetchOne();
     }
 
     public BooleanExpression eqSearch(PerfumeReq perfumeReq){

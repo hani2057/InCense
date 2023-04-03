@@ -2,6 +2,7 @@ package com.suyang.incense.db.repository.member;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.suyang.incense.api.request.analysis.UpdateTasteReq;
 import com.suyang.incense.api.response.member.mypage.PerfumeRes;
 import com.suyang.incense.db.entity.relation.Category;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +76,35 @@ public class MemberPerfumeCustomRepositoryImpl implements MemberPerfumeCustomRep
                 perfume.setAlarm(true);
             }
         }
+
+        return result;
+    }
+
+    public List<UpdateTasteReq> getHaveHadPerfumeAndScore(Long memberId) {
+
+        List<UpdateTasteReq> result = jpaQueryFactory
+                .select(Projections.constructor(
+                        UpdateTasteReq.class,
+                        memberPerfume.perfume.id,
+                        review.preference
+                ))
+                .from(memberPerfume, review)
+                .where(
+                        memberPerfume.category.eq(Category.valueOf("HAVE"))
+                                .or(memberPerfume.category.eq(Category.valueOf("HAD")))
+                )
+                .fetch();
+
+        return result;
+    }
+
+    public List<Long> getWantPerfumeId(Long memberId) {
+
+        List<Long> result = jpaQueryFactory
+                .select(memberPerfume.perfume.id)
+                .from(memberPerfume)
+                .where(memberPerfume.category.eq(Category.valueOf("WANT")))
+                .fetch();
 
         return result;
     }

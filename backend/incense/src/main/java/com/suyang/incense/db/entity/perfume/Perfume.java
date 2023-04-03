@@ -2,9 +2,8 @@ package com.suyang.incense.db.entity.perfume;
 
 import com.suyang.incense.db.entity.relation.MemberPerfume;
 import com.suyang.incense.db.entity.relation.MemberPerfumeAlarm;
-import com.suyang.incense.db.entity.relation.MyAnalysisPerfume;
 import com.suyang.incense.db.entity.relation.PerfumeNote;
-import com.suyang.incense.db.entity.relation.TestPerfumeResult;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -63,9 +62,6 @@ public class Perfume {
 
 
   @OneToMany(mappedBy = "perfume")
-  private List<TestPerfumeResult> testPerfumeResultList = new ArrayList<>();
-
-  @OneToMany(mappedBy = "perfume")
   private List<MemberPerfume> memberPerfumeList = new ArrayList<>();
 
   @OneToMany(mappedBy = "perfume")
@@ -73,9 +69,6 @@ public class Perfume {
 
   @OneToMany(mappedBy = "perfume")
   private List<PerfumeNote> perfumeNoteList = new ArrayList<>();
-
-  @OneToMany(mappedBy = "perfume")
-  private List<MyAnalysisPerfume> myAnalysisPerfumeList = new ArrayList<>();
 
   @OneToMany(mappedBy = "perfume")
   private List<Review> reviewList = new ArrayList<>();
