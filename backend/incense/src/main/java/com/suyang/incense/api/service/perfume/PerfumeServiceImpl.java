@@ -24,9 +24,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 @Transactional(readOnly = true)
@@ -111,7 +109,8 @@ public class PerfumeServiceImpl implements PerfumeService{
     public ResponseEntity<TasteSimilarityDto> getSimilarityDataOfMine(String path, Long memberId, Long perfumeId) {
 
         URI uri = UriComponentsBuilder
-                .fromUriString("http://j8a804.p.ssafy.io:포트번호")
+                /*.fromUriString("http://j8a804.p.ssafy.io:포트번호")*/
+                .fromUriString("http://localhost:8081")
                 .path(path)
                 .encode()
                 .build()
@@ -137,16 +136,17 @@ public class PerfumeServiceImpl implements PerfumeService{
     public ResponseEntity<SimilarPerfumeDto> getSimilarPerfumeList(String path, Long perfumeId) {
 
         URI uri = UriComponentsBuilder
-                .fromUriString("http://j8a804.p.ssafy.io:포트번호")
+                /*.fromUriString("http://j8a804.p.ssafy.io:포트번호")*/
+                .fromUriString("http://localhost:8081")
                 .path(path)
                 .encode()
                 .build()
                 .toUri();
 
-        MultiValueMap<String, Long> requestBody = new LinkedMultiValueMap<>();
-        requestBody.add("nowPerfume", perfumeId);
+        Map<String, Long> requestBody = new HashMap<>();
+        requestBody.put("nowPerfume", perfumeId);
 
-        RequestEntity<MultiValueMap<String, Long>> requestEntity = RequestEntity
+        RequestEntity<Map<String, Long>> requestEntity = RequestEntity
                 .post(uri)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(requestBody);

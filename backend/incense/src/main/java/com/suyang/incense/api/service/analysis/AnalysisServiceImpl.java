@@ -21,7 +21,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -33,7 +35,8 @@ public class AnalysisServiceImpl implements AnalysisService{
     public ResponseEntity<CloudDto> getWordCloudDataOfMine(String path, Long memberId) {
 
         URI uri = UriComponentsBuilder
-                .fromUriString("http://j8a804.p.ssafy.io:포트번호")
+                /*.fromUriString("http://j8a804.p.ssafy.io:포트번호")*/
+                .fromUriString("http://localhost:8081")
                 .path(path)
                 .encode()
                 .build()
@@ -41,10 +44,10 @@ public class AnalysisServiceImpl implements AnalysisService{
 
         String preference = tasteRepository.getPreferenceByMemberId(memberId);
 
-        MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<>();
-        requestBody.add("preference", preference);
+        Map<String, String> requestBody = new HashMap<>();
+        requestBody.put("preference", preference);
 
-        RequestEntity<MultiValueMap<String, String>> requestEntity = RequestEntity
+        RequestEntity<Map<String, String>> requestEntity = RequestEntity
                 .post(uri)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(requestBody);
@@ -58,7 +61,8 @@ public class AnalysisServiceImpl implements AnalysisService{
     public ResponseEntity<NoteGraphDto> getNoteGraphDataOfMine(String path, Long memberId) {
 
         URI uri = UriComponentsBuilder
-                .fromUriString("http://j8a804.p.ssafy.io:포트번호")
+                /*.fromUriString("http://j8a804.p.ssafy.io:포트번호")*/
+                .fromUriString("http://localhost:8081")
                 .path(path)
                 .encode()
                 .build()
@@ -66,10 +70,10 @@ public class AnalysisServiceImpl implements AnalysisService{
 
         String preference = tasteRepository.getPreferenceByMemberId(memberId);
 
-        MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<>();
-        requestBody.add("preference", preference);
+        Map<String, String> requestBody = new HashMap<>();
+        requestBody.put("preference", preference);
 
-        RequestEntity<MultiValueMap<String, String>> requestEntity = RequestEntity
+        RequestEntity<Map<String, String>> requestEntity = RequestEntity
                 .post(uri)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(requestBody);
@@ -83,7 +87,8 @@ public class AnalysisServiceImpl implements AnalysisService{
     public ResponseEntity<TestResultDto> updateTaste(String path, Long memberId) {
 
         URI uri = UriComponentsBuilder
-                .fromUriString("http://j8a804.p.ssafy.io:포트번호")
+//                .fromUriString("http://j8a804.p.ssafy.io:포트번호")
+                .fromUriString("http://localhost:8081")
                 .path(path)
                 .encode()
                 .build()
@@ -91,10 +96,10 @@ public class AnalysisServiceImpl implements AnalysisService{
 
         List<UpdateTasteReq> updateTasteReq = memberPerfumeRepository.getHaveHadPerfumeAndScore(memberId);
 
-        MultiValueMap<String, List<UpdateTasteReq>> requestMap = new LinkedMultiValueMap<>();
-        requestMap.put("perfumes", Collections.singletonList(updateTasteReq));
+        Map<String, List<UpdateTasteReq>> requestMap = new HashMap<>();
+        requestMap.put("perfumes", updateTasteReq);
 
-        RequestEntity<MultiValueMap<String, List<UpdateTasteReq>>> requestEntity = RequestEntity
+        RequestEntity<Map<String, List<UpdateTasteReq>>> requestEntity = RequestEntity
                 .post(uri)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(requestMap);
@@ -108,7 +113,8 @@ public class AnalysisServiceImpl implements AnalysisService{
     public ResponseEntity<PerfumePredictDto> getSimilarityOfWantPerfume(String path, Long memberId) {
 
         URI uri = UriComponentsBuilder
-                .fromUriString("http://j8a804.p.ssafy.io:포트번호")
+//                .fromUriString("http://j8a804.p.ssafy.io:포트번호")
+                .fromUriString("http://localhost:8081")
                 .path(path)
                 .encode()
                 .build()
@@ -135,7 +141,8 @@ public class AnalysisServiceImpl implements AnalysisService{
     public ResponseEntity<PerfumePredictDto> getPredictOfAllPerfume(String path, Long memberId) {
 
         URI uri = UriComponentsBuilder
-                .fromUriString("http://j8a804.p.ssafy.io:포트번호")
+//                .fromUriString("http://j8a804.p.ssafy.io:포트번호")
+                .fromUriString("http://localhost:8081")
                 .path(path)
                 .encode()
                 .build()
@@ -143,10 +150,10 @@ public class AnalysisServiceImpl implements AnalysisService{
 
         String preference = tasteRepository.getPreferenceByMemberId(memberId);
 
-        MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<>();
-        requestBody.add("preference", preference);
+        Map<String, String> requestBody = new HashMap<>();
+        requestBody.put("preference", preference);
 
-        RequestEntity<MultiValueMap<String, String>> requestEntity = RequestEntity
+        RequestEntity<Map<String, String>> requestEntity = RequestEntity
                 .post(uri)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(requestBody);

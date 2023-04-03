@@ -88,7 +88,8 @@ public class PerfumeCustomRepositoryImpl implements PerfumeCustomRepository {
                         ))
                 .from(perfume)
                 .innerJoin(perfume.brand, brand)
-                .fetchOne();
+                .where(perfume.id.eq(perfumeId))
+                .fetchFirst();
     }
 
     public BooleanExpression eqSearch(PerfumeReq perfumeReq){
