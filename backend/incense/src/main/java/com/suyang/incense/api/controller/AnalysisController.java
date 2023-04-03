@@ -1,10 +1,9 @@
 package com.suyang.incense.api.controller;
 
-
 import com.suyang.incense.api.response.analysis.CloudDto;
 import com.suyang.incense.api.response.analysis.NoteGraphDto;
-import com.suyang.incense.api.response.analysis.WantPerfumePredictDto;
-import com.suyang.incense.api.response.analysis.WantPredictRes;
+import com.suyang.incense.api.response.analysis.PerfumePredictDto;
+import com.suyang.incense.api.response.analysis.PredictRes;
 import com.suyang.incense.api.response.perfume.PerfumeSimpleRes;
 import com.suyang.incense.api.response.test.TestResultDto;
 import com.suyang.incense.api.service.analysis.AnalysisService;
@@ -104,25 +103,43 @@ public class AnalysisController {
 
         Long memberId = authService.getIdByAuthentication(authentication);
 
-        ResponseEntity<WantPerfumePredictDto> response = analysisService.getSimilarityOfWantPerfume(path, memberId);
+        ResponseEntity<PerfumePredictDto> response = analysisService.getSimilarityOfWantPerfume(path, memberId);
 
+        return getResponseEntity(response);
+    }
+
+    @ApiOperation(value = "전체 향수 취향 일치도 조회")
+    @GetMapping("/all/similarity")
+    public ResponseEntity<?> getPredictOfAllPerfume(@ApiIgnore Authentication authentication) {
+
+        //flask server api uri
+        String path = "/api/ml/predict/all";
+
+        Long memberId = authService.getIdByAuthentication(authentication);
+
+        ResponseEntity<PerfumePredictDto> response = analysisService.getPredictOfAllPerfume(path, memberId);
+
+        return getResponseEntity(response);
+    }
+
+    private ResponseEntity<?> getResponseEntity(ResponseEntity<PerfumePredictDto> response) {
         if(response.getStatusCode() == HttpStatus.OK){
 
-            List<WantPredictRes> result = new ArrayList<>();
+            List<PredictRes> result = new ArrayList<>();
 
-            List<WantPerfumePredictDto.PerfumePredict> list = Objects.requireNonNull(response.getBody()).getResult();
-            for(WantPerfumePredictDto.PerfumePredict data : list){
-                WantPredictRes wantPredictRes = new WantPredictRes();
+            List<PerfumePredictDto.PerfumePredict> list = Objects.requireNonNull(response.getBody()).getResult();
+            for(PerfumePredictDto.PerfumePredict data : list){
+                PredictRes predictRes = new PredictRes();
 
-                wantPredictRes.setPerfumeId(data.getPerfumeIndex());
-                wantPredictRes.setPredict(data.getPredict());
+                predictRes.setPerfumeId(data.getPerfumeIndex());
+                predictRes.setPredict(data.getPredict());
 
                 PerfumeSimpleRes perfumeSimpleRes = perfumeService.getPerfumeNameAndBrand(data.getPerfumeIndex());
 
-                wantPredictRes.setPerfumeName(perfumeSimpleRes.getPerfumeName());
-                wantPredictRes.setPerfumeBrand(perfumeSimpleRes.getPerfumeBrand());
+                predictRes.setPerfumeName(perfumeSimpleRes.getPerfumeName());
+                predictRes.setPerfumeBrand(perfumeSimpleRes.getPerfumeBrand());
 
-                result.add(wantPredictRes);
+                result.add(predictRes);
             }
 
             return ResponseEntity.status(200).body(result);
@@ -131,6 +148,4 @@ public class AnalysisController {
             return ResponseEntity.status(500).body("data response fail......");
         }
     }
-
-
 }

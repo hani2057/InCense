@@ -5,7 +5,7 @@ import com.suyang.incense.api.request.analysis.UpdateTasteReq;
 import com.suyang.incense.api.request.analysis.WantPredictReq;
 import com.suyang.incense.api.response.analysis.CloudDto;
 import com.suyang.incense.api.response.analysis.NoteGraphDto;
-import com.suyang.incense.api.response.analysis.WantPerfumePredictDto;
+import com.suyang.incense.api.response.analysis.PerfumePredictDto;
 import com.suyang.incense.api.response.test.TestResultDto;
 import com.suyang.incense.db.repository.deal.TasteRepository;
 import com.suyang.incense.db.repository.member.MemberPerfumeRepository;
@@ -105,7 +105,7 @@ public class AnalysisServiceImpl implements AnalysisService{
         return responseEntity;
     }
 
-    public ResponseEntity<WantPerfumePredictDto> getSimilarityOfWantPerfume(String path, Long memberId) {
+    public ResponseEntity<PerfumePredictDto> getSimilarityOfWantPerfume(String path, Long memberId) {
 
         URI uri = UriComponentsBuilder
                 .fromUriString("http://j8a804.p.ssafy.io:포트번호")
@@ -127,7 +127,32 @@ public class AnalysisServiceImpl implements AnalysisService{
                 .body(request);
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<WantPerfumePredictDto> responseEntity = restTemplate.exchange(requestEntity, WantPerfumePredictDto.class);
+        ResponseEntity<PerfumePredictDto> responseEntity = restTemplate.exchange(requestEntity, PerfumePredictDto.class);
+
+        return responseEntity;
+    }
+
+    public ResponseEntity<PerfumePredictDto> getPredictOfAllPerfume(String path, Long memberId) {
+
+        URI uri = UriComponentsBuilder
+                .fromUriString("http://j8a804.p.ssafy.io:포트번호")
+                .path(path)
+                .encode()
+                .build()
+                .toUri();
+
+        String preference = tasteRepository.getPreferenceByMemberId(memberId);
+
+        MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<>();
+        requestBody.add("preference", preference);
+
+        RequestEntity<MultiValueMap<String, String>> requestEntity = RequestEntity
+                .post(uri)
+                .accept(MediaType.APPLICATION_JSON)
+                .body(requestBody);
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<PerfumePredictDto> responseEntity = restTemplate.exchange(requestEntity, PerfumePredictDto.class);
 
         return responseEntity;
     }

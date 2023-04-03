@@ -1,12 +1,11 @@
 package com.suyang.incense.api.response.analysis;
 
-import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class WantPredictRes {
+public class PredictRes {
 
     private Long perfumeId;
     private String perfumeName;

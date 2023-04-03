@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class WantPerfumePredictDto {
+public class PerfumePredictDto {
 
     private List<PerfumePredict> result = new ArrayList<>();
 
