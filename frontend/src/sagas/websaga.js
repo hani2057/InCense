@@ -86,8 +86,8 @@ function* watchMessageChannel(channel) {
 
 function* stompSaga() {
   const res = yield call(getUserInfo);
-  // const WEBSOCKET_URL = "http://localhost:8080/api/stomp/chat";
-  const WEBSOCKET_URL = "https://j8a804.p.ssafy.io/api/stomp/chat";
+  const WEBSOCKET_URL = "http://localhost:8080/api/stomp/chat";
+  // const WEBSOCKET_URL = "https://j8a804.p.ssafy.io/api/stomp/chat";
   const sockJs = new SockJS(WEBSOCKET_URL);
   const stomp = Stomp.over(sockJs);
   const channel = yield call(createSocketChannel, stomp);
