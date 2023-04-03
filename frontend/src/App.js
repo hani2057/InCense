@@ -18,7 +18,7 @@ function App() {
   const isLoggedIn = useSelector((state) => state.userReducers.isLoggedIn);
   return (
     <>
-      {isLoggedIn!==true && <WebSocket/>}
+      {isLoggedIn===true && <WebSocket/>}
       <NavBar />
       <Routes>
         <Route path="/list" element={<ListPage />} />
