@@ -1,6 +1,6 @@
 import axios from "axios";
 
-// const BASE_URL = 'http://localhost:8080/api'
+// const BASE_URL = "http://localhost:8080/api";
 const BASE_URL = "https://j8a804.p.ssafy.io/api";
 
 // accessToken이 필요 없는 요청시

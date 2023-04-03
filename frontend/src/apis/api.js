@@ -18,7 +18,7 @@ const api = {
       defaultInstance.get(`${USERS}/nickname/check`, {
         params: { nickname: name },
       }),
-    getUserInfo: () => authInstance.get(`${USERS}/info`),
+    getInfo: () => authInstance.get(`${USERS}/info`),
   },
   share: {
     getArticle: (articleId) =>
@@ -34,16 +34,32 @@ const api = {
     delete: (articleId) => authInstance.delete(`${SHARE}/${articleId}`),
   },
   list: {
-    getList: (page) => defaultInstance.get(`${PERFUMES}?page=${page}`),
-    getFilteredList: (page, checklist1, checklist2, checklist3) =>
-      axios.get(`https://j8a804.p.ssafy.io${PERFUMES}`, {
+    getList: (page) => {
+      return defaultInstance.get(`${PERFUMES}`, {
+        params: {
+          page: page,
+          brand: [],
+          scent: [],
+          concentration: [],
+        },
+        paramsSerializer: {
+          indexes: null, // by default: false
+        },
+      });
+    },
+    getFilteredList: (page, checklist1, checklist2, checklist3) => {
+      return defaultInstance.get(`${PERFUMES}`, {
         params: {
           page: page,
           brand: checklist1,
           scent: checklist2,
           concentration: checklist3,
         },
-      }),
+        paramsSerializer: {
+          indexes: null, // by default: false
+        },
+      });
+    },
     getDetail: (detailId) => defaultInstance.get(`${PERFUMES}/${detailId}`),
   },
   profile: {
@@ -74,6 +90,7 @@ const api = {
   },
   alarm: {
     setAlarm: (perfumeId) => authInstance.post(`${ALARM}/${perfumeId}`),
+    getAlarmSend: () => authInstance.get(`${ALARM}/send`),
   },
 };
 
