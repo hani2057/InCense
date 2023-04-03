@@ -6,10 +6,6 @@ import { Button } from "@mui/material";
 import {Checkbox} from '@mui/material';
 import {FormControlLabel} from '@mui/material';
 import SimpleImageSlider from "react-simple-image-slider";
-import perfumeImage1 from './990.jpg'
-import perfumeImage2 from './991.jpg'
-import perfumeImage3 from './992.jpg'
-import perfumeImage4 from './993.jpg'
 import CommentBox from './CommentBox';
 import star1 from './star1.svg'
 import star2 from './star2.svg'
@@ -24,25 +20,21 @@ import { useParams } from 'react-router-dom';
 
 
 
+
 function ArticleDetail() {
 
 
-
-  const onSubmitComment = () => {
-    console.log('댓글 저장')
-    // 내용 담아서 쏘기!
-  }
   
   const [isSecret, setIsSecret] = useState(0)
   const onChangeSecret = () => {
     isSecret === 0
     ? setIsSecret(1)
     : setIsSecret(0)
-
+    
     console.log('비밀댓글 여부 변경')
   }
   console.log('비밀여부==',isSecret)
-
+  
   const [commentValue, setCommentValue] = useState('')
   const onChangeComment = (e) => {
     const commentValue = e.target.value
@@ -58,7 +50,7 @@ function ArticleDetail() {
     setIsBookMark(true)
     console.log('북마크 등록')} 
     else {
-    setIsBookMark(false)
+      setIsBookMark(false)
     console.log('북마크 해제')}
   }
 
@@ -90,13 +82,13 @@ function ArticleDetail() {
       })
   }, [])
 
-
+  
   // {Array.isArray(perfumeList.content) &&
   //   perfumeList.content.length > 0 &&
   //   perfumeList.content.map((perfume, index) => {
   //     return <CardComponent key={index} perfume={perfume} />;
   //   })}
-
+  
   const images = []
   if (article.imageInfo) {
   for (let i=0; i<article.imageInfo.length; i++) {
@@ -104,6 +96,23 @@ function ArticleDetail() {
   }
   }
   console.log(images)
+
+  const comment = {
+    content: commentValue,
+    isSecret: isSecret,
+    parentId: null
+  }
+
+  // 댓글 저장 api
+  const onSubmitComment = () => {
+    console.log('댓글 저장')
+    api.comment.register(articleId, comment)
+      .then(alert('저장되었습니다.'))
+      .catch((err) => {
+        alert(err)
+      })
+  }
+
 
 
   return (

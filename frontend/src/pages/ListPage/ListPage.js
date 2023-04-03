@@ -70,7 +70,7 @@ const ListPage = () => {
   console.log("페이지==", page);
 
   const perfumeList = useSelector(
-    (state) => state.perfumeListReducers.perfumeList
+    (state) => (state.perfumeListReducers.perfumeList)
   );
 
   const applyFilter = () => {
@@ -90,6 +90,8 @@ const ListPage = () => {
         alert(err);
       });
   };
+
+  console.log("퍼퓸리스트", perfumeList)
 
   return (
     <Box sx={{ marginBottom: "5rem" }}>
@@ -369,9 +371,12 @@ const ListPage = () => {
               textAlign: "center",
             }}
           >
-            <p style={{ fontWeight: "bold" }}>
+            {perfumeList.totalElements
+            && (<p style={{ fontWeight: "bold" }}>
               총 {perfumeList.totalElements}개의 향수가 등록되어 있습니다.
-            </p>
+            </p>)
+
+            }
             {/* <p>인기순 | 후기 많은 순</p> */}
             <ToggleFilter />
           </Box>
