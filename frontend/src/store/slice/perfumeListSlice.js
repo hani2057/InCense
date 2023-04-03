@@ -3,7 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 export const perfumeListSlice = createSlice({
   name: 'perfumeList',
   initialState: {
-    perfumeList:[]
+    perfumeList:{
+      content: [],
+      totalElements: 0
+    }
 
   },
   reducers: {

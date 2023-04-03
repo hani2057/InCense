@@ -33,6 +33,13 @@ const api = {
       authInstance.put(`${SHARE}/${articleId}`, article),
     delete: (articleId) => authInstance.delete(`${SHARE}/${articleId}`),
   },
+  comment: {
+    getComment: (articleId) => defaultInstance.get(`${SHARE}/comment/${articleId}`),
+    register: (articleId, comment) => authInstance.post(`${SHARE}/comment/${articleId}`, comment),
+    update: (commentId, comment) => authInstance.put(`${SHARE}/comment/${commentId}`, comment),
+    delete: (commentId) => authInstance.delete((`${SHARE}/comment/${commentId}`)),
+
+  },
   list: {
     getList: (page) => {
       return defaultInstance.get(`${PERFUMES}`, {

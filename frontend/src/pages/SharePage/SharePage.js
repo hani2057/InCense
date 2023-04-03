@@ -300,7 +300,7 @@ export default function SharePage() {
             <ArticleCard/> */}
             <Pagination 
               // total={Object.keys(perfumeList).length}
-              total={2}
+              total={articleList.length}
               limit={limit}
               page={page}
               setPage={setPage}/>
