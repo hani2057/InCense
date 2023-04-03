@@ -2,14 +2,11 @@ package com.suyang.incense.api.controller;
 
 import com.suyang.incense.api.response.member.LoginRes;
 import com.suyang.incense.api.service.member.AuthService;
-import com.suyang.incense.api.service.member.MemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Arrays;
 
 @Api(value = "로그인 API", tags = {"Authorization"})
 @RestController
@@ -21,7 +18,7 @@ public class AuthController {
     private final AuthService authService;
 
     @GetMapping("/login/kakao")
-    @ApiOperation(value = "카카오 로그인", notes = "카카오 인가코드를 입력 받아 카카오 유저 정보를 반환하거나 로그인한다.")
+    @ApiOperation(value = "카카오 로그인", notes = "카카오 인가코드를 받아 로그인 진행")
     public ResponseEntity<LoginRes> kakaoLogin(@RequestParam String code) {
         System.out.println("###[Kakao Login] code = " + code);
         
@@ -37,6 +34,19 @@ public class AuthController {
         LoginRes loginRes = authService.isExistUser(email, "kakao");
 
         System.out.println("###[Kakao Login] LoginRes.email = " + loginRes.getEmail() + " / LoginRes.type = " + loginRes.getType());
+        return ResponseEntity.status(200).body(loginRes);
+    }
+
+    @GetMapping("/login/naver")
+    @ApiOperation(value = "네이버 로그인", notes = "네이버 인가코드를 받아 로그인 진행")
+    public ResponseEntity<LoginRes> naverLogin(@RequestParam String code) {
+        System.out.println("###[Naver Login] code = " + code);
+
+        // 1. 인가코드로 Naver AccessToken 가져오기
+        // 2. Naver AccessToken으로 회원정보 가져오기
+        // 3. 기존 회원과 신입 회원 구분하기
+        LoginRes loginRes = authService.isExistUser("", "naver");
+
         return ResponseEntity.status(200).body(loginRes);
     }
 }

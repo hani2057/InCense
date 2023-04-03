@@ -7,6 +7,7 @@ import com.suyang.incense.api.request.deal.DealReq;
 import com.suyang.incense.api.response.deal.DealCommentRes;
 import com.suyang.incense.api.response.deal.DealDetailRes;
 import com.suyang.incense.api.response.deal.DealListRes;
+import com.suyang.incense.api.service.alarm.AlarmService;
 import com.suyang.incense.api.service.deal.*;
 import com.suyang.incense.api.service.member.AuthService;
 import com.suyang.incense.api.service.member.MemberService;
@@ -43,6 +44,8 @@ public class DealController {
   private final MemberService memberService;
   private final AuthService authService;
 
+  private final AlarmService alarmService;
+
   @ApiOperation(value = "나눔/판매 글 생성")
   @PostMapping(/*consumes = {"multipart/form-data"}*/)
   public ResponseEntity<?> createDeal(
@@ -65,6 +68,7 @@ public class DealController {
     memberService.checkRank(memberId);
 
     //알람 전송 : 나눔/판매글 id, 향수 id 전송
+    alarmService.sendAlarmToAllMembers(deal);
 
     return ResponseEntity.status(200).body("success");
   }
