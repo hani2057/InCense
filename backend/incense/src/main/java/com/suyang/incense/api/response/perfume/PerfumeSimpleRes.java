@@ -10,10 +10,12 @@ public class PerfumeSimpleRes {
 
     private String perfumeName;
     private String perfumeBrand;
+    private String image;
 
     @QueryProjection
-    public PerfumeSimpleRes(String perfumeName, String perfumeBrand) {
+    public PerfumeSimpleRes(String perfumeName, String perfumeBrand, String image) {
         this.perfumeName = perfumeName;
         this.perfumeBrand = perfumeBrand;
+        this.image = image;
     }
 }

@@ -83,7 +83,8 @@ public class PerfumeCustomRepositoryImpl implements PerfumeCustomRepository {
         return jpaQueryFactory.select(
                 Projections.constructor(PerfumeSimpleRes.class,
                         perfume.name,
-                        brand.name
+                        brand.name,
+                        perfume.image
                         ))
                 .from(perfume)
                 .innerJoin(perfume.brand, brand)
