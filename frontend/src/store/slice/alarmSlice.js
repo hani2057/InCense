@@ -19,6 +19,7 @@ export const alarmSlice = createSlice({
   },
 });
 
+export const selectAlarmCount = (state) => state.alarmSliceReducer.alarmCount;
 export const selectAlarmList = (state) => state.alarmSliceReducer.alarmList;
 export const alarmSliceReducer = alarmSlice.reducer;
 export const { increaseAlarmCount, initAlarmCount, setAlarmList } =
