@@ -2,29 +2,41 @@ package com.suyang.incense.api.service.perfume;
 
 
 import com.suyang.incense.api.request.perfume.PerfumeReq;
+import com.suyang.incense.api.response.perfume.PerfumeSimpleRes;
+import com.suyang.incense.api.response.perfume.SimilarPerfumeDto;
+import com.suyang.incense.api.request.perfume.SimilarTasteReq;
+import com.suyang.incense.api.response.perfume.TasteSimilarityDto;
 import com.suyang.incense.db.entity.note.Note;
 import com.suyang.incense.db.entity.perfume.Brand;
 import com.suyang.incense.db.entity.perfume.Perfume;
 import com.suyang.incense.db.repository.brand.BrandRepository;
+import com.suyang.incense.db.repository.deal.TasteRepository;
 import com.suyang.incense.db.repository.note.NoteRepository;
 import com.suyang.incense.db.repository.perfume.PerfumeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class PerfumeServiceImpl implements PerfumeService{
 
-
     private final PerfumeRepository perfumeRepository;
     private final BrandRepository brandRepository;
     private final NoteRepository noteRepository;
+    private final TasteRepository tasteRepository;
     @Override
     public List<Perfume> getPerfumeList(PerfumeReq perfumeReq,Pageable pageable) {
         List<Long> brands = perfumeReq.getBrand();
@@ -93,5 +105,61 @@ public class PerfumeServiceImpl implements PerfumeService{
     @Override
     public Perfume getPerfume(Long perfumeId){
           return  perfumeRepository.findById(perfumeId).get();
+    }
+
+
+    public ResponseEntity<TasteSimilarityDto> getSimilarityDataOfMine(String path, Long memberId, Long perfumeId) {
+
+        URI uri = UriComponentsBuilder
+                .fromUriString("http://j8a804.p.ssafy.io:포트번호")
+                .path(path)
+                .encode()
+                .build()
+                .toUri();
+
+        String pastPreference = tasteRepository.getPreferenceByMemberId(memberId);
+
+        SimilarTasteReq similarTasteReq = new SimilarTasteReq();
+        similarTasteReq.setPreference(Objects.requireNonNullElse(pastPreference, ""));
+        similarTasteReq.setNowPerfume(perfumeId);
+
+        RequestEntity<SimilarTasteReq> requestEntity = RequestEntity
+                .post(uri)
+                .accept(MediaType.APPLICATION_JSON)
+                .body(similarTasteReq);
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<TasteSimilarityDto> responseEntity = restTemplate.exchange(requestEntity, TasteSimilarityDto.class);
+
+        return responseEntity;
+    }
+
+    public ResponseEntity<SimilarPerfumeDto> getSimilarPerfumeList(String path, Long perfumeId) {
+
+        URI uri = UriComponentsBuilder
+                .fromUriString("http://j8a804.p.ssafy.io:포트번호")
+                .path(path)
+                .encode()
+                .build()
+                .toUri();
+
+        MultiValueMap<String, Long> requestBody = new LinkedMultiValueMap<>();
+        requestBody.add("nowPerfume", perfumeId);
+
+        RequestEntity<MultiValueMap<String, Long>> requestEntity = RequestEntity
+                .post(uri)
+                .accept(MediaType.APPLICATION_JSON)
+                .body(requestBody);
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<SimilarPerfumeDto> responseEntity = restTemplate.exchange(requestEntity, SimilarPerfumeDto.class);
+
+        return responseEntity;
+    }
+
+    public PerfumeSimpleRes getPerfumeNameAndBrand(Long perfumeId) {
+
+        return perfumeRepository.findPerfumeNameAndBrandByPerfumeId(perfumeId);
+
     }
 }
