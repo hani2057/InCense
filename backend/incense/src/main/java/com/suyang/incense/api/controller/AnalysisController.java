@@ -138,6 +138,7 @@ public class AnalysisController {
 
                 predictRes.setPerfumeName(perfumeSimpleRes.getPerfumeName());
                 predictRes.setPerfumeBrand(perfumeSimpleRes.getPerfumeBrand());
+                predictRes.setImage(perfumeSimpleRes.getImage());
 
                 result.add(predictRes);
             }

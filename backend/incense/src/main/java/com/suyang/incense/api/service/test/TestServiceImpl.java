@@ -29,7 +29,8 @@ public class TestServiceImpl implements TestService{
     public ResponseEntity<TestResultDto> getPreferenceData(String path, List<Integer> testAnswer, Long memberId) {
 
         URI uri = UriComponentsBuilder
-                .fromUriString("http://j8a804.p.ssafy.io:포트번호")
+                /*.fromUriString("http://j8a804.p.ssafy.io:포트번호")*/
+                .fromUriString("http://localhost:8081")
                 .path(path)
                 .encode()
                 .build()

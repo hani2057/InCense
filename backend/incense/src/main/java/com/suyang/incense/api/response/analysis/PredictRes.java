@@ -11,5 +11,6 @@ public class PredictRes {
     private String perfumeName;
     private String perfumeBrand;
     private double predict;
+    private String image;
 
 }
