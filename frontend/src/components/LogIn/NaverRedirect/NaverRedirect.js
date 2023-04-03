@@ -13,7 +13,6 @@ const NaverRedirect = (props) => {
   let code = new URL(window.location.href).searchParams.get("code");
 
   useEffect(() => {
-    console.log("###code = " + code);
     naverLogin(code);
   }, []);
 
