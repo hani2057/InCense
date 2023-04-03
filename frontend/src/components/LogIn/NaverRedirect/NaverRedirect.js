@@ -5,7 +5,7 @@ import { login } from "../../../store/slice/userSlice";
 import api from "../../../apis/api";
 import Loading from "../../common/Loading/Loading";
 
-const KakaoRedirect = (props) => {
+const NaverRedirect = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -13,11 +13,12 @@ const KakaoRedirect = (props) => {
   let code = new URL(window.location.href).searchParams.get("code");
 
   useEffect(() => {
-    kakaoLogin(code);
+    console.log("###code = " + code);
+    naverLogin(code);
   }, []);
 
-  const kakaoLogin = async (code) => {
-    const res = await api.user.login("kakao", code);
+  const naverLogin = async (code) => {
+    const res = await api.user.login("naver", code);
     if (res.accessToken) {
       dispatch(login({ accessToken: res.accessToken }));
       dispatch({ type: "START_WEBSOCKET" });
@@ -31,4 +32,4 @@ const KakaoRedirect = (props) => {
   return <Loading />;
 };
 
-export default KakaoRedirect;
+export default NaverRedirect;
