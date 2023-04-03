@@ -39,6 +39,7 @@ const axiosAuthApi = (url, options) => {
       const accessToken = sessionStorage.getItem("accessToken");
       if (accessToken) {
         request.headers["Authorization"] = `Bearer ${accessToken}`;
+        request.withCredentials = true;
       }
       return request;
     },

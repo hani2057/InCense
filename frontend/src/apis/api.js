@@ -5,6 +5,7 @@ const USERS = "/member";
 const TEST = "/test";
 const PERFUMES = "/perfume";
 const SHARE = "/deal";
+const PROFILE = "/mypage";
 const IMG = "/display";
 const ALARM = "/alarm";
 
@@ -19,9 +20,6 @@ const api = {
       }),
     getInfo: () => authInstance.get(`${USERS}/info`),
   },
-  // share: {
-  //   getList: () => defaultInstance.get("/deal"),
-  // },
   share: {
     getArticle: (articleId) =>
       defaultInstance.get(`${SHARE}`, { params: { articleId: articleId } }),
@@ -63,6 +61,25 @@ const api = {
       });
     },
     getDetail: (detailId) => defaultInstance.get(`${PERFUMES}/${detailId}`),
+  },
+  profile: {
+    getPerfumeList: (type) =>
+      authInstance.get(`${PROFILE}/perfume`, { params: { type: type } }),
+    postPerfumeToCategory: (data) =>
+      authInstance.post(`${PROFILE}/perfume`, data),
+    putPerfumeToCategory: (data) =>
+      authInstance.put(`${PROFILE}/perfume`, data),
+    deletePerfumeFromCategory: (myPerfumeId) =>
+      authInstance.delete(`${PROFILE}/perfume`, {
+        data: { myPerfumeId: myPerfumeId },
+      }),
+    searchPerfume: (query) =>
+      defaultInstance.get(`${PERFUMES}`, { params: { search: query } }),
+    // defaultInstance.post(`${PERFUMES}/in`, { search: query }),
+    getUserReviews: () => authInstance.get(`${PROFILE}/review`),
+    putUserReview: (data) => authInstance.put(`${PROFILE}/review`, data),
+    getUserArticles: () => authInstance.get(`${PROFILE}/deal`),
+    getUserBookmarks: () => authInstance.get(`${PROFILE}/bookmark`),
   },
   image: {
     getImage: (fileName) => defaultInstance.get(`${IMG}?filename=${fileName}`),
