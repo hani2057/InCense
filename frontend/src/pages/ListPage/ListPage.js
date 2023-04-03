@@ -14,7 +14,6 @@ import { useDispatch, useSelector } from "react-redux";
 // import { perfumeInfoActions } from "../../store/slice/perfumeInfoSlice";
 import api from "../../apis/api";
 import { perfumeListActions } from "../../store/slice/perfumeListSlice";
-import websocket from "../../websocket";
 import { alarmSliceReducer } from "../../store/slice/alarmSlice";
 
 const ListPage = () => {
