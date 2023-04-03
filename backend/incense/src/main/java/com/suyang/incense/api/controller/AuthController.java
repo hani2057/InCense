@@ -27,7 +27,7 @@ public class AuthController {
         System.out.println("###[Kakao Login] kakaoAccessToken = " + kakaoAccessToken);
         
         // 2. Kakao AccessToken으로 회원 정보 가져오기
-        String email = authService.GetKakaoUserInfo(kakaoAccessToken);
+        String email = authService.getKakaoUserInfo(kakaoAccessToken);
         System.out.println("###[Kakao Login] User email = " + email);
 
         // 3. 기존 회원과 신입 회원 구분하기
@@ -37,15 +37,23 @@ public class AuthController {
         return ResponseEntity.status(200).body(loginRes);
     }
 
-    @GetMapping("/login/naver")
+    @GetMapping("/login/naver") // 현재 "검수중" 이기 때문에 사용 불가능
     @ApiOperation(value = "네이버 로그인", notes = "네이버 인가코드를 받아 로그인 진행")
     public ResponseEntity<LoginRes> naverLogin(@RequestParam String code) {
         System.out.println("###[Naver Login] code = " + code);
+        int state = 1234;
 
         // 1. 인가코드로 Naver AccessToken 가져오기
+        String naverAccessToken = authService.getNaverAccessToken(code).getAccess_token();
+        System.out.println("###[Naver Login] naverAccessToken = " + naverAccessToken);
+
         // 2. Naver AccessToken으로 회원정보 가져오기
+        String email = authService.getNaverUserInfo(naverAccessToken);
+        System.out.println("###[Naver Login] User email = " + email);
+
         // 3. 기존 회원과 신입 회원 구분하기
-        LoginRes loginRes = authService.isExistUser("", "naver");
+        LoginRes loginRes = authService.isExistUser(email, "naver");
+        System.out.println("###[Naver Login] LoginRes.email = " + loginRes.getEmail() + " / LoginRes.type = " + loginRes.getType());
 
         return ResponseEntity.status(200).body(loginRes);
     }
