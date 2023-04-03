@@ -43,7 +43,6 @@ public class DealController {
   private final DealReportService dealReportService;
   private final MemberService memberService;
   private final AuthService authService;
-
   private final AlarmService alarmService;
 
   @ApiOperation(value = "나눔/판매 글 생성")
@@ -162,9 +161,7 @@ public class DealController {
 //            10000,
 //            100
 //    );
-
     DealDetailRes result = dealService.getDeal(dealId);
-
     return ResponseEntity.status(200).body(result);
   }
 
