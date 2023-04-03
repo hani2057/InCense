@@ -89,6 +89,7 @@ export const articleSlice = createSlice({
         state.article.volume = payload.value
       }
     },
+    // 제출 시 form reset
     reset : () => initialState
   }
 })

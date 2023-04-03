@@ -60,16 +60,28 @@ const RegisterPage = () => {
   
   const [image, setImage] = useState({name: ""})
   const onImageChange = (event) => {
-    console.log("event ======", event)
-    console.log("event.target", event.target)
-    console.log("event.target.files[0]", event.target.files[0])
-    setImage(()=>event.target.files[0])
-    console.log("image", image)
+    // console.log("event ======", event)
+    // console.log("event.target.files[0]", event.target.files[0])
+    // setImage(()=>event.target.files[0])
+    // console.log("image", image)
+    setImage(event.target)
   }
+  console.log("image", image)
+
+
   console.log(article)
 
+  const [perfumeId, setPerfumeId] = useState('')
+  const [perfumeInfo, setPerfumeInfo] = useState('');
+
+
+  const onSearchPerfume = (e) => {
+    setPerfumeId(e.target.value)
+  }
+  console.log('향수id==',perfumeInfo.id)
+
   const formData = new FormData();
-  formData.append('perfumeId', article.perfumeId)
+  formData.append('perfumeId', perfumeInfo.id)
   formData.append('price', article.price)
   formData.append('buyDate', article.buyDate)
   formData.append('content', article.content)
@@ -78,8 +90,12 @@ const RegisterPage = () => {
   formData.append('isDelivery', article.isDelivery)
   formData.append('title', article.title)
   formData.append('volume', article.volume)
+  // formData.append('files', image)
+  for (let i = 0; i<image.length; i++) {
+    formData.append('files', image[i])
+  }
 
-  
+  console.log(formData)
 
 
 
@@ -105,7 +121,7 @@ const RegisterPage = () => {
       return false;
     }
     if (
-      article.perfumeId === null || article.perfumeId === ''
+      perfumeInfo.id === null || perfumeInfo.id === ''
     ) {
       alert('향수를 선택하세요.')
       return false;
@@ -173,15 +189,19 @@ const RegisterPage = () => {
           isDeliveryValue={article.isDelivery}
           buyDateValue={article.buyDate}
           perfumeIdValue={article.perfumeId}
+          perfumeId={perfumeId}
           volumeValue={article.volume}
-
+          onSearchPerfume={onSearchPerfume}
           userNickname={article.userNickname}
           handleRegisterChange={onRegisterChange}
           onImageHandler={onImageChange}
           handleSubmit={onSubmitArticle}
           updateRequest={IsForUpdate}
           formData = {formData}
-          picture={image.name}
+          image={image}
+          perfumeInfo={perfumeInfo}
+          setPerfumeInfo={setPerfumeInfo}
+          setImage={setImage}
         />
       </Box>
     </Box>
