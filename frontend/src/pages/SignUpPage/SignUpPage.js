@@ -106,6 +106,9 @@ const SignUpPage = () => {
         genderOpen: genderOpen ? 1 : 0,
         alarmOpen: 1,
       });
+      
+      //web socket 연결
+      dispatch({ type: "START_WEBSOCKET" });
 
       // accessToken 리덕스에 저장
       dispatch(login({ accessToken: res.accessToken }));
