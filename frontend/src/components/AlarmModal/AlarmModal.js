@@ -2,17 +2,16 @@ import React, { useEffect, useState } from "react";
 import AlarmItem from "./AlarmItem";
 import { AlarmContainer } from "./style";
 import api from "../../apis/api";
-import {selectAlarmList, setAlarmList,} from "../../store/slice/alarmSlice"
-import {useDispatch, useSelector} from "react-redux"
+
 const AlarmModal = () => {
-  const dispatch = useDispatch();
-  const alarmList = useSelector(selectAlarmList);
-  
+  const [data, setData] = useState([]);
+
   useEffect(() => {
     api.alarm
       .getAlarmSend()
-      .then((res) => {
-        dispatch(setAlarmList(res))
+      .then(function (res) {
+        console.log(res + "getalarmsend success");
+        setData(res);
       })
       .catch((err) => {
         console.log("axios alarm send err");
@@ -22,13 +21,12 @@ const AlarmModal = () => {
 
   return (
     <AlarmContainer>
-      {alarmList.map(
+      {data.map(
         (
-          {id, createdAt, brandName, perfumeName, dealTitle, dealId, isReceived },
+          { createdAt, brandName, perfumeName, dealTitle, dealId, isReceived },
           idx
         ) => (
           <AlarmItem
-            id={id}
             createdAt={createdAt}
             brandName={brandName}
             perfumeName={perfumeName}
