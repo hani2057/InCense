@@ -8,7 +8,6 @@ export const alarmSlice = createSlice({
   },
   reducers: {
     increaseAlarmCount: (state, { payload }) => {
-      console.log("setIsAlarm reducer");
       state.alarmCount++;
     },
     initAlarmCount: (state, { payload }) => {
