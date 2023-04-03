@@ -5,12 +5,15 @@ import { Box } from "@mui/system";
 import { Button } from "@mui/material";
 import ImageUpload from "./ImageUpload";
 import FormHelperText from '@mui/material/FormHelperText';
+import api from "../../apis/api";
 import styled from "styled-components";
+import SearchResult from "../../components/Profile/SearchModal/SearchResult";
+import {
+  SearchResultWrapper,
+} from "./style";
 
 
 const RegisterOrEdit = (props) => {
-
-  
 
   const categories = [
     {
@@ -36,6 +39,23 @@ const RegisterOrEdit = (props) => {
   const onSubmitForm = () => {
     console.log('submit form')
   }
+  
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResult, setSearchResult] = useState(null);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const fetchSearch = async () => {
+    const res = await api.profile.searchPerfume(searchQuery);
+    if (res.content.length) setSearchResult(res.content);
+    else {
+      setErrorMsg("검색 결과가 없습니다");
+    }
+  };
+  
+  // console.log(searchResult)
+  // console.log(perfumeInfo)
+
+
 
   // const [categoryValue, setCategoryValue] = useState('SALE')
   // const onChangeCategory = (e) => {
@@ -206,7 +226,36 @@ const RegisterOrEdit = (props) => {
           <Box sx={{width:'50rem',display:'flex',flexDirection:'row',justifyContent:'start',margin:'1rem'}}>
             
             {/* ###검색 코드... */}
-            <TextField  label="검색 코드 추가하기" id="fullWidth" size='small' name="perfumeId" value={props.perfumeIdValue} onChange={props.handleRegisterChange} sx={{width:'18rem', marginTop:'1rem', marginRight:'2rem'}} />
+            {/* <TextField  label="검색 코드 추가하기" id="fullWidth" size='small' name="perfumeId" value={props.perfumeIdValue} onChange={props.handleRegisterChange} sx={{width:'18rem', marginTop:'1rem', marginRight:'2rem'}} /> */}
+            {!props.perfumeInfo
+            ?<TextField  label="향수 이름" id="fullWidth" size='small' name="perfumeId" value={searchQuery}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setErrorMsg("");
+            }}
+            onKeyUp={(e) => {
+              if (e.key === "Enter") {
+                fetchSearch();
+                setSearchQuery("");
+              }
+            }}
+            sx={{width:'18rem', marginTop:'1rem', marginRight:'2rem'}} />
+            :<TextField  label='향수 이름' id="fullWidth" size='small' name="perfumeId" value={props.perfumeInfo.name} sx={{width:'18rem', marginTop:'1rem', marginRight:'2rem'}} />}
+            {searchResult && (
+                <SearchResultWrapper>
+                  {searchResult.map(({ id, image, brandName, name }) => (
+                    <SearchResult
+                      id={id}
+                      img={image}
+                      brand={brandName}
+                      name={name}
+                      setPerfumeInfo={props.setPerfumeInfo}
+                      setSearchResult={setSearchResult}
+                      key={id}
+                    />
+                  ))}
+                </SearchResultWrapper>
+              )}
             <TextField  label="용량 (ml)" id="fullWidth" type='number' name="volume" value={props.volumeValue} onChange={props.handleRegisterChange} size='small' sx={{width:'7rem',marginTop:'1rem',marginRight:'0.5rem'}} />
 
           </Box>
@@ -219,7 +268,7 @@ const RegisterOrEdit = (props) => {
               사진 업로드
               <input onChange={} hidden accept="image/*" multiple type="file" />
             </Button> */}
-          <ImageUpload onSubmitArticle={props.handleSubmit} formData={props.formData} picture={props.picture}/>
+          <ImageUpload image={props.image} setImage={props.setImage} onImageHandler={props.onImageHandler} onSubmitArticle={props.handleSubmit} formData={props.formData} picture={props.picture}/>
 
         </Box>
         {/* <input onChange={props.onImageHandler} type="file" name="picture" 
@@ -234,7 +283,6 @@ const RegisterOrEdit = (props) => {
 };
 
 export default RegisterOrEdit;
-
 
 const FormHelperTexts = styled(FormHelperText)`
 width: 100%;

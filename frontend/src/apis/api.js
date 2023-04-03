@@ -22,7 +22,7 @@ const api = {
   },
   share: {
     getArticle: (articleId) =>
-      defaultInstance.get(`${SHARE}`, { params: { articleId: articleId } }),
+      defaultInstance.get(`${SHARE}/${articleId}`),
     getList: (page) =>
       defaultInstance.get(`${SHARE}`, { params: { page: page } }),
     register: (article) =>
