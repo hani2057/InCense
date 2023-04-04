@@ -70,7 +70,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public MemberInfoRes getMemberInfo(Authentication authentication) {
         Member member = authService.getMemberByAuthentication(authentication).orElseThrow(IllegalArgumentException::new);
-        return new MemberInfoRes(member.getGrade().getName(), member.getNickname(), member.getGender(),
+        return new MemberInfoRes(member.getGrade().getName(), member.getEmail(), member.getType().toString(), member.getNickname(), member.getGender(),
                 member.getBirth(), member.getProfile(), member.getBirthOpen(), member.getGenderOpen(), member.getAlarmOpen());
     }
 
