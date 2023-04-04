@@ -14,7 +14,7 @@ const ProfileInfo = () => {
 
   // 유저 정보 불러오기
   const fetchGetUserInfo = async () => {
-    const res = await api.user.getUserInfo();
+    const res = await api.user.getInfo();
     setUserInfo(res);
   };
 
