@@ -1,5 +1,5 @@
 def encode_reader():
-    file = open("../static/encoded_imgs.txt")
+    file = open("encoded_imgs.txt")
     encoded_imgs = file.readlines()
 
     done_read = []
@@ -55,7 +55,7 @@ def encode_reader():
 
 
 def origin_reader():
-    file = open("../static/origin_imgs.txt")
+    file = open("origin_imgs.txt")
     encoded_imgs = file.readlines()
 
     done_read = []
