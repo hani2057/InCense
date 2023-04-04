@@ -473,7 +473,7 @@ export default function SharePage() {
 
             <Pagination 
               // total={Object.keys(perfumeList).length}
-              total={articleList ? articleList.length : 0}
+              total={articleList? articleList.totalElements : 0}
               limit={limit}
               page={page}
               setPage={setPage}
