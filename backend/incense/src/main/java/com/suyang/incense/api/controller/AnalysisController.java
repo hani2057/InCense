@@ -40,7 +40,7 @@ public class AnalysisController {
     public ResponseEntity<?> updateTaste(@ApiIgnore Authentication authentication) {
 
         //flask server api uri
-        String path = "/api/ml/update";
+        String path = "/ml/update";
 
         Long memberId = authService.getIdByAuthentication(authentication);
 
@@ -63,7 +63,7 @@ public class AnalysisController {
     public ResponseEntity<?> getWordCloudData(@ApiIgnore Authentication authentication) {
 
         //flask server api uri
-        String path = "/api/ml/word";
+        String path = "/ml/word";
 
         Long memberId = authService.getIdByAuthentication(authentication);
 
@@ -81,7 +81,7 @@ public class AnalysisController {
     public ResponseEntity<?> getNoteGraphData(@ApiIgnore Authentication authentication) {
 
         //flask server api uri
-        String path = "/api/ml/graph";
+        String path = "/ml/graph";
 
         Long memberId = authService.getIdByAuthentication(authentication);
 
@@ -99,7 +99,7 @@ public class AnalysisController {
     public ResponseEntity<?> getSimilarityOfWant(@ApiIgnore Authentication authentication) {
 
         //flask server api uri
-        String path = "/api/ml/predict/want";
+        String path = "/ml/predict/want";
 
         Long memberId = authService.getIdByAuthentication(authentication);
 
@@ -113,7 +113,7 @@ public class AnalysisController {
     public ResponseEntity<?> getPredictOfAllPerfume(@ApiIgnore Authentication authentication) {
 
         //flask server api uri
-        String path = "/api/ml/predict/all";
+        String path = "/ml/predict/all";
 
         Long memberId = authService.getIdByAuthentication(authentication);
 

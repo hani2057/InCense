@@ -36,7 +36,7 @@ public class TestController {
             @ApiIgnore Authentication authentication) throws Exception {
 
         //flask server api uri
-        String path = "/api/ml/result";
+        String path = "/ml/result";
 
         Long memberId = authService.getIdByAuthentication(authentication);
 
