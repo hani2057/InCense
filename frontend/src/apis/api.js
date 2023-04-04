@@ -25,9 +25,7 @@ const api = {
     getList: (page) =>
       defaultInstance.get(`${SHARE}`, { params: { page: page } }),
     getFilteredList: (
-      pageNumber,
-      pageSize,
-      type,
+      page,
       checklist1,
       checklist2,
       checklist3,
@@ -35,12 +33,11 @@ const api = {
     ) => {
       return defaultInstance.get(`${SHARE}`, {
         params: {
-          pageNumber: pageNumber,
-          pageSize: pageSize,
-          "마감 O || 마감 X": checklist1,
-          "택배 || 직거래": checklist2,
-          "노트 선택": checklist3,
-          "브랜드 선택": checklist4,
+          page: page,
+          close : checklist1,
+          transaction: checklist2,
+          brands: checklist3,
+          scents: checklist4,
         },
         paramsSerializer: {
           indexes: null, // by default: false

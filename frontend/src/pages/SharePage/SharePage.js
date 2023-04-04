@@ -32,8 +32,6 @@ export default function SharePage() {
     api.share
       .getFilteredList(
         page,
-        20,
-        null,
         checklist,
         checklist2,
         checklist3,
@@ -171,8 +169,8 @@ export default function SharePage() {
                       justifyContent: "space-around",
                     }}
                   >
-                    <Checkbox value="마감 O"> O </Checkbox>
-                    <Checkbox value="마감 X"> X </Checkbox>
+                    <Checkbox value="1"> O </Checkbox>
+                    <Checkbox value="0"> X </Checkbox>
                   </Box>
                 </CheckboxGroup>
               </ul>
@@ -237,8 +235,8 @@ export default function SharePage() {
                       justifyContent: "space-around",
                     }}
                   >
-                    <Checkbox value="택배"> 택배 </Checkbox>
-                    <Checkbox value="직거래"> 직거래 </Checkbox>
+                    <Checkbox value="1"> 택배 </Checkbox>
+                    <Checkbox value="0"> 직거래 </Checkbox>
                   </Box>
                 </CheckboxGroup>
               </ul>
