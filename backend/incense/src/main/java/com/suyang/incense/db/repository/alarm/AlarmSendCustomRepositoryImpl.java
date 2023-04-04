@@ -14,6 +14,7 @@ import static com.suyang.incense.db.entity.member.QMember.member;
 @Repository
 public class AlarmSendCustomRepositoryImpl implements AlarmSendCustomRepository{
     private final JPAQueryFactory jpaQueryFactory;
+
     @Override
     public long removeAlarmSend(Long dealId, Long memberId){
 
@@ -21,6 +22,7 @@ public class AlarmSendCustomRepositoryImpl implements AlarmSendCustomRepository{
                 .where(alarmSend.deal.id.eq(dealId), alarmSend.member.id.eq(memberId))
                 .execute();
     }
+
 
     @Override
     public List<AlarmSend> getAlarmSendList(Long memberId){

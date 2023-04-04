@@ -86,6 +86,10 @@ public class AlarmServiceImpl implements AlarmService {
     }
 
     @Override
+    public long getIsAlarm(Long perfumeId, Long memberId){
+       return memberAlarmPerfumeRepository.getIsAlarm(perfumeId,memberId);
+    }
+    @Override
     public List<AlarmSend> getAlarmSendList(Long memberId){
          return alarmSendRepository.getAlarmSendList(memberId);
     }

@@ -59,6 +59,15 @@ public class AlarmController {
         return ResponseEntity.ok("success");
     }
 
+    @ApiOperation(value = "향수 알람 설정 확인")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "성공",
+            content = @Content(schema = @Schema(implementation = String.class)))})
+    @GetMapping(path="/{perfume_id}")
+    public ResponseEntity<Long> getIsAlarm(@PathVariable("perfume_id") Long perfumeId,@ApiIgnore Authentication authentication){
+        Long memberId = authService.getIdByAuthentication(authentication);
+        Long res = alarmService.getIsAlarm(perfumeId,memberId);
+        return ResponseEntity.ok(res);
+    }
 
     @ApiOperation(value = "향수 알람 수신 삭제")
     @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "성공",
@@ -77,6 +86,8 @@ public class AlarmController {
         alarmService.readAlarm(alarmSendId);
         return ResponseEntity.ok("success");
     }
+
+
 
 
     @ApiOperation(value = "향수 알람 수신 목록 가져오기")

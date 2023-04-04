@@ -20,4 +20,13 @@ public class MemberAlarmPerfumeCustomRepositoryImpl implements MemberAlarmPerfum
                 .execute();
     }
 
+    @Override
+    public long getIsAlarm(Long perfumeId, Long memberId){
+        return jpaQueryFactory.select(memberPerfumeAlarm.count())
+                .from(memberPerfumeAlarm)
+                .where(memberPerfumeAlarm.member.id.eq(memberId), memberPerfumeAlarm.perfume.id.eq(perfumeId))
+                .fetchOne();
+    }
+
+
 }
