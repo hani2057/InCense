@@ -131,8 +131,12 @@ def predict_all():
         answer_arr.append({"predict": answer, "perfumeIndex": i})
     answer_arr.sort(key=lambda x: x["predict"], reverse=True)
     result_json = {"result": []}
+    cnt = 0
     for aaa in answer_arr:
+        if cnt == 30:
+            break
         result_json["result"].append(aaa)
+        cnt += 1
     print(result_json)
     ## >> output : [4.8, 233], [3.3, 10] ...
     return jsonify(result_json)
@@ -217,6 +221,7 @@ def get_note_graph():
         result["baseWeight"].append({"word": bi, "weight": bw})
     ################################ string 으로 이름으로 보내기 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     return jsonify(result)
+
 
 
 if __name__ == '__main__':
