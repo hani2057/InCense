@@ -25,6 +25,20 @@ const api = {
       defaultInstance.get(`${SHARE}/${articleId}`),
     getList: (page) =>
       defaultInstance.get(`${SHARE}`, { params: { page: page } }),
+    getFilteredList: (page,type,checklist1, checklist2, checklist3,checklist4) => {
+      return defaultInstance.get(`${SHARE}`, {
+        params: {
+          page: page,
+          close: checklist1,
+          transaction: checklist2,
+          brands: checklist3,
+          scents: checklist4
+        },
+        paramsSerializer: {
+          indexes: null, // by default: false
+        },
+      })
+    },
     register: (article) =>
       authInstance.post(`${SHARE}`, article, {
         headers: { "Content-Type": "multipart/form-data" },
