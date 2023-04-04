@@ -16,7 +16,7 @@ import api from '../../apis/api';
 import { useDispatch, useSelector } from 'react-redux';
 import { articleActions } from '../../store/slice/articleSlice';
 import { useParams } from 'react-router-dom';
-
+import { commentActions } from '../../store/slice/commentSlice';
 
 
 
@@ -97,7 +97,7 @@ function ArticleDetail() {
   }
   console.log(images)
 
-  const comment = {
+  const commentRegister = {
     content: commentValue,
     isSecret: isSecret,
     parentId: null
@@ -106,12 +106,35 @@ function ArticleDetail() {
   // 댓글 저장 api
   const onSubmitComment = () => {
     console.log('댓글 저장')
-    api.comment.register(articleId, comment)
-      .then(alert('저장되었습니다.'))
+    api.comment.register(articleId, commentRegister)
+      .then((res) => {
+        console.log(res)
+        window.location.reload()
+      })
       .catch((err) => {
         alert(err)
       })
   }
+
+  // 댓글 불러오기
+  useEffect(() => {
+    console.log('호출')
+    api.comment.getComment(articleId)
+      .then((res) => {
+        console.log('comment가져오기')
+        console.log(res)
+        dispatch(commentActions.getComment(res))
+      })
+      .catch((err) => {
+        console.log(err)
+        alert(err)
+      })
+  }, [])
+
+  const comment = useSelector((state) => {
+    console.log(state)
+    return state.commentReducers.comment
+  })
 
 
 
@@ -183,10 +206,15 @@ function ArticleDetail() {
           저장
         </Button>
       </Box>
-      <CommentBox/>
-      {/* map으로 돌려야 함 */}
-      <CommentBox/>
-      ---
+      
+      {/* <CommentBox articleId={articleId}/>
+      map으로 돌려야 함
+      <CommentBox/> */}
+      {comment && comment.slice(0).reverse().map((comment, index) => {
+              return (
+                <CommentBox key={index} comment={comment} articleId={articleId}/>
+              )
+            })}
       
     </Box>
   )

@@ -74,7 +74,7 @@ export default function SharePage() {
     state.articleListReducers.articleList.content
     // console.log(state)
   ))
-
+  if (!articleList) return null;
   return (
     <Box sx={{marginBottom:'5rem'}}>
       <Box
@@ -288,16 +288,7 @@ export default function SharePage() {
                 <ArticleCard key={index} article={article}/>
               )
             })}
-            {/* <ArticleCard/>
-            <ArticleCard/>
-            <ArticleCard/>
-            <ArticleCard/>
-            <ArticleCard/>
-            <ArticleCard/>
-            <ArticleCard/>
-            <ArticleCard/>
-            <ArticleCard/>
-            <ArticleCard/> */}
+
             <Pagination 
               // total={Object.keys(perfumeList).length}
               total={articleList.length}

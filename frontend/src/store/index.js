@@ -8,6 +8,7 @@ import { perfumeInfoReducers } from "./slice/perfumeInfoSlice";
 import { perfumeListReducers } from "./slice/perfumeListSlice";
 import { articleListReducers } from "./slice/articleListSlice";
 import { alarmSliceReducer } from "./slice/alarmSlice";
+import { commentReducers } from "./slice/commentSlice";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "../sagas";
 // const customHistory = createBrowserHistory();
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   perfumeListReducers,
   articleListReducers,
   alarmSliceReducer,
+  commentReducers,
 });
 
 const persistConfig = {
