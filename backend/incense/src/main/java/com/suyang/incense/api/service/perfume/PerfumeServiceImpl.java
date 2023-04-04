@@ -109,8 +109,9 @@ public class PerfumeServiceImpl implements PerfumeService{
     public ResponseEntity<TasteSimilarityDto> getSimilarityDataOfMine(String path, Long memberId, Long perfumeId) {
 
         URI uri = UriComponentsBuilder
-                /*.fromUriString("http://j8a804.p.ssafy.io:포트번호")*/
-                .fromUriString("http://localhost:8081")
+                .fromUriString("http://j8a804.p.ssafy.io:5000")
+//                .fromUriString("http://j8a804.p.ssafy.io:포트번호")
+//                .fromUriString("http://localhost:8081")
                 .path(path)
                 .encode()
                 .build()
@@ -136,8 +137,8 @@ public class PerfumeServiceImpl implements PerfumeService{
     public ResponseEntity<SimilarPerfumeDto> getSimilarPerfumeList(String path, Long perfumeId) {
 
         URI uri = UriComponentsBuilder
-                /*.fromUriString("http://j8a804.p.ssafy.io:포트번호")*/
-                .fromUriString("http://localhost:8081")
+                .fromUriString("http://j8a804.p.ssafy.io:포트번호")
+//                .fromUriString("http://localhost:8081")
                 .path(path)
                 .encode()
                 .build()

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface DealCommentCustomRepository {
 
-    List<DealCommentRes> getComments();
+    List<DealCommentRes> getComments(Long dealId);
 
     int getCommentCount(Long dealId);
 
