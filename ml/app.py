@@ -22,7 +22,7 @@ factor = {1:[0, 1, 2, 3], 2:[4, 5, 6],
           7:[24, 25, 26, 27], 8:[28, 29, 30, 31]}
 #################################################################
 ## 01. 최초 선호도 테스트
-@app.route('/api/ml/result', methods=['POST'])
+@app.route('/ml/result', methods=['POST'])
 def get_result():
     ## >> input : preference="0.9;0.8 ..."  || a=[1, 3, 2 ...]
     params = request.get_json()
@@ -48,7 +48,7 @@ def get_result():
 
 ## 02. 선호도 점수 출력
 ## 02-1-a. 향수 상세
-@app.route('/api/ml/predict/detail', methods=['POST'])
+@app.route('/ml/predict/detail', methods=['POST'])
 def predict_detail():
     ## >> input : preference="0.9;0.8 ..."  || now_perfume=30
     params = request.get_json()
@@ -75,7 +75,7 @@ def predict_detail():
     return jsonify(result)
 
 ## 02-1-b. 향수 상세
-@app.route('/api/ml/predict/detail/similar', methods=['POST'])
+@app.route('/ml/predict/detail/similar', methods=['POST'])
 def predict_detail_similar():
     ## >> input : preference="0.9;0.8 ..."  || now_perfume=30
     params = request.get_json()
@@ -94,7 +94,7 @@ def predict_detail_similar():
     return jsonify(result)
 
 ## 02-2. want it
-@app.route('/api/ml/predict/want', methods=['POST'])
+@app.route('/ml/predict/want', methods=['POST'])
 def predict_want():
     ## >> input : preference="0.9;0.8 ..."  || wantit=[5, 3, 2, ...]
     params = request.get_json()
@@ -116,7 +116,7 @@ def predict_want():
     return jsonify(result_json)
 
 ## 02-3. 전체
-@app.route('/api/ml/predict/all', methods=['POST'])
+@app.route('/ml/predict/all', methods=['POST'])
 def predict_all():
     ## >> input : preference="0.9;0.8 ..."
     params = request.get_json()
@@ -142,7 +142,7 @@ def predict_all():
     return jsonify(result_json)
 
 ## 03. 선호도 업데이트
-@app.route('/api/ml/update', methods=['POST'])
+@app.route('/ml/update', methods=['POST'])
 def update_preference():
     ## >> input : perfumes = [[향수idx, 평점], ... ]
     params = request.get_json()
@@ -170,7 +170,7 @@ def update_preference():
     return jsonify(result)
 
 ## 04. 워드클라우드
-@app.route('/api/ml/word', methods=['POST'])
+@app.route('/ml/word', methods=['POST'])
 def get_words():
     ## input : preference='0.92;0.83;...'
     params = request.get_json()
@@ -189,7 +189,7 @@ def get_words():
     return jsonify(result_json)
 
 ## 05. 탑노트와 선호 노트 정렬
-@app.route('/api/ml/graph', methods=['POST'])
+@app.route('/ml/graph', methods=['POST'])
 def get_note_graph():
     ## input : preference='0.92;0.83;...'
     params = request.get_json()
