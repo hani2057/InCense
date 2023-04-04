@@ -17,7 +17,7 @@ import api from "../../apis/api";
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    isLoggedIn: true,
+    isLoggedIn: false,
   },
   reducers: {
     login: (state, action) => {
