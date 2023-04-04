@@ -59,11 +59,14 @@ const api = {
     close: (articleId) => authInstance.put(`${SHARE}/close/${articleId}`),
   },
   comment: {
-    getComment: (articleId) => defaultInstance.get(`${SHARE}/comment/${articleId}`),
-    register: (articleId, comment) => authInstance.post(`${SHARE}/comment/${articleId}`, comment),
-    update: (commentId, comment) => authInstance.put(`${SHARE}/comment/${commentId}`, comment),
-    delete: (commentId, type) => authInstance.delete((`${SHARE}/comment/${commentId}`), {data:type}),
-
+    getComment: (articleId) =>
+      defaultInstance.get(`${SHARE}/comment/${articleId}`),
+    register: (articleId, comment) =>
+      authInstance.post(`${SHARE}/comment/${articleId}`, comment),
+    update: (commentId, comment) =>
+      authInstance.put(`${SHARE}/comment/${commentId}`, comment),
+    delete: (commentId, type) =>
+      authInstance.delete(`${SHARE}/comment/${commentId}`, { data: type }),
   },
   list: {
     getList: (page) => {
@@ -128,9 +131,8 @@ const api = {
     resetAlarm: (perfumeId) => authInstance.delete(`${ALARM}/${perfumeId}`),
     getAlarmSend: () => authInstance.get(`${ALARM}/send`),
     deleteAlarmSend: (sendId) => authInstance.delete(`${ALARM}/send/${sendId}`),
-    readAlarmSend: (sendId) => authInstance.put(`${ALARM}/send/${sendId}`)
-
-    deleteAlarm: (perfumeId) => authInstance.delete(`${ALARM}/${perfumeId}`)
+    readAlarmSend: (sendId) => authInstance.put(`${ALARM}/send/${sendId}`),
+    deleteAlarm: (perfumeId) => authInstance.delete(`${ALARM}/${perfumeId}`),
   },
 };
 
