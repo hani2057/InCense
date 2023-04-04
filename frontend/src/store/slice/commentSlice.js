@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  comment: {
+  comment: [{
     id: 0,
     content: '',
     writer: '',
@@ -10,14 +10,14 @@ const initialState = {
     createdDate: '',
     children: [],
 
-  }
+  }]
 }
 
 export const commentSlice = createSlice({
 
   name: 'comment',
   initialState: {
-    comment: {
+    comment: [{
       id: 0,
       content: '',
       writer: '',
@@ -25,7 +25,7 @@ export const commentSlice = createSlice({
       parentId: 0,
       createdDate: '',
       children: [],
-    }
+    },]
   },
   reducers: {
     getComment: (state, {payload}) => {

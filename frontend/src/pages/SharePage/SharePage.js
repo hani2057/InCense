@@ -79,10 +79,14 @@ export default function SharePage() {
       })
   }, [])
 
-  const articleList = useSelector((state) => (
-    state.articleListReducers.articleList.content
+
+
+  const articleList = useSelector((state) => {
+    console.log(state)
+    return state.articleListReducers.articleList.content
     // console.log(state)
-  ))
+  })
+
   if (!articleList) return null;
   return (
     <Box sx={{marginBottom:'5rem'}}>
@@ -305,8 +309,6 @@ export default function SharePage() {
               page={page}
               setPage={setPage}/>
           </Box>
-
-
         </Box>
       </Box>
 
