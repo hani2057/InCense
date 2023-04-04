@@ -7,6 +7,7 @@ import { FlexDiv } from "../common/FlexDiv/FlexDiv";
 import { NavWrapper, NavTitle, NavItem, NavLogInStatus } from "./style";
 import AlarmModal from "../AlarmModal/AlarmModal";
 import { logout } from "../../store/slice/userSlice";
+import { selectAlarmCount, initAlarmCount } from "../../store/slice/alarmSlice";
 
 const NavBar = () => {
   const dispatch = useDispatch();
@@ -14,7 +15,11 @@ const NavBar = () => {
   const { pathname } = useLocation();
   const [alarmOpen, setAlarmOpen] = useState(false);
   const isLoggedIn = useSelector((state) => state.userReducers.isLoggedIn);
-
+  const alarmCount = useSelector(selectAlarmCount);
+  const alarmClick = () => {
+    dispatch(initAlarmCount());
+    setAlarmOpen((prev) => !prev);
+  };
   return (
     <>
       <NavWrapper pathname={pathname}>
@@ -33,10 +38,12 @@ const NavBar = () => {
           <NavItem to="/profile">My Page</NavItem>
         </FlexDiv>
         <FlexDiv width="auto">
-          <BsBell
-            onClick={() => setAlarmOpen((prev) => !prev)}
-            style={{ cursor: "pointer" }}
-          />
+          {alarmCount > 0 ? (
+            <button onClick={alarmClick}>알람 옴</button>
+          ) : (
+            <BsBell onClick={alarmClick} style={{ cursor: "pointer" }} />
+          )}
+
           <NavLogInStatus
             onClick={() => {
               if (isLoggedIn) dispatch(logout());
