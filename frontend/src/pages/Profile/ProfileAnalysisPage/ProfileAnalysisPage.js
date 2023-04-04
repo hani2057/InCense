@@ -3,6 +3,7 @@ import { FlexDiv } from "../../../components/common/FlexDiv/FlexDiv";
 import { ScrollContainer } from "../../../components/common/ScrollContainer/ScrollContainer";
 import ProfileTitleBox from "../../../components/Profile/ProfileTitleBox/ProfileTitleBox";
 import WantAnalysisCard from "../../../components/Profile/WantAnalysisCard/WantAnalysisCard";
+import Wordcloud from "../../../components/Profile/Wordcloud/Wordcloud";
 import { ProfileOutletContainer } from "../ProfilePage/style";
 
 const ProfileAnalysisPage = () => {
@@ -12,32 +13,32 @@ const ProfileAnalysisPage = () => {
     {
       name: "fleur de peau",
       brand: "Diptyque",
-      img: "https://j8a804.p.ssafy.io/api/display?filename=perfumes/test.jpg",
+      img: "perfumes/1.jpg",
     },
     {
       name: "fleur de peau",
       brand: "Diptyque",
-      img: "https://j8a804.p.ssafy.io/api/display?filename=perfumes/test.jpg",
+      img: "perfumes/1.jpg",
     },
     {
       name: "fleur de peau",
       brand: "Diptyque",
-      img: "https://j8a804.p.ssafy.io/api/display?filename=perfumes/test.jpg",
+      img: "perfumes/1.jpg",
     },
     {
       name: "fleur de peau",
       brand: "Diptyque",
-      img: "https://j8a804.p.ssafy.io/api/display?filename=perfumes/test.jpg",
+      img: "perfumes/1.jpg",
     },
     {
       name: "fleur de peau",
       brand: "Diptyque",
-      img: "https://j8a804.p.ssafy.io/api/display?filename=perfumes/test.jpg",
+      img: "perfumes/1.jpg",
     },
     {
       name: "fleur de peau",
       brand: "Diptyque",
-      img: "https://j8a804.p.ssafy.io/api/display?filename=perfumes/test.jpg",
+      img: "perfumes/1.jpg",
     },
   ];
 
@@ -45,14 +46,16 @@ const ProfileAnalysisPage = () => {
     <ProfileOutletContainer>
       <FlexDiv direction="column">
         <ProfileTitleBox bgimgNo={1} title={`${name}님의 취향 분석 결과`} />
-        <ProfileTitleBox bgimgNo={1} title={"I want it 향수 취향 적중도"} />
+        <Wordcloud />
+
+        <ProfileTitleBox bgimgNo={1} title={"I want it 향수 예상 평점"} />
 
         <ScrollContainer margin="0 0 10rem 0">
           {iWantItList.map(({ name, brand, img }, idx) => (
             <WantAnalysisCard
               name={name}
               brand={brand}
-              imgSrc={img}
+              img={img}
               percent={80}
               key={idx}
             />

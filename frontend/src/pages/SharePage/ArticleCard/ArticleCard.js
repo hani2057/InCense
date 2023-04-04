@@ -19,13 +19,14 @@ function ArticleCard(props) {
   // }
   
   const navigate = useNavigate()
-  const onClickArticle = (id) => {
-    console.log('article클릭')
+  const id = props.article.dealId
+  const onClickArticle = () => {
+
     navigate(`/share/article/${id}`)
   }
 
   const fileName = article.perfumeImage
-  console.log(article)
+  // console.log(article)
   // useEffect(() => {
   //   api.image.getImage(fileName)
   //     .then((res) => {
