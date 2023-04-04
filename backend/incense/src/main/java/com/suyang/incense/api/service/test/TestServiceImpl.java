@@ -34,8 +34,8 @@ public class TestServiceImpl implements TestService{
         }
 
         URI uri = UriComponentsBuilder
-                /*.fromUriString("http://j8a804.p.ssafy.io:포트번호")*/
-                .fromUriString("http://localhost:8081")
+                .fromUriString("http://j8a804.p.ssafy.io:5000")
+//                .fromUriString("http://localhost:8081")
                 .path(path)
                 .encode()
                 .build()
@@ -46,6 +46,11 @@ public class TestServiceImpl implements TestService{
         TestReq testRequest = new TestReq();
         testRequest.setChoose(testAnswer);
         testRequest.setPastPreference(Objects.requireNonNullElse(pastPreference, ""));
+
+        //REQUEST
+        System.out.println("test Request......................................................");
+        System.out.println("choose: " + testRequest.getChoose());
+        System.out.println("past preference: " + testRequest.getPastPreference());
 
         RequestEntity<TestReq> requestEntity = RequestEntity
                 .post(uri)

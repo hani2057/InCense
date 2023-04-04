@@ -21,7 +21,7 @@ public class DealCommentCustomRepositoryImpl implements DealCommentCustomReposit
 
     private final JPAQueryFactory jpaQueryFactory;
 
-    public List<DealCommentRes> getComments() {
+    public List<DealCommentRes> getComments(Long dealId) {
 
         List<DealCommentRes> comments = jpaQueryFactory
                 .select(Projections.constructor(
@@ -34,6 +34,7 @@ public class DealCommentCustomRepositoryImpl implements DealCommentCustomReposit
                 ))
                 .from(dealComment)
                 .innerJoin(member).on(dealComment.member.id.eq(member.id))
+                .where(dealComment.deal.id.eq(dealId))
                 .orderBy(dealComment.id.asc())
                 .fetch();
 

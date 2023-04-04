@@ -116,6 +116,6 @@ public class DealCommentServiceImpl  implements DealCommentService {
 
     public List<DealCommentRes> getComments(Long dealId) {
 
-        return dealCommentRepository.getComments();
+        return dealCommentRepository.getComments(dealId);
     }
 }
