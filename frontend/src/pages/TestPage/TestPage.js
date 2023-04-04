@@ -13,6 +13,7 @@ import {
   TestSpan,
 } from "./style";
 import TestFour from "../../components/Test/TestFour/TestFour";
+import TestFive from "../../components/Test/TestFive/TestFive";
 
 const TestPage = () => {
   const [step, setStep] = useState(0);
@@ -21,6 +22,8 @@ const TestPage = () => {
     test1: null,
     test2: null,
     test3: null,
+    test4: null,
+    test5: null,
   });
 
   console.log(result);
@@ -41,7 +44,8 @@ const TestPage = () => {
         {step === 2 && <TestTwo toNext={toNext} setResult={setResult} />}
         {step === 3 && <TestThree toNext={toNext} setResult={setResult} />}
         {step === 4 && <TestFour toNext={toNext} setResult={setResult} />}
-        {step === 5 && <TestResult />}
+        {step === 5 && <TestFive toNext={toNext} setResult={setResult} />}
+        {step === 6 && <TestResult />}
       </TestWrapper>
 
       <FlexDiv height="20%">
