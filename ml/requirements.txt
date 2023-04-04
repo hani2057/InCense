@@ -1,7 +1,6 @@
 Flask
 Flask_cors
 numpy
-json
 keras
 tensorflow
 numpy
