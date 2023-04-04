@@ -40,7 +40,9 @@ def get_result():
                 preference[0][i] += 0.05
     ############################## bias 수정 !!!!!!!
     new_preference = ''
-    for pre in preference:
+    print(preference)
+    print(preference[0])
+    for pre in preference[0]:
         new_preference += str(pre)
         new_preference += ';'
     result = {"preference": new_preference}
@@ -71,7 +73,8 @@ def predict_detail():
             wor_notes.append(i)
     if predict_rate >= 5:
         predict_rate = 5.0
-    result = {"predictRate": round(predict_rate[0][0]/2, 1), "favNotes": fav_notes[:5], "worNotes": wor_notes[:5]}
+    result = {"predictRate": round(predict_rate[0][0]/2, 1), "favNotes": list(map(str, fav_notes[:5])), "worNotes": list(map(str, wor_notes[:5]))}
+    ################################ string 으로 이름으로 보내기 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     return jsonify(result)
 
 ## 02-1-b. 향수 상세
@@ -80,15 +83,17 @@ def predict_detail_similar():
     ## >> input : preference="0.9;0.8 ..."  || now_perfume=30
     params = request.get_json()
     now_perfume = params['nowPerfume']
-    target_perfume = encoded_imgs[now_perfume].reshape(1, -1)
+    target_perfume = np.array(encoded_imgs[now_perfume]).reshape(1, -1)
     similar_perfumes = []
     for pi in range(1003):
         if pi == now_perfume:
             continue
-        similar_perfumes.append((target_perfume.dot(origin_imgs[pi].reshape(1, -1)), pi))
-    similar_perfumes_idx = np.argsort(similar_perfumes, reversed=True)
+        similar_perfumes.append((target_perfume.dot(np.array(encoded_imgs[pi]).reshape(-1, 1)), pi))
+    # similar_perfumes = np.array(similar_perfumes)
+    similar_perfumes_idx = np.argsort(similar_perfumes)
+    print(similar_perfumes_idx)
     result = {"similarPerfumes": similar_perfumes_idx[:10]}
-    return result
+    return jsonify(result)
 
 
 ## 02-2. want it
@@ -179,5 +184,8 @@ def get_note_graph():
     return jsonify(result)
 
 
+# if __name__ == '__main__':
+#     app.run(host='0.0.0.0', port=5000, threaded=False)
+#
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, threaded=False)
+    app.run(host='localhost', port=5000, threaded=False)
