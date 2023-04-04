@@ -10,20 +10,12 @@ app = Flask(__name__)
 # CORS(app, resource={r'*': {'origins': 'http://localhost:8081/api'}})
 # cors = CORS(app, resources={r"/api/*": {"localhost:8000": "*"}})
 
-############################################ 01. Static Variables 읽어내기
-encoded_imgs = text_reader("origin_imgs.txt")
+## 00. Static Variables 읽어내기
+encoded_imgs = text_reader("encoded_imgs.txt")
 origin_imgs = text_reader("origin_imgs.txt")
 scents_name = name_reader()
 
 ################################################################# 임시 !!
-# from MF import MatrixFactorization
-# file = open("encoded_imgs.txt")
-# encoded_imgs = list(file.readlines())
-# temp = encoded_imgs[0]
-# for ele in encoded_imgs:
-#     if '[' in ele:
-#         print(ele)
-
 factor = {1:[0, 1, 2, 3], 2:[4, 5, 6],
           3:[7, 8, 9, 10, 11], 4:[12, 13, 14, 15],
           5:[16, 17, 18, 19], 6:[20, 21, 22, 23],
@@ -60,25 +52,25 @@ def get_result():
 def predict_detail():
     ## >> input : preference="0.9;0.8 ..."  || now_perfume=30
     params = request.get_json()
-    preference = list(map(float, params['Preference'].split(';')))
+    preference = list(map(float, params['preference'].split(';')[:-1]))
     preference = np.array(preference).reshape(1, -1)
     now_perfume = params['nowPerfume']
-    target_perfume = encoded_imgs[now_perfume].reshape(1, -1)
+    target_perfume = np.array(encoded_imgs[now_perfume]).reshape(1, -1)
     predict_rate = target_perfume.dot(preference.T)
     decoded_img_prefer = decoder.predict(preference)
-    origin_target_perfume = origin_imgs[now_perfume].reshape(1, -1)
+    origin_target_perfume = np.array(origin_imgs[now_perfume]).reshape(1, -1)
     fav_notes = []
     wor_notes = []
-    for i in range(len(decoded_img_prefer)):
-        if 0.5 > origin_target_perfume[i]:
+    for i in range(len(decoded_img_prefer[0])):
+        if 0.5 > origin_target_perfume[0][i]:
             continue
-        if decoded_img_prefer[i] > 0.5:
+        if decoded_img_prefer[0][i] > 0.5:
             fav_notes.append(i)
         else:
             wor_notes.append(i)
     if predict_rate >= 5:
         predict_rate = 5.0
-    result = {"predictRate": round(predict_rate/2, 1), "favNotes": fav_notes[:5], "worNotes": wor_notes[:5]}
+    result = {"predictRate": round(predict_rate[0][0]/2, 1), "favNotes": fav_notes[:5], "worNotes": wor_notes[:5]}
     return jsonify(result)
 
 ## 02-1-b. 향수 상세
@@ -86,7 +78,7 @@ def predict_detail():
 def predict_detail_similar():
     ## >> input : preference="0.9;0.8 ..."  || now_perfume=30
     params = request.get_json()
-    now_perfume = params['now_perf']
+    now_perfume = params['nowPerfume']
     target_perfume = encoded_imgs[now_perfume].reshape(1, -1)
     similar_perfumes = []
     for pi in range(1003):
