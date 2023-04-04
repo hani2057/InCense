@@ -44,7 +44,7 @@ def get_result():
         result += str(pre)
         result += ';'
     ## >> output : '0.454984;0.49897;0.894723...'
-    return result
+    return jsonify(result)
 
 ## 02. 선호도 점수 출력
 ## 02-1-a. 향수 상세
