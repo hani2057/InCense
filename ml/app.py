@@ -26,7 +26,6 @@ factor = {1:[0, 1, 2, 3], 2:[4, 5, 6],
 def get_result():
     ## >> input : preference="0.9;0.8 ..."  || a=[1, 3, 2 ...]
     params = request.get_json()
-    print(params)
     choose = params['choose']
     preference = params['pastPreference']
     if preference == '':
@@ -40,8 +39,6 @@ def get_result():
                 preference[0][i] += 0.05
     ############################## bias 수정 !!!!!!!
     new_preference = ''
-    print(preference)
-    print(preference[0])
     for pre in preference[0]:
         new_preference += str(pre)
         new_preference += ';'
@@ -73,7 +70,7 @@ def predict_detail():
             wor_notes.append(i)
     if predict_rate >= 5:
         predict_rate = 5.0
-    result = {"predictRate": round(predict_rate[0][0]/2, 1), "favNotes": list(map(str, fav_notes[:5])), "worNotes": list(map(str, wor_notes[:5]))}
+    result = {"predictRate": round(predict_rate[0][0], 1), "favNotes": list(map(str, fav_notes[:5])), "worNotes": list(map(str, wor_notes[:5]))}
     ################################ string 으로 이름으로 보내기 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     return jsonify(result)
 
@@ -90,14 +87,11 @@ def predict_detail_similar():
             continue
         similar_perfumes.append((target_perfume.dot(np.array(encoded_imgs[pi]).reshape(-1, 1)).tolist()[0][0], pi))
     similar_perfumes.sort()
-    print(similar_perfumes)
-    # similar_perfumes_idx = np.argsort(similar_perfumes)
     temp = []
     for spi in similar_perfumes[:10]:
         temp.append(spi[1])
     result = {"similarPerfumes": temp}
     return jsonify(result)
-
 
 ## 02-2. want it
 @app.route('/api/ml/predict/want', methods=['POST'])
@@ -109,31 +103,41 @@ def predict_want_it():
     wants = params['wantPerfume']
     answer_arr = []
     for now in wants:
-        target_perfume = encoded_imgs[now].reshape(1, -1)
-        answer = target_perfume.dot(preference.T)
+        target_perfume = np.array(encoded_imgs[now]).reshape(1, -1)
+        answer = target_perfume.dot(preference.T)[0][0]
         if answer > 5:
             answer = 5.0
-        answer_arr.append((round(answer, 2), now))
-    ## >> output : [4.8, 233], [3.3, 10] ...
-
-    return answer_arr
+        answer_arr.append({"predict":answer, "perfumeIndex":now})
+    answer_arr.sort(key=lambda x : x["predict"], reverse=True)
+    result_json = {"result" : []}
+    for aaa in answer_arr:
+        result_json["result"].append(aaa)
+    print(result_json)
+    return jsonify(result_json)
 
 ## 02-3. 전체
 @app.route('/api/ml/predict/all', methods=['POST'])
 def predict_all():
     ## >> input : preference="0.9;0.8 ..."
     params = request.get_json()
-    preference = list(map(float, params['preference'].split(';')))
+    preference = list(map(float, params['preference'].split(';')[:-1]))
     preference = np.array(preference).reshape(1, -1)
     answer_arr = []
     for i in range(1003):
-        target_perfume = encoded_imgs[i].reshape(1, -1)
-        answer = target_perfume.dot(preference.T)
+        target_perfume = np.array(encoded_imgs[i]).reshape(1, -1)
+        answer = target_perfume.dot(preference.T)[0][0]
         if answer > 5:
             answer = 5.0
-        answer_arr.append((round(answer, 2), i))
+        answer_arr.append({"predict": answer, "perfumeIndex": i})
+    answer_arr.sort(key=lambda x: x["predict"], reverse=True)
+    result_json = {"result": []}
+    for aaa in answer_arr:
+        result_json["result"].append(aaa)
+    print(result_json)
     ## >> output : [4.8, 233], [3.3, 10] ...
-    return answer_arr
+    return jsonify(result_json)
+###### 지금은 여기까지 ~~
+
 
 ## 03. 선호도 업데이트
 @app.route('/api/ml/update', methods=['POST'])
