@@ -37,6 +37,15 @@ export default function SharePage() {
   console.log(checklist4)
 
   const applyFilter = () => {
+    api.share.getFilteredList(page,20,null,checklist,checklist2,checklist3,checklist4)
+      .then((res) => {
+        console.log("필터 적용 성공")
+        dispatch(articleListActions.getArticleList(res))
+      })
+      .catch((err) => {
+        console.log(err)
+        alert(err)
+      })
     console.log('필터 적용하기')
   }
 
@@ -74,7 +83,7 @@ export default function SharePage() {
     state.articleListReducers.articleList.content
     // console.log(state)
   ))
-
+  if (!articleList) return null;
   return (
     <Box sx={{marginBottom:'5rem'}}>
       <Box
@@ -288,16 +297,7 @@ export default function SharePage() {
                 <ArticleCard key={index} article={article}/>
               )
             })}
-            {/* <ArticleCard/>
-            <ArticleCard/>
-            <ArticleCard/>
-            <ArticleCard/>
-            <ArticleCard/>
-            <ArticleCard/>
-            <ArticleCard/>
-            <ArticleCard/>
-            <ArticleCard/>
-            <ArticleCard/> */}
+
             <Pagination 
               // total={Object.keys(perfumeList).length}
               total={articleList.length}

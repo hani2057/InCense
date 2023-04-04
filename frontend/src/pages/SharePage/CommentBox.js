@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box } from "@mui/system";
 import { TextField } from "@mui/material";
 import { useState } from 'react';
@@ -7,13 +7,16 @@ import { Button } from "@mui/material";
 import {Checkbox} from '@mui/material';
 
 import { RxLockClosed } from 'react-icons/rx';
+import api from '../../apis/api';
+import { useDispatch, useSelector } from 'react-redux';
+import { commentActions } from '../../store/slice/commentSlice';
+import ReplyBox from './ReplyBox';
 
 
 
 
 
-
-function CommentBox() {
+function CommentBox(props) {
   
   const userNickname = '전태영'
   const commentWriterNickname = '전태영'
@@ -58,14 +61,36 @@ function CommentBox() {
     console.log('delete comment')
   }
 
-  const commentIsSecret = false
+  const dispatch = useDispatch()
+  // 비밀여부
 
-  if (commentIsSecret === true) {
+  const articleId = props.articleId
+  useEffect(() => {
+    console.log('호출')
+    api.comment.getComment(articleId)
+      .then((res) => {
+        console.log('comment가져오기')
+        console.log(res)
+        // dispatch(commentActions.getComment(res))
+      })
+      .catch((err) => {
+        console.log(err)
+        alert(err)
+      })
+  }, [])
+
+
+  const comment = props.comment
+  console.log(comment)
+
+
+
+  if (comment.isSecret === 1 ) {
     return (
       <div>
       <Box sx={{width:'100%',height:'8rem',marginLeft:'1rem', display:'flex',flexDirection:'column', borderTop:'1px solid lightgrey',justifyContent:'center'}}>
         <div style={{margin:'0.5rem',display:'flex',flexDirection:'row'}}>
-          <p style={{marginTop:'1rem',marginRight:'0.5rem'}}><RxLockClosed/></p>          <p style={{marginTop:'1rem'}}>비밀입니다.</p>
+          <p style={{marginTop:'1rem',marginRight:'0.5rem'}}><RxLockClosed/></p>          <p style={{marginTop:'1rem'}}>비밀 댓글입니다.</p>
         </div>
       </Box>
       <Box sx={{backgroundColor:'#F3F3F3',width:'100%',height:'8rem',marginLeft:'1rem', display:'flex',flexDirection:'row',borderTop:'1px solid lightgrey'}}>
@@ -75,11 +100,11 @@ function CommentBox() {
         <Box sx={{width:'95%',display:'flex',flexDirection:'column',justifyContent:'center'}}> 
           <div style={{margin:'0.5rem',display:'flex',flexDirection:'row'}}>
             <p style={{marginTop:'1rem',marginRight:'0.5rem'}}><RxLockClosed/></p>
-            <p style={{marginTop:'1rem'}}>이것도 비밀</p>
+            <p style={{marginTop:'1rem'}}>비밀 댓글입니다.</p>
           </div>
         </Box>   
       </Box>
-      {showPostReply === true      
+      {/* {showPostReply === true      
       ? <Box sx={{backgroundColor:'#F3F3F3',width:'100%',height:'8rem',marginLeft:'1rem', display:'flex',flexDirection:'row',borderTop:'1px solid lightgrey'}}>
           <Box sx={{width:'5%',display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center'}}>
             <img src= '/assets/icons/reply.svg' alt='reply'/>
@@ -96,7 +121,7 @@ function CommentBox() {
             </Box>
           </Box>
         </Box>
-      :<></>}
+      :<></>} */}
       </div>
     )
   } else {
@@ -108,8 +133,8 @@ function CommentBox() {
         
         
         <Box sx={{display:'flex',flexDirection:'row',justifyContent:'space-between'}}>  
-        <p style={{fontWeight:'bold',fontSize:'1.1rem'}}>전태영</p>
-        {userNickname === commentWriterNickname
+        <p style={{fontWeight:'bold',fontSize:'1.1rem'}}>{comment.writer}</p>
+        {userNickname === comment.writer
         ?<Box>
           <img
           src="/assets/icons/edit.svg"
@@ -129,45 +154,19 @@ function CommentBox() {
         
         </Box>
         
-        <p style={{marginTop:'1rem'}}>이건 댓글내용 -------</p>
-        <p style={{marginTop:'0.5rem',fontSize:'0.7rem', color:'grey'}}>2023.03.22 12:52</p>
+        <p style={{marginTop:'1rem'}}>{comment.content}</p>
+        <p style={{marginTop:'0.5rem',fontSize:'0.7rem', color:'grey'}}>{comment.createdDate}</p>
         <p onClick={onClickPostReply} style={{marginTop:'0.5rem',fontSize:'0.9rem',cursor:'pointer'}}>답글 달기</p>
       </div>
     </Box>
-    <Box sx={{backgroundColor:'#F3F3F3',width:'100%',height:'8rem',marginLeft:'1rem', display:'flex',flexDirection:'row',borderTop:'1px solid lightgrey'}}>
-      <Box sx={{width:'5%',display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center'}}>
-          <img src= '/assets/icons/reply.svg' alt='reply'/>
-      </Box>
-      <Box sx={{width:'95%'}}> 
-        <div style={{margin:'0.5rem'}}>
-          <Box sx={{display:'flex',flexDirection:'row',justifyContent:'space-between'}}>
-          <p style={{fontWeight:'bold',fontSize:'1.1rem'}}>전태영</p>
-          {userNickname === commentWriterNickname
-          ?<Box>
-            <img
-            src="/assets/icons/edit.svg"
-            alt="modify"
-            // style={{ position: "absolute", right: "0" }}
-            style={{marginRight:'0.5rem',cursor:'pointer'}}
-            onClick={onEditcomment}
-            />
-            <img
-            src="/assets/icons/delete.svg"
-            alt="modify"
-            style={{width:'18px',height:'18px',marginBottom:'1px',cursor:'pointer'}}
-            onClick={onDeleteComment}
-            />
-            </Box>
-          :<></> }
-          
-          </Box>
-          
-          <p style={{marginTop:'1rem'}}>이건 답글내용 -------</p>
-          <p style={{marginTop:'0.5rem',fontSize:'0.7rem', color:'grey'}}>2023.03.22 12:52</p>
-          <p onClick={onClickPostReply} style={{marginTop:'0.5rem',fontSize:'0.9rem',cursor:'pointer'}}>답글 달기</p>
-        </div>
-      </Box>   
-    </Box>
+
+      {comment.children && comment.children.map((reply, index) => {
+        return (
+          <ReplyBox key={index} comment={comment.children} parent={comment} onEditcomment={onEditcomment} onDeleteComment={onDeleteComment} onChangeSecret={onChangeSecret}
+            onClickPostReply={onClickPostReply} showPostReply={showPostReply} onChangeReply={onChangeReply} onSubmitReply={onSubmitReply}/>
+        )
+      })}
+
     {showPostReply === true      
     ? <Box sx={{backgroundColor:'#F3F3F3',width:'100%',height:'8rem',marginLeft:'1rem', display:'flex',flexDirection:'row',borderTop:'1px solid lightgrey'}}>
         <Box sx={{width:'5%',display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center'}}>
@@ -185,7 +184,7 @@ function CommentBox() {
           </Box>
         </Box>
       </Box>
-    :<></>}
+    :<></>} 
     </div>
   )}
 }

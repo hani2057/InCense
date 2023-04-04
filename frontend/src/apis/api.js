@@ -24,6 +24,21 @@ const api = {
     getArticle: (articleId) => defaultInstance.get(`${SHARE}/${articleId}`),
     getList: (page) =>
       defaultInstance.get(`${SHARE}`, { params: { page: page } }),
+    getFilteredList: (pageNumber,pageSize,type,checklist1, checklist2, checklist3,checklist4) => {
+      return defaultInstance.get(`${SHARE}`, {
+        params: {
+          pageNumber: pageNumber,
+          pageSize: pageSize,
+          close: checklist1,
+          transaction: checklist2,
+          brands: checklist3,
+          scents: checklist4
+        },
+        paramsSerializer: {
+          indexes: null, // by default: false
+        },
+      })
+    },
     register: (article) =>
       authInstance.post(`${SHARE}`, article, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -101,7 +116,11 @@ const api = {
   },
   alarm: {
     setAlarm: (perfumeId) => authInstance.post(`${ALARM}/${perfumeId}`),
+    resetAlarm: (perfumeId) => authInstance.delete(`${ALARM}/${perfumeId}`),
     getAlarmSend: () => authInstance.get(`${ALARM}/send`),
+    deleteAlarmSend: (sendId) => authInstance.delete(`${ALARM}/send/${sendId}`),
+    readAlarmSend: (sendId) => authInstance.put(`${ALARM}/send/${sendId}`)
+
   },
 };
 
