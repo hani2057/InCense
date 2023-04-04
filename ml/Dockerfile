@@ -8,7 +8,12 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install the dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN apt-get update && apt-get install -y \
+    gcc \
+    && pip install --no-cache-dir -r requirements.txt \
+    && apt-get remove -y gcc \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Copy the content of the local src directory to the working directory
 COPY . .
