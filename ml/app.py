@@ -71,7 +71,7 @@ def predict_detail():
     if predict_rate >= 5:
         predict_rate = 5.0
     result = {"predictRate": round(predict_rate[0][0], 1), "favNotes": list(map(str, fav_notes[:5])), "worNotes": list(map(str, wor_notes[:5]))}
-    ################################ string 으로 이름으로 보내기 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    ######## string 으로 이름으로 보내기 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     return jsonify(result)
 
 ## 02-1-b. 향수 상세
@@ -95,7 +95,7 @@ def predict_detail_similar():
 
 ## 02-2. want it
 @app.route('/api/ml/predict/want', methods=['POST'])
-def predict_want_it():
+def predict_want():
     ## >> input : preference="0.9;0.8 ..."  || wantit=[5, 3, 2, ...]
     params = request.get_json()
     preference = list(map(float, params['preference'].split(';')[:-1]))
@@ -136,8 +136,6 @@ def predict_all():
     print(result_json)
     ## >> output : [4.8, 233], [3.3, 10] ...
     return jsonify(result_json)
-###### 지금은 여기까지 ~~
-
 
 ## 03. 선호도 업데이트
 @app.route('/api/ml/update', methods=['POST'])
@@ -145,50 +143,79 @@ def update_preference():
     ## >> input : perfumes = [[향수idx, 평점], ... ]
     params = request.get_json()
     data = params['perfumes']
-    pidx, prate = data[0]
+    pidx, prate = data[0]["perfumeIndex"], data[0]["rating"]
     R = [[prate]]
-    input_vec = encoded_imgs[pidx].reshape(1, -1)
+    input_vec = np.array(encoded_imgs[pidx]).reshape(1, -1)
     for i in range(1, len(data)):
-        pidx, prate =data[i]
+        pidx, prate =data[i]["perfumeIndex"], data[i]["rating"]
         R.append([prate])
-        input_vec = np.concatenate((input_vec, encoded_imgs[i].reshape(1, -1)), axis=0)
-    factorizer = MatrixFactorization(input_vec, R, k=32, learning_rate=0.01, reg_param=0.01, epochs=500, verbose=True)
-    factorizer.fit()
-    preference = factorizer.print_results()
-    result = ''
-    for pre in preference:
-        result += str(pre)
-        result += ';'
-    return result
+        input_vec = np.concatenate((input_vec, np.array(encoded_imgs[i]).reshape(1, -1)), axis=0)
+    ##### 모델 변경 사항 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    # factorizer = MatrixFactorization(input_vec, R, k=32, learning_rate=0.01, reg_param=0.01, epochs=500, verbose=True)
+    # factorizer.fit()s
+    # preference = factorizer.print_results()
+    # result = ''
+    # for pre in preference:
+    #     result += str(pre)
+    #     result += ';'
+    ################ 임시 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    new_preference = "0.101;0.101;0.101;0.101;0.001;0.001;0.001;0.001;0.001;0.001;0.001;0.001;0.001;0.001;0.001;0.001;0.001;0.001;0.001;0.001;0.001;0.001;0.001;0.001;0.001;0.001;0.001;0.001;0.001;0.001;0.001;0.001;"
+    ################ 임시 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    ## >> output : '0.454984;0.49897;0.894723...'
+    result = {"preference": new_preference}
+    return jsonify(result)
 
 ## 04. 워드클라우드
-@app.route('/api/ml/words', methods=['POST'])
+@app.route('/api/ml/word', methods=['POST'])
 def get_words():
     ## input : preference='0.92;0.83;...'
     params = request.get_json()
-    preference = list(map(float, params['preference'].split(';')))
+    preference = list(map(float, params['preference'].split(';')[:-1]))
     preference = np.array(preference).reshape(1, -1)
-    decoded_preference = decoder(preference)
-    decoded_preference_idx = np.argsort(decoded_preference, reversed=True)
-    result = []
-    for dpi in decoded_preference_idx:
-        result.append((scents_name[1][dpi], decoded_preference))
-    ## >> output : [['vanilla', 0.98], ['Musk, 0.88], ...]
-    return jsonify(result)
+    decoded_preference = decoder(preference)[0].numpy().tolist()
+    temp = []
+    for i in range(len(decoded_preference)):
+        temp.append((decoded_preference[i], i))
+    temp.sort(reverse=True)
+    print(temp)
+    result_json = {"cloud" : []}
+    for tpp in temp:
+        result_json["cloud"].append({"word": str(tpp[1]), "weight":tpp[0]})
+    ################################ string 으로 이름으로 보내기 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    return jsonify(result_json)
 
 ## 05. 탑노트와 선호 노트 정렬
-@app.route('/api/ml/update', methods=['POST'])
+@app.route('/api/ml/graph', methods=['POST'])
 def get_note_graph():
     ## input : preference='0.92;0.83;...'
     params = request.get_json()
-    preference = list(map(float, params['preference'].split(';')))
+    preference = list(map(float, params['preference'].split(';')[:-1]))
     preference = np.array(preference).reshape(1, -1)
-    decoded_preference = decoder(preference)        ## 아마 오류
-    top_res_idx = c_model.predict(decoded_preference).index(1)
-    top_res = scents_name[0][top_res_idx]
-    note_sorted_idx = np.argsort(decoded_preference, reversed=True)
-    result = {"mainScent":top_res, "middleWeight":note_sorted_idx[:80], "baseWeight":note_sorted_idx[81:160]}
-    ## >> output : top='Vanilla' || middleWeight=['0.20, 0.98, ....] || baseWeight=['0.20, 0.98, ....]
+    decoded_preference = decoder(preference)[0]
+    ##### 모델 변경 사항 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    # top_res_idx = c_model.predict(decoded_preference).index(1)
+    top_res_idx = 5
+    ##### 모델 변경 사항 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    # top_res = scents_name[0][top_res_idx]
+    top_res = 'Vanilla'
+    decoded_preference = decoder(preference)[0].numpy().tolist()
+    note_sorted_idx = []
+    ######## string 으로 이름으로 보내기 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    for i in range(len(decoded_preference)):
+        note_sorted_idx.append((decoded_preference[i], str(i)))
+    middle_note_sorted_idx = note_sorted_idx[:80]
+    base_note_sorted_idx = note_sorted_idx[81:160]
+    middle_note_sorted_idx.sort(reverse=True)
+    base_note_sorted_idx.sort(reverse=True)
+    # result = {"mainScent":top_res, "middleWeight":note_sorted_idx[:80], "baseWeight":note_sorted_idx[81:160]}
+    result = {"mainScent":top_res, "middleWeight":[], "baseWeight":[]}
+    for mnsi in middle_note_sorted_idx:
+        mw, mi = mnsi
+        result["middleWeight"].append({"word": mi, "weight": mw})
+    for bnsi in base_note_sorted_idx:
+        bw, bi = bnsi
+        result["baseWeight"].append({"word": bi, "weight": bw})
+    ################################ string 으로 이름으로 보내기 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     return jsonify(result)
 
 
