@@ -1,6 +1,11 @@
 import styled, { css } from "styled-components";
 import { FlexDiv } from "../../components/common/FlexDiv/FlexDiv";
 
+const TestContainer = styled(FlexDiv)`
+  flex-direction: column;
+  height: calc(100vh - var(--nav-height));
+`;
+
 const TestStepBar = styled.div`
   ${({ step }) => css`
     width: 60%;
@@ -25,13 +30,23 @@ const GlowBox = styled.div`
   ${(width, height) => css`
     width: ${width || "auto"};
     height: ${height || "auto"};
+    border: 1px solid var(--gray-color);
+
+    &:hover {
+      box-shadow: 0 0 20px -5px var(--pink-sub-color);
+    }
   `}
 `;
 
 const TestBtn = styled.button`
-    width: 10rem;
-    height: 4rem;
-    background
+  width: 10rem;
+  height: 3rem;
+  border: 1px solid var(--gray-color);
+  margin: 1.5rem;
+
+  &:hover {
+    box-shadow: 0 0 20px -5px var(--main-color);
+  }
 `;
 
-export { TestWrapper, TestStepBar, GlowBox, TestBtn };
+export { TestContainer, TestWrapper, TestStepBar, GlowBox, TestBtn };
