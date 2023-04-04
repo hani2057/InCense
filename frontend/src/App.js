@@ -12,25 +12,28 @@ import RegisterPage from "./pages/SharePage/RegisterPage";
 // import RegisterOrEdit from "./pages/SharePage/RegisterOrEdit";
 import ArticleDetail from "./pages/SharePage/ArticleDetail";
 import { PrivateRoute } from "./components/LogIn/PrivateRoute.js/PrivateRoute";
-import WebSocket from "./components/WebSocket"
+import WebSocket from "./components/WebSocket";
 import { useSelector } from "react-redux";
+import TestPage from "./pages/TestPage/TestPage";
 function App() {
   const isLoggedIn = useSelector((state) => state.userReducers.isLoggedIn);
   return (
     <>
-      {isLoggedIn===true && <WebSocket/>}
+      {isLoggedIn === true && <WebSocket />}
       <NavBar />
       <Routes>
+        <Route path="/test" element={<TestPage />} />
         <Route path="/list" element={<ListPage />} />
         <Route path="/detail/:detailId" element={<DetailPage />} />
         <Route path="/share" element={<SharePage />} />
-        <Route path="/share/register" element={
+        <Route
+          path="/share/register"
+          element={
             <PrivateRoute>
               <RegisterPage />
             </PrivateRoute>
-          }/>
-
-
+          }
+        />
         <Route path="/share/article/:articleId" element={<ArticleDetail />} />
         <Route
           path="/profile"
