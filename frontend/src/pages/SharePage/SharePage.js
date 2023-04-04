@@ -37,6 +37,15 @@ export default function SharePage() {
   console.log(checklist4)
 
   const applyFilter = () => {
+    api.share.getFilteredList(page,20,null,checklist,checklist2,checklist3,checklist4)
+      .then((res) => {
+        console.log("필터 적용 성공")
+        dispatch(articleListActions.getArticleList(res))
+      })
+      .catch((err) => {
+        console.log(err)
+        alert(err)
+      })
     console.log('필터 적용하기')
   }
 
