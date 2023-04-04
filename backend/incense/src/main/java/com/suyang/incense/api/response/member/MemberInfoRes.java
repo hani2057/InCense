@@ -13,6 +13,8 @@ public class MemberInfoRes {
     private String grade_name;
 
     // Member
+    private String email;
+    private String type;
     private String nickname;
     private Byte gender;
     private LocalDate birth;
