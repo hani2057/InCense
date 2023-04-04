@@ -14,13 +14,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,8 +32,7 @@ public class AnalysisServiceImpl implements AnalysisService{
     public ResponseEntity<CloudDto> getWordCloudDataOfMine(String path, Long memberId) {
 
         URI uri = UriComponentsBuilder
-                .fromUriString("http://j8a804.p.ssafy.io:포트번호")
-//                .fromUriString("http://localhost:8081")
+                .fromUriString("http://j8a804.p.ssafy.io:5000")
                 .path(path)
                 .encode()
                 .build()
@@ -61,8 +57,7 @@ public class AnalysisServiceImpl implements AnalysisService{
     public ResponseEntity<NoteGraphDto> getNoteGraphDataOfMine(String path, Long memberId) {
 
         URI uri = UriComponentsBuilder
-                .fromUriString("http://j8a804.p.ssafy.io:포트번호")
-//                .fromUriString("http://localhost:8081")
+                .fromUriString("http://j8a804.p.ssafy.io:5000")
                 .path(path)
                 .encode()
                 .build()
@@ -87,8 +82,7 @@ public class AnalysisServiceImpl implements AnalysisService{
     public ResponseEntity<TestResultDto> updateTaste(String path, Long memberId) {
 
         URI uri = UriComponentsBuilder
-                .fromUriString("http://j8a804.p.ssafy.io:포트번호")
-//                .fromUriString("http://localhost:8081")
+                .fromUriString("http://j8a804.p.ssafy.io:5000")
                 .path(path)
                 .encode()
                 .build()
@@ -113,8 +107,7 @@ public class AnalysisServiceImpl implements AnalysisService{
     public ResponseEntity<PerfumePredictDto> getSimilarityOfWantPerfume(String path, Long memberId) {
 
         URI uri = UriComponentsBuilder
-                .fromUriString("http://j8a804.p.ssafy.io:포트번호")
-//                .fromUriString("http://localhost:8081")
+                .fromUriString("http://j8a804.p.ssafy.io:5000")
                 .path(path)
                 .encode()
                 .build()
@@ -141,8 +134,7 @@ public class AnalysisServiceImpl implements AnalysisService{
     public ResponseEntity<PerfumePredictDto> getPredictOfAllPerfume(String path, Long memberId) {
 
         URI uri = UriComponentsBuilder
-                .fromUriString("http://j8a804.p.ssafy.io:포트번호")
-//                .fromUriString("http://localhost:8081")
+                .fromUriString("http://j8a804.p.ssafy.io:5000")
                 .path(path)
                 .encode()
                 .build()

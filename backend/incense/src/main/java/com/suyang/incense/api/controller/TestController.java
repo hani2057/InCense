@@ -49,8 +49,6 @@ public class TestController {
         if(response.getStatusCode() == HttpStatus.OK){
             //DB에 데이터 넣고 성공 처리
             TestResultDto testResult = response.getBody();
-            System.out.println("flask 통신 완료....성공적으로 데이터 받아옴...................");
-            System.out.println("preference...............: " +testResult.getPreference());
 
             if(!testService.savePreference(memberId, testResult)){
                 return ResponseEntity.status(500).body("data save fail.....");
