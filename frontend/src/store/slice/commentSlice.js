@@ -1,36 +1,42 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  comment: {
+  comment: [{
     id: 0,
     content: '',
-    userId: '',
+    writer: '',
     isSecret: 0,
     parentId: 0,
     createdDate: '',
+    children: [],
 
-  }
+  }]
 }
 
 export const commentSlice = createSlice({
 
   name: 'comment',
   initialState: {
-    comment: {
+    comment: [{
       id: 0,
       content: '',
-      userId: '',
+      writer: '',
       isSecret: 0,
       parentId: 0,
-      createdDate: ''
-    }
+      createdDate: '',
+      children: [],
+    },]
   },
   reducers: {
     getComment: (state, {payload}) => {
       console.log('comment 조회')
+      state.comment = payload
     }
 
 
   }
 
 })
+
+export const commentReducers = commentSlice.reducer;
+export const commentActions = commentSlice.actions;

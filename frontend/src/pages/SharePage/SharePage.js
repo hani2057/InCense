@@ -81,11 +81,15 @@ export default function SharePage() {
       });
   }, []);
 
-  const articleList = useSelector(
-    (state) => state.articleListReducers.articleList.content
-    // console.log(state)
-  );
 
+
+  const articleList = useSelector((state) => {
+    console.log(state)
+    return state.articleListReducers.articleList.content
+    // console.log(state)
+  })
+
+  if (!articleList) return null;
   return (
     <Box sx={{ marginBottom: "5rem" }}>
       <Box
@@ -456,29 +460,20 @@ export default function SharePage() {
           <Box
             sx={{
               // margin:"3rem",
-              width: "100%",
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-              flexWrap: "wrap",
-              marginBottom: "5rem",
-            }}
-          >
-            {articleList &&
-              articleList.map((article, index) => {
-                return <ArticleCard key={index} article={article} />;
-              })}
-            {/* <ArticleCard/>
-            <ArticleCard/>
-            <ArticleCard/>
-            <ArticleCard/>
-            <ArticleCard/>
-            <ArticleCard/>
-            <ArticleCard/>
-            <ArticleCard/>
-            <ArticleCard/>
-            <ArticleCard/> */}
-            <Pagination
+              width:"100%",
+              display:"flex",
+              flexDirection:"row",
+              justifyContent:"center",
+              flexWrap:"wrap",
+              marginBottom:"5rem"              
+            }}>
+            {articleList && articleList.map((article, index) => {
+              return (
+                <ArticleCard key={index} article={article}/>
+              )
+            })}
+
+            <Pagination 
               // total={Object.keys(perfumeList).length}
               total={articleList ? articleList.length : 0}
               limit={limit}
