@@ -2,18 +2,18 @@ import React from "react";
 import { GlowBox, TestSpan } from "../../../pages/TestPage/style";
 import { FlexDiv } from "../../common/FlexDiv/FlexDiv";
 
-const TestMain = ({ toNext, setResult }) => {
+const TestMain = ({ toNext, setIsNew }) => {
   return (
     <>
-      <TestSpan margin="2.5rem" size="1.3rem">
+      {/* <TestSpan margin="2.5rem" size="1.3rem">
         나에게 맞는 테스트를 골라주세요
-      </TestSpan>
+      </TestSpan> */}
       <GlowBox
         width="45rem"
         height="8rem"
         pointer={true}
         onClick={() => {
-          setResult((prev) => ({ ...prev, isNew: true }));
+          // setIsNew((prev) => ({ ...prev, isNew: true }));
           toNext();
         }}
       >
@@ -22,7 +22,7 @@ const TestMain = ({ toNext, setResult }) => {
           <TestSpan>좋아하는 이미지를 선택하여 향기를 추천받아 보세요</TestSpan>
         </FlexDiv>
       </GlowBox>
-      <GlowBox
+      {/* <GlowBox
         width="45rem"
         height="8rem"
         margin="1rem 0 0 0"
@@ -38,7 +38,7 @@ const TestMain = ({ toNext, setResult }) => {
             사용해본 향수 이름을 입력하고 향기를 추천받아 보세요
           </TestSpan>
         </FlexDiv>
-      </GlowBox>
+      </GlowBox> */}
     </>
   );
 };

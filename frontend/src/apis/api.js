@@ -21,8 +21,7 @@ const api = {
     getInfo: () => authInstance.get(`${USERS}/info`),
   },
   share: {
-    getArticle: (articleId) =>
-      defaultInstance.get(`${SHARE}/${articleId}`),
+    getArticle: (articleId) => defaultInstance.get(`${SHARE}/${articleId}`),
     getList: (page) =>
       defaultInstance.get(`${SHARE}`, { params: { page: page } }),
     register: (article) =>
@@ -34,11 +33,13 @@ const api = {
     delete: (articleId) => authInstance.delete(`${SHARE}/${articleId}`),
   },
   comment: {
-    getComment: (articleId) => defaultInstance.get(`${SHARE}/comment/${articleId}`),
-    register: (articleId, comment) => authInstance.post(`${SHARE}/comment/${articleId}`, comment),
-    update: (commentId, comment) => authInstance.put(`${SHARE}/comment/${commentId}`, comment),
-    delete: (commentId) => authInstance.delete((`${SHARE}/comment/${commentId}`)),
-
+    getComment: (articleId) =>
+      defaultInstance.get(`${SHARE}/comment/${articleId}`),
+    register: (articleId, comment) =>
+      authInstance.post(`${SHARE}/comment/${articleId}`, comment),
+    update: (commentId, comment) =>
+      authInstance.put(`${SHARE}/comment/${commentId}`, comment),
+    delete: (commentId) => authInstance.delete(`${SHARE}/comment/${commentId}`),
   },
   list: {
     getList: (page) => {
@@ -87,6 +88,9 @@ const api = {
     putUserReview: (data) => authInstance.put(`${PROFILE}/review`, data),
     getUserArticles: () => authInstance.get(`${PROFILE}/deal`),
     getUserBookmarks: () => authInstance.get(`${PROFILE}/bookmark`),
+  },
+  analysis: {
+    postTestResult: (data) => authInstance.post(`/test`, data),
   },
   image: {
     getImage: (fileName) => defaultInstance.get(`${IMG}?filename=${fileName}`),

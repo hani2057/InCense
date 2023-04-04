@@ -6,8 +6,16 @@ import {
 } from "../../../pages/TestPage/style";
 import { FlexDiv } from "../../common/FlexDiv/FlexDiv";
 
-const TestTwo = ({ toNext, setResult }) => {
+const TestTwo = ({ toNext, setResult, prevResult }) => {
   const data = [
+    {
+      src: "perfumes/438.jpg",
+      description: "햇빛 반짝이는 들판의 싱그러움",
+    },
+    {
+      src: "perfumes/438.jpg",
+      description: "나무, 흙, 숲이 주는 깊이감",
+    },
     {
       src: "perfumes/438.jpg",
       description: "이제 막 피어나기 시작한 여린 꽃망울",
@@ -16,7 +24,25 @@ const TestTwo = ({ toNext, setResult }) => {
       src: "perfumes/438.jpg",
       description: "디너 테이블 위 우아한 꽃다발",
     },
+    {
+      src: "perfumes/438.jpg",
+      description: "꽃과 과일의 화사한 달콤함",
+    },
+    {
+      src: "perfumes/438.jpg",
+      description: "바닐라, 꿀과 같은 진득한 달콤함",
+    },
+    {
+      src: "perfumes/438.jpg",
+      description: "바쁘게 움직이는 도시의 한낮",
+    },
+    {
+      src: "perfumes/438.jpg",
+      description: "깊고 어두운 도시의 밤",
+    },
   ];
+
+  const dataToRender = data.slice(prevResult * 2, prevResult * 2 + 2);
 
   return (
     <>
@@ -25,7 +51,7 @@ const TestTwo = ({ toNext, setResult }) => {
       </TestSpan>
 
       <FlexDiv height="auto" width="45rem" direction="column" gap="2rem">
-        {data.map(({ src, description }, idx) => (
+        {dataToRender.map(({ src, description }, idx) => (
           <TestItemWrapper
             direction="column"
             gap="0.5rem"

@@ -22,7 +22,14 @@ function App() {
       {isLoggedIn === true && <WebSocket />}
       <NavBar />
       <Routes>
-        <Route path="/test" element={<TestPage />} />
+        <Route
+          path="/test"
+          element={
+            <PrivateRoute>
+              <TestPage />
+            </PrivateRoute>
+          }
+        />
         <Route path="/list" element={<ListPage />} />
         <Route path="/detail/:detailId" element={<DetailPage />} />
         <Route path="/share" element={<SharePage />} />

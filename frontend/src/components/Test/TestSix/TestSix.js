@@ -31,7 +31,7 @@ const TestTwo = ({ toNext, setResult }) => {
             gap="0.5rem"
             key={idx}
             onClick={() => {
-              setResult((prev) => ({ ...prev, test2: idx }));
+              setResult((prev) => ({ ...prev, test6: idx }));
               toNext();
             }}
           >
