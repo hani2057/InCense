@@ -18,8 +18,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -110,8 +108,6 @@ public class PerfumeServiceImpl implements PerfumeService{
 
         URI uri = UriComponentsBuilder
                 .fromUriString("http://j8a804.p.ssafy.io:5000")
-//                .fromUriString("http://j8a804.p.ssafy.io:포트번호")
-//                .fromUriString("http://localhost:8081")
                 .path(path)
                 .encode()
                 .build()
@@ -137,8 +133,7 @@ public class PerfumeServiceImpl implements PerfumeService{
     public ResponseEntity<SimilarPerfumeDto> getSimilarPerfumeList(String path, Long perfumeId) {
 
         URI uri = UriComponentsBuilder
-                .fromUriString("http://j8a804.p.ssafy.io:포트번호")
-//                .fromUriString("http://localhost:8081")
+                .fromUriString("http://j8a804.p.ssafy.io:5000")
                 .path(path)
                 .encode()
                 .build()
