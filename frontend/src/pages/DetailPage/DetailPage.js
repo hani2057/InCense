@@ -60,9 +60,11 @@ const DetailPage = () => {
     if (isLoggedIn === true) {
       if(alarmStatus === false) {
         setAlarmStatus(true)
+        api.alarm.setAlarm(detailId);
         // console.log('알람on')
       } else if (alarmStatus === true) {
         setAlarmStatus(false)
+        api.alarm.resetAlarm(detailId);
         // console.log('알람off')
       }
     } else {

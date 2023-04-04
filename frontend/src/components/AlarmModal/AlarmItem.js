@@ -28,7 +28,7 @@ const AlarmItem = ({
       <AlarmSpan size="0.6rem">{createdAt}</AlarmSpan>
       <AlarmSpan weight="700">{`${brandName} - ${perfumeName}`}</AlarmSpan>
       <AlarmSpan weight="700">
-        <Link to={`/share/${dealId}`}>{dealTitle}</Link>
+        <Link to={`/share/article/${dealId}`}>{dealTitle}</Link>
       </AlarmSpan>
       <AlarmSpan weight="700">
         {isReceived === 0 ? <>읽지 않음</> : <>읽음</>}
