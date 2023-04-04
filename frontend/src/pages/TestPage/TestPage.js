@@ -37,8 +37,8 @@ const TestPage = () => {
       <TestWrapper height="80%">
         {step === 0 && <TestMain toNext={toNext} setResult={setResult} />}
         {step === 1 && <TestOne toNext={toNext} setResult={setResult} />}
-        {step === 2 && <TestTwo setResult={setResult} />}
-        {step === 3 && <TestThree setResult={setResult} />}
+        {step === 2 && <TestTwo toNext={toNext} setResult={setResult} />}
+        {step === 3 && <TestThree toNext={toNext} setResult={setResult} />}
         {step === 4 && <TestResult />}
       </TestWrapper>
 

@@ -66,6 +66,7 @@ const TestImg = styled.img.attrs(({ src }) => ({
     width: ${width};
     height: ${height};
     cursor: ${pointer ? "pointer" : "auto"};
+    border-radius: 10px;
   `}
 `;
 
