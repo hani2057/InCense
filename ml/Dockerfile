@@ -22,4 +22,4 @@ COPY . .
 EXPOSE 5000
 
 # Run the command to start the application
-CMD ["python", "main.py"]
+CMD ["python", "app.py"]
