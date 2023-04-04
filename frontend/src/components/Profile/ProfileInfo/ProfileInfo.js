@@ -46,6 +46,7 @@ const ProfileInfo = () => {
       <FlexDiv height="auto" justify="start">
         <ProfileGrade alt="grade" grade={userInfo.grade_name} />
         <FlexDiv direction="column" align="start" width="auto">
+          {/* <ProfileInfoSpan>{userInfo.email}</ProfileInfoSpan> */}
           <FlexDiv justify="start">
             <ProfileInfoSpan bold={true}>
               {userInfo.gender ? "여성" : "남성"}
