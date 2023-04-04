@@ -39,10 +39,11 @@ def get_result():
             for i in factor[choice]:
                 preference[0][i] += 0.05
     ############################## bias 수정 !!!!!!!
-    result = ''
+    new_preference = ''
     for pre in preference:
-        result += str(pre)
-        result += ';'
+        new_preference += str(pre)
+        new_preference += ';'
+    result = {"preference": new_preference}
     ## >> output : '0.454984;0.49897;0.894723...'
     return jsonify(result)
 
