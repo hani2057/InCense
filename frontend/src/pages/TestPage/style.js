@@ -24,16 +24,30 @@ const TestStepBar = styled.div`
   `}
 `;
 
-const TestWrapper = styled(FlexDiv)``;
+const TestWrapper = styled(FlexDiv)`
+  flex-direction: column;
+`;
+
+const TestSpan = styled.span`
+  ${({ size, bold, padding, margin }) => css`
+    font-size: ${size || "1rem"};
+    font-weight: ${bold ? "700" : "400"};
+    padding: ${padding || "0"};
+    margin: ${margin || "0"};
+  `}
+`;
 
 const GlowBox = styled.div`
-  ${(width, height) => css`
+  ${({ width, height, padding, margin, pointer, color }) => css`
     width: ${width || "auto"};
     height: ${height || "auto"};
     border: 1px solid var(--gray-color);
+    padding: ${padding || "0"};
+    margin: ${margin || "0"};
+    cursor: ${pointer ? "pointer" : "auto"};
 
     &:hover {
-      box-shadow: 0 0 20px -5px var(--pink-sub-color);
+      box-shadow: 0 0 20px -5px var(--${color || "pink-sub"}-color);
     }
   `}
 `;
@@ -49,4 +63,4 @@ const TestBtn = styled.button`
   }
 `;
 
-export { TestContainer, TestWrapper, TestStepBar, GlowBox, TestBtn };
+export { TestContainer, TestWrapper, TestStepBar, TestSpan, GlowBox, TestBtn };

@@ -10,17 +10,21 @@ import { TestContainer, TestWrapper, TestStepBar, TestBtn } from "./style";
 const TestPage = () => {
   const [step, setStep] = useState(0);
   const [result, setResult] = useState({
+    isNew: false,
     test1: null,
     test2: null,
     test3: null,
   });
+
+  console.log(result);
+  const toNext = () => setStep((prev) => prev + 1);
 
   return (
     <TestContainer>
       {step !== 0 && step !== 5 && <TestStepBar step={step} />}
 
       <TestWrapper height="80%">
-        {step === 0 && <TestMain />}
+        {step === 0 && <TestMain toNext={toNext} setResult={setResult} />}
         {step === 1 && <TestOne setResult={setResult} />}
         {step === 2 && <TestTwo setResult={setResult} />}
         {step === 3 && <TestThree setResult={setResult} />}
@@ -28,13 +32,12 @@ const TestPage = () => {
       </TestWrapper>
 
       <FlexDiv height="20%">
-        {step !== 0 && step !== 5 && (
+        {step === 5 ? (
+          <TestBtn onClick={() => setStep((prev) => prev + 1)}>완료</TestBtn>
+        ) : step !== 0 ? (
           <TestBtn onClick={() => setStep((prev) => prev - 1)}>이전</TestBtn>
-        )}
-        {step !== 5 && (
-          <TestBtn onClick={() => setStep((prev) => prev + 1)}>
-            {step === 4 ? "완료" : "다음"}
-          </TestBtn>
+        ) : (
+          <></>
         )}
       </FlexDiv>
     </TestContainer>
