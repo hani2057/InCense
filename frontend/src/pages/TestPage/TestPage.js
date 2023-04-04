@@ -14,6 +14,7 @@ import {
 } from "./style";
 import TestFour from "../../components/Test/TestFour/TestFour";
 import TestFive from "../../components/Test/TestFive/TestFive";
+import TestSix from "../../components/Test/TestSix/TestSix";
 
 const TestPage = () => {
   const [step, setStep] = useState(0);
@@ -31,7 +32,7 @@ const TestPage = () => {
 
   return (
     <TestContainer>
-      {step !== 0 && step !== 5 && (
+      {step !== 0 && step !== 7 && (
         <FlexDiv direction="column" height="auto">
           <TestSpan margin="1.5rem">테스트 진행도</TestSpan>
           <TestStepBar step={step} />
@@ -45,13 +46,14 @@ const TestPage = () => {
         {step === 3 && <TestThree toNext={toNext} setResult={setResult} />}
         {step === 4 && <TestFour toNext={toNext} setResult={setResult} />}
         {step === 5 && <TestFive toNext={toNext} setResult={setResult} />}
-        {step === 6 && <TestResult />}
+        {step === 6 && <TestSix toNext={toNext} setResult={setResult} />}
+        {step === 7 && <TestResult />}
       </TestWrapper>
 
       <FlexDiv height="20%">
-        {step === 5 ? (
+        {step === 6 ? (
           <TestBtn onClick={() => setStep((prev) => prev + 1)}>완료</TestBtn>
-        ) : step !== 0 ? (
+        ) : step !== 0 && step !== 7 ? (
           <TestBtn onClick={() => setStep((prev) => prev - 1)}>이전</TestBtn>
         ) : (
           <></>

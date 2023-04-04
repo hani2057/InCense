@@ -17,7 +17,7 @@ const TestStepBar = styled.div`
     &::after {
       content: "";
       display: inline-block;
-      width: ${((step - 1) / 4) * 100}%;
+      width: ${((step - 1) / 6) * 100}%;
       height: 1rem;
       background-color: var(--main-color);
       border-radius: 0.5rem;
