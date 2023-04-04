@@ -39,7 +39,7 @@ const NavBar = () => {
         </FlexDiv>
         <FlexDiv width="auto">
           {alarmCount > 0 ? (
-            <button onClick={alarmClick}>알람 옴</button>
+            <BsFillBellFill onClick={alarmClick}/>
           ) : (
             <BsBell onClick={alarmClick} style={{ cursor: "pointer" }} />
           )}

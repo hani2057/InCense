@@ -97,6 +97,7 @@ const api = {
   },
   alarm: {
     setAlarm: (perfumeId) => authInstance.post(`${ALARM}/${perfumeId}`),
+    resetAlarm: (perfumeId) => authInstance.delete(`${ALARM}/${perfumeId}`),
     getAlarmSend: () => authInstance.get(`${ALARM}/send`),
   },
 };
