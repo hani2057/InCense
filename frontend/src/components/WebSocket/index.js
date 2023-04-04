@@ -8,7 +8,7 @@ const WebSocket = ()=>{
     useEffect( ()=>{
         dispatch({ type: "START_WEBSOCKET" });
 
-        return dispatch({type: "CLOSE_SOCKET"})
+        return ()=>dispatch({type: "CLOSE_SOCKET"})
     },[])
 
     return <></>
