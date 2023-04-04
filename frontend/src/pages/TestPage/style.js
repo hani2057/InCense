@@ -10,13 +10,14 @@ const TestStepBar = styled.div`
   ${({ step }) => css`
     width: 60%;
     height: 1rem;
-    background-color: var(--gray-color);
+    // background-color: var(--gray-color);
+    border: 1px solid var(--gray-color);
     border-radius: 0.5rem;
 
     &::after {
       content: "";
       display: inline-block;
-      width: ${(step / 4) * 100}%;
+      width: ${((step - 1) / 4) * 100}%;
       height: 1rem;
       background-color: var(--main-color);
       border-radius: 0.5rem;
@@ -26,6 +27,12 @@ const TestStepBar = styled.div`
 
 const TestWrapper = styled(FlexDiv)`
   flex-direction: column;
+`;
+
+const TestItemWrapper = styled(FlexDiv)`
+  &:hover .changeColorWhenHover {
+    color: var(--pink-main-color);
+  }
 `;
 
 const TestSpan = styled.span`
@@ -52,6 +59,16 @@ const GlowBox = styled.div`
   `}
 `;
 
+const TestImg = styled.img.attrs(({ src }) => ({
+  src: `https://j8a804.p.ssafy.io/api/display?filename=${src}`,
+}))`
+  ${({ width, height, pointer }) => css`
+    width: ${width};
+    height: ${height};
+    cursor: ${pointer ? "pointer" : "auto"};
+  `}
+`;
+
 const TestBtn = styled.button`
   width: 10rem;
   height: 3rem;
@@ -63,4 +80,13 @@ const TestBtn = styled.button`
   }
 `;
 
-export { TestContainer, TestWrapper, TestStepBar, TestSpan, GlowBox, TestBtn };
+export {
+  TestContainer,
+  TestWrapper,
+  TestItemWrapper,
+  TestStepBar,
+  TestSpan,
+  GlowBox,
+  TestImg,
+  TestBtn,
+};
