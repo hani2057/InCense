@@ -145,7 +145,7 @@ public class PerfumeController {
             @ApiIgnore Authentication authentication) {
 
         //flask server api uri
-        String path = "/api/ml/predict/detail";
+        String path = "/ml/predict/detail";
 
         Long memberId = authService.getIdByAuthentication(authentication);
 
@@ -165,7 +165,7 @@ public class PerfumeController {
     public ResponseEntity<?> getSimilarPerfumeList(@PathVariable(value = "perfume-id") Long perfumeId) {
 
         //flask server api uri
-        String path = "/api/ml/predict/detail/similar";
+        String path = "/ml/predict/detail/similar";
 
         ResponseEntity<SimilarPerfumeDto> response = perfumeService.getSimilarPerfumeList(path, perfumeId);
 
