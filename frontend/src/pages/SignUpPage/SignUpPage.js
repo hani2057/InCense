@@ -57,6 +57,10 @@ const SignUpPage = () => {
       day > 31 // day값이 31을 초과할 경우
     ) {
       setBirthMsg("유효하지 않은 생년월일입니다");
+<<<<<<< HEAD
+=======
+    } else if (genderPickedIdx === null) {
+>>>>>>> 5b2e725b12140d3a89639cffc5e4ff0ed7a45489
       setIsError((prev) => {
         return { ...prev, birth: true };
       });
@@ -66,7 +70,20 @@ const SignUpPage = () => {
       setIsError((prev) => {
         return { ...prev, birth: false };
       });
+<<<<<<< HEAD
       // setMsg("birth", "success", "공개 여부를 선택해주세요");
+=======
+      
+      //web socket 연결
+      // dispatch({ type: "START_WEBSOCKET" });
+
+      // accessToken 리덕스에 저장
+      dispatch(login({ accessToken: res.accessToken }));
+
+      // 홈으로 이동
+      navigate("/");
+      // navigate(-1, { replace: true });
+>>>>>>> 5b2e725b12140d3a89639cffc5e4ff0ed7a45489
     }
 
     console.log("aaa");

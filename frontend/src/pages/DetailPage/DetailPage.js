@@ -18,15 +18,52 @@ const DetailPage = () => {
   const isLoggedIn = true
   const navigate = useNavigate()
 
+<<<<<<< HEAD
+=======
+  const dispatch = useDispatch()
+
+  const params = useParams()
+  const detailId = params.detailId
+
+  useEffect(() => {
+    console.log('호출')
+    api.image.getImage(fileName)
+      .then((res) => {
+        
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    api.list.getDetail(detailId)
+      .then((res) => {
+        console.log('Detail가져오기')
+        console.log(res)
+        dispatch(perfumeInfoActions.getPerfumeInfo(res))
+        
+      })
+      .catch((err) => {
+        console.log(err)
+        alert(err)
+      })
+  }, [])
+
+  const perfumeInfo = useSelector((state) => {
+    console.log(state)
+    return state.perfumeInfoReducers.perfumeInfo
+  })
+
+  const fileName = perfumeInfo.image
+
+>>>>>>> 5b2e725b12140d3a89639cffc5e4ff0ed7a45489
   // 알람 설정
   const onChangeAlarm = () => {
     if (isLoggedIn === true) {
       if(alarmStatus === false) {
         setAlarmStatus(true)
-        console.log('알람on')
+        // console.log('알람on')
       } else if (alarmStatus === true) {
         setAlarmStatus(false)
-        console.log('알람off')
+        // console.log('알람off')
       }
     } else {
       alert('로그인이 필요합니다.')
@@ -55,7 +92,7 @@ const DetailPage = () => {
     setIsOpen(true)
   }
   
-  console.log('333333', isOpen)
+  console.log('isopen==', isOpen)
   // console.log(typeIdx)
   
 

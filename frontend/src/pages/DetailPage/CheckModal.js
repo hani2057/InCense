@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import styled from 'styled-components';
 import { TextField } from "@mui/material";
 import StarRating from './StarRating';
+import api from '../../apis/api';
+
 
 
 
@@ -15,9 +17,15 @@ function CheckModal({setIsOpen, idx}) {
 
   const onSubmitForm = () => {
     console.log('form제출!')
+    api.review.postReview(reviewArticle)
+    
   }
 
+<<<<<<< HEAD
   console.log(idx)
+=======
+  // console.log(props)
+>>>>>>> 5b2e725b12140d3a89639cffc5e4ff0ed7a45489
 
   const [reviewValue, setReviewValue] = useState('')
 
@@ -27,6 +35,18 @@ function CheckModal({setIsOpen, idx}) {
 
   }
   console.log('후기내용==',reviewValue)
+
+  const [starValue, setStarValue] = useState(0)
+  console.log('별점==',starValue)
+
+  const category = ['HAD', 'HAVE', 'WANT']
+
+  const reviewArticle = {
+    category: category[props.idx], comment: reviewValue, perfumeId: props.perfumeInfo.id, preference: starValue
+  }
+  console.log(reviewArticle)
+
+
 
   return (
     <Overlay>
@@ -40,9 +60,15 @@ function CheckModal({setIsOpen, idx}) {
           <Box sx={{display:'flex',flexDirection:'row',marginTop:'2rem'}}>
             <img style={{marginLeft:'2rem',width:'25%'}} src='assets/images/935.jpg' alt='perfumeImage'/>
             <Box sx={{display:'flex',flexDirection:'column',textAlign:'start',marginLeft:'2rem',marginTop:'2rem'}}>
+<<<<<<< HEAD
               <h1 style={{fontSize:'1rem',marginBottom:'1rem'}}>Diptyque</h1>
               <h1 style={{fontSize:'1.5rem',marginBottom:'2rem',fontWeight:'bold'}}>fleur de peau</h1>
               <StarRating/>
+=======
+              <h1 style={{fontSize:'1rem',marginBottom:'1rem'}}>{props.perfumeInfo.brandName}</h1>
+              <h1 style={{fontSize:'1.5rem',marginBottom:'2rem',fontWeight:'bold'}}>{props.perfumeInfo.name}</h1>
+              <StarRating starValue={starValue} setStarValue={setStarValue}/>
+>>>>>>> 5b2e725b12140d3a89639cffc5e4ff0ed7a45489
             </Box>
           </Box>
 

@@ -2,9 +2,10 @@ import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { Link, useParams,useLocation,useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { articleActions, articleReducers } from "../../store/slice/articleSlice";
-
-// import RegisterOrEdit from "./RegisterOrEdit";
+import { articleActions } from "../../store/slice/articleSlice";
+import RegisterOrEdit from "./RegisterOrEdit";
+import api from "../../apis/api";
+import axios from "axios";
 
 
 
@@ -51,24 +52,58 @@ const RegisterPage = () => {
 
   const onRegisterChange = (event) => {
     const { name, value } = event.target;
+    console.log('dispatch changeRegister')
+    console.log(name, value)
+    
     dispatch(articleActions.changeRegisterInput({ name: name, value: value }));
   };
   
   const [image, setImage] = useState({name: ""})
   const onImageChange = (event) => {
-    console.log("event ======", event)
-    console.log("event.target", event.target)
-    console.log("event.target.files[0]", event.target.files[0])
-    setImage(()=>event.target.files[0])
-    console.log("image", image)
+    // console.log("event ======", event)
+    // console.log("event.target.files[0]", event.target.files[0])
+    // setImage(()=>event.target.files[0])
+    // console.log("image", image)
+    setImage(event.target)
+  }
+  console.log("image", image)
+
+
+  console.log(article)
+
+  const [perfumeId, setPerfumeId] = useState('')
+  const [perfumeInfo, setPerfumeInfo] = useState('');
+
+
+  const onSearchPerfume = (e) => {
+    setPerfumeId(e.target.value)
+  }
+  console.log('향수id==',perfumeInfo.id)
+
+  const formData = new FormData();
+  formData.append('perfumeId', perfumeInfo.id)
+  formData.append('price', article.price)
+  formData.append('buyDate', article.buyDate)
+  formData.append('content', article.content)
+  formData.append('gubun', article.gubun)
+  formData.append('isClosed', article.isClosed)
+  formData.append('isDelivery', article.isDelivery)
+  formData.append('title', article.title)
+  formData.append('volume', article.volume)
+  // formData.append('files', image)
+  for (let i = 0; i<image.length; i++) {
+    formData.append('files', image[i])
   }
 
-  const formdata = new FormData();
+  console.log(formData)
+
+
+
   const onSubmitArticle = (event) => {
     event.preventDefault();
 
     if (article.title === "" || article.title === null || article.title === undefined) {
-      alert("제목을 작성하십시오.");
+      alert("제목을 입력하세요.");
       return false;
     }
     if (
@@ -76,13 +111,31 @@ const RegisterPage = () => {
       article.content === null ||
       article.content === undefined
     ) {
-      alert("내용을 작성하십시오.");
+      alert("내용을 입력하세요.");
+      return false;
+    }
+    if (
+      article.gubun === '판매' && (article.price === null || article.price === 0)
+    ) {
+      alert('가격을 입력하세요.')
+      return false;
+    }
+    if (
+      perfumeInfo.id === null || perfumeInfo.id === ''
+    ) {
+      alert('향수를 선택하세요.')
+      return false;
+    }
+    if (
+      article.buyDate === null
+    ) {
+      alert('구매시기를 입력하세요.')
       return false;
     }
 
     // const formdata = new FormData();
-    formdata.append('picture', image)
-    console.log(formdata, '이건 폼데이터')
+    formData.append('picture', image)
+    console.log(formData, '이건 폼데이터')
     const articleForRegister = {
       article: article, navigate:navigate
     };
@@ -98,8 +151,19 @@ const RegisterPage = () => {
       dispatch(articleActions.updateArticle(articleForUpdate)); // 추가
       // navigate(`/group/${groupId}/board`);
     } else {
-      
-      dispatch(articleActions.registerArticle(articleForRegister));
+      console.log('작성ㄱㄱ')
+      console.log(articleForRegister)
+      // axios로 post  
+      // const accessToken = sessionStorage.getItem("accessToken")
+      // axios.post('https://j8a804.p.ssafy.io/api/deal', formData, {
+      //   headers: {
+      //     'Content-Type': 'multipart/form-data', 'Authorization': `Bearer ${accessToken}`
+      //   }})
+      api.share.register(formData)
+      alert('등록되었습니다.')
+      dispatch(articleActions.reset())
+      navigate('/share')
+      // dispatch(articleActions.registerArticle(articleForRegister));
       // navigate(`/group/${groupId}/board`);
     } 
 
@@ -112,23 +176,33 @@ const RegisterPage = () => {
     <Box sx={{display:'flex',flexDirection:'column', alignItems:'center'}}>
       <Box
         sx={{
-          width:'70%',
-          backgroundColor:'lightgrey',
+          width:'100%',
           justifyContent:'center'
         }}>
-        <h1>나눔/판매글 작성 페이지</h1>
-        {/* <RegisterOrEdit
+        <RegisterOrEdit
+          article={article}
           id={article.id}
           titleValue={article.title}
           contentValue={article.content}
+          categoryValue={article.gubun}
+          priceValue={article.price}
+          isDeliveryValue={article.isDelivery}
+          buyDateValue={article.buyDate}
+          perfumeIdValue={article.perfumeId}
+          perfumeId={perfumeId}
+          volumeValue={article.volume}
+          onSearchPerfume={onSearchPerfume}
           userNickname={article.userNickname}
           handleRegisterChange={onRegisterChange}
           onImageHandler={onImageChange}
           handleSubmit={onSubmitArticle}
           updateRequest={IsForUpdate}
-          formData = {formdata}
-          picture={image.name}
-        /> */}
+          formData = {formData}
+          image={image}
+          perfumeInfo={perfumeInfo}
+          setPerfumeInfo={setPerfumeInfo}
+          setImage={setImage}
+        />
       </Box>
     </Box>
 

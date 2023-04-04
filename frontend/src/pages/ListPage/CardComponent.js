@@ -9,10 +9,34 @@ import { Box } from "@mui/system";
 
 const CardComponent = () => {
   const navigate = useNavigate()
+<<<<<<< HEAD
+=======
+  const dispatch = useDispatch()
+  // console.log(props)
+  
+  const fileName = props.perfume.image
+  const id = props.perfume.id
+  
+>>>>>>> 5b2e725b12140d3a89639cffc5e4ff0ed7a45489
   const onClickCard = () => {
     // 해당id디테일로가게
     navigate('/detail')
   }
+<<<<<<< HEAD
+=======
+  // useEffect(() => {
+  //   api.image.getImage(fileName)
+  //     .then((res) => {
+  //       // console.log('이미지가져오기')
+  //       // console.log(res)
+  //       // dispatch(perfumeListActions.getPerfumeList(res))
+  //     })
+  //     .catch((err) => {
+  //       console.log(err)
+  //       alert(err)
+  //     })
+  // }, [])
+>>>>>>> 5b2e725b12140d3a89639cffc5e4ff0ed7a45489
 
   return (
     <Card 

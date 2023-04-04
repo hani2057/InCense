@@ -4,12 +4,18 @@ import { Button } from "@mui/material";
 
 
 
-const ImageUpload = () => {
+const ImageUpload = (props) => {
   const [showImages, setShowImages] = useState([]);
 
   // 이미지 상대경로 저장
   const handleAddImages = (event) => {
     const imageLists = event.target.files;
+    console.log('7777',event.target.files)
+    // const newList = []
+    // for(let i=0;i<imageLists.length;i++){
+    //   newList.push(imageLists[i]);
+    // }
+    // console.log(newList)
     let imageUrlLists = [...showImages];
 
     for (let i = 0; i < imageLists.length; i++) {
@@ -22,8 +28,11 @@ const ImageUpload = () => {
     }
 
     setShowImages(imageUrlLists);
-    console.log('---', showImages)
+    // console.log('---', newList)
+    console.log('###',imageUrlLists)
+    props.setImage(imageLists)
   };
+  
   
 
   const handleDeleteImage = (id) => {
@@ -32,9 +41,9 @@ const ImageUpload = () => {
     // setShowImages(showImages.pop((_, index) => index !== id));
   };
 
-  const onSubmitArticle = () => {
-    console.log('작성글 저장!')
-  }
+  // const onSubmitArticle = () => {
+  //   console.log('작성글 저장!')
+  // }
 
   return (
     <Box sx={{width:'100%', display:'flex',flexDirection:'column', margin:'1rem'}} >
@@ -47,7 +56,7 @@ const ImageUpload = () => {
           <input id="input-file" hidden accept="image/*" multiple type="file" onChange={handleAddImages}/>
         </Button>
         <Button sx={{width:'6rem', fontStyle:'bold'}} variant='contained' component="label"
-          onClick={onSubmitArticle}>
+          onClick={props.onSubmitArticle}>
           저장하기
         </Button>
       </Box>

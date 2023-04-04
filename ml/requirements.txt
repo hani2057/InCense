@@ -1,7 +1,6 @@
 Flask
 Flask_cors
 numpy
-json
 keras
 tensorflow
 numpy
@@ -9,14 +8,6 @@ scikit-learn
 scipy
 virtualenv
 pillow
-
-
-
-
-
-
-
-
 
 
 

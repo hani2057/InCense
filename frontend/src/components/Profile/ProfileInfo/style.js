@@ -10,7 +10,9 @@ const ProfileInfoWrapper = styled(FlexDiv)`
 `;
 
 const ProfileImg = styled.img.attrs((props) => ({
-  src: props.src || "/assets/images/profile-default.png",
+  src:
+    `https://j8a804.p.ssafy.io/api/display?filename=${props.src}` ||
+    "/assets/images/profile-default.png",
 }))`
   width: 10rem;
   height: 10rem;
@@ -26,6 +28,7 @@ const ProfileGrade = styled.img.attrs((props) => ({
 const ProfileInfoSpan = styled.span`
   font-size: 0.75rem;
   padding-left: 0.5rem;
+  font-weight: ${(props) => (props.bold ? "700" : "400")};
 `;
 
 export { ProfileInfoWrapper, ProfileImg, ProfileGrade, ProfileInfoSpan };
