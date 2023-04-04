@@ -88,11 +88,14 @@ def predict_detail_similar():
     for pi in range(1003):
         if pi == now_perfume:
             continue
-        similar_perfumes.append((target_perfume.dot(np.array(encoded_imgs[pi]).reshape(-1, 1)), pi))
-    # similar_perfumes = np.array(similar_perfumes)
-    similar_perfumes_idx = np.argsort(similar_perfumes)
-    print(similar_perfumes_idx)
-    result = {"similarPerfumes": similar_perfumes_idx[:10]}
+        similar_perfumes.append((target_perfume.dot(np.array(encoded_imgs[pi]).reshape(-1, 1)).tolist()[0][0], pi))
+    similar_perfumes.sort()
+    print(similar_perfumes)
+    # similar_perfumes_idx = np.argsort(similar_perfumes)
+    temp = []
+    for spi in similar_perfumes[:10]:
+        temp.append(spi[1])
+    result = {"similarPerfumes": temp}
     return jsonify(result)
 
 
@@ -101,7 +104,7 @@ def predict_detail_similar():
 def predict_want_it():
     ## >> input : preference="0.9;0.8 ..."  || wantit=[5, 3, 2, ...]
     params = request.get_json()
-    preference = list(map(float, params['preference'].split(';')))
+    preference = list(map(float, params['preference'].split(';')[:-1]))
     preference = np.array(preference).reshape(1, -1)
     wants = params['wantPerfume']
     answer_arr = []
@@ -112,6 +115,7 @@ def predict_want_it():
             answer = 5.0
         answer_arr.append((round(answer, 2), now))
     ## >> output : [4.8, 233], [3.3, 10] ...
+
     return answer_arr
 
 ## 02-3. 전체
@@ -184,8 +188,8 @@ def get_note_graph():
     return jsonify(result)
 
 
-# if __name__ == '__main__':
-#     app.run(host='0.0.0.0', port=5000, threaded=False)
-#
 if __name__ == '__main__':
-    app.run(host='localhost', port=5000, threaded=False)
+    app.run(host='0.0.0.0', port=5000, threaded=False)
+
+# if __name__ == '__main__':
+#     app.run(host='localhost', port=5000, threaded=False)
