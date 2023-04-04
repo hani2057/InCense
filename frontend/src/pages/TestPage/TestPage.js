@@ -12,6 +12,7 @@ import {
   TestBtn,
   TestSpan,
 } from "./style";
+import TestFour from "../../components/Test/TestFour/TestFour";
 
 const TestPage = () => {
   const [step, setStep] = useState(0);
@@ -39,7 +40,8 @@ const TestPage = () => {
         {step === 1 && <TestOne toNext={toNext} setResult={setResult} />}
         {step === 2 && <TestTwo toNext={toNext} setResult={setResult} />}
         {step === 3 && <TestThree toNext={toNext} setResult={setResult} />}
-        {step === 4 && <TestResult />}
+        {step === 4 && <TestFour toNext={toNext} setResult={setResult} />}
+        {step === 5 && <TestResult />}
       </TestWrapper>
 
       <FlexDiv height="20%">
