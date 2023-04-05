@@ -32,7 +32,7 @@ const ProfileActivityPage = () => {
     fetchGetShareBookmarks();
   }, []);
 
-  if (!reviews) return null;
+  if (!reviews || !shareWritings || !shareBookmarks) return null;
 
   return (
     <ProfileOutletContainer>
@@ -71,7 +71,40 @@ const ProfileActivityPage = () => {
         subtitle={"SHARE&SELL"}
       />
       <ProfileActivityItemContainer>
-        <ShareItem isMine={true} />
+        {shareWritings.map(
+          ({
+            commentCount,
+            date,
+            dealId,
+            gubun,
+            image,
+            isClosed,
+            isDelivery,
+            perfumeBrandName,
+            perfumeName,
+            price,
+            title,
+            volume,
+            // nickname,
+          }) => (
+            <ShareItem
+              isMine={true}
+              commentCount={commentCount}
+              createdAt={date}
+              dealId={dealId}
+              gubun={gubun}
+              img={image}
+              isClosed={isClosed}
+              isDelivery={isDelivery}
+              brand={perfumeBrandName}
+              name={perfumeName}
+              price={price}
+              title={title}
+              volume={volume}
+              key={dealId}
+            />
+          )
+        )}
       </ProfileActivityItemContainer>
 
       <ProfileTitleBox
@@ -80,7 +113,40 @@ const ProfileActivityPage = () => {
         subtitle={"SHARE&SELL"}
       />
       <ProfileActivityItemContainer>
-        <ShareItem />
+        {shareBookmarks.map(
+          ({
+            commentCount,
+            date,
+            dealId,
+            gubun,
+            image,
+            isClosed,
+            isDelivery,
+            perfumeBrandName,
+            perfumeName,
+            price,
+            title,
+            volume,
+            nickname,
+          }) => (
+            <ShareItem
+              commentCount={commentCount}
+              createdAt={date}
+              dealId={dealId}
+              gubun={gubun}
+              img={image}
+              isClosed={isClosed}
+              isDelivery={isDelivery}
+              brand={perfumeBrandName}
+              name={perfumeName}
+              price={price}
+              title={title}
+              volume={volume}
+              nickname={nickname}
+              key={dealId}
+            />
+          )
+        )}
       </ProfileActivityItemContainer>
     </ProfileOutletContainer>
   );

@@ -11,61 +11,30 @@ import {
   ShareItemTBody,
 } from "./style";
 
-const ReviewItem = ({
-  // commentCount,
-  // createdAt,
-  // dealId,
-  // gubun,
-  // img,
-  // isClosed,
-  // isDelivery,
-  // brand,
-  // name,
-  // price,
-  // title,
-  // volume,
-  // nickname,
+const ShareItem = ({
+  commentCount,
+  createdAt,
+  dealId,
+  gubun,
+  img,
+  isClosed,
+  isDelivery,
+  brand,
+  name,
+  price,
+  title,
+  volume,
+  nickname,
   isMine,
 }) => {
   const navigate = useNavigate();
-
-  const data = {
-    commentCount: 1,
-    createdAt: "2023-03-30",
-    dealId: 0,
-    gubun: "SALE",
-    img: "perfumes/438.jpg",
-    isClosed: 0,
-    isDelivery: 1,
-    brand: "brand name",
-    name: "perfume name",
-    price: 30000,
-    title: "제목",
-    volume: 30,
-    nickname: "작성자",
-  };
-
-  const {
-    commentCount,
-    createdAt,
-    dealId,
-    gubun,
-    img,
-    isClosed,
-    isDelivery,
-    brand,
-    name,
-    price,
-    title,
-    volume,
-    nickname,
-  } = data;
 
   return (
     <ShareItemWrapper color={gubun === "SALE" ? "main" : null}>
       <FlexDiv width="35%">
         <img
           src={`https://j8a804.p.ssafy.io/api/display?filename=${img}`}
+          alt="perfume"
           style={{ height: "10rem", cursor: "pointer" }}
           onClick={() => navigate(`/share/article/${dealId}`)}
         />
@@ -126,7 +95,7 @@ const ReviewItem = ({
                 <tr>
                   <ShareItemTBody>{`${volume}ml`}</ShareItemTBody>
                   <ShareItemTBody>
-                    {price.toLocaleString("ko-KR")}
+                    {price?.toLocaleString("ko-KR")}
                   </ShareItemTBody>
                   <ShareItemTBody>
                     {isDelivery ? "가능" : "불가능"}
@@ -151,4 +120,4 @@ const ReviewItem = ({
   );
 };
 
-export default ReviewItem;
+export default ShareItem;
