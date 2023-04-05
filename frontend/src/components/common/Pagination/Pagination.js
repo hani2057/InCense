@@ -1,8 +1,17 @@
 import styled from "styled-components";
+import api from "../../apis/api"
+import { useDispatch } from "react-redux";
+import {} from  
 
-function Pagination({ total, limit, page, setPage }) {
+function Pagination({ total, limit, page, setPage,customReducer }) {
   const numPages = Math.ceil(total / limit);
-
+  const dispatch = new useDispatch();
+ 
+  const clickPage = (i) => {
+    () => setPage(i + 1)
+    dispatch(customReducer(res));
+  }
+  
   return (
     <>
       <Nav>
@@ -14,7 +23,9 @@ function Pagination({ total, limit, page, setPage }) {
           .map((_, i) => (
             <Button
               key={i + 1}
-              onClick={() => setPage(i + 1)}
+              onClick={
+                  clickPage(i)
+              }
               aria-current={page === i + 1 ? "page" : null}
             >
               {i + 1}
