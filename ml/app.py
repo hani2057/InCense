@@ -16,8 +16,10 @@ encoded_imgs = text_reader("encoded_imgs.txt")
 origin_imgs = text_reader("origin_imgs.txt")
 scents_name = name_reader()
 
-c_model = load_model("/model/c_model_path")
-decoder = load_model("/model/decoder_path")
+c_model_path = "./model/c_model_path/"
+decoder_path = "./model/decoder_path/"
+c_model = load_model(c_model_path)
+decoder = load_model(decoder_path)
 
 # 임시 !!
 factor = {1: [0, 1, 2, 3], 2: [4, 5, 6],
@@ -26,7 +28,6 @@ factor = {1: [0, 1, 2, 3], 2: [4, 5, 6],
           7: [24, 25, 26, 27], 8: [28, 29, 30, 31]}
 #################################################################
 # 01. 최초 선호도 테스트
-
 
 @app.route('/ml/result', methods=['POST'])
 def get_result():
@@ -190,8 +191,6 @@ def update_preference():
     return jsonify(result)
 
 # 04. 워드클라우드
-
-
 @app.route('/ml/word', methods=['POST'])
 def get_words():
     # input : preference='0.92;0.83;...'
@@ -201,19 +200,18 @@ def get_words():
     decoded_preference = decoder(preference)[0]
     decoded_preference = np.array(decoded_preference).reshape(1, -1)
     temp = []
-    for i in range(len(decoded_preference)):
-        temp.append((decoded_preference[i], i))
+    for i in range(len(decoded_preference[0])):
+        temp.append((decoded_preference[0][i], str(i)))
     temp.sort(reverse=True)
-    print(temp)
     result_json = {"cloud": []}
+    print(temp)
     for tpp in temp:
-        result_json["cloud"].append({"word": str(tpp[1]), "weight": tpp[0]})
+        result_json["cloud"].append({"word": str(tpp[1]), "weight": str(tpp[0])})
     # string 으로 이름으로 보내기 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    print(result_json)
     return jsonify(result_json)
 
 # 05. 탑노트와 선호 노트 정렬
-
-
 @app.route('/ml/graph', methods=['POST'])
 def get_note_graph():
     # input : preference='0.92;0.83;...'
@@ -234,15 +232,17 @@ def get_note_graph():
     base_note_sorted_idx = note_sorted_idx[81:160]
     middle_note_sorted_idx.sort(reverse=True)
     base_note_sorted_idx.sort(reverse=True)
-    result = {"mainScent": top_res, "middleWeight": [], "baseWeight": []}
+    result_json = {"mainScent": top_res, "middleWeight": [], "baseWeight": []}
+    print('1', result_json)
     for mnsi in middle_note_sorted_idx:
         mw, mi = mnsi
-        result["middleWeight"].append({"word": mi, "weight": mw})
+        result_json["middleWeight"].append({"word": mi, "weight": str(mw)})
     for bnsi in base_note_sorted_idx:
         bw, bi = bnsi
-        result["baseWeight"].append({"word": bi, "weight": bw})
+        result_json["baseWeight"].append({"word": bi, "weight": str(bw)})
     # string 으로 이름으로 보내기 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    return jsonify(result)
+    print('2', result_json)
+    return jsonify(result_json)
 
 
 if __name__ == '__main__':
