@@ -36,7 +36,6 @@ const SearchModal = ({
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResult, setSearchResult] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
-  console.log(perfumeInfo);
 
   const textArr = ["I have it", "I had it", "I want it"];
 
@@ -142,7 +141,7 @@ const SearchModal = ({
               </ModalSpan>
               <FlexDiv justify="space-between" height="auto">
                 <ModalSpan bold={true}>{perfumeInfo?.name}</ModalSpan>
-                {perfumeInfo && typeIdx !== 2 ? (
+                {perfumeInfo && newTypeIdx !== 2 ? (
                   <StarRating
                     size="1rem"
                     starValue={perfumeInfo.preference}
@@ -162,7 +161,7 @@ const SearchModal = ({
             size="3.5rem"
             margin="3.5rem 0 1.5rem 0"
           >
-            {textArr[typeIdx].toUpperCase()}
+            {textArr[newTypeIdx].toUpperCase()}
           </ModalSpan>
           <CheckboxPickOne
             textArr={textArr}
@@ -171,7 +170,7 @@ const SearchModal = ({
             width="70%"
             height="auto"
           />
-          {typeIdx !== 2 && (
+          {newTypeIdx !== 2 && (
             <ModalReview
               placeholder="다른 사람들을 위해 후기를 남겨주세요"
               onChange={(e) =>
