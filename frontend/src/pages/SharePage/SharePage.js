@@ -471,13 +471,13 @@ export default function SharePage() {
               )
             })}
 
-            <Pagination 
+            {/* <Pagination 
               // total={Object.keys(perfumeList).length}
               total={articleList? articleList.totalElements : 0}
               limit={limit}
               page={page}
               setPage={setPage}
-            />
+            /> */}
           </Box>
         </Box>
       </Box>
