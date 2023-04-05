@@ -18,7 +18,7 @@ function Pagination({ total, limit, page, setPage,customReducer }) {
         <Button onClick={() => setPage(page - 1)} disabled={page === 1}>
           &lt;
         </Button>
-        {Array(numPages)
+        {/* {Array(numPages)
           .fill()
           .map((_, i) => (
             <Button
@@ -30,7 +30,7 @@ function Pagination({ total, limit, page, setPage,customReducer }) {
             >
               {i + 1}
             </Button>
-          ))}
+          ))} */}
         <Button onClick={() => setPage(page + 1)} disabled={page === numPages}>
           &gt;
         </Button>
