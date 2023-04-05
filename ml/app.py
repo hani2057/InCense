@@ -38,7 +38,7 @@ def get_result():
     if preference == '':
         preference = np.full((1, 32), 0.001).tolist()
     else:
-        preference = list(map(float, params['pastPreference'].split(';')))
+        preference = [list(map(float, params['pastPreference'].split(';')[:-1]))]
     # bias 수정 !!!!!!!
     for choice in choose:
         if choice == 1:
