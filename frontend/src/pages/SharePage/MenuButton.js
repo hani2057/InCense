@@ -49,6 +49,7 @@ export default function MenuButton(props) {
   const editConfirm = () => {
     console.log('수정하기..')
     dispatch(articleActions.updateId(articleId))
+    
     navigate('/share/register?isForEdit=true')
   }
   const deleteConfirm = () => {

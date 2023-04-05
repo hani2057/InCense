@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import api from "../../apis/api";
 import { perfumeInfoActions } from "../../store/slice/perfumeInfoSlice";
 import { similarListActions } from "../../store/slice/similarListSlice";
+import { similarityActions } from "../../store/slice/similaritySlice";
 
 
 const DetailPage = () => {
@@ -60,8 +61,15 @@ const DetailPage = () => {
         console.log(res)
         dispatch(similarListActions.getSimilarList(res))
       })
-  }, [alarmStatus])
+    api.analysis.getSimilarity(detailId)
+      .then((res) => {
+        console.log('유사도 가져오기')
+        console.log(res)
+        dispatch(similarityActions.getSimilarity(res))
+      })
+  }, [alarmStatus, detailId])
   console.log(alarmStatus)
+  
   
 
   const perfumeInfo = useSelector((state) => {
@@ -75,6 +83,13 @@ const DetailPage = () => {
     return state.similarListReducers.similarList
   })
   console.log(similarList)
+  const similarity = useSelector((state) => {
+    return state.similarityReducers.similarity
+  })
+
+  const favNotes = similarity.favNotes
+  const worNotes = similarity.worNotes
+  const predictRate = similarity.predictRate
   const fileName = perfumeInfo.image
 
   api.alarm.getAlarm(detailId)
@@ -225,15 +240,20 @@ const DetailPage = () => {
           </ul>
           <p style={{fontSize:'2rem', fontWeight:'bold', marginTop:'1rem', marginBottom:'1.5rem'}}>내 취향과의 유사도 : &nbsp; 
             {showSimilarity === false
-            ?<Button onClick={onClickButton} sx={{fontWeight:'bold'}} variant='outlined'> 확인하기 </Button>:<>72 %</>}
+            ?<Button onClick={onClickButton} sx={{fontWeight:'bold'}} variant='outlined'> 확인하기 </Button>:<>{predictRate*20}%</>}
           </p>
 
           {showSimilarity === true
           ?<div>
           <p style={{fontWeight:'bold', marginTop:'1rem', marginBottom:'1rem'}}>- 이런 점이 내 취향과 비슷해요</p>
-          <p>Diptyque &nbsp; 시트러스향 &nbsp; 높은 부향률</p>
+          {/* {Array.isArray(favNotes) &&
+            favNotes.length > 0 &&
+            favNotes.map((note, index) => {
+              return <p>Diptyque &nbsp; 시트러스향 &nbsp; 높은 부향률</p>
+            })} */}
+          <p>{favNotes.join(', ')}</p>
           <p style={{fontWeight:'bold', marginTop:'1rem', marginBottom:'1rem'}}>- 이런 점이 내 취향과 달라요</p>
-          <p>Oriental &nbsp; Vanilla</p>
+          <p>{worNotes.join(', ')}</p>
           </div>
           :<></>}
 
