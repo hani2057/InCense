@@ -177,11 +177,11 @@ public class AuthServiceImpl implements AuthService {
         Optional<Member> member = memberRepository.findByEmailAndType(email, SocialType.valueOf(type));
         LoginRes loginRes = null;
         if(member.isPresent()) {  // 기존 회원일때
-            String token = getToken(member.get().getEmail());
-            System.out.println("###token = " + token);
-            loginRes = new LoginRes(token, null, null);
+            Member user = member.get();
+            String token = getToken(user.getEmail());
+            loginRes = new LoginRes(token, user.getNickname(),null, null);
         } else {    // 신입 회원일때
-            loginRes = new LoginRes(null, email, type);
+            loginRes = new LoginRes(null,null, email, type);
         }
         return loginRes;
     }

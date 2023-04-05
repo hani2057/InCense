@@ -9,9 +9,8 @@ import lombok.Getter;
 public class LoginRes {
 
     private String accessToken;
-
+    private String nickname;
     private String email;
-
     private String type;
 
 }
