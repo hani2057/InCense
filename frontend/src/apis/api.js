@@ -1,8 +1,6 @@
-import axios from "axios";
 import { defaultInstance, authInstance } from ".";
 
 const USERS = "/member";
-const TEST = "/test";
 const PERFUMES = "/perfume";
 const SHARE = "/deal";
 const PROFILE = "/mypage";
@@ -18,23 +16,18 @@ const api = {
       defaultInstance.get(`${USERS}/nickname/check`, {
         params: { nickname: name },
       }),
-    getInfo: () => authInstance.get(`${USERS}/info`),
+    getUserInfo: () => authInstance.get(`${USERS}/info`),
+    putUserInfo: (data) => authInstance.put(`${USERS}/modify`, data),
   },
   share: {
     getArticle: (articleId) => defaultInstance.get(`${SHARE}/${articleId}`),
     getList: (page) =>
       defaultInstance.get(`${SHARE}`, { params: { page: page } }),
-    getFilteredList: (
-      page,
-      checklist1,
-      checklist2,
-      checklist3,
-      checklist4
-    ) => {
+    getFilteredList: (page, checklist1, checklist2, checklist3, checklist4) => {
       return defaultInstance.get(`${SHARE}`, {
         params: {
           page: page,
-          close : checklist1,
+          close: checklist1,
           transaction: checklist2,
           brands: checklist3,
           scents: checklist4,
