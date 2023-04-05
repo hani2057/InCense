@@ -1,16 +1,14 @@
 import styled from "styled-components";
-import api from "../../apis/api"
-import { useDispatch } from "react-redux";
-import {} from  
+function Pagination({ total, limit, page, setPage,request }) {
 
-function Pagination({ total, limit, page, setPage,customReducer }) {
-  const numPages = Math.ceil(total / limit);
-  const dispatch = new useDispatch();
- 
+  const numPages = total==0?1:Math.ceil((total-1) / limit);
+
+  
   const clickPage = (i) => {
-    () => setPage(i + 1)
-    dispatch(customReducer(res));
+    setPage(i);
+    request(i);
   }
+
   
   return (
     <>
@@ -18,19 +16,19 @@ function Pagination({ total, limit, page, setPage,customReducer }) {
         <Button onClick={() => setPage(page - 1)} disabled={page === 1}>
           &lt;
         </Button>
-        {/* {Array(numPages)
+        {Array(numPages)
           .fill()
           .map((_, i) => (
             <Button
-              key={i + 1}
+              key={i }
               onClick={
-                  clickPage(i)
+                 (e)=>clickPage(e.currentTarget.textContent)
               }
-              aria-current={page === i + 1 ? "page" : null}
+              aria-current={page == i + 1 ? "page" : null}
             >
               {i + 1}
             </Button>
-          ))} */}
+          ))}
         <Button onClick={() => setPage(page + 1)} disabled={page === numPages}>
           &gt;
         </Button>
