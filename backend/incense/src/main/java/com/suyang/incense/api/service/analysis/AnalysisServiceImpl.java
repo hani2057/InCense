@@ -7,7 +7,7 @@ import com.suyang.incense.api.response.analysis.CloudDto;
 import com.suyang.incense.api.response.analysis.NoteGraphDto;
 import com.suyang.incense.api.response.analysis.PerfumePredictDto;
 import com.suyang.incense.api.response.test.TestResultDto;
-import com.suyang.incense.db.repository.deal.TasteRepository;
+import com.suyang.incense.db.repository.taste.TasteRepository;
 import com.suyang.incense.db.repository.member.MemberPerfumeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
