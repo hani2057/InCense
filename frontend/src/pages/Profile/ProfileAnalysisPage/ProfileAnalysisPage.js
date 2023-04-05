@@ -74,15 +74,17 @@ const ProfileAnalysisPage = () => {
         <ProfileTitleBox bgimgNo={1} title={"I want it 향수 예상 평점"} />
 
         <ScrollContainer margin="0 0 10rem 0">
-          {iWantItList.map(({ name, brand, img }, idx) => (
-            <WantAnalysisCard
-              name={name}
-              brand={brand}
-              img={img}
-              percent={80}
-              key={idx}
-            />
-          ))}
+          {iWantItList.map(
+            ({ perfumeId, perfumeName, perfumeBrand, image, predict }) => (
+              <WantAnalysisCard
+                name={perfumeName}
+                brand={perfumeBrand}
+                img={image}
+                predict={predict}
+                key={perfumeId}
+              />
+            )
+          )}
         </ScrollContainer>
 
         <ProfileTitleBox
