@@ -43,21 +43,7 @@ function ArticleDetail() {
     : setCommentValue(commentValue)
   }
   console.log('댓글내용==',commentValue)
-
-  const [isBookmark, setIsBookMark] = useState(false)
-  const onChangeBookMark = () => {
-    if (isBookmark === false) {
-    setIsBookMark(true)
-    console.log('북마크 등록')} 
-    else {
-      setIsBookMark(false)
-    console.log('북마크 해제')}
-  }
-
-  const userNickName = '전태영'
-  const writerNickName = '전태영' 
-  const dispatch = useDispatch()
-
+  
   const article = useSelector((state) => {
     console.log(state)
     return state.articleReducers.article
@@ -66,6 +52,40 @@ function ArticleDetail() {
 
   const params = useParams()
   const articleId = params.articleId
+  
+  const [isBookmark, setIsBookMark] = useState(false)
+  // const onChangeBookMark = () => {
+  //   if (isBookmark === false) {
+  //   setIsBookMark(true)
+  //   console.log('북마크 등록')} 
+  //   else {
+  //     setIsBookMark(false)
+  //   console.log('북마크 해제')}
+  // }
+  
+  useEffect(() => {
+    console.log('호출')
+    api.share.check(articleId)
+      .then((res) => {
+        console.log('Detail가져오기')
+        console.log(res)
+        setIsBookMark(res.bookmark)
+      })
+      .catch((err) => {
+        console.log(err)
+        alert(err)
+      })
+  }, [isBookmark])
+
+  const onChangeBookMark = () => {
+    api.share.bookmark(articleId)
+    window.location.reload()
+  }
+
+  const userNickName = '전태영2'
+  const writerNickName = '전태영2' 
+  const dispatch = useDispatch()
+
 
   useEffect(() => {
     console.log('호출')
@@ -136,7 +156,12 @@ function ArticleDetail() {
     return state.commentReducers.comment
   })
 
+  console.log(comment)
 
+  // const [isClosed, setIsClosed] = useState()
+  // const onCloseDeal = () => {
+  //   api.share.close(articleId)
+  // }
 
   return (
     <Box sx={{ width: "60%", margin: "1rem auto" }}>
@@ -150,7 +175,7 @@ function ArticleDetail() {
           ?<img src={star1} alt='star1' style={{cursor:'pointer'}} onClick={onChangeBookMark}></img>        
           :<img src={star2} alt='star2' style={{cursor:'pointer'}} onClick={onChangeBookMark}></img>
           }
-          <MenuButton/>
+          <MenuButton articleId={articleId}/>
         </Box>
       </Box>
       <Box sx={{width:'100%', display:'flex',flexDirection:'row', marginLeft:'1rem'}}>
@@ -186,8 +211,8 @@ function ArticleDetail() {
           </Box>
         </Box>
         <Box sx={{width:'40%', display:'flex',flexDirection:'column',marginTop:'3rem'}}>
-          <SimpleImageSlider
-            style={{marginLeft:'2rem'}} width={300} height={400} navMargin={0} images={images} showBullets={true} showNavs={true} />
+          {images && <SimpleImageSlider
+            style={{marginLeft:'2rem'}} width={300} height={400} navMargin={0} images={images} showBullets={true} showNavs={true} />}
         </Box>
         
       </Box>

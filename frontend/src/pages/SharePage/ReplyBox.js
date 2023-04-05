@@ -10,7 +10,7 @@ import {Checkbox} from '@mui/material';
 function ReplyBox(props) {
 
   const userNickname = '전태영'
-  const reply = props.comment[0]
+  const reply = props.comment[props.index]
   console.log(reply)
 
   return (
@@ -50,7 +50,7 @@ function ReplyBox(props) {
       </Box>   
     </Box>
 
-  {props.showPostReply === true      
+  {/* {props.showPostReply === true      
     ? <Box sx={{backgroundColor:'#F3F3F3',width:'100%',height:'8rem',marginLeft:'1rem', display:'flex',flexDirection:'row',borderTop:'1px solid lightgrey'}}>
         <Box sx={{width:'5%',display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center'}}>
           <img src= '/assets/icons/reply.svg' alt='reply'/>
@@ -68,7 +68,7 @@ function ReplyBox(props) {
         </Box>
       </Box>
     :<></>
-  }
+  } */}
   </Box>
   )
 }

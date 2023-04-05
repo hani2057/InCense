@@ -28,7 +28,6 @@ const LogInPage = () => {
         <span style={{ fontSize: "2rem", marginBottom: "4rem" }}>Log In</span>
         <LoginBtn href={KAKAO_AUTH_URL}>KaKao</LoginBtn>
         <LoginBtn href={NAVER_AUTH_URL}>Naver</LoginBtn>
-        <LoginBtn href={KAKAO_LOCAL_URL}>카카오 로컬</LoginBtn>
         {/* <LoginBtn>Google</LoginBtn> */}
       </FlexDiv>
     </FlexDiv>

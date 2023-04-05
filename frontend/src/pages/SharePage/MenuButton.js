@@ -4,11 +4,11 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from 'react-router-dom';
-
+import api from '../../apis/api';
 
 const ITEM_HEIGHT = 48;
 
-export default function MenuButton() {
+export default function MenuButton(props) {
   const navigate = useNavigate()
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -20,22 +20,58 @@ export default function MenuButton() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  
+  const articleId = props.articleId
 
+
+  const useConfirm = (message = null, onConfirm, onCancel) => {
+    if (!onConfirm || typeof onConfirm !== "function") {
+      return;
+    }
+    if (onCancel && typeof onCancel !== "function") {
+      return;
+    }
+  
+    const confirmAction = () => {
+      if (window.confirm(message)) {
+        onConfirm();
+      } else {
+        onCancel();
+      }
+    };
+  
+    return confirmAction;
+  };
+
+  const cancelConfirm = () => console.log("취소했습니다.");
+  const editConfirm = () => console.log('수정하기..')
+  const deleteConfirm = () => {
+    api.share.delete(articleId)
+  }
+  const closeConfirm = () => {
+    api.share.close(articleId)
+  }
   const onClickEl1 = () => {
     console.log('수정하기')
     // navigate('/share/register?isForEdit=true')
   }
 
-  const onClickEl2 = () => {
-    console.log('삭제하기')
-    alert('삭제하시겠습니까?')
-  }
+  const onClickEl2 = useConfirm(
+    '삭제하시겠습니까?',
+    deleteConfirm,
+    cancelConfirm
+  )
 
-  const onClickEl3 = () => {
-    console.log('마감하기')
-    alert('마감하시겠습니까?')
-  }
+  const onClickEl3 = useConfirm(
+    '마감하시겠습니까?',
+    closeConfirm,
+    cancelConfirm
+  )
   
+
+
+
+
   return (
     <div style={{}}>
       <IconButton

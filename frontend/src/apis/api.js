@@ -1,8 +1,6 @@
-import axios from "axios";
 import { defaultInstance, authInstance } from ".";
 
 const USERS = "/member";
-const TEST = "/test";
 const PERFUMES = "/perfume";
 const SHARE = "/deal";
 const PROFILE = "/mypage";
@@ -25,19 +23,10 @@ const api = {
     getArticle: (articleId) => defaultInstance.get(`${SHARE}/${articleId}`),
     getList: (page) =>
       defaultInstance.get(`${SHARE}`, { params: { page: page } }),
-    getFilteredList: (
-      pageNumber,
-      pageSize,
-      type,
-      checklist1,
-      checklist2,
-      checklist3,
-      checklist4
-    ) => {
+    getFilteredList: (page, checklist1, checklist2, checklist3, checklist4) => {
       return defaultInstance.get(`${SHARE}`, {
         params: {
-          pageNumber: pageNumber,
-          pageSize: pageSize,
+          page: page,
           close: checklist1,
           transaction: checklist2,
           brands: checklist3,
@@ -55,6 +44,9 @@ const api = {
     update: (articleId, article) =>
       authInstance.put(`${SHARE}/${articleId}`, article),
     delete: (articleId) => authInstance.delete(`${SHARE}/${articleId}`),
+    bookmark: (articleId) => authInstance.put(`${SHARE}/bookmark/${articleId}`),
+    check: (articleId) => authInstance.get(`${SHARE}/bookmark/${articleId}`),
+    close: (articleId) => authInstance.put(`${SHARE}/close/${articleId}`),
   },
   comment: {
     getComment: (articleId) =>
@@ -63,7 +55,8 @@ const api = {
       authInstance.post(`${SHARE}/comment/${articleId}`, comment),
     update: (commentId, comment) =>
       authInstance.put(`${SHARE}/comment/${commentId}`, comment),
-    delete: (commentId) => authInstance.delete(`${SHARE}/comment/${commentId}`),
+    delete: (commentId, type) =>
+      authInstance.delete(`${SHARE}/comment/${commentId}`, { data: type }),
   },
   list: {
     getList: (page) => {
@@ -129,6 +122,7 @@ const api = {
     getAlarmSend: () => authInstance.get(`${ALARM}/send`),
     deleteAlarmSend: (sendId) => authInstance.delete(`${ALARM}/send/${sendId}`),
     readAlarmSend: (sendId) => authInstance.put(`${ALARM}/send/${sendId}`),
+    deleteAlarm: (perfumeId) => authInstance.delete(`${ALARM}/${perfumeId}`),
   },
 };
 

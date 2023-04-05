@@ -4,6 +4,7 @@ import { perfumeInfoReducers } from "./perfumeInfoSlice";
 import { perfumeListReducers } from "./perfumeListSlice";
 import { alarmSliceReducer } from "./alarmSlice";
 import { commentReducers } from "./commentSlice";
+import { articleListReducers } from "./articleListSlice";
 
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
@@ -19,5 +20,6 @@ export const rootReducer = combineReducers({
   perfumeListReducers,
   alarmSliceReducer,
   commentReducers,
+  articleListReducers,
 });
 export default persistReducer(persistConfig, rootReducer);
