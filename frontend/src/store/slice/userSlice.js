@@ -29,6 +29,8 @@ const userSlice = createSlice({
     },
     logout: (state, action) => {
       state.isLoggedIn = false;
+      state.username = "";
+      state.lastTasteUpdate = "";
       sessionStorage.setItem("accessToken", null);
     },
     updateTasteTime: (state, action) => {
