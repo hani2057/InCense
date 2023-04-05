@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 // import Divider from '@mui/material/Divider';
 import Paper from '@mui/material/Paper';
@@ -21,10 +22,14 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
   },
 }));
 
-const ToggleFilter2 = ({gubun,setGubun}) => {
+const ToggleFilter2 = ({gubun,setGubun,goGubun}) => {
   const [alignment, setAlignment] = React.useState('left');
   const [formats, setFormats] = React.useState(() => ['italic']);
 
+
+  useEffect(()=>{
+      goGubun();
+  },[gubun])
   
   const handleFormat = (event, newFormats) => {
     setFormats(newFormats);
