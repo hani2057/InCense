@@ -1,7 +1,7 @@
 import styled from "styled-components";
 function Pagination({ total, limit, page, setPage,request }) {
 
-  const numPages = total==0?1:Math.ceil((total-1) / limit);
+  const numPages = isNaN((total-1)/limit)?1:Math.ceil((total-1) / limit);
 
   
   const clickPage = (i) => {
