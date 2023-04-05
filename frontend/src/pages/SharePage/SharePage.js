@@ -445,7 +445,7 @@ export default function SharePage() {
               textAlign: "center",
             }}
           >
-            <ToggleFilter2 gubun={gubun} setGubun={setGubun}/>
+            <ToggleFilter2 gubun={gubun} setGubun={setGubun} goGubun ={applyFilter}/>
 
             <Button
               variant="outlined"
