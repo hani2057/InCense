@@ -27,22 +27,31 @@ const MainItemWrapper = styled.div`
   justify-content: center;
   width: 25%;
   height: 12rem;
-  cursor: pointer;
-  color: var(--white-color);
+
+  color: var(--gray-color);
   transition: all 0.4s ease-out;
 
   &:hover {
-    color: var(--font-color);
+    color: var(--white-color);
     height: calc(12rem + 5rem);
+  }
+
+  & .nav {
+    display: none;
+    transition: all 0.4s ease-out;
   }
   &:hover .nav {
     display: inline;
+    cursor: pointer;
+    font-weight: 600;
   }
 `;
 
 const MainSpan = styled.span`
-  ${({ size }) => css`
+  ${({ size, bold, paddingBottom }) => css`
     font-size: ${size || "1rem"};
+    font-weight: ${bold ? "700" : "400"};
+    padding-bottom: ${paddingBottom || "1.2rem"};
   `}
 `;
 

@@ -4,7 +4,6 @@ import { MainContainer } from "./style";
 
 const MainPage = () => {
   const [bgImgIdx, setBgImgIdx] = useState(1);
-  console.log(bgImgIdx);
 
   return (
     <MainContainer idx={bgImgIdx}>

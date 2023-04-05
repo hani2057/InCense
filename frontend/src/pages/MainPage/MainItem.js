@@ -22,10 +22,14 @@ const MainItem = ({
         align="start"
         padding="0 0 0 2rem"
       >
-        <MainSpan>{title}</MainSpan>
-        <MainSpan>{description1}</MainSpan>
+        <MainSpan size="1.6rem" bold={true}>
+          {title}
+        </MainSpan>
+        <MainSpan paddingBottom="0.3rem">{description1}</MainSpan>
         <MainSpan>{description2}</MainSpan>
-        <MainSpan onClick={() => navigate(navTo)}>{navText}</MainSpan>
+        <MainSpan size="1.2rem" className="nav" onClick={() => navigate(navTo)}>
+          {navText}
+        </MainSpan>
       </FlexDiv>
     </MainItemWrapper>
   );
