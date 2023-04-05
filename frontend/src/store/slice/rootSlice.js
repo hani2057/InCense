@@ -7,7 +7,7 @@ import { commentReducers } from "./commentSlice";
 import { articleListReducers } from "./articleListSlice";
 import { reviewReducers } from "./reviewSlice";
 import { similarListReducers } from "./similarListSlice";
-
+import { similarityReducers } from "./similaritySlice";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
@@ -25,5 +25,6 @@ export const rootReducer = combineReducers({
   articleListReducers,
   reviewReducers,
   similarListReducers,
+  similarityReducers,
 });
 export default persistReducer(persistConfig, rootReducer);
