@@ -64,7 +64,7 @@ public class DealController {
 
     //점수 갱신
     memberService.addRank(1, memberId);
-    memberService.checkRank(memberId);
+//    memberService.checkRank(memberId);
 
     //알람 전송 : 나눔/판매글 id, 향수 id 전송
     alarmService.sendAlarmToAllMembers(deal);

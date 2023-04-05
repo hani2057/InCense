@@ -35,6 +35,7 @@ public class MyPageServiceImpl implements MyPageService{
     private final ReviewRepository reviewRepository;
     private final PerfumeRepository perfumeRepository;
     private final AuthService authService;
+    private final MemberService memberService;
 
     @Override
     public List<PerfumeRes> getMyPerfume(String type, Authentication authentication) {
@@ -72,6 +73,8 @@ public class MyPageServiceImpl implements MyPageService{
             review.setMember(member);
             review.setPerfume(perfume);
             reviewRepository.save(review);
+            // grade
+            memberService.addRank(3, member.getId());
         }
         return BaseResponseBody.of(200, "Success");
     }
