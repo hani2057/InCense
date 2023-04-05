@@ -5,6 +5,8 @@ import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from 'react-router-dom';
 import api from '../../apis/api';
+import { useDispatch } from 'react-redux';
+import { articleActions } from '../../store/slice/articleSlice';
 
 const ITEM_HEIGHT = 48;
 
@@ -42,10 +44,11 @@ export default function MenuButton(props) {
   
     return confirmAction;
   };
-
+  const dispatch= useDispatch()
   const cancelConfirm = () => console.log("취소했습니다.");
   const editConfirm = () => {
     console.log('수정하기..')
+    dispatch(articleActions.updateId(articleId))
     navigate('/share/register?isForEdit=true')
   }
   const deleteConfirm = () => {
