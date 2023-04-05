@@ -10,6 +10,7 @@ import com.suyang.incense.api.request.perfume.PerfumeReq;
 import com.suyang.incense.api.request.perfume.PerfumeSort;
 import com.suyang.incense.api.response.perfume.PerfumeRes;
 import com.suyang.incense.api.response.perfume.PerfumeSimpleRes;
+import com.suyang.incense.api.response.perfume.SimilarPerfumeRes;
 import com.suyang.incense.db.entity.perfume.Perfume;
 
 import lombok.RequiredArgsConstructor;
@@ -90,6 +91,21 @@ public class PerfumeCustomRepositoryImpl implements PerfumeCustomRepository {
                 .innerJoin(perfume.brand, brand)
                 .where(perfume.id.eq(perfumeId))
                 .fetchFirst();
+    }
+
+    public SimilarPerfumeRes getSimilarPerfumeResData(Long perfumeId) {
+
+        return jpaQueryFactory.select(
+                Projections.constructor(SimilarPerfumeRes.class,
+                        perfume.id,
+                        perfume.name,
+                        brand.name,
+                        perfume.image))
+                .from(perfume)
+                .innerJoin(perfume.brand, brand)
+                .where(perfume.id.eq(perfumeId))
+                .fetchOne();
+
     }
 
     public BooleanExpression eqSearch(PerfumeReq perfumeReq){
