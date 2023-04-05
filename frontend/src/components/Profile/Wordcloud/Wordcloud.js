@@ -1,25 +1,29 @@
-// import React from "react";
-// import ReactWordcloud from "react-wordcloud";
+import React, { useEffect, useRef } from "react";
+import WordCloud from "react-d3-cloud";
 
-// const Wordcloud = () => {
-//   const words = [
-//     { text: "text1", value: 40 },
-//     { text: "text2", value: 64 },
-//     { text: "text3", value: 16 },
-//     { text: "text4", value: 11 },
-//     { text: "text5", value: 80 },
-//     { text: "text6", value: 25 },
-//     { text: "text7", value: 32 },
-//   ];
+const Wordcloud = ({ data }) => {
+  // const data = [
+  //   { text: "Hey", value: 1000 },
+  //   { text: "lol", value: 200 },
+  //   { text: "first impression", value: 800 },
+  //   { text: "very cool", value: 1000000 },
+  //   { text: "duck", value: 10 },
+  // ];
 
-//   return (
-//     <div>
-//       <ReactWordcloud
-//         words={words}
-//         options={{ rotationAngles: [0, -90], rotations: 2 }}
-//       />
-//     </div>
-//   );
-// };
+  const canvasRef = useRef(null);
 
-// export default Wordcloud;
+  // set willReadFrequently to true
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    canvas.getContext("2d").willReadFrequently = true;
+  }, []);
+
+  return (
+    <div>
+      <canvas ref={canvasRef} />
+      <WordCloud data={data} />
+    </div>
+  );
+};
+
+export default Wordcloud;

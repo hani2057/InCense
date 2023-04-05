@@ -1,6 +1,8 @@
-import dayjs from "dayjs";
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import dayjs from "dayjs";
 import api from "../../../apis/api";
+import { updateTasteTime } from "../../../store/slice/userSlice";
 import { FlexDiv } from "../../common/FlexDiv/FlexDiv";
 import {
   ProfileInfoWrapper,
@@ -11,6 +13,7 @@ import {
 import ModifyModal from "../ModifyModal/ModifyModal";
 
 const ProfileInfo = () => {
+  const dispatch = useDispatch();
   const [userInfo, setUserInfo] = useState(null);
   const [modifyModalOpen, setModifyModalOpen] = useState(false);
 
@@ -18,6 +21,7 @@ const ProfileInfo = () => {
   const fetchGetUserInfo = async () => {
     const res = await api.user.getUserInfo();
     setUserInfo(res);
+    dispatch(updateTasteTime({ updateTasteTime: res.lastTime }));
   };
 
   useEffect(() => {
