@@ -29,11 +29,9 @@ public interface MemberService {
     // 사용자 프로필 이미지 변경
     String updateProfile(Long userId, MultipartFile file) throws IOException;
 
-    // 사용자 점수 추가
+    // 사용자 점수 추가 & 사용자 등급 변경
     void addRank(int type, Long memberId);
-
-    // 사용자 등급 변경
-    void checkRank(Long memberId);
+//    void checkRank(Long memberId);
 
 
 }
