@@ -83,8 +83,7 @@ function ArticleDetail() {
     window.location.reload()
   }
 
-  const userNickName = '전태영2'
-  const writerNickName = '전태영2' 
+
   const dispatch = useDispatch()
 
 
@@ -220,7 +219,7 @@ function ArticleDetail() {
           </Box>
         </Box>
         <Box sx={{width:'40%', display:'flex',flexDirection:'column',marginTop:'3rem'}}>
-          {images && <SimpleImageSlider
+          {images && images.length > 0 && <SimpleImageSlider
             style={{marginLeft:'2rem'}} width={300} height={400} navMargin={0} images={images} showBullets={true} showNavs={true} />}
         </Box>
         
@@ -246,7 +245,7 @@ function ArticleDetail() {
       <CommentBox/> */}
       {comment && comment.slice(0).reverse().map((comment, index) => {
               return (
-                <CommentBox key={index} comment={comment} articleId={articleId}/>
+                <CommentBox key={index} comment={comment} article={article} articleId={articleId} username={username} isLoggedIn={isLoggedIn}/>
               )
             })}
       
