@@ -21,15 +21,17 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
   },
 }));
 
-export default function ToggleFilter2() {
+const ToggleFilter2 = ({gubun,setGubun}) => {
   const [alignment, setAlignment] = React.useState('left');
   const [formats, setFormats] = React.useState(() => ['italic']);
 
+  
   const handleFormat = (event, newFormats) => {
     setFormats(newFormats);
   };
 
-  const handleAlignment = (event, newAlignment) => {
+  const handleAlignment = (event,newAlignment) => {
+    setGubun(event.target.value)
     setAlignment(newAlignment);
   };
 
@@ -51,14 +53,14 @@ export default function ToggleFilter2() {
           onChange={handleAlignment}
           aria-label="text alignment"
         >
-          <ToggleButton value="left" aria-label="left aligned">
+          <ToggleButton value="" aria-label="left aligned">
             전체
           </ToggleButton>
           {/* <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} /> */}
-          <ToggleButton value="center" aria-label="center aligned">
+          <ToggleButton value="SALE" aria-label="center aligned">
             나눔
           </ToggleButton>
-          <ToggleButton value="right" aria-label="right aligned">
+          <ToggleButton value="SHARE" aria-label="right aligned">
             판매
           </ToggleButton>
 
@@ -67,3 +69,4 @@ export default function ToggleFilter2() {
     </div>
   );
 }
+export default ToggleFilter2;

@@ -23,11 +23,19 @@ const api = {
     getArticle: (articleId) => defaultInstance.get(`${SHARE}/${articleId}`),
     getList: (page) =>
       defaultInstance.get(`${SHARE}`, { params: { page: page } }),
-    getFilteredList: (page, checklist1, checklist2, checklist3, checklist4) => {
+    getFilteredList: (
+      page,
+      gubun,
+      checklist1,
+      checklist2,
+      checklist3,
+      checklist4
+    ) => {
       return defaultInstance.get(`${SHARE}`, {
         params: {
           page: page,
-          close: checklist1,
+          gubun: gubun,
+          close : checklist1,
           transaction: checklist2,
           brands: checklist3,
           scents: checklist4,

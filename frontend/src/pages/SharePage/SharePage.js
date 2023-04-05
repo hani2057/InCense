@@ -29,7 +29,9 @@ export default function SharePage() {
   const [checklist4, setChecklist4] = useState([]);
 
   const [limit, setLimit] = useState(20);
+  const [gubun, setGubun] = useState("");
   const [page, setPage] = useState(1);
+
   
 
   const dispatch = useDispatch();
@@ -38,6 +40,7 @@ export default function SharePage() {
     api.share
       .getFilteredList(
         currentPage,
+        gubun,
         checklist,
         checklist2,
         checklist3,
@@ -436,7 +439,7 @@ export default function SharePage() {
               textAlign: "center",
             }}
           >
-            <ToggleFilter2 />
+            <ToggleFilter2 gubun={gubun} setGubun={setGubun}/>
 
             <Button
               variant="outlined"
