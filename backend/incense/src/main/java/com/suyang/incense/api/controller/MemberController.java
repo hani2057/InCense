@@ -1,6 +1,7 @@
 package com.suyang.incense.api.controller;
 
-import com.suyang.incense.api.request.member.MemberModifyReq;
+import com.suyang.incense.api.request.member.MemberInfoModifyReq;
+import com.suyang.incense.api.request.member.MemberProfileModifyReq;
 import com.suyang.incense.api.request.member.MemberRegisterReq;
 import com.suyang.incense.api.response.member.MemberInfoRes;
 import com.suyang.incense.api.response.member.NicknameCheckRes;
@@ -49,11 +50,19 @@ public class MemberController {
         return ResponseEntity.status(200).body(response);
     }
 
-    @PutMapping(path = "/modify", consumes = {"multipart/form-data"})
-    @ApiOperation(value = "회원 정보 변경", notes = "로그인한 회원의 정보를 변경")
-    public ResponseEntity<? extends BaseResponseBody> modifyMember(@ModelAttribute MemberModifyReq memberModifyReq,
-                                                                   @ApiIgnore Authentication authentication) throws IOException {
-        memberService.modifyMember(memberModifyReq, authentication);
+    @PutMapping(path = "/modify/info")
+    @ApiOperation(value = "회원 정보 변경", notes = "로그인한 회원의 개인 정보를 변경")
+    public ResponseEntity<? extends BaseResponseBody> modifyMemberInfo(@RequestBody MemberInfoModifyReq memberInfoModifyReq,
+                                                                       @ApiIgnore Authentication authentication) throws IOException {
+        memberService.modifyMemberInfo(memberInfoModifyReq, authentication);
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+    }
+
+    @PutMapping(path = "/modify/profile", consumes = {"multipart/form-data"})
+    @ApiOperation(value = "회원 프로필 정보 변경", notes = "로그인한 회원의 프로필 이미지 정보를 변경")
+    public ResponseEntity<? extends BaseResponseBody> modifyMemberProfile(@ModelAttribute MemberProfileModifyReq memberProfileModifyReq,
+                                                                          @ApiIgnore Authentication authentication) throws IOException {
+        memberService.modifyMemberProfile(memberProfileModifyReq, authentication);
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
 

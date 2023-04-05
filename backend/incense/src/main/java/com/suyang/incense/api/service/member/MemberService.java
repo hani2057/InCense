@@ -1,6 +1,7 @@
 package com.suyang.incense.api.service.member;
 
-import com.suyang.incense.api.request.member.MemberModifyReq;
+import com.suyang.incense.api.request.member.MemberInfoModifyReq;
+import com.suyang.incense.api.request.member.MemberProfileModifyReq;
 import com.suyang.incense.api.request.member.MemberRegisterReq;
 import com.suyang.incense.api.response.member.MemberInfoRes;
 import com.suyang.incense.api.response.member.RegisterInfoRes;
@@ -25,7 +26,8 @@ public interface MemberService {
     MemberInfoRes getMemberInfo(Authentication authentication);
 
     // 사용자 정보 변경
-    void modifyMember(MemberModifyReq memberModifyReq, Authentication authentication) throws IOException;
+    void modifyMemberInfo(MemberInfoModifyReq memberInfoModifyReq, Authentication authentication);
+    void modifyMemberProfile(MemberProfileModifyReq memberProfileModifyReq, Authentication authentication) throws IOException;
 
     // 사용자 프로필 이미지 변경
     String updateProfile(Long userId, MultipartFile file) throws IOException;
