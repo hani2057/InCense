@@ -10,4 +10,6 @@ public interface TestService {
     ResponseEntity<TestResultDto> getPreferenceData(String path, List<Integer> testAnswer, Long memberId);
 
     boolean savePreference(Long memberId, TestResultDto testResultDto);
+
+    boolean isFirstTester(Long memberId);
 }

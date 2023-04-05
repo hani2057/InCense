@@ -3,6 +3,7 @@ package com.suyang.incense.api.controller;
 
 import com.suyang.incense.api.request.perfume.PerfumeReq;
 import com.suyang.incense.api.response.perfume.SimilarPerfumeDto;
+import com.suyang.incense.api.response.perfume.SimilarPerfumeRes;
 import com.suyang.incense.api.response.perfume.TasteSimilarityDto;
 import com.suyang.incense.api.response.perfume.PerfumeRes;
 import com.suyang.incense.api.service.member.AuthService;
@@ -170,7 +171,18 @@ public class PerfumeController {
         ResponseEntity<SimilarPerfumeDto> response = perfumeService.getSimilarPerfumeList(path, perfumeId);
 
         if(response.getStatusCode() == HttpStatus.OK){
-            return ResponseEntity.status(200).body(response.getBody());
+
+            List<SimilarPerfumeRes> result = new ArrayList<>();
+
+            List<Long> similarPerfumeIds = new ArrayList<>();
+            similarPerfumeIds = response.getBody().getSimilarPerfumes();
+
+            for(Long id : similarPerfumeIds){
+                SimilarPerfumeRes data = perfumeService.getSimilarPerfumeResData(id);
+                result.add(data);
+            }
+
+            return ResponseEntity.status(200).body(result);
         } else{
             return ResponseEntity.status(500).body("data response fail.......");
         }

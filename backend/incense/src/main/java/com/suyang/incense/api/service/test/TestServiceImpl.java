@@ -5,7 +5,7 @@ import com.suyang.incense.api.request.test.TestReq;
 import com.suyang.incense.api.response.test.TestResultDto;
 import com.suyang.incense.db.entity.analysis.Taste;
 import com.suyang.incense.db.entity.member.Member;
-import com.suyang.incense.db.repository.deal.TasteRepository;
+import com.suyang.incense.db.repository.taste.TasteRepository;
 import com.suyang.incense.db.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -64,5 +64,11 @@ public class TestServiceImpl implements TestService{
         tasteRepository.save(taste);
 
         return true;
+    }
+
+    public boolean isFirstTester(Long memberId) {
+
+        Long count = tasteRepository.getTestCount(memberId);
+        return count == 1;
     }
 }

@@ -5,12 +5,13 @@ import com.suyang.incense.api.request.perfume.PerfumeReq;
 import com.suyang.incense.api.response.perfume.PerfumeSimpleRes;
 import com.suyang.incense.api.response.perfume.SimilarPerfumeDto;
 import com.suyang.incense.api.request.perfume.SimilarTasteReq;
+import com.suyang.incense.api.response.perfume.SimilarPerfumeRes;
 import com.suyang.incense.api.response.perfume.TasteSimilarityDto;
 import com.suyang.incense.db.entity.note.Note;
 import com.suyang.incense.db.entity.perfume.Brand;
 import com.suyang.incense.db.entity.perfume.Perfume;
 import com.suyang.incense.db.repository.brand.BrandRepository;
-import com.suyang.incense.db.repository.deal.TasteRepository;
+import com.suyang.incense.db.repository.taste.TasteRepository;
 import com.suyang.incense.db.repository.note.NoteRepository;
 import com.suyang.incense.db.repository.perfume.PerfumeRepository;
 import lombok.RequiredArgsConstructor;
@@ -157,5 +158,10 @@ public class PerfumeServiceImpl implements PerfumeService{
 
         return perfumeRepository.findPerfumeNameAndBrandByPerfumeId(perfumeId);
 
+    }
+
+    public SimilarPerfumeRes getSimilarPerfumeResData(Long perfumeId) {
+
+        return perfumeRepository.getSimilarPerfumeResData(perfumeId);
     }
 }
