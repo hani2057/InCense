@@ -58,7 +58,8 @@ const axiosAuthApi = (url, options) => {
       return response.data;
     },
     (error) => {
-      console.error(error);
+      // if (error.response.statusCode === '418') alert(error.response.message);
+      return Promise.reject(error);
     }
   );
 
