@@ -26,6 +26,7 @@ const api = {
       defaultInstance.get(`${SHARE}`, { params: { page: page } }),
     getFilteredList: (
       page,
+      gubun,
       checklist1,
       checklist2,
       checklist3,
@@ -34,6 +35,7 @@ const api = {
       return defaultInstance.get(`${SHARE}`, {
         params: {
           page: page,
+          gubun: gubun,
           close : checklist1,
           transaction: checklist2,
           brands: checklist3,
