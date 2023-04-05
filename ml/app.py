@@ -193,12 +193,12 @@ def get_words():
     result_json = {"cloud": []}
     cnt = 0
     for tpp in temp:
+        print(tpp)
         if cnt == 50:
             break
         now_note_name = name_all_sorted_notes[tpp[1]]
-        result_json["cloud"].append({"word": now_note_name, "weight": str(tpp[0])})
+        result_json["cloud"].append({"text": now_note_name, "value": str(tpp[0])})
         cnt += 1
-    # string 으로 이름으로 보내기 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     return jsonify(result_json)
 
 
@@ -223,12 +223,20 @@ def get_note_graph():
     now_middle_note.sort(reverse=True)
     now_base_note.sort(reverse=True)
     result_json = {"mainScent": top_res, "middleWeight": [], "baseWeight": []}
+    cnt = 0
     for mnsi in now_middle_note:
+        if cnt == 30:
+            break
         mw, mi = mnsi
         result_json["middleWeight"].append({"word": mi, "weight": str(mw)})
+        cnt += 1
+    cnt = 0
     for bnsi in now_base_note:
+        if cnt == 30:
+            break
         bw, bi = bnsi
         result_json["baseWeight"].append({"word": bi, "weight": str(bw)})
+        cnt += 1
     return jsonify(result_json)
 
 
