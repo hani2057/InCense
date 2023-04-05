@@ -18,10 +18,12 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     isLoggedIn: false,
+    username: "",
   },
   reducers: {
     login: (state, action) => {
       state.isLoggedIn = true;
+      state.username = action.payload.nickname;
       sessionStorage.setItem("accessToken", action.payload.accessToken);
     },
     logout: (state, action) => {
