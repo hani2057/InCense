@@ -12,11 +12,17 @@ const ProfilePerfumes = () => {
   const [perfumes, setPerfumes] = useState(null);
   const [serchModalOpen, setSearchModalOpen] = useState(false);
 
+  // have, had, want 향수 목록 가져오기
   const fetchGetPerfumeList = async () => {
     const arr = ["HAVE", "HAD", "WANT"];
     const res = await api.profile.getPerfumeList(arr[typeIdx]);
     setPerfumes(res);
-    console.log(res);
+  };
+
+  // 내 취향에 반영하기 요청
+  const fetchUpdateTaste = async () => {
+    const res = await api.analysis.getUpdateTaste();
+    console.log("update", res);
   };
 
   useEffect(() => {
@@ -56,7 +62,7 @@ const ProfilePerfumes = () => {
               </span>
             </FlexDiv>
             <FlexDiv direction="column" align="end">
-              <ProfilePerfumeHeaderSpan>
+              <ProfilePerfumeHeaderSpan onClick={() => fetchUpdateTaste()}>
                 내 취향에 반영하기
               </ProfilePerfumeHeaderSpan>
               <span

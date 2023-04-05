@@ -24,10 +24,18 @@ const api = {
     getArticle: (articleId) => defaultInstance.get(`${SHARE}/${articleId}`),
     getList: (page) =>
       defaultInstance.get(`${SHARE}`, { params: { page: page } }),
-    getFilteredList: (page, checklist1, checklist2, checklist3, checklist4) => {
+    getFilteredList: (
+      page,
+      gubun,
+      checklist1,
+      checklist2,
+      checklist3,
+      checklist4
+    ) => {
       return defaultInstance.get(`${SHARE}`, {
         params: {
           page: page,
+          gubun: gubun,
           close: checklist1,
           transaction: checklist2,
           brands: checklist3,
@@ -89,6 +97,8 @@ const api = {
     getDetail: (detailId) => defaultInstance.get(`${PERFUMES}/${detailId}`),
     getCategory: (detailId) =>
       authInstance.get(`${PERFUMES}/category/${detailId}`),
+    getSimilarList: (detailId) =>
+      defaultInstance.get(`${PERFUMES}/similar/list/${detailId}`),
   },
   profile: {
     getPerfumeList: (type) =>

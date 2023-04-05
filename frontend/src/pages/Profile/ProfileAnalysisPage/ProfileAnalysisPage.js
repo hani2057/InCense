@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { FlexDiv } from "../../../components/common/FlexDiv/FlexDiv";
 import { ScrollContainer } from "../../../components/common/ScrollContainer/ScrollContainer";
 import ProfileTitleBox from "../../../components/Profile/ProfileTitleBox/ProfileTitleBox";
@@ -8,42 +9,11 @@ import { ProfileOutletContainer } from "../ProfilePage/style";
 import api from "../../../apis/api";
 
 const ProfileAnalysisPage = () => {
+  const { username } = useSelector((state) => state.userReducers);
   const [iWantItList, setIWantItList] = useState(null);
 
   // 더미데이터
   const name = "닉네임";
-  // const iWantItList = [
-  //   {
-  //     name: "fleur de peau",
-  //     brand: "Diptyque",
-  //     img: "perfumes/1.jpg",
-  //   },
-  //   {
-  //     name: "fleur de peau",
-  //     brand: "Diptyque",
-  //     img: "perfumes/1.jpg",
-  //   },
-  //   {
-  //     name: "fleur de peau",
-  //     brand: "Diptyque",
-  //     img: "perfumes/1.jpg",
-  //   },
-  //   {
-  //     name: "fleur de peau",
-  //     brand: "Diptyque",
-  //     img: "perfumes/1.jpg",
-  //   },
-  //   {
-  //     name: "fleur de peau",
-  //     brand: "Diptyque",
-  //     img: "perfumes/1.jpg",
-  //   },
-  //   {
-  //     name: "fleur de peau",
-  //     brand: "Diptyque",
-  //     img: "perfumes/1.jpg",
-  //   },
-  // ];
 
   // 워드클라우드 데이터 요청
   const fetchGetWordCloud = async () => {
