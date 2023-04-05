@@ -94,7 +94,9 @@ const api = {
       });
     },
     getDetail: (detailId) => defaultInstance.get(`${PERFUMES}/${detailId}`),
-    getCategory: (detailId) => authInstance.get(`${PERFUMES}/category/${detailId}`)
+    getCategory: (detailId) => authInstance.get(`${PERFUMES}/category/${detailId}`),
+    getSimilarList: (detailId) => defaultInstance.get(`${PERFUMES}/similar/list/${detailId}`),
+
   },
   profile: {
     getPerfumeList: (type) =>

@@ -5,6 +5,7 @@ import {BsBell} from 'react-icons/bs'
 import {BsFillBellFill} from 'react-icons/bs'
 import { Button } from "@mui/material";
 // import CardComponent from "../ListPage/CardComponent";
+import CardComponent2 from "./CardComponent2";
 import DivideLine from "../../components/common/DivideLine/DivideLine";
 import ReviewTable from "./ReviewTable";
 import { useNavigate, useParams } from "react-router";
@@ -13,6 +14,7 @@ import CheckModal from "./CheckModal";
 import { useDispatch, useSelector } from "react-redux";
 import api from "../../apis/api";
 import { perfumeInfoActions } from "../../store/slice/perfumeInfoSlice";
+import { similarListActions } from "../../store/slice/similarListSlice";
 
 
 const DetailPage = () => {
@@ -52,20 +54,27 @@ const DetailPage = () => {
       dispatch(perfumeInfoActions.getCategory(res.category))
 
     })
+    api.list.getSimilarList(detailId)
+      .then((res) => {
+        console.log('similarList가져오기')
+        console.log(res)
+        dispatch(similarListActions.getSimilarList(res))
+      })
   }, [alarmStatus])
   console.log(alarmStatus)
   
 
   const perfumeInfo = useSelector((state) => {
-    console.log(state)
     return state.perfumeInfoReducers.perfumeInfo
   })
   console.log(perfumeInfo)
   const category = useSelector((state) => {
-    console.log(state)
     return state.perfumeInfoReducers.category
   })
-  console.log('3333333',category)
+  const similarList = useSelector((state) => {
+    return state.similarListReducers.similarList
+  })
+  console.log(similarList)
   const fileName = perfumeInfo.image
 
   api.alarm.getAlarm(detailId)
@@ -73,7 +82,6 @@ const DetailPage = () => {
     console.log(res)
     setAlarmStatus(res)
   })
-  console.log(alarmStatus)
 
   // 알람 설정
   const onChangeAlarm = () => {
@@ -238,12 +246,12 @@ const DetailPage = () => {
       </Box>
       <Box
         sx={{width:'80rem',display:'flex',flexDirection:'row',justifyContent:'space-between',marginTop:'2rem',marginBottom:'2rem'}}>
-        {
-          // 해당 향수 비슷한 향수 식 필요
-        /* <CardComponent/>
-        <CardComponent/>
-        <CardComponent/>
-        <CardComponent/> */}
+
+        {Array.isArray(similarList) &&
+          similarList.length > 0 &&
+          similarList.map((perfume, index) => {
+            return <CardComponent2 key={index} perfume={perfume} />;
+          })}
       </Box>
       <DivideLine/>
       <Box
