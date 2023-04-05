@@ -149,12 +149,13 @@ const RegisterPage = () => {
       console.log(articleForUpdate);
 
       dispatch(articleActions.updateArticle(articleForUpdate)); // 추가
-      api.share.register(formData)
+      api.share.update(formData, articleForRegister.article.id)
       .then((res) => {
         alert('등록되었습니다.')
         console.log(res)
         dispatch(articleActions.reset())
         navigate('/share/article/')
+        window.location.reload()
       })
 
       // navigate(`/group/${groupId}/board`);
@@ -171,6 +172,7 @@ const RegisterPage = () => {
       alert('등록되었습니다.')
       dispatch(articleActions.reset())
       navigate('/share')
+      window.location.reload()
       // dispatch(articleActions.registerArticle(articleForRegister));
       // navigate(`/group/${groupId}/board`);
     } 
