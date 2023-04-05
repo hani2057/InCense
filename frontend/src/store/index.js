@@ -9,6 +9,7 @@ import { perfumeListReducers } from "./slice/perfumeListSlice";
 import { articleListReducers } from "./slice/articleListSlice";
 import { alarmSliceReducer } from "./slice/alarmSlice";
 import { commentReducers } from "./slice/commentSlice";
+import { reviewReducers } from "./slice/reviewSlice";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "../sagas";
 // const customHistory = createBrowserHistory();
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   articleListReducers,
   alarmSliceReducer,
   commentReducers,
+  reviewReducers,
 });
 
 const persistConfig = {

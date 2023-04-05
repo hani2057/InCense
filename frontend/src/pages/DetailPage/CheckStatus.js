@@ -22,7 +22,8 @@ const CheckStatus = ({
   colorPicked,
   onClickModal,
   isOpen,
-  setIsOpen
+  setIsOpen,
+  category
 }) => {
 
   // const onClickButton = () => {
@@ -56,6 +57,7 @@ const CheckStatus = ({
           key={idx}
           color={color}
           colorPicked={colorPicked}
+          category={category}
           // onClickModal={onClickModal}
           
           

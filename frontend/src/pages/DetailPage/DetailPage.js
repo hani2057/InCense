@@ -46,24 +46,44 @@ const DetailPage = () => {
         console.log(err)
         alert(err)
       })
-  }, [])
+    api.list.getCategory(detailId)
+    .then((res) => {
+      console.log(res.category)
+      dispatch(perfumeInfoActions.getCategory(res.category))
+
+    })
+  }, [alarmStatus])
+  console.log(alarmStatus)
+  
 
   const perfumeInfo = useSelector((state) => {
     console.log(state)
     return state.perfumeInfoReducers.perfumeInfo
   })
-
+  console.log(perfumeInfo)
+  const category = useSelector((state) => {
+    console.log(state)
+    return state.perfumeInfoReducers.category
+  })
+  console.log('3333333',category)
   const fileName = perfumeInfo.image
+
+  api.alarm.getAlarm(detailId)
+  .then((res) => {
+    console.log(res)
+    setAlarmStatus(res)
+  })
+  console.log(alarmStatus)
 
   // 알람 설정
   const onChangeAlarm = () => {
     if (isLoggedIn === true) {
-      if(alarmStatus === false) {
-        setAlarmStatus(true)
+      if(alarmStatus === 0) {
+        setAlarmStatus(1)
         api.alarm.setAlarm(detailId);
         // console.log('알람on')
-      } else if (alarmStatus === true) {
-        setAlarmStatus(false)
+      } else if (alarmStatus === 1) {
+        setAlarmStatus(0)
         api.alarm.resetAlarm(detailId);
         // console.log('알람off')
       }
@@ -145,7 +165,7 @@ const DetailPage = () => {
               backgroundColor:'white',
               position:'relative'
           }}>
-              {alarmStatus === false
+              {alarmStatus === 0
                 ?<BsBell style={{position:'absolute',right:'1rem',top:'1rem', fontSize:'2rem',cursor:'pointer' }}
                 onClick={onChangeAlarm}></BsBell>
                 :<BsFillBellFill style={{position:'absolute',right:'1rem',top:'1rem', fontSize:'2rem', color:'#706DFF',cursor:'pointer' }}
@@ -163,6 +183,7 @@ const DetailPage = () => {
               padding="0 5%"
               color="dark-gray"
               isOpen = {isOpen}
+              category={category}
               setIsOpen = {setIsOpen}/>
               
 
@@ -227,8 +248,8 @@ const DetailPage = () => {
       <DivideLine/>
       <Box
         sx={{width:'80rem',display:'flex', flexDirection:'column'}}>
-        <h1 style={{fontSize:'2rem', fontWeight:'bold', marginTop:'2rem', marginBottom:'3rem'}}>후기 (28)</h1>
-        <ReviewTable/> 
+        {/* <h1 style={{fontSize:'2rem', fontWeight:'bold', marginTop:'2rem', marginBottom:'3rem'}}>후기 (28)</h1> */}
+        <ReviewTable perfumeInfo={perfumeInfo} detailId={detailId}/> 
       </Box>
   
     </Box>

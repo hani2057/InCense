@@ -149,6 +149,14 @@ const RegisterPage = () => {
       console.log(articleForUpdate);
 
       dispatch(articleActions.updateArticle(articleForUpdate)); // 추가
+      api.share.register(formData)
+      .then((res) => {
+        alert('등록되었습니다.')
+        console.log(res)
+        dispatch(articleActions.reset())
+        navigate('/share/article/')
+      })
+
       // navigate(`/group/${groupId}/board`);
     } else {
       console.log('작성ㄱㄱ')
