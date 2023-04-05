@@ -31,9 +31,7 @@ public class MemberController {
     @PostMapping("/register")
     @ApiOperation(value = "회원가입", notes = "사용자 정보를 입력받아 회원가입 진행")
     public ResponseEntity<RegisterInfoRes> registerMember(@RequestBody MemberRegisterReq registerInfo) {
-        System.out.println("###지금 어디서 로그인을 하고 있는 걸까? " + registerInfo.getType());
-        memberService.registerMember(registerInfo);
-        RegisterInfoRes response = new RegisterInfoRes(authService.getToken(registerInfo.getEmail()));
+        RegisterInfoRes response = memberService.registerMember(registerInfo);
         return ResponseEntity.status(200).body(response);
     }
 

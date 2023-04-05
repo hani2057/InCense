@@ -3,6 +3,7 @@ package com.suyang.incense.api.service.member;
 import com.suyang.incense.api.request.member.MemberModifyReq;
 import com.suyang.incense.api.request.member.MemberRegisterReq;
 import com.suyang.incense.api.response.member.MemberInfoRes;
+import com.suyang.incense.api.response.member.RegisterInfoRes;
 import com.suyang.incense.db.entity.member.Member;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,7 +13,7 @@ import java.io.IOException;
 public interface MemberService {
 
     // 회원가입 - 추가 정보 작성
-    void registerMember(MemberRegisterReq memberRegisterReq);
+    RegisterInfoRes registerMember(MemberRegisterReq memberRegisterReq);
 
     // email을 통해서 사용자 정보 조회
     Member getMemberByEmail(String email);
