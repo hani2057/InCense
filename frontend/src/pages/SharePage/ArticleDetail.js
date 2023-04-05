@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { articleActions } from '../../store/slice/articleSlice';
 import { useParams } from 'react-router-dom';
 import { commentActions } from '../../store/slice/commentSlice';
+import { login, logout } from '../../store/slice/userSlice';
 
 
 
@@ -155,8 +156,14 @@ function ArticleDetail() {
     console.log(state)
     return state.commentReducers.comment
   })
-
   console.log(comment)
+
+  const username = useSelector((state) => {
+    return state.userReducers.username
+  })
+  const isLoggedIn = useSelector((state) => {
+    return state.userReducers.isLoggedIn
+  })
 
   // const [isClosed, setIsClosed] = useState()
   // const onCloseDeal = () => {
@@ -175,7 +182,9 @@ function ArticleDetail() {
           ?<img src={star1} alt='star1' style={{cursor:'pointer'}} onClick={onChangeBookMark}></img>        
           :<img src={star2} alt='star2' style={{cursor:'pointer'}} onClick={onChangeBookMark}></img>
           }
-          <MenuButton articleId={articleId}/>
+          {article.nickname===username
+          ?<MenuButton articleId={articleId}/>
+          :<></>}
         </Box>
       </Box>
       <Box sx={{width:'100%', display:'flex',flexDirection:'row', marginLeft:'1rem'}}>
