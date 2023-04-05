@@ -50,8 +50,8 @@ class MatrixFactorization():
             self._training_process.append((epoch, cost))
 
             # print status
-            if self._verbose == True and ((epoch + 1) % 10 == 0):
-                print("Iteration: %d ; cost = %.4f" % (epoch + 1, cost))
+            # if self._verbose == True and ((epoch + 1) % 10 == 0):
+            #     print("Iteration: %d ; cost = %.4f" % (epoch + 1, cost))
 
     def cost(self):
         """
@@ -148,19 +148,3 @@ class MatrixFactorization():
         # print("Final RMSE:")
         # print(self._training_process[self._epochs - 1][1])
         return (self._Q)
-
-
-# # run example
-# if __name__ == "__main__":
-#     # rating matrix - User X Item : (7 X 5)
-#     R = np.array([
-#         [8],
-#         [8],
-#         [8],
-#     ])
-#
-#     # P, Q is (7 X k), (k X 5) matrix
-#     factorizer = MatrixFactorization(temp, R, k=32, learning_rate=0.01, reg_param=0.01, epochs=500, verbose=True)
-#     factorizer.fit()
-#     personalized = factorizer.print_results()
-
