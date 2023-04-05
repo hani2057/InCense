@@ -3,6 +3,7 @@ package com.suyang.incense.api.service.member;
 import com.suyang.incense.api.request.member.MemberModifyReq;
 import com.suyang.incense.api.request.member.MemberRegisterReq;
 import com.suyang.incense.api.response.member.MemberInfoRes;
+import com.suyang.incense.api.response.member.RegisterInfoRes;
 import com.suyang.incense.common.FileHandler;
 import com.suyang.incense.db.entity.member.*;
 import com.suyang.incense.db.repository.member.GradeLogRepository;
@@ -30,7 +31,7 @@ public class MemberServiceImpl implements MemberService {
     private final FileHandler fileHandler;
 
     @Override
-    public void registerMember(MemberRegisterReq registerInfo) {
+    public RegisterInfoRes registerMember(MemberRegisterReq registerInfo) {
         // 회원 정보 저장
         SocialType type = null;
         String profile = "";
@@ -54,6 +55,8 @@ public class MemberServiceImpl implements MemberService {
                 .genderOpen(registerInfo.getGenderOpen())
                 .build();
         memberRepository.save(member);
+
+        return new RegisterInfoRes(authService.getToken(member.getEmail()), member.getNickname());
     }
 
     @Override
