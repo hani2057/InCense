@@ -6,6 +6,7 @@ const SHARE = "/deal";
 const PROFILE = "/mypage";
 const IMG = "/display";
 const ALARM = "/alarm";
+const ANALYSIS = "/analysis";
 
 const api = {
   user: {
@@ -86,7 +87,8 @@ const api = {
       });
     },
     getDetail: (detailId) => defaultInstance.get(`${PERFUMES}/${detailId}`),
-    getCategory: (detailId) => authInstance.get(`${PERFUMES}/category/${detailId}`)
+    getCategory: (detailId) =>
+      authInstance.get(`${PERFUMES}/category/${detailId}`),
   },
   profile: {
     getPerfumeList: (type) =>
@@ -109,6 +111,10 @@ const api = {
   },
   analysis: {
     postTestResult: (data) => authInstance.post(`/test`, data),
+    getUpdateTaste: () => authInstance.get(`${ANALYSIS}/update`),
+    getWordCloud: () => authInstance.get(`${ANALYSIS}/word-cloud`),
+    getWantPerfumePredict: () =>
+      authInstance.get(`${ANALYSIS}/want/similarity`),
   },
   image: {
     getImage: (fileName) => defaultInstance.get(`${IMG}?filename=${fileName}`),
@@ -116,8 +122,8 @@ const api = {
   review: {
     postReview: (reviewArticle) =>
       authInstance.post(`${PROFILE}/perfume`, reviewArticle),
-    getReview: (perfumeId, page) => 
-      defaultInstance.get(`${PERFUMES}/${perfumeId}/review?page=${page}`)
+    getReview: (perfumeId, page) =>
+      defaultInstance.get(`${PERFUMES}/${perfumeId}/review?page=${page}`),
   },
   alarm: {
     getAlarm: (perfumeId) => authInstance.get(`${ALARM}/${perfumeId}`),

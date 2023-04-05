@@ -11,16 +11,19 @@ const ProfileActivityPage = () => {
   const [shareWritings, setShareWritings] = useState(null);
   const [shareBookmarks, setShareBookmarks] = useState(null);
 
+  // 유저가 작성한 후기 가져오기
   const fetchGetReviews = async () => {
     const res = await api.profile.getUserReviews();
     setReviews(res);
   };
 
+  // 유저가 작성한 나눔판매글 가져오기
   const fetchGetShareWritings = async () => {
     const res = await api.profile.getUserArticles();
     setShareWritings(res);
   };
 
+  // 유저가 북마크한 나눔판매글 가져오기
   const fetchGetShareBookmarks = async () => {
     const res = await api.profile.getUserBookmarks();
     setShareBookmarks(res);
