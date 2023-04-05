@@ -2,21 +2,23 @@ package com.suyang.incense.api.service.perfume;
 
 
 import com.suyang.incense.api.request.perfume.PerfumeReq;
-import com.suyang.incense.api.response.perfume.PerfumeSimpleRes;
-import com.suyang.incense.api.response.perfume.SimilarPerfumeDto;
+import com.suyang.incense.api.response.perfume.*;
 import com.suyang.incense.api.request.perfume.SimilarTasteReq;
-import com.suyang.incense.api.response.perfume.SimilarPerfumeRes;
-import com.suyang.incense.api.response.perfume.TasteSimilarityDto;
+import com.suyang.incense.api.service.member.AuthService;
+import com.suyang.incense.db.entity.member.Member;
 import com.suyang.incense.db.entity.note.Note;
 import com.suyang.incense.db.entity.perfume.Brand;
 import com.suyang.incense.db.entity.perfume.Perfume;
+import com.suyang.incense.db.entity.relation.MemberPerfume;
 import com.suyang.incense.db.repository.brand.BrandRepository;
+import com.suyang.incense.db.repository.member.MemberPerfumeRepository;
 import com.suyang.incense.db.repository.taste.TasteRepository;
 import com.suyang.incense.db.repository.note.NoteRepository;
 import com.suyang.incense.db.repository.perfume.PerfumeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.*;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -30,10 +32,12 @@ import java.util.*;
 @RequiredArgsConstructor
 public class PerfumeServiceImpl implements PerfumeService{
 
+    private final AuthService authService;
     private final PerfumeRepository perfumeRepository;
     private final BrandRepository brandRepository;
     private final NoteRepository noteRepository;
     private final TasteRepository tasteRepository;
+    private final MemberPerfumeRepository memberPerfumeRepository;
     @Override
     public List<Perfume> getPerfumeList(PerfumeReq perfumeReq,Pageable pageable) {
         List<Long> brands = perfumeReq.getBrand();
@@ -163,5 +167,13 @@ public class PerfumeServiceImpl implements PerfumeService{
     public SimilarPerfumeRes getSimilarPerfumeResData(Long perfumeId) {
 
         return perfumeRepository.getSimilarPerfumeResData(perfumeId);
+    }
+
+    @Override
+    public PerfumeCategoryRes getPerfumeCategoryByMember(Long perfumdId, Authentication authentication) {
+        Member member = authService.getMemberByAuthentication(authentication).orElseThrow(IllegalArgumentException::new);
+        Perfume perfume = perfumeRepository.findById(perfumdId).orElseThrow(IllegalArgumentException::new);
+        Optional<MemberPerfume> memberPerfume = memberPerfumeRepository.findByMemberAndPerfume(member, perfume);
+        return memberPerfume.map(value -> new PerfumeCategoryRes(value.getCategory().toString())).orElse(new PerfumeCategoryRes());
     }
 }

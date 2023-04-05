@@ -2,10 +2,7 @@ package com.suyang.incense.api.controller;
 
 
 import com.suyang.incense.api.request.perfume.PerfumeReq;
-import com.suyang.incense.api.response.perfume.SimilarPerfumeDto;
-import com.suyang.incense.api.response.perfume.SimilarPerfumeRes;
-import com.suyang.incense.api.response.perfume.TasteSimilarityDto;
-import com.suyang.incense.api.response.perfume.PerfumeRes;
+import com.suyang.incense.api.response.perfume.*;
 import com.suyang.incense.api.service.member.AuthService;
 import com.suyang.incense.api.service.perfume.PerfumeService;
 import com.suyang.incense.db.entity.perfume.Perfume;
@@ -188,4 +185,13 @@ public class PerfumeController {
         }
 
     }
+
+    @GetMapping(path = "/category/{perfume-id}")
+    @ApiOperation(value = "사용자가 등록한 향수 카테고리", notes = "사용자가 향수를 어떠한 카테고리에 갖고 있는지 확인")
+    public ResponseEntity<PerfumeCategoryRes> categoryInfoByMember(@PathVariable(value = "perfume-id") Long perfumeId,
+                                                                   @ApiIgnore Authentication authentication) {
+        PerfumeCategoryRes response = perfumeService.getPerfumeCategoryByMember(perfumeId, authentication);
+        return ResponseEntity.status(200).body(response);
+    }
+
 }

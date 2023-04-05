@@ -31,5 +31,4 @@ public class BaseResponseBody {
         body.statusCode = statusCode;
         return body;
     }
-
 }
