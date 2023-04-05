@@ -6,6 +6,7 @@ import { alarmSliceReducer } from "./alarmSlice";
 import { commentReducers } from "./commentSlice";
 import { articleListReducers } from "./articleListSlice";
 import { reviewReducers } from "./reviewSlice";
+import { similarListReducers } from "./similarListSlice";
 
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
@@ -23,5 +24,6 @@ export const rootReducer = combineReducers({
   commentReducers,
   articleListReducers,
   reviewReducers,
+  similarListReducers,
 });
 export default persistReducer(persistConfig, rootReducer);

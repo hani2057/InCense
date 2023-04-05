@@ -10,6 +10,7 @@ import { articleListReducers } from "./slice/articleListSlice";
 import { alarmSliceReducer } from "./slice/alarmSlice";
 import { commentReducers } from "./slice/commentSlice";
 import { reviewReducers } from "./slice/reviewSlice";
+import { similarListReducers } from "./slice/similarListSlice";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "../sagas";
 // const customHistory = createBrowserHistory();
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   alarmSliceReducer,
   commentReducers,
   reviewReducers,
+  similarListReducers,
 });
 
 const persistConfig = {
