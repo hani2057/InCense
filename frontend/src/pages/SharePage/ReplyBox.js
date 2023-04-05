@@ -5,13 +5,15 @@ import { useState } from 'react';
 import {FormControlLabel} from '@mui/material';
 import { Button } from "@mui/material";
 import {Checkbox} from '@mui/material';
+import { login, logout } from '../../store/slice/userSlice';
 
 
 function ReplyBox(props) {
 
-  const userNickname = '전태영'
+  // const userNickname = '전태영'
   const reply = props.comment[props.index]
   console.log(reply)
+  
 
   return (
     <Box>
@@ -23,7 +25,7 @@ function ReplyBox(props) {
         <div style={{margin:'0.5rem'}}>
           <Box sx={{display:'flex',flexDirection:'row',justifyContent:'space-between'}}>
           <p style={{fontWeight:'bold',fontSize:'1.1rem'}}>{reply.writer}</p>
-          {userNickname === reply.writer
+          {props.username === reply.writer
           ?<Box>
             <img
             src="/assets/icons/edit.svg"
