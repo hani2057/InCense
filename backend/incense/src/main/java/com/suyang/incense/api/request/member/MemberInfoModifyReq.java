@@ -4,15 +4,11 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
-@ApiModel("MemberModifyReq")
-public class MemberModifyReq {
-
-    @ApiModelProperty(name = "프로필 이미지")
-    private MultipartFile image;
+@ApiModel("MemberInfoModifyReq")
+public class MemberInfoModifyReq {
 
     @ApiModelProperty(name = "닉네임")
     private String nickname;

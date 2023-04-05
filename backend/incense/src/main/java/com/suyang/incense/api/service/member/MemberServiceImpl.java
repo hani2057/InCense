@@ -1,6 +1,7 @@
 package com.suyang.incense.api.service.member;
 
-import com.suyang.incense.api.request.member.MemberModifyReq;
+import com.suyang.incense.api.request.member.MemberInfoModifyReq;
+import com.suyang.incense.api.request.member.MemberProfileModifyReq;
 import com.suyang.incense.api.request.member.MemberRegisterReq;
 import com.suyang.incense.api.response.member.MemberInfoRes;
 import com.suyang.incense.api.response.member.RegisterInfoRes;
@@ -79,27 +80,37 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public void modifyMember(MemberModifyReq memberModifyReq, Authentication authentication) throws IOException {
+    public void modifyMemberInfo(MemberInfoModifyReq memberInfoModifyReq, Authentication authentication) {
         Member member = memberRepository.findById(authService.getIdByAuthentication(authentication)).orElseThrow(IllegalArgumentException::new);
-        member.setProfile(updateProfile(member.getId(), memberModifyReq.getImage()));
-        member.setNickname(memberModifyReq.getNickname());
-        member.setBirthOpen(memberModifyReq.getBirthOpen());
-        member.setGenderOpen(memberModifyReq.getGenderOpen());
-        member.setAlarmOpen(memberModifyReq.getAlarmOpen());
+        member.setNickname(memberInfoModifyReq.getNickname());
+        member.setBirthOpen(memberInfoModifyReq.getBirthOpen());
+        member.setGenderOpen(memberInfoModifyReq.getGenderOpen());
+        member.setAlarmOpen(memberInfoModifyReq.getAlarmOpen());
     }
 
     @Override
     @Transactional
+    public void modifyMemberProfile(MemberProfileModifyReq memberProfileModifyReq, Authentication authentication) throws IOException {
+        Member member = memberRepository.findById(authService.getIdByAuthentication(authentication)).orElseThrow(IllegalArgumentException::new);
+        member.setProfile(updateProfile(member.getId(), memberProfileModifyReq.getImage()));
+    }
+
+    @Override
     public String updateProfile(Long memId, MultipartFile profile) throws IOException {
         Member member = memberRepository.findById(memId).orElseThrow(IllegalArgumentException::new);
-        File file = new File(member.getProfile());
-        if(file.exists()) {     // 서버에서 이미지가 정상적으로 삭제되었다면, 이미지를 새로 등록
-            if(file.delete()) return fileHandler.parseProfileImageInfo(profile);
-            else return member.getProfile();    // 원래 프로필 이미지 경로로 설정
+        String originProfile = member.getProfile();
+        if(originProfile.equals("profile/male.png") || originProfile.equals("profile/female.png")) {
+            return fileHandler.parseProfileImageInfo(profile);
         } else {
-            if(member.getGender() == 0) return "profile/male.png";
-            else return "profile/female.png";
-        } // 정상적으로 과정이 진행되지 않았으면 에러를 frontend에 보내줘야 하나?
+            File file = new File(originProfile);
+            if(file.exists()) {     // 서버에서 이미지가 정상적으로 삭제되었다면, 이미지를 새로 등록
+                if(file.delete()) return fileHandler.parseProfileImageInfo(profile);
+                else return originProfile;    // 원래 프로필 이미지 경로로 설정
+            } else {
+                if(member.getGender() == 0) return "profile/male.png";
+                else return "profile/female.png";
+            } // 정상적으로 과정이 진행되지 않았으면 에러를 frontend에 보내줘야 하나?
+        }
     }
 
     @Override
