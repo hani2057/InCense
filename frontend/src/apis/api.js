@@ -18,13 +18,22 @@ const api = {
       defaultInstance.get(`${USERS}/nickname/check`, {
         params: { nickname: name },
       }),
-    getInfo: () => authInstance.get(`${USERS}/info`),
+    getUserInfo: () => authInstance.get(`${USERS}/info`),
+    putUserInfo: (data) => authInstance.put(`${USERS}/modify`, data),
   },
   share: {
     getArticle: (articleId) => defaultInstance.get(`${SHARE}/${articleId}`),
     getList: (page) =>
       defaultInstance.get(`${SHARE}`, { params: { page: page } }),
-    getFilteredList: (pageNumber,pageSize,type,checklist1, checklist2, checklist3,checklist4) => {
+    getFilteredList: (
+      pageNumber,
+      pageSize,
+      type,
+      checklist1,
+      checklist2,
+      checklist3,
+      checklist4
+    ) => {
       return defaultInstance.get(`${SHARE}`, {
         params: {
           pageNumber: pageNumber,
@@ -32,12 +41,12 @@ const api = {
           close: checklist1,
           transaction: checklist2,
           brands: checklist3,
-          scents: checklist4
+          scents: checklist4,
         },
         paramsSerializer: {
           indexes: null, // by default: false
         },
-      })
+      });
     },
     register: (article) =>
       authInstance.post(`${SHARE}`, article, {
@@ -119,8 +128,7 @@ const api = {
     resetAlarm: (perfumeId) => authInstance.delete(`${ALARM}/${perfumeId}`),
     getAlarmSend: () => authInstance.get(`${ALARM}/send`),
     deleteAlarmSend: (sendId) => authInstance.delete(`${ALARM}/send/${sendId}`),
-    readAlarmSend: (sendId) => authInstance.put(`${ALARM}/send/${sendId}`)
-
+    readAlarmSend: (sendId) => authInstance.put(`${ALARM}/send/${sendId}`),
   },
 };
 
