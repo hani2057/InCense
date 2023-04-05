@@ -123,6 +123,7 @@ const api = {
     postTestResult: (data) => authInstance.post(`/test`, data),
     getUpdateTaste: () => authInstance.get(`${ANALYSIS}/update`),
     getWordCloud: () => authInstance.get(`${ANALYSIS}/word-cloud`),
+    getNoteGraph: () => authInstance.get(`${ANALYSIS}/note-graph`),
     getWantPerfumePredict: () =>
       authInstance.get(`${ANALYSIS}/want/similarity`),
     getRecommandList: () => authInstance.get(`${ANALYSIS}/all/similarity`),

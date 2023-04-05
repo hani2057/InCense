@@ -21,6 +21,12 @@ const ProfileAnalysisPage = () => {
     setWordcloud(res.cloud);
   };
 
+  // 노트별 취향 데이터 요청
+  const fetchNoteGraph = async () => {
+    const res = await api.analysis.getNoteGraph();
+    console.log("notes", res);
+  };
+
   // I want it 향수 예상평점 조회 요청
   const fetchGetWantPredict = async () => {
     const res = await api.analysis.getWantPerfumePredict();
@@ -30,12 +36,12 @@ const ProfileAnalysisPage = () => {
   // 취향 기반 추천 향수 조회 요청
   const fetchGetRecommandList = async () => {
     const res = await api.analysis.getRecommandList();
-    console.log(res);
     setRecommandList(res);
   };
 
   useEffect(() => {
     fetchGetWordCloud();
+    fetchNoteGraph();
     fetchGetWantPredict();
     fetchGetRecommandList();
   }, []);
@@ -46,7 +52,7 @@ const ProfileAnalysisPage = () => {
     <ProfileOutletContainer>
       <FlexDiv direction="column">
         <ProfileTitleBox bgimgNo={1} title={`${username}님의 취향 분석 결과`} />
-        {/* <Wordcloud /> */}
+        {/* <Wordcloud data={wordcloud} /> */}
 
         <ProfileTitleBox bgimgNo={1} title={"I want it 향수 예상 평점"} />
 
