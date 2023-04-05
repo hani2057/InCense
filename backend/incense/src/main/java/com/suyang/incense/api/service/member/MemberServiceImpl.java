@@ -82,7 +82,7 @@ public class MemberServiceImpl implements MemberService {
         // 마지막 테스트 시간 가져와야함
         List<Taste> taste = tasteRepository.findByMemberOrderByIdDesc(member);
         LocalDateTime time = null;
-        if(taste != null) {
+        if(taste.size() > 0) {
             time = taste.get(0).getCreatedDate();
         }
         return new MemberInfoRes(member.getGrade().getName(), member.getEmail(), member.getType().toString(),
