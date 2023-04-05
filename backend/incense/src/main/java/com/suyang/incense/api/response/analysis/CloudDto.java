@@ -15,8 +15,8 @@ public class CloudDto {
     @Getter
     @Setter
     public static class WordDto{
-        private String word;
-        private double weight;
+        private String text;
+        private double value;
 
     }
 
