@@ -73,6 +73,7 @@ public class DealCustomRepositoryImpl implements DealCustomRepository {
                         deal.id,
                         deal.gubun,
                         deal.createdDate,
+                        deal.buyDate,
                         deal.title,
                         deal.volume,
                         deal.price,

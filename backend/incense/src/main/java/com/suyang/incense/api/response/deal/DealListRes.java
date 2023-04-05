@@ -25,6 +25,9 @@ public class DealListRes {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdDate;
 
+    @ApiModelProperty(name = "향수 구매일", example = "2022.01")
+    private String buyDate;
+
     @ApiModelProperty(name = "나눔/판매 글 제목", example = "00향수 판매합니다.")
     private String title;
 
@@ -59,10 +62,11 @@ public class DealListRes {
     public DealListRes() {}
 
     @QueryProjection
-    public DealListRes(Long dealId, Gubun gubun, LocalDateTime createdDate, String title, int volume, int price, byte isDelivery, byte isClosed, String nickName, String perfumeBrand, String perfumeName, String perfumeImage) {
+    public DealListRes(Long dealId, Gubun gubun, LocalDateTime createdDate, String buyDate, String title, int volume, int price, byte isDelivery, byte isClosed, String nickName, String perfumeBrand, String perfumeName, String perfumeImage) {
         this.dealId = dealId;
         this.gubun = gubun;
         this.createdDate = createdDate;
+        this.buyDate = buyDate;
         this.title = title;
         this.volume = volume;
         this.price = price;
