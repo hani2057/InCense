@@ -44,17 +44,22 @@ export default function MenuButton(props) {
   };
 
   const cancelConfirm = () => console.log("취소했습니다.");
-  const editConfirm = () => console.log('수정하기..')
+  const editConfirm = () => {
+    console.log('수정하기..')
+    navigate('/share/register?isForEdit=true')
+  }
   const deleteConfirm = () => {
     api.share.delete(articleId)
   }
   const closeConfirm = () => {
     api.share.close(articleId)
   }
-  const onClickEl1 = () => {
-    console.log('수정하기')
-    // navigate('/share/register?isForEdit=true')
-  }
+
+  const onClickEl1 = useConfirm(
+    '수정하시겠습니까?',
+    editConfirm,
+    cancelConfirm
+  )
 
   const onClickEl2 = useConfirm(
     '삭제하시겠습니까?',
