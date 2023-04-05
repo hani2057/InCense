@@ -191,9 +191,13 @@ def get_words():
         temp.append((decoded_preference[0][i], i))
     temp.sort(reverse=True)
     result_json = {"cloud": []}
+    cnt = 0
     for tpp in temp:
+        if cnt == 50:
+            break
         now_note_name = name_all_sorted_notes[tpp[1]]
         result_json["cloud"].append({"word": now_note_name, "weight": str(tpp[0])})
+        cnt += 1
     # string 으로 이름으로 보내기 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     return jsonify(result_json)
 
