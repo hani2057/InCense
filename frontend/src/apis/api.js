@@ -50,7 +50,9 @@ const api = {
         headers: { "Content-Type": "multipart/form-data" },
       }),
     update: (articleId, article) =>
-      authInstance.put(`${SHARE}/${articleId}`, article),
+      authInstance.put(`${SHARE}/${articleId}`, article, {
+        headers: { "Content-Type": "multipart/form-data" },
+      }),
     delete: (articleId) => authInstance.delete(`${SHARE}/${articleId}`),
     bookmark: (articleId) => authInstance.put(`${SHARE}/bookmark/${articleId}`),
     check: (articleId) => authInstance.get(`${SHARE}/bookmark/${articleId}`),
