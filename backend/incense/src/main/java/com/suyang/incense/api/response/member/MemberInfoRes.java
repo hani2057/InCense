@@ -1,9 +1,11 @@
 package com.suyang.incense.api.response.member;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor
@@ -22,5 +24,8 @@ public class MemberInfoRes {
     private byte birthOpen;
     private byte genderOpen;
     private byte alarmOpen;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+    private LocalDateTime lastTime;
 
 }

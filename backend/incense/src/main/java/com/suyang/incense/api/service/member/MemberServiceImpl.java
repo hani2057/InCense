@@ -6,10 +6,12 @@ import com.suyang.incense.api.request.member.MemberRegisterReq;
 import com.suyang.incense.api.response.member.MemberInfoRes;
 import com.suyang.incense.api.response.member.RegisterInfoRes;
 import com.suyang.incense.common.FileHandler;
+import com.suyang.incense.db.entity.analysis.Taste;
 import com.suyang.incense.db.entity.member.*;
 import com.suyang.incense.db.repository.member.GradeLogRepository;
 import com.suyang.incense.db.repository.member.GradeRepository;
 import com.suyang.incense.db.repository.member.MemberRepository;
+import com.suyang.incense.db.repository.taste.TasteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -30,6 +34,7 @@ public class MemberServiceImpl implements MemberService {
     private final GradeRepository gradeRepository;
     private final GradeLogRepository gradeLogRepository;
     private final FileHandler fileHandler;
+    private final TasteRepository tasteRepository;
 
     @Override
     public RegisterInfoRes registerMember(MemberRegisterReq registerInfo) {
@@ -74,8 +79,15 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public MemberInfoRes getMemberInfo(Authentication authentication) {
         Member member = authService.getMemberByAuthentication(authentication).orElseThrow(IllegalArgumentException::new);
-        return new MemberInfoRes(member.getGrade().getName(), member.getEmail(), member.getType().toString(), member.getNickname(), member.getGender(),
-                member.getBirth(), member.getProfile(), member.getBirthOpen(), member.getGenderOpen(), member.getAlarmOpen());
+        // 마지막 테스트 시간 가져와야함
+        List<Taste> taste = tasteRepository.findByMemberOrderByIdDesc(member);
+        LocalDateTime time = null;
+        if(taste != null) {
+            time = taste.get(0).getCreatedDate();
+        }
+        return new MemberInfoRes(member.getGrade().getName(), member.getEmail(), member.getType().toString(),
+                member.getNickname(), member.getGender(), member.getBirth(), member.getProfile(),
+                member.getBirthOpen(), member.getGenderOpen(), member.getAlarmOpen(), time);
     }
 
     @Override
