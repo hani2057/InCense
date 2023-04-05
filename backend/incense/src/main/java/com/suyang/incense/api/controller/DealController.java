@@ -175,6 +175,7 @@ public class DealController {
     Long memberId = authService.getIdByAuthentication(authentication);
 
     dealCommentService.create(dealId, memberId, dealCommentReq);
+    memberService.addRank(2, memberId);
 
     return ResponseEntity.status(200).body("success");
 

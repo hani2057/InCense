@@ -3,6 +3,7 @@ package com.suyang.incense.api.controller;
 
 import com.suyang.incense.api.response.test.TestResultDto;
 import com.suyang.incense.api.service.member.AuthService;
+import com.suyang.incense.api.service.member.MemberService;
 import com.suyang.incense.api.service.test.TestService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,6 +27,7 @@ import java.util.List;
 public class TestController {
     private final TestService testService;
     private final AuthService authService;
+    private final MemberService memberService;
 
     @ApiOperation(value = "취향 테스트 하기")
     @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "성공",
@@ -56,6 +58,10 @@ public class TestController {
 
         } else{
             return ResponseEntity.status(500).body("data response fail.....");
+        }
+
+        if(testService.isFirstTester(memberId)){
+            memberService.addRank(4, memberId);
         }
 
         return ResponseEntity.ok("success");

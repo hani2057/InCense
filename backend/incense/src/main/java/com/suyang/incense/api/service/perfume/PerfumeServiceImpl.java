@@ -11,7 +11,7 @@ import com.suyang.incense.db.entity.note.Note;
 import com.suyang.incense.db.entity.perfume.Brand;
 import com.suyang.incense.db.entity.perfume.Perfume;
 import com.suyang.incense.db.repository.brand.BrandRepository;
-import com.suyang.incense.db.repository.deal.TasteRepository;
+import com.suyang.incense.db.repository.taste.TasteRepository;
 import com.suyang.incense.db.repository.note.NoteRepository;
 import com.suyang.incense.db.repository.perfume.PerfumeRepository;
 import lombok.RequiredArgsConstructor;
