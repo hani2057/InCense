@@ -53,7 +53,7 @@ export default function TableInCard(props) {
   }
 
   const article = props.article
-  console.log(article)
+  // console.log(article)
   
 
   return (

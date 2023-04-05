@@ -23,7 +23,6 @@ function ArticleCard(props) {
   const onClickArticle = () => {
 
     navigate(`/share/article/${id}`)
-    window.location.reload()
   }
 
   const fileName = article.perfumeImage

@@ -98,6 +98,10 @@ const RegisterPage = () => {
   console.log(formData)
 
 
+  const articleId = useSelector((state) => {
+    return state.articleReducers.updateId
+  })
+
 
   const onSubmitArticle = (event) => {
     event.preventDefault();
@@ -144,17 +148,18 @@ const RegisterPage = () => {
       article: article, navigate:navigate
     };
 
+
     if (IsForUpdate) {
       console.log('업데이트 ㄱㄱ');
       console.log(articleForUpdate);
 
       dispatch(articleActions.updateArticle(articleForUpdate)); // 추가
-      api.share.update(formData, articleForRegister.article.id)
+      api.share.update(articleId, formData)
       .then((res) => {
         alert('등록되었습니다.')
         console.log(res)
         dispatch(articleActions.reset())
-        navigate('/share/article/')
+        navigate('/share')
         window.location.reload()
       })
 
