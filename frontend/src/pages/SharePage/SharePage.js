@@ -28,10 +28,16 @@ export default function SharePage() {
   const [checklist3, setChecklist3] = useState([]);
   const [checklist4, setChecklist4] = useState([]);
 
-  const applyFilter = () => {
+  const [limit, setLimit] = useState(20);
+  const [page, setPage] = useState(1);
+  
+
+  const dispatch = useDispatch();
+
+  const applyFilter = (currentPage) => {
     api.share
       .getFilteredList(
-        page,
+        currentPage,
         checklist,
         checklist2,
         checklist3,
@@ -59,11 +65,7 @@ export default function SharePage() {
   };
 
   // 페이지네이션
-  const [limit, setLimit] = useState(10);
-  const [page, setPage] = useState(1);
-  const offset = (page - 1) * limit;
 
-  const dispatch = useDispatch();
 
   useEffect(() => {
     api.share
@@ -72,18 +74,20 @@ export default function SharePage() {
         console.log("sharelist가져오기");
         console.log(res);
         dispatch(articleListActions.getArticleList(res));
+   
       })
       .catch((err) => {
         console.log(err);
         alert(err);
       });
+      
   }, []);
 
 
 
   const articleList = useSelector((state) => {
     console.log(state)
-    return state.articleListReducers.articleList.content
+    return state.articleListReducers.articleList;
     // console.log(state)
   })
 
@@ -394,7 +398,7 @@ export default function SharePage() {
 
           <Button
             variant="outlined"
-            onClick={applyFilter}
+            onClick={()=>applyFilter(page)}
             sx={{
               width: "10rem",
               height: "2rem",
@@ -465,19 +469,25 @@ export default function SharePage() {
               flexWrap:"wrap",
               marginBottom:"5rem"              
             }}>
-            {articleList && articleList.map((article, index) => {
+            { articleList.content?.map((article, index) => {
               return (
                 <ArticleCard key={index} article={article}/>
               )
             })}
 
-            <Pagination 
+          
+          {articleList?.totalElements &&( <>
+             <Pagination 
               // total={Object.keys(perfumeList).length}
               total={articleList? articleList.totalElements : 0}
               limit={limit}
               page={page}
               setPage={setPage}
+              request={applyFilter}
             />
+            </>
+            ) }
+          
           </Box>
         </Box>
       </Box>

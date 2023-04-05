@@ -23,14 +23,15 @@ export const articleListSlice = createSlice({
   name: 'articleList',
   initialState: {
     articleList:[
-      content
+      
     ]
 
   },
   reducers: {
     getArticleList: (state, {payload}) => {
       console.log('Share List get요청')
-      state.articleList = payload
+      state.articleList = {...payload}
+      console.log(state.articleList)
     }
   }
 })
