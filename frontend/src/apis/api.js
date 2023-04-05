@@ -125,6 +125,7 @@ const api = {
     getWordCloud: () => authInstance.get(`${ANALYSIS}/word-cloud`),
     getWantPerfumePredict: () =>
       authInstance.get(`${ANALYSIS}/want/similarity`),
+    getRecommandList: () => authInstance.get(`${ANALYSIS}/all/similarity`),
   },
   image: {
     getImage: (fileName) => defaultInstance.get(`${IMG}?filename=${fileName}`),

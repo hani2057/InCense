@@ -10,35 +10,42 @@ import api from "../../../apis/api";
 
 const ProfileAnalysisPage = () => {
   const { username } = useSelector((state) => state.userReducers);
+  const [wordcloud, setWordcloud] = useState(null);
   const [iWantItList, setIWantItList] = useState(null);
-
-  // 더미데이터
-  const name = "닉네임";
+  const [recommandList, setRecommandList] = useState(null);
+  console.log("wordcloud", wordcloud);
 
   // 워드클라우드 데이터 요청
   const fetchGetWordCloud = async () => {
     const res = await api.analysis.getWordCloud();
-    console.log("wordcloud", res);
+    setWordcloud(res.cloud);
   };
 
   // I want it 향수 예상평점 조회 요청
   const fetchGetWantPredict = async () => {
     const res = await api.analysis.getWantPerfumePredict();
     setIWantItList(res);
-    console.log("wantpredict", res);
+  };
+
+  // 취향 기반 추천 향수 조회 요청
+  const fetchGetRecommandList = async () => {
+    const res = await api.analysis.getRecommandList();
+    console.log(res);
+    setRecommandList(res);
   };
 
   useEffect(() => {
     fetchGetWordCloud();
     fetchGetWantPredict();
+    fetchGetRecommandList();
   }, []);
 
-  if (!iWantItList) return null;
+  if (!wordcloud || !iWantItList || !recommandList) return null;
 
   return (
     <ProfileOutletContainer>
       <FlexDiv direction="column">
-        <ProfileTitleBox bgimgNo={1} title={`${name}님의 취향 분석 결과`} />
+        <ProfileTitleBox bgimgNo={1} title={`${username}님의 취향 분석 결과`} />
         {/* <Wordcloud /> */}
 
         <ProfileTitleBox bgimgNo={1} title={"I want it 향수 예상 평점"} />
@@ -59,8 +66,21 @@ const ProfileAnalysisPage = () => {
 
         <ProfileTitleBox
           bgimgNo={1}
-          title={`${name}님의 취향 기반 추천 향수`}
+          title={`${username}님의 취향 기반 추천 향수`}
         />
+        <ScrollContainer margin="0 0 10rem 0">
+          {recommandList.map(
+            ({ perfumeId, perfumeName, perfumeBrand, image, predict }) => (
+              <WantAnalysisCard
+                name={perfumeName}
+                brand={perfumeBrand}
+                img={image}
+                predict={predict}
+                key={perfumeId}
+              />
+            )
+          )}
+        </ScrollContainer>
       </FlexDiv>
     </ProfileOutletContainer>
   );
