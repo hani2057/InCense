@@ -27,6 +27,7 @@ const ReviewItem = ({
         <FlexDiv width="35%">
           <img
             src={`https://j8a804.p.ssafy.io/api/display?filename=${img}`}
+            alt="perfume"
             style={{ height: "10rem", cursor: "pointer" }}
             onClick={() => navigate(`/detail/${perfumeId}`)}
           />
@@ -45,6 +46,7 @@ const ReviewItem = ({
             </ModalSpan>
             <img
               src="/assets/icons/edit.svg"
+              alt="edit"
               style={{ cursor: "pointer" }}
               onClick={() => setModifyModalOpen(true)}
             />

@@ -1,8 +1,6 @@
-import axios from "axios";
 import { defaultInstance, authInstance } from ".";
 
 const USERS = "/member";
-const TEST = "/test";
 const PERFUMES = "/perfume";
 const SHARE = "/deal";
 const PROFILE = "/mypage";
@@ -18,7 +16,8 @@ const api = {
       defaultInstance.get(`${USERS}/nickname/check`, {
         params: { nickname: name },
       }),
-    getInfo: () => authInstance.get(`${USERS}/info`),
+    getUserInfo: () => authInstance.get(`${USERS}/info`),
+    putUserInfo: (data) => authInstance.put(`${USERS}/modify`, data),
   },
   share: {
     getArticle: (articleId) => defaultInstance.get(`${SHARE}/${articleId}`),
@@ -95,6 +94,7 @@ const api = {
       });
     },
     getDetail: (detailId) => defaultInstance.get(`${PERFUMES}/${detailId}`),
+    getCategory: (detailId) => authInstance.get(`${PERFUMES}/category/${detailId}`)
   },
   profile: {
     getPerfumeList: (type) =>
@@ -123,9 +123,12 @@ const api = {
   },
   review: {
     postReview: (reviewArticle) =>
-      authInstance.post(`/mypage/perfume`, reviewArticle),
+      authInstance.post(`${PROFILE}/perfume`, reviewArticle),
+    getReview: (perfumeId, page) => 
+      defaultInstance.get(`${PERFUMES}/${perfumeId}/review?page=${page}`)
   },
   alarm: {
+    getAlarm: (perfumeId) => authInstance.get(`${ALARM}/${perfumeId}`),
     setAlarm: (perfumeId) => authInstance.post(`${ALARM}/${perfumeId}`),
     resetAlarm: (perfumeId) => authInstance.delete(`${ALARM}/${perfumeId}`),
     getAlarmSend: () => authInstance.get(`${ALARM}/send`),

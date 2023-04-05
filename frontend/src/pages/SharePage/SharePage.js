@@ -60,7 +60,7 @@ export default function SharePage() {
   const navigate = useNavigate();
   const registerPost = () => {
     if (isLoggedIn === true) {
-      navigate("/share/register");
+      navigate('/share/register?isForEdit=false')
     } else {
       alert("로그인이 필요합니다.");
       navigate("/login");
@@ -77,7 +77,6 @@ export default function SharePage() {
         console.log("sharelist가져오기");
         console.log(res);
         dispatch(articleListActions.getArticleList(res));
-   
       })
       .catch((err) => {
         console.log(err);
@@ -468,7 +467,7 @@ export default function SharePage() {
               width:"100%",
               display:"flex",
               flexDirection:"row",
-              justifyContent:"center",
+              justifyContent:"start",
               flexWrap:"wrap",
               marginBottom:"5rem"              
             }}>
@@ -478,22 +477,17 @@ export default function SharePage() {
               )
             })}
 
-          
-          {articleList?.totalElements &&( <>
-             <Pagination 
+          </Box>
+            <Pagination 
               // total={Object.keys(perfumeList).length}
               total={articleList? articleList.totalElements : 0}
               limit={limit}
               page={page}
               setPage={setPage}
               request={applyFilter}
-            />
-            </>
-            ) }
-          
+            />          
           </Box>
         </Box>
       </Box>
-    </Box>
   );
 }

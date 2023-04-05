@@ -51,7 +51,7 @@ function ArticleCard(props) {
         <p style={{marginTop:'1.5rem'}}>{article.perfumeBrand}</p>
         <p style={{marginTop:'0.5rem',fontWeight:'bold'}}>{article.perfumeName}</p>
         <p style={{marginTop:'1rem',fontWeight:'bold',marginBottom:'0.5rem'}}>by {article.nickName}</p>
-        <TableInCard/>
+        <TableInCard article={article}/>
       </Box>
       <Box sx={{display:'flex',flexDirection:'column',justifyContent:'space-between'}}>
         {isClosed === 1
@@ -67,7 +67,7 @@ function ArticleCard(props) {
           </Box>}
           <Box sx={{display:'flex',flexDirection:'row',justifyContent:'center',marginBottom:'1rem'}}>
             <img src={'assets/icons/comment.svg'} alt='comment' style={{width:'1.5rem',height:'1.5rem'}}/>
-            <p style={{fontSize:'1.5rem'}}>{article.commentCount}</p>
+            <p style={{fontSize:'1.5rem', marginLeft:'0.4rem'}}>{article.commentCount}</p>
           </Box>
       </Box>
     </Box>
