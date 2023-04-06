@@ -29,7 +29,6 @@ export const commentSlice = createSlice({
   },
   reducers: {
     getComment: (state, {payload}) => {
-      console.log('comment 조회')
       state.comment = payload
     }
 

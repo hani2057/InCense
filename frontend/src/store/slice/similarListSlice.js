@@ -18,9 +18,7 @@ export const similarListSlice = createSlice({
   },
   reducers: {
     getSimilarList: (state, {payload}) => {
-      console.log('similar List get요청')
       state.similarList = payload
-      console.log(state.similarList)
     }
   }
 })

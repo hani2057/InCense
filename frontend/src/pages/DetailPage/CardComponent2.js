@@ -13,7 +13,6 @@ import api from "../../apis/api";
 const CardComponent2 = (props) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  // console.log(props)
   
   const perfume = props.perfume
   const fileName = perfume.image
