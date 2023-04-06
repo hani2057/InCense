@@ -4,7 +4,7 @@
 
 <br><br>
 
-<img src="/uploads/5c07169f8bdef70891859089c98ccaf6/Icon.png" style="float:left;">
+<img src="/uploads/5c07169f8bdef70891859089c98ccaf6/Icon.png" align="left">
 
 여러분에게 꼭 맞는 향기를 전하는 **In:Cense** 입니다. <br>
 향수 취향을 테스트하고, 취향에 맞는 향수들을 추천받아 보세요.
@@ -43,8 +43,19 @@
 ### 🔎 WBS
 
 #### Backend
+![WBS1](/uploads/0d1fc45e527e82a0316d804f873988b8/WBS1.PNG)
+![WBS2](/uploads/931b8535a2dc46f69d7f739bc7d8a0b6/WBS2.PNG)
+
+<br>
+
 #### Frontend
+![WBS3](/uploads/0897b3fb4640fdb47e23d2a8af485c1a/WBS3.PNG)
+![WBS4](/uploads/48b122a25109f97944b16d6827565e43/WBS4.PNG)
+
+<br>
+
 #### BigData
+![WBS5](/uploads/9e9dcd1f0733d1bc84139852d4e65cf4/WBS5.PNG)
 
 
 <br><br>
