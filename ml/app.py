@@ -238,8 +238,8 @@ def get_note_graph():
     return jsonify(result_json)
 
 
-# if __name__ == '__main__':
-#     app.run(host='0.0.0.0', port=5000, threaded=False)
-
 if __name__ == '__main__':
-    app.run(host='localhost', port=5000, threaded=False)
+    app.run(host='0.0.0.0', port=5000, threaded=False)
+
+# if __name__ == '__main__':
+#     app.run(host='localhost', port=5000, threaded=False)
