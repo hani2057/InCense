@@ -243,7 +243,9 @@ function ArticleDetail() {
           저장
         </Button>
       </Box>
-      
+      <Box
+        sx={{width:'100%', height:'1px', backgroundColor:'#DCDCDC',marginTop:'0.7rem',marginBottom:'1rem',marginLeft:'1rem'}}>
+      </Box>
       {/* <CommentBox articleId={articleId}/>
       map으로 돌려야 함
       <CommentBox/> */}
@@ -254,7 +256,7 @@ function ArticleDetail() {
               )
             })}
       </Box>
-      <Box> </Box>
+      <Box sx={{height:'3rem'}}> </Box>
     </Box>
   )
 }

@@ -27,16 +27,16 @@ function ReplyBox(props) {
           <p style={{fontWeight:'bold',fontSize:'1.1rem'}}>{reply.writer}</p>
           {props.username === reply.writer
           ?<Box>
-            <img
+            {/* <img
             src="/assets/icons/edit.svg"
             alt="modify"
             // style={{ position: "absolute", right: "0" }}
             style={{marginRight:'0.5rem',cursor:'pointer'}}
             onClick={props.onEditcomment}
-            />
+            /> */}
             <img
             src="/assets/icons/delete.svg"
-            alt="modify"
+            alt="delete"
             style={{width:'18px',height:'18px',marginBottom:'1px',cursor:'pointer'}}
             onClick={props.onDeleteComment}
             />

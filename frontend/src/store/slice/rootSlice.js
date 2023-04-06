@@ -25,6 +25,6 @@ export const rootReducer = combineReducers({
   articleListReducers,
   reviewReducers,
   similarListReducers,
-  similarityReducers,
+  similarityReducers
 });
 export default persistReducer(persistConfig, rootReducer);
