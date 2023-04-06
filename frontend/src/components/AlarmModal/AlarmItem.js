@@ -20,6 +20,7 @@ const AlarmItem = ({
   dealTitle,
   dealId,
   isReceived,
+  setAlarmOpen
 }) => {
 
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ const AlarmItem = ({
     await api.alarm.readAlarmSend(id);
     const res = await api.alarm.getAlarmSend();
     dispatch(setAlarmList(res));
+    setAlarmOpen(false);
   }
 
   return (
