@@ -59,14 +59,13 @@ const GlowBox = styled.div`
   `}
 `;
 
-const TestImg = styled.img.attrs(({ src }) => ({
-  src: `https://j8a804.p.ssafy.io/api/display?filename=${src}`,
-}))`
+const TestImg = styled.img`
   ${({ width, height, pointer }) => css`
     width: ${width};
     height: ${height};
     cursor: ${pointer ? "pointer" : "auto"};
     border-radius: 10px;
+    object-fit: cover;
   `}
 `;
 

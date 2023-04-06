@@ -8,22 +8,10 @@ import { FlexDiv } from "../../common/FlexDiv/FlexDiv";
 
 const TestOne = ({ toNext, setResult }) => {
   const data = [
-    {
-      src: "perfumes/438.jpg",
-      description: "봄",
-    },
-    {
-      src: "perfumes/438.jpg",
-      description: "여름",
-    },
-    {
-      src: "perfumes/438.jpg",
-      description: "가을",
-    },
-    {
-      src: "perfumes/438.jpg",
-      description: "겨울",
-    },
+    { description: "봄" },
+    { description: "여름" },
+    { description: "가을" },
+    { description: "겨울" },
   ];
 
   return (
@@ -32,7 +20,7 @@ const TestOne = ({ toNext, setResult }) => {
         향수를 사용할 계절을 알려주세요
       </TestSpan>
       <FlexDiv height="auto" width="45rem">
-        {data.map(({ src, description, title }, idx) => (
+        {data.map(({ description }, idx) => (
           <TestItemWrapper
             direction="column"
             gap="0.5rem"
@@ -42,7 +30,12 @@ const TestOne = ({ toNext, setResult }) => {
               toNext();
             }}
           >
-            <TestImg width="6rem" height="6rem" src={src} pointer={true} />
+            <TestImg
+              width="8rem"
+              height="8rem"
+              src={`/assets/images/test5-${idx}.jpeg`}
+              pointer={true}
+            />
             <TestSpan className="changeColorWhenHover" bold={true}>
               {description}
             </TestSpan>

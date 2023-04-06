@@ -8,36 +8,12 @@ import { FlexDiv } from "../../common/FlexDiv/FlexDiv";
 
 const TestFour = ({ toNext, setResult }) => {
   const data = [
-    {
-      src: "perfumes/438.jpg",
-      description: "강, 바다, 수영장의",
-      title: "물 내음",
-    },
-    {
-      src: "perfumes/438.jpg",
-      description: "달달한",
-      title: "과일 한 아름",
-    },
-    {
-      src: "perfumes/438.jpg",
-      description: "코끝을 톡 건드리는",
-      title: "시나몬",
-    },
-    {
-      src: "perfumes/438.jpg",
-      description: "달짝지근한",
-      title: "바닐라",
-    },
-    {
-      src: "perfumes/438.jpg",
-      description: "보송보송한",
-      title: "파우더",
-    },
-    {
-      src: "perfumes/438.jpg",
-      description: "",
-      title: "다 좋아요",
-    },
+    { description: "강, 바다, 수영장의", title: "물 내음" },
+    { description: "달달한", title: "과일 한 아름" },
+    { description: "코끝을 톡 건드리는", title: "시나몬" },
+    { description: "달짝지근한", title: "바닐라" },
+    { description: "보송보송한", title: "파우더" },
+    { description: "", title: "다 좋아요" },
   ];
 
   return (
@@ -47,19 +23,24 @@ const TestFour = ({ toNext, setResult }) => {
       </TestSpan>
 
       <FlexDiv height="auto" width="45rem" gap="2rem" wrap="wrap">
-        {data.map(({ src, description, title }, idx) => (
+        {data.map(({ description, title }, idx) => (
           <TestItemWrapper
             width="30%"
             height="auto"
             direction="column"
-            gap="5%"
+            gap="0.2rem"
             key={idx}
             onClick={() => {
               setResult((prev) => ({ ...prev, test4: idx }));
               toNext();
             }}
           >
-            <TestImg width="6rem" height="6rem" src={src} pointer={true} />
+            <TestImg
+              width="7rem"
+              height="7rem"
+              src={`/assets/images/test4-${idx}.jpeg`}
+              pointer={true}
+            />
             <TestSpan className="changeColorWhenHover">{description}</TestSpan>
             <TestSpan className="changeColorWhenHover" bold={true}>
               {title}

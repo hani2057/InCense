@@ -8,38 +8,14 @@ import { FlexDiv } from "../../common/FlexDiv/FlexDiv";
 
 const TestTwo = ({ toNext, setResult, prevResult }) => {
   const data = [
-    {
-      src: "perfumes/438.jpg",
-      description: "햇빛 반짝이는 들판의 싱그러움",
-    },
-    {
-      src: "perfumes/438.jpg",
-      description: "나무, 흙, 숲이 주는 깊이감",
-    },
-    {
-      src: "perfumes/438.jpg",
-      description: "이제 막 피어나기 시작한 여린 꽃망울",
-    },
-    {
-      src: "perfumes/438.jpg",
-      description: "디너 테이블 위 우아한 꽃다발",
-    },
-    {
-      src: "perfumes/438.jpg",
-      description: "꽃과 과일의 화사한 달콤함",
-    },
-    {
-      src: "perfumes/438.jpg",
-      description: "바닐라, 꿀과 같은 진득한 달콤함",
-    },
-    {
-      src: "perfumes/438.jpg",
-      description: "바쁘게 움직이는 도시의 한낮",
-    },
-    {
-      src: "perfumes/438.jpg",
-      description: "깊고 어두운 도시의 밤",
-    },
+    { src: 0, description: "햇빛 반짝이는 들판의 싱그러움" },
+    { src: 1, description: "나무, 흙, 숲이 주는 깊이감" },
+    { src: 2, description: "이제 막 피어나기 시작한 여린 꽃망울" },
+    { src: 3, description: "디너 테이블 위 우아한 꽃다발" },
+    { src: 4, description: "꽃과 과일의 화사한 달콤함" },
+    { src: 5, description: "바닐라, 꿀과 같은 진득한 달콤함" },
+    { src: 6, description: "바쁘게 움직이는 도시의 한낮" },
+    { src: 7, description: "깊고 어두운 도시의 밤" },
   ];
 
   const dataToRender = data.slice(prevResult * 2, prevResult * 2 + 2);
@@ -61,7 +37,12 @@ const TestTwo = ({ toNext, setResult, prevResult }) => {
               toNext();
             }}
           >
-            <TestImg width="6rem" height="6rem" src={src} pointer={true} />
+            <TestImg
+              width="16rem"
+              height="6.5rem"
+              src={`/assets/images/test2-${src}.jpeg`}
+              pointer={true}
+            />
             <TestSpan className="changeColorWhenHover" bold={true}>
               {description}
             </TestSpan>
