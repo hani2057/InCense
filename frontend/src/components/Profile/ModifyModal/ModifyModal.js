@@ -122,7 +122,7 @@ const ModifyModal = ({
                 <label>
                   <input
                     type="file"
-                    accept="image/*"
+                    accept=".jpeg, .png"
                     ref={imgRef}
                     onChange={showChosenImage}
                     style={{ display: "none" }}
