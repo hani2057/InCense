@@ -7,7 +7,11 @@
 ![Icon](/uploads/5c07169f8bdef70891859089c98ccaf6/Icon.png)
 
 여러분에게 꼭 맞는 향기를 전하는 **In:Cense** 입니다. <br>
-여러분의 향수 취향을 테스트하고, 상세한 취향 분석을 통해 취향에 맞는 향수를 추천받아 보세요!<br>
+향수 취향을 테스트하고, 취향에 맞는 향수들을 추천받아 보세요.
+여러분들이 1,000개 이상의 향수 목록들을 둘러보며 등록한 향수들을 통해 더 상세한 취향 분석 결과를 받아볼 수 있답니다! <br>
+여러분이 구매한 모든 향수가 여러분에게 꼭 맞는 향수일 수는 없죠, 그러니 조금 아쉬운 향수는 소분하여 나눔하거나 판매해보세요! <br>
+
+
 
 
 <!-- 여러분의 향수 취향을 테스트하고, 취향에 맞는 향수를 추천받아 보세요. <br>
@@ -49,8 +53,9 @@
 
 ### 📋 API 명세서
 
-<img src="/uploads/a86cf62f8879a0ed0ff465327df19a27/API명세서1.PNG" width="445" height="460">
-<img src="/uploads/0cb73b9a2ad83eebf7ac3819553ed42c/API명세서2.PNG" width="445" height="460">
+<!-- 두 이미지를 한 행으로 할 수 있는 최선의 사이즈 -->
+<img src="/uploads/a86cf62f8879a0ed0ff465327df19a27/API명세서1.PNG" width="440" height="454">
+<img src="/uploads/0cb73b9a2ad83eebf7ac3819553ed42c/API명세서2.PNG" width="440" height="454">
 
 
 <br><br>
