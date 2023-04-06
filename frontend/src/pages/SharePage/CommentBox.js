@@ -218,7 +218,7 @@ function CommentBox(props) {
         </Box>
         
         <p style={{marginTop:'1rem'}}>{comment.content}</p>
-        <p style={{marginTop:'0.5rem',fontSize:'0.7rem', color:'grey'}}>{comment.createdDate}</p>
+        <p style={{marginTop:'0.5rem',fontSize:'0.7rem', color:'grey'}}>{comment.createdDate.substr(0,16)}</p>
         <p onClick={onClickPostReply} style={{marginTop:'0.5rem',fontSize:'0.9rem',cursor:'pointer'}}>답글 달기</p>
       </div>
     </Box>
