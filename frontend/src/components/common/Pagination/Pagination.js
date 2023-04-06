@@ -8,10 +8,10 @@ function Pagination({ total, limit, page, setPage, request }) {
     setPage(i);
     request(i);
   };
-  const start = page === 0 ? 1 : Math.ceil((page - 1) / 10) + 1;
+  const start = page === 0 ? 0 : Math.ceil((page - 1) / 10);
   const pageButtons = Array(10)
     .fill()
-    .map((_, i) => start + i);
+    .map((_, i) => start * 10 + i + 1);
 
   return (
     <>
