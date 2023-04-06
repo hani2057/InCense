@@ -13,7 +13,7 @@ import {
   selectAlarmCount,
   setAlarmList,
   increaseAlarmCount,
-  selectAlarmLen
+  selectAlarmLen,
 } from "../../store/slice/alarmSlice";
 import NotificationAddIcon from "@mui/icons-material/NotificationAdd";
 import api from "../../apis/api";
@@ -40,10 +40,9 @@ const NavBar = () => {
     }
   }, [pathname]);
 
-  const alarmClick =() => {   
-
-      dispatch({type: "ON_ALARM_CHANGE"})
-      setAlarmOpen((prev) => !prev);
+  const alarmClick = () => {
+    dispatch({ type: "ON_ALARM_CHANGE" });
+    setAlarmOpen((prev) => !prev);
   };
 
   // const isAlarmList = () =>{
@@ -54,20 +53,21 @@ const NavBar = () => {
   //   return len>0;
   // }
 
-
-  useEffect(()=>{
-    dispatch({type: "INIT_ALARM"})
-  },[])
+  useEffect(() => {
+    dispatch({ type: "INIT_ALARM" });
+    console.log("init alarm");
+  }, []);
 
   useEffect(() => {
     console.log(alarmCount + "alarmCount");
-    const len = alarmList.filter((data)=>data.isReceived==0).length;
+    const len = alarmList.filter((data) => data.isReceived == 0).length;
+    console.log(alarmCount + "alarmCount");
     setAlarmLen(len);
   }, [alarmCount]);
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(alarmLen);
-  },[alarmLen]);
+  }, [alarmLen]);
 
   return (
     <>
