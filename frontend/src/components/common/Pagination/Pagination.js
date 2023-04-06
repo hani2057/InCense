@@ -9,12 +9,6 @@ function Pagination({ total, limit, page, setPage, request }) {
     request(i);
   };
 
-  const start = i * 10 + 1;
-  const end = Math.min(start + 9, numPages * 10);
-  const pageButtons = Array(end - start + 1)
-    .fill()
-    .map((_, j) => start + j);
-
   return (
     <>
       <Nav>
