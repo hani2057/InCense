@@ -2,9 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { BsBell } from "react-icons/bs";
-// import { BsFillBellFill } from "react-icons/bs";
 import { FlexDiv } from "../common/FlexDiv/FlexDiv";
-import { NavWrapper, NavTitle, NavItem, NavLogInStatus } from "./style";
+import {
+  NavWrapper,
+  NavTitle,
+  NavItem,
+  NavLogInStatus,
+  AlarmCnt,
+  AlarmSpan,
+} from "./style";
 import AlarmModal from "../AlarmModal/AlarmModal";
 import { logout } from "../../store/slice/userSlice";
 import {
@@ -15,7 +21,6 @@ import {
   increaseAlarmCount,
   selectAlarmLen,
 } from "../../store/slice/alarmSlice";
-import NotificationAddIcon from "@mui/icons-material/NotificationAdd";
 import api from "../../apis/api";
 
 const NavBar = () => {
@@ -89,12 +94,10 @@ const NavBar = () => {
           <NavItem to="/profile">My Page</NavItem>
         </FlexDiv>
         <FlexDiv width="auto">
-          {alarmLen > 0 ? (
-            <NotificationAddIcon onClick={alarmClick} />
-          ) : (
+          <div style={{ position: "relative" }}>
             <BsBell onClick={alarmClick} style={{ cursor: "pointer" }} />
-          )}
-
+            {alarmLen > 0 && <AlarmCnt>{alarmLen}</AlarmCnt>}
+          </div>
           <NavLogInStatus
             onClick={() => {
               if (isLoggedIn) dispatch(logout());
