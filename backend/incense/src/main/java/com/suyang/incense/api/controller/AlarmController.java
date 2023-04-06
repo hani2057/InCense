@@ -43,7 +43,6 @@ public class AlarmController {
             content = @Content(schema = @Schema(implementation = String.class)))})
     @PostMapping(path="/{perfume_id}")
     public ResponseEntity<String> setAlarm(@PathVariable("perfume_id") Long perfumeId,@ApiIgnore Authentication authentication){
-        System.out.println(perfumeId+"perfumeId");
         Long memberId = authService.getIdByAuthentication(authentication);
         alarmService.setMemberAlarmPerfume(perfumeId,memberId);
         return ResponseEntity.ok("success");
@@ -120,7 +119,7 @@ public class AlarmController {
                             .perfumeName(alarmSend.getDeal().getPerfume().getName())
                             .isReceived(alarmSend.getIsReceived())
                             .brandName(alarmSend.getDeal().getPerfume().getBrand().getName())
-                            .createAt(duration.toHours())
+                            .createAt(duration.toMinutes())
                             .build()
             );
         }
