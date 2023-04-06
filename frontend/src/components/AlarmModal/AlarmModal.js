@@ -5,7 +5,7 @@ import api from "../../apis/api";
 import {selectAlarmList, setAlarmList,} from "../../store/slice/alarmSlice"
 import {useDispatch, useSelector} from "react-redux"
 
-const AlarmModal = () => {
+const AlarmModal = ({setAlarmOpen}) => {
   const dispatch = useDispatch();
   const alarmList = useSelector(selectAlarmList);
 
@@ -39,6 +39,7 @@ const AlarmModal = () => {
             dealId={dealId}
             isReceived={isReceived}
             key={idx}
+            setAlarmOpen={setAlarmOpen}
           />
         )
       )}

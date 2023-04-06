@@ -56,7 +56,7 @@ const NavBar = () => {
         </FlexDiv>
       </NavWrapper>
 
-      {alarmOpen && <AlarmModal />}
+      {alarmOpen && <AlarmModal setAlarmOpen={setAlarmOpen} />}
 
       <div style={{ paddingTop: "var(--nav-height)" }}>
         <Outlet />
