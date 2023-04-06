@@ -82,7 +82,7 @@ function* watchMessageChannel(channel) {
     const { type, payload } = yield take(channel);
     switch (type) {
       case "MESSAGE":
-        // yield put({ type: "alarm/increaseAlarmCount" });
+        yield put({ type: "alarm/increaseAlarmCount" });
         const alarmList = yield call(getAlarmList);
         yield put({type:"alarm/setAlarmList",payload:alarmList})
         break;
