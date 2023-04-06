@@ -41,7 +41,8 @@ export const articleSlice = createSlice({
     createdDate: '',
     comments: [],
     userNickname: ''
-    }
+    },
+    updateId: 0
   },
   reducers: {
     getArticleDetail: (state, {payload}) => {
@@ -62,6 +63,10 @@ export const articleSlice = createSlice({
       state.article = payload
 
     },    
+    updateId: (state, {payload}) => {
+      console.log(payload)
+      state.updateId = payload
+    },
 
     changeRegisterInput: (state, { payload }) => {
       if (payload.name==='title') {

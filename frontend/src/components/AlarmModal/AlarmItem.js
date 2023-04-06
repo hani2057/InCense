@@ -5,8 +5,10 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { AlarmSpan, AlarmWrapper, AlarmDeleteIcon } from "./style";
 import { Link } from "react-router-dom";
 import api from "../../apis/api";
-import { setAlarmList,} from "../../store/slice/alarmSlice"
-import {useDispatch,} from "react-redux"
+import { selectAlarmList, setAlarmList,} from "../../store/slice/alarmSlice"
+import {useDispatch, useSelector,} from "react-redux"
+import { useEffect } from "react";
+
 
 dayjs.extend(relativeTime);
 dayjs.locale("ko");
@@ -19,6 +21,7 @@ const AlarmItem = ({
   dealTitle,
   dealId,
   isReceived,
+  setAlarmOpen
 }) => {
 
   const dispatch = useDispatch();
@@ -33,6 +36,7 @@ const AlarmItem = ({
     await api.alarm.readAlarmSend(id);
     const res = await api.alarm.getAlarmSend();
     dispatch(setAlarmList(res));
+    setAlarmOpen(false);
   }
 
   return (

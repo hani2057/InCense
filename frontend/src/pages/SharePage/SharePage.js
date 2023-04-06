@@ -11,13 +11,17 @@ import ArticleCard from "./ArticleCard/ArticleCard";
 import Pagination from "../../components/common/Pagination/Pagination";
 import api from "../../apis/api";
 import { articleListActions } from "../../store/slice/articleListSlice";
+import { login, logout } from "../../store/slice/userSlice";
+import { articleActions } from "../../store/slice/articleSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 // 체크박스 필터링시 들어가는 value값 확인하기
 
 export default function SharePage() {
-  const isLoggedIn = true;
-
+  const isLoggedIn = useSelector((state) => {
+    return (state.userReducers.isLoggedIn)
+  })
+  console.log('로그인?', isLoggedIn)
   const [dropdownVisibility, setDropdownVisibility] = useState(false);
   const [dropdown2Visibility, setDropdown2Visibility] = useState(false);
   const [dropdown3Visibility, setDropdown3Visibility] = useState(false);
@@ -58,9 +62,11 @@ export default function SharePage() {
   };
 
   const navigate = useNavigate();
+
   const registerPost = () => {
     if (isLoggedIn === true) {
       navigate('/share/register?isForEdit=false')
+      dispatch(articleActions.reset())
     } else {
       alert("로그인이 필요합니다.");
       navigate("/login");
@@ -288,7 +294,7 @@ export default function SharePage() {
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-between",
-              width: "50%",
+              width: "100%",
               alignItems: "center",
               marginBottom: "1rem",
             }}
@@ -299,8 +305,9 @@ export default function SharePage() {
                   <Box
                     sx={{
                       display: "flex",
+                      width:'100%',
                       flexDirection: "column",
-                      fontSize: "1.2rem",
+                      fontSize: "1rem",
                       height: "15rem",
                       justifyContent: "space-around",
                     }}
@@ -439,7 +446,7 @@ export default function SharePage() {
               textAlign: "center",
             }}
           >
-            <ToggleFilter2 gubun={gubun} setGubun={setGubun}/>
+            <ToggleFilter2 gubun={gubun} setGubun={setGubun} goGubun ={applyFilter}/>
 
             <Button
               variant="outlined"

@@ -23,7 +23,6 @@ function ArticleCard(props) {
   const onClickArticle = () => {
 
     navigate(`/share/article/${id}`)
-    window.location.reload()
   }
 
   const fileName = article.perfumeImage
@@ -44,14 +43,14 @@ function ArticleCard(props) {
 
   return (
     <Box 
-      sx={{width:'50%',height:'27vh', border:'2px solid transparent', borderImage:'linear-gradient(to right, #FFD6F8 0%, #FFFBD6 50%, #E1FFE9 100%)', borderImageSlice:'2',display:'flex',flexDirection:'row'}} >
-      <img src={`https://j8a804.p.ssafy.io/api/display?filename=${fileName}`} alt='sample1' style={{width:'9rem',height:'12rem',marginTop:'1rem',marginLeft:'1rem'}}/>
+      sx={{width:'50%',height:'27vh', border:'2px solid transparent', borderImage:'linear-gradient(to right, #FFD6F8 0%, #FFFBD6 50%, #E1FFE9 100%)', borderImageSlice:'2',display:'flex',flexDirection:'row', '&:hover':{ boxShadow: '0 0 20px -5px #FF85EC',}, opacity:isClosed===1&&'0.5'}} >
+      <img src={`https://j8a804.p.ssafy.io/api/display?filename=${fileName}`} alt='sample1' onClick={onClickArticle} style={{width:'9rem',height:'12rem',marginTop:'1rem',marginLeft:'1rem'}}/>
       <Box sx={{margin:'1rem',width:'60%'}}>
-        <p style={{color:'grey'}}>{article.createdDate}</p>
-        <p style={{marginTop:'0.5rem',fontSize:'1.7rem',fontWeight:'bold',cursor:'pointer',}} onClick={onClickArticle}>{article.title}</p>
-        <p style={{marginTop:'1.5rem'}}>{article.perfumeBrand}</p>
-        <p style={{marginTop:'0.5rem',fontWeight:'bold'}}>{article.perfumeName}</p>
-        <p style={{marginTop:'1rem',fontWeight:'bold',marginBottom:'0.5rem'}}>by {article.nickName}</p>
+        <p onClick={onClickArticle}style={{color:'grey'}}>{article.createdDate.substr(0,16)}</p>
+        <p style={{marginTop:'0.5rem',fontSize:'1.5vw',fontWeight:'bold',cursor:'pointer',}}onClick={onClickArticle} >{article.title}</p>
+        <p onClick={onClickArticle}style={{marginTop:'1.5rem'}}>{article.perfumeBrand}</p>
+        <p onClick={onClickArticle}style={{marginTop:'0.5rem',fontWeight:'bold'}}>{article.perfumeName}</p>
+        <p onClick={onClickArticle}style={{marginTop:'1rem',fontWeight:'bold',marginBottom:'0.5rem'}}>by {article.nickName}</p>
         <TableInCard article={article}/>
       </Box>
       <Box sx={{display:'flex',flexDirection:'column',justifyContent:'space-between'}}>
