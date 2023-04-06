@@ -1,22 +1,28 @@
 import styled from "styled-components";
-function Pagination({ total, limit, page, setPage,request }) {
+function Pagination({ total, limit, page, setPage, request }) {
+  const numPages = isNaN((total - 1) / limit)
+    ? 1
+    : Math.ceil((total - 1) / limit / 10);
 
-  const numPages = isNaN((total-1)/limit)?1:Math.ceil((total-1) / limit);
-
-  
   const clickPage = (i) => {
     setPage(i);
     request(i);
-  }
+  };
 
-  
+  const start = i * 10 + 1;
+  const end = Math.min(start + 9, numPages * 10);
+  const pageButtons = Array(end - start + 1)
+    .fill()
+    .map((_, j) => start + j);
+
   return (
     <>
       <Nav>
         <Button onClick={() => setPage(page - 1)} disabled={page === 1}>
           &lt;
         </Button>
-        {Array(numPages)
+
+        {/* {Array(numPages)
           .fill()
           .map((_, i) => (
             <Button
@@ -28,7 +34,27 @@ function Pagination({ total, limit, page, setPage,request }) {
             >
               {i + 1}
             </Button>
-          ))}
+          ))} */}
+
+        {Array(numPages)
+          .fill()
+          .map((_, i) => {
+            const start = i * 10 + 1;
+            const end = Math.min(start + 9, numPages * 10);
+            const pageButtons = Array(end - start + 1)
+              .fill()
+              .map((_, j) => start + j);
+
+            return pageButtons.map((num) => (
+              <Button
+                key={num}
+                onClick={() => clickPage(num)}
+                aria-current={page === num ? "page" : null}
+              >
+                {num}
+              </Button>
+            ));
+          })}
         <Button onClick={() => setPage(page + 1)} disabled={page === numPages}>
           &gt;
         </Button>
@@ -43,7 +69,6 @@ const Nav = styled.nav`
   align-items: center;
   gap: 4px;
   margin: 16px;
-  
 `;
 
 const Button = styled.button`
@@ -58,13 +83,11 @@ const Button = styled.button`
     background: lightgrey;
     cursor: pointer;
     transform: translateY(-2px);
-    color: #706DFF;
+    color: #706dff;
     font-weight: bold;
-
   }
 
   &[disabled] {
-    
     cursor: revert;
     transform: revert;
   }
@@ -74,7 +97,7 @@ const Button = styled.button`
     font-weight: bold;
     cursor: revert;
     transform: revert;
-    color: #706DFF;
+    color: #706dff;
   }
 `;
 
