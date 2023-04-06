@@ -68,8 +68,15 @@ const ModifyModal = ({
     }
   };
 
+  // 업로드한 이미지 보여주기
   const showChosenImage = () => {
     const file = imgRef.current.files[0];
+
+    if (file.size > 1024 * 1024) {
+      alert("1MB 이하의 이미지만 사용 가능합니다");
+      return;
+    }
+
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
