@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { BsBell } from "react-icons/bs";
@@ -8,7 +8,7 @@ import { NavWrapper, NavTitle, NavItem, NavLogInStatus } from "./style";
 import AlarmModal from "../AlarmModal/AlarmModal";
 import { logout } from "../../store/slice/userSlice";
 import { selectAlarmCount, initAlarmCount } from "../../store/slice/alarmSlice";
-import NotificationAddIcon from '@mui/icons-material/NotificationAdd';
+import NotificationAddIcon from "@mui/icons-material/NotificationAdd";
 
 const NavBar = () => {
   const dispatch = useDispatch();
@@ -21,6 +21,15 @@ const NavBar = () => {
     dispatch(initAlarmCount());
     setAlarmOpen((prev) => !prev);
   };
+
+  useEffect(() => {
+    if (pathname === "/list" || pathname.startsWith("/detail")) {
+      document.querySelector("#listNav").classList.add("active");
+    } else {
+      document.querySelector("#listNav").classList.remove("active");
+    }
+  }, [pathname]);
+
   return (
     <>
       <NavWrapper pathname={pathname}>
@@ -34,13 +43,15 @@ const NavBar = () => {
         </FlexDiv>
         <FlexDiv width="auto">
           <NavItem to="/test">Test</NavItem>
-          <NavItem to="/list">Perfumes</NavItem>
+          <NavItem to="/list" id="listNav">
+            Perfumes
+          </NavItem>
           <NavItem to="/share">Share/Sell</NavItem>
           <NavItem to="/profile">My Page</NavItem>
         </FlexDiv>
         <FlexDiv width="auto">
           {alarmCount > 0 ? (
-            <NotificationAddIcon onClick={alarmClick}/>
+            <NotificationAddIcon onClick={alarmClick} />
           ) : (
             <BsBell onClick={alarmClick} style={{ cursor: "pointer" }} />
           )}
