@@ -59,7 +59,7 @@ def predict_detail():
     preference = np.array(preference).reshape(1, -1)
     now_perfume = params['nowPerfume']
     target_perfume = np.array(encoded_imgs[now_perfume]).reshape(1, -1)
-    predict_rate = target_perfume.dot(preference.T)
+    predict_rate = target_perfume.dot(preference.T)[0][0]
     decoded_preference = decoder(preference)[0]
     decoded_img_prefer = np.array(decoded_preference).reshape(1, -1)
     origin_target_perfume = np.array(origin_imgs[now_perfume]).reshape(1, -1)
@@ -74,9 +74,9 @@ def predict_detail():
         else:
             now_note_name = name_all_sorted_notes[i]
             wor_notes.append(now_note_name)
-    if predict_rate >= 5:
+    if predict_rate >= 5.0:
         predict_rate = 5.0
-    result = {"predictRate": round(predict_rate[0][0], 1),
+    result = {"predictRate": round(predict_rate, 1),
               "favNotes": fav_notes[:5],
               "worNotes": wor_notes[:5]}
     return jsonify(result)
@@ -139,7 +139,7 @@ def predict_all():
     answer_arr.sort(key=lambda x: x["predict"], reverse=True)
     result_json = {"result": []}
     cnt_set = set()
-    for st in [0, 10, 30, 50, 80, 120, 170, 230, 300, 400]:
+    for st in [0, 10, 30, 50, 80, 120, 170]:
         cnt = 0
         for i in range(st, len(answer_arr)):
             aaa = answer_arr[i]
@@ -238,8 +238,8 @@ def get_note_graph():
     return jsonify(result_json)
 
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, threaded=False)
-
 # if __name__ == '__main__':
-#     app.run(host='localhost', port=5000, threaded=False)
+#     app.run(host='0.0.0.0', port=5000, threaded=False)
+
+if __name__ == '__main__':
+    app.run(host='localhost', port=5000, threaded=False)
