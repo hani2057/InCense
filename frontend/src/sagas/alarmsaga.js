@@ -5,7 +5,7 @@ import { take, call, put, fork, cancel, takeLatest } from "redux-saga/effects";
 import api from "../apis/api"
 
 function* alarmRun() {
-    yield call(api.alarm.readAlarmSendAll());
+    yield call(api.alarm.readAlarmSendAll);
     const res = yield call(api.alarm.getAlarmSend);
     yield put({type:"alarm/selectAlarmList",payload:res})
     yield put({type: "alarm/increaseAlarmCount"});
