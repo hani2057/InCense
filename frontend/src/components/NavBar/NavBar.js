@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { BsBell } from "react-icons/bs";
@@ -7,42 +7,54 @@ import { FlexDiv } from "../common/FlexDiv/FlexDiv";
 import { NavWrapper, NavTitle, NavItem, NavLogInStatus } from "./style";
 import AlarmModal from "../AlarmModal/AlarmModal";
 import { logout } from "../../store/slice/userSlice";
-import { initAlarmCount,selectAlarmList,selectAlarmCount } from "../../store/slice/alarmSlice";
-import NotificationAddIcon from '@mui/icons-material/NotificationAdd';
-import api from '../../apis/api'
+import {
+  initAlarmCount,
+  selectAlarmList,
+  selectAlarmCount,
+} from "../../store/slice/alarmSlice";
+import NotificationAddIcon from "@mui/icons-material/NotificationAdd";
+import api from "../../apis/api";
 
 const NavBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const [alarmOpen, setAlarmOpen] = useState(false);
+
   const isLoggedIn = useSelector((state) => state.userReducers.isLoggedIn);
   const alarmList = useSelector(selectAlarmList);
+
   const alarmCount = useSelector(selectAlarmCount);
-  const [alarmLen,setAlarmLen] = useState(0);
-  const alarmClick = () => {
-    if(alarmOpen===false){
-      api.alarm.readAlarmSendAll();
+  const [alarmOpen, setAlarmOpen] = useState(false);
+  const [alarmLen, setAlarmLen] = useState(0);
+
+  // 디테일 페이지에서 List에 active 추가
+  useEffect(() => {
+    if (pathname === "/list" || pathname.startsWith("/detail")) {
+      document.querySelector("#listNav").classList.add("active");
+    } else {
+      document.querySelector("#listNav").classList.remove("active");
     }
-    else{
+  }, [pathname]);
+
+  const alarmClick = () => {
+    if (alarmOpen === false) {
+      api.alarm.readAlarmSendAll();
+    } else {
       dispatch(initAlarmCount());
     }
     setAlarmOpen((prev) => !prev);
   };
-  
-  
 
-  const isAlarmList = () =>{
+  const isAlarmList = () => {
+    const len = alarmList.filter((data) => data.isReceived === true).length;
+    console.log("len!!!!!!:" + len);
+    return len > 0;
+  };
 
-    const len = alarmList.filter((data)=>data.isReceived===true).length;
-    console.log("len!!!!!!:"+len);
-    return len>0;
-  }
-
-  useEffect(()=>{
-    console.log(alarmCount+"alarmCount")
+  useEffect(() => {
+    console.log(alarmCount + "alarmCount");
     setAlarmLen(isAlarmList());
-  },[alarmCount])
+  }, [alarmCount]);
 
   return (
     <>
@@ -57,13 +69,15 @@ const NavBar = () => {
         </FlexDiv>
         <FlexDiv width="auto">
           <NavItem to="/test">Test</NavItem>
-          <NavItem to="/list">Perfumes</NavItem>
+          <NavItem to="/list" id="listNav">
+            Perfumes
+          </NavItem>
           <NavItem to="/share">Share/Sell</NavItem>
           <NavItem to="/profile">My Page</NavItem>
         </FlexDiv>
         <FlexDiv width="auto">
-          {alarmLen>0? (
-            <NotificationAddIcon onClick={alarmClick}/>
+          {alarmLen > 0 ? (
+            <NotificationAddIcon onClick={alarmClick} />
           ) : (
             <BsBell onClick={alarmClick} style={{ cursor: "pointer" }} />
           )}

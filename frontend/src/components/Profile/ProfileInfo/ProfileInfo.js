@@ -104,6 +104,7 @@ const ProfileInfo = () => {
           gender={gender}
           genderOpen={genderOpen}
           alarm={alarmOpen}
+          fetchGetUserInfo={fetchGetUserInfo}
         />
       )}
     </>
