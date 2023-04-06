@@ -3,8 +3,6 @@ import { NoteAnalysisContainer, NoteSpan, NoteCircle } from "./style";
 import { FlexDiv } from "../../common/FlexDiv/FlexDiv";
 
 const NoteAnalysis = ({ noteData }) => {
-  console.log("aaaaa", noteData);
-
   let { mainScent, middleWeight, baseWeight } = noteData;
   const middleNotes = `${middleWeight[0].word}, ${middleWeight[1].word}, ${middleWeight[2].word}`;
   const baseNotes = `${baseWeight[0].word}, ${baseWeight[1].word}, ${baseWeight[2].word}`;
@@ -13,6 +11,13 @@ const NoteAnalysis = ({ noteData }) => {
     arr.sort(() => Math.random() - 0.5);
     return arr;
   };
+
+  const isMiddleSimilar = Boolean(
+    middleWeight[0].weight - middleWeight[29].weight <= 0.3
+  );
+  const isBaseSimilar = Boolean(
+    baseWeight[0].weight - baseWeight[29].weight <= 0.3
+  );
 
   middleWeight = shuffle(middleWeight);
   baseWeight = shuffle(baseWeight);
@@ -27,7 +32,12 @@ const NoteAnalysis = ({ noteData }) => {
       <NoteSpan bold={true}>Middle</NoteSpan>
       <FlexDiv justify="space-between">
         {middleWeight.map(({ word, weight }, idx) => (
-          <NoteCircle weight={weight} data-content={word} key={idx} />
+          <NoteCircle
+            weight={weight}
+            data-content={word}
+            isSimilar={isMiddleSimilar}
+            key={idx}
+          />
         ))}
       </FlexDiv>
 
@@ -38,6 +48,7 @@ const NoteAnalysis = ({ noteData }) => {
           <NoteCircle
             weight={weight}
             data-content={word}
+            isSimilar={isBaseSimilar}
             isBase={true}
             key={idx}
           />

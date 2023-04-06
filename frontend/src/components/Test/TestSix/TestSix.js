@@ -7,16 +7,7 @@ import {
 import { FlexDiv } from "../../common/FlexDiv/FlexDiv";
 
 const TestTwo = ({ toNext, setResult }) => {
-  const data = [
-    {
-      src: "perfumes/438.jpg",
-      description: "낮",
-    },
-    {
-      src: "perfumes/438.jpg",
-      description: "밤",
-    },
-  ];
+  const data = [{ description: "낮" }, { description: "밤" }];
 
   return (
     <>
@@ -25,7 +16,7 @@ const TestTwo = ({ toNext, setResult }) => {
       </TestSpan>
 
       <FlexDiv height="auto" width="45rem" direction="column" gap="2rem">
-        {data.map(({ src, description }, idx) => (
+        {data.map(({ description }, idx) => (
           <TestItemWrapper
             direction="column"
             gap="0.5rem"
@@ -35,7 +26,12 @@ const TestTwo = ({ toNext, setResult }) => {
               toNext();
             }}
           >
-            <TestImg width="6rem" height="6rem" src={src} pointer={true} />
+            <TestImg
+              width="16rem"
+              height="6.5rem"
+              src={`/assets/images/test6-${idx}.jpeg`}
+              pointer={true}
+            />
             <TestSpan className="changeColorWhenHover" bold={true}>
               {description}
             </TestSpan>
