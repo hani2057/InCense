@@ -138,15 +138,18 @@ def predict_all():
         answer_arr.append({"predict": answer, "perfumeIndex": i})
     answer_arr.sort(key=lambda x: x["predict"], reverse=True)
     result_json = {"result": []}
-    cnt = set()
-    for aaa in answer_arr:
-        if len(cnt) == 30:
-            break
-        now_name = name_perfumes[aaa["perfumeIndex"]]
-        if now_name in cnt:
-            continue
-        result_json["result"].append(aaa)
-        cnt.add(now_name)
+    cnt_set = set()
+    for st in [0, 10, 30, 50, 80, 120, 170, 230, 300, 400]:
+        cnt = 0
+        for i in range(st, len(answer_arr)):
+            aaa = answer_arr[i]
+            if cnt == 3:
+                break
+            now_name = name_perfumes[aaa["perfumeIndex"]]
+            if now_name in cnt_set:
+                continue
+            result_json["result"].append(aaa)
+            cnt_set.add(now_name)
     return jsonify(result_json)
 
 
