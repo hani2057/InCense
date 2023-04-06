@@ -39,8 +39,8 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public RegisterInfoRes registerMember(MemberRegisterReq registerInfo) {
         // 회원 정보 저장
-        SocialType type = null;
-        String profile = "";
+        SocialType type;
+        String profile;
         if(registerInfo.getType().equals("kakao")) type = SocialType.kakao;
         else type = SocialType.naver;
 
@@ -116,9 +116,16 @@ public class MemberServiceImpl implements MemberService {
         } else {
             File file = new File(originProfile);
             if(file.exists()) {     // 서버에서 이미지가 정상적으로 삭제되었다면, 이미지를 새로 등록
-                if(file.delete()) return fileHandler.parseProfileImageInfo(profile);
-                else return originProfile;    // 원래 프로필 이미지 경로로 설정
+                if(file.delete()) {
+                    System.out.println("############## 이미지 삭제 성공");
+                    return fileHandler.parseProfileImageInfo(profile);
+                }
+                else {
+                    System.out.println("############## 이미지 삭제 실패");
+                    return originProfile;    // 원래 프로필 이미지 경로로 설정
+                }
             } else {
+                System.out.println("############## 이미지를 못찾아서 default 이미지로 제공");
                 if(member.getGender() == 0) return "profile/male.png";
                 else return "profile/female.png";
             } // 정상적으로 과정이 진행되지 않았으면 에러를 frontend에 보내줘야 하나?
