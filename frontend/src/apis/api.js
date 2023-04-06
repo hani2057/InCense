@@ -147,6 +147,7 @@ const api = {
     getAlarmSend: () => authInstance.get(`${ALARM}/send`),
     deleteAlarmSend: (sendId) => authInstance.delete(`${ALARM}/send/${sendId}`),
     readAlarmSend: (sendId) => authInstance.put(`${ALARM}/send/${sendId}`),
+    readAlarmSendAll: () => authInstance.put(`${ALARM}/send`),
     deleteAlarm: (perfumeId) => authInstance.delete(`${ALARM}/${perfumeId}`),
   },
 };
