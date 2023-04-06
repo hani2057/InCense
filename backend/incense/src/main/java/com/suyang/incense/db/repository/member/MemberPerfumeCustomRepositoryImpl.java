@@ -105,7 +105,9 @@ public class MemberPerfumeCustomRepositoryImpl implements MemberPerfumeCustomRep
         List<Long> result = jpaQueryFactory
                 .select(memberPerfume.perfume.id)
                 .from(memberPerfume)
-                .where(memberPerfume.category.eq(Category.valueOf("WANT")))
+                .where(memberPerfume.category.eq(Category.valueOf("WANT"))
+                        .and(memberPerfume.member.id.eq(memberId))
+                )
                 .fetch();
 
         return result;
