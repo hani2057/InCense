@@ -61,7 +61,7 @@ const NavBar = () => {
   useEffect(() => {
     console.log(alarmCount + "alarmCount");
     const len = alarmList.filter((data) => data.isReceived == 0).length;
-    console.log(alarmCount + "alarmCount");
+    console.log(len + "len");
     setAlarmLen(len);
   }, [alarmCount]);
 
