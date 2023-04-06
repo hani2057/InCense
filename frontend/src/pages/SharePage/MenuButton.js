@@ -57,6 +57,8 @@ export default function MenuButton(props) {
   }
   const closeConfirm = () => {
     api.share.close(articleId)
+    navigate(`/share`)
+    window.location.reload()
   }
 
   const onClickEl1 = useConfirm(

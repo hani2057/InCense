@@ -79,11 +79,7 @@ export default function ReviewTable(props) {
   }
   
   const rows = 
-    // createData(1, '전태영', '제가 써본 향수 중에 제일 향기로워요!', 5),
-    // createData(2, '전태영', '제가 써본 향수 중에 제일 향기로워요!', 5),
-    // createData(3, '전태영', '제가 써본 향수 중에 제일 향기로워요!', 5),
-    // createData(4, '전태영', '제가 써본 향수 중에 제일 향기로워요!', 5),
-    // createData(5, '전태영', '제가 써본 향수 중에 제일 향기로워요!', 5),
+
     reviewList && reviewList.map(
       (review, index) => {
         return(
@@ -112,9 +108,9 @@ export default function ReviewTable(props) {
             <StyledTableCell align="center" sx={{width:'15rem'}}>평점</StyledTableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
+        <TableBody >
           {rows && rows.map((row) => (
-            <StyledTableRow key={row.id}>
+            <StyledTableRow key={row.id }sx={{height:'2.5rem'}} >
               <StyledTableCell align='center' component="th" scope="row">
                 {row.id}
               </StyledTableCell>

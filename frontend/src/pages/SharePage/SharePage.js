@@ -294,7 +294,7 @@ export default function SharePage() {
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-between",
-              width: "50%",
+              width: "100%",
               alignItems: "center",
               marginBottom: "1rem",
             }}
@@ -305,8 +305,9 @@ export default function SharePage() {
                   <Box
                     sx={{
                       display: "flex",
+                      width:'100%',
                       flexDirection: "column",
-                      fontSize: "1.2rem",
+                      fontSize: "1rem",
                       height: "15rem",
                       justifyContent: "space-around",
                     }}

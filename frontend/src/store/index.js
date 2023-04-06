@@ -32,6 +32,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: "root",
   storage: storageSession, // 세션스토리지 사용
+  // whitelist: ['user']
 };
 
 const store = configureStore({

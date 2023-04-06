@@ -18,7 +18,11 @@ const api = {
         params: { nickname: name },
       }),
     getUserInfo: () => authInstance.get(`${USERS}/info`),
-    putUserInfo: (data) => authInstance.put(`${USERS}/modify`, data),
+    putUserInfo: (data) => authInstance.put(`${USERS}/modify/info`, data),
+    putUserProfileImg: (data) =>
+      authInstance.put(`${USERS}/modify/profile`, data, {
+        headers: { "Content-Type": "multipart/form-data" },
+      }),
   },
   share: {
     getArticle: (articleId) => defaultInstance.get(`${SHARE}/${articleId}`),
@@ -129,7 +133,8 @@ const api = {
     getWantPerfumePredict: () =>
       authInstance.get(`${ANALYSIS}/want/similarity`),
     getRecommandList: () => authInstance.get(`${ANALYSIS}/all/similarity`),
-    getSimilarity: (detailId) => authInstance.get(`${PERFUMES}/similarity/${detailId}`),
+    getSimilarity: (detailId) =>
+      authInstance.get(`${PERFUMES}/similarity/${detailId}`),
   },
   image: {
     getImage: (fileName) => defaultInstance.get(`${IMG}?filename=${fileName}`),
