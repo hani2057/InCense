@@ -15,7 +15,7 @@ public class PerfumePredictDto {
     @Getter
     @Setter
     public static class PerfumePredict{
-        private double predict;
+        private float predict;
         private Long perfumeIndex;
     }
 

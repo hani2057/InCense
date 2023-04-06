@@ -10,7 +10,7 @@ public class PredictRes {
     private Long perfumeId;
     private String perfumeName;
     private String perfumeBrand;
-    private double predict;
+    private float predict;
     private String image;
 
 }

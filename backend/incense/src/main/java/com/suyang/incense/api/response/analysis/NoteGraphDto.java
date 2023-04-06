@@ -19,7 +19,7 @@ public class NoteGraphDto {
     public static class NoteInfo{
 
         private String word;
-        private double weight;
+        private float weight;
 
     }
 }
