@@ -55,8 +55,11 @@ def get_result():
 @app.route('/ml/predict/detail', methods=['POST'])
 def predict_detail():
     params = request.get_json()
-    preference = list(map(float, params['preference'].split(';')[:-1]))
-    preference = np.array(preference).reshape(1, -1)
+    if params['preference'] == '':
+        preference = np.full((1, 32), 0.001).reshape(1, -1)
+    else:
+        preference = list(map(float, params['preference'].split(';')[:-1]))
+        preference = np.array(preference).reshape(1, -1)
     now_perfume = params['nowPerfume']
     target_perfume = np.array(encoded_imgs[now_perfume]).reshape(1, -1)
     predict_rate = target_perfume.dot(preference.T)[0][0]
@@ -106,8 +109,11 @@ def predict_detail_similar():
 @app.route('/ml/predict/want', methods=['POST'])
 def predict_want():
     params = request.get_json()
-    preference = list(map(float, params['preference'].split(';')[:-1]))
-    preference = np.array(preference).reshape(1, -1)
+    if params['preference'] == '':
+        preference = np.full((1, 32), 0.001).reshape(1, -1)
+    else:
+        preference = list(map(float, params['preference'].split(';')[:-1]))
+        preference = np.array(preference).reshape(1, -1)
     wants = params['wantPerfume']
     answer_arr = []
     for now in wants:
@@ -127,8 +133,11 @@ def predict_want():
 @app.route('/ml/predict/all', methods=['POST'])
 def predict_all():
     params = request.get_json()
-    preference = list(map(float, params['preference'].split(';')[:-1]))
-    preference = np.array(preference).reshape(1, -1)
+    if params['preference'] == '':
+        preference = np.full((1, 32), 0.001).reshape(1, -1)
+    else:
+        preference = list(map(float, params['preference'].split(';')[:-1]))
+        preference = np.array(preference).reshape(1, -1)
     answer_arr = []
     for i in range(1003):
         target_perfume = np.array(encoded_imgs[i]).reshape(1, -1)
@@ -181,8 +190,11 @@ def update_preference():
 @app.route('/ml/word', methods=['POST'])
 def get_words():
     params = request.get_json()
-    preference = list(map(float, params['preference'].split(';')[:-1]))
-    preference = np.array(preference).reshape(1, -1)
+    if params['preference'] == '':
+        preference = np.full((1, 32), 0.001).reshape(1, -1)
+    else:
+        preference = list(map(float, params['preference'].split(';')[:-1]))
+        preference = np.array(preference).reshape(1, -1)
     decoded_preference = decoder(preference)[0]
     decoded_preference = np.array(decoded_preference).reshape(1, -1)
     temp = []
@@ -204,8 +216,11 @@ def get_words():
 @app.route('/ml/graph', methods=['POST'])
 def get_note_graph():
     params = request.get_json()
-    preference = list(map(float, params['preference'].split(';')[:-1]))
-    preference = np.array(preference).reshape(1, -1)
+    if params['preference'] == '':
+        preference = np.full((1, 32), 0.001).reshape(1, -1)
+    else:
+        preference = list(map(float, params['preference'].split(';')[:-1]))
+        preference = np.array(preference).reshape(1, -1)
     decoded_preference = decoder(preference)[0]
     decoded_preference = np.array(decoded_preference).reshape(1, -1)
     predicted = c_model.predict(decoded_preference)
