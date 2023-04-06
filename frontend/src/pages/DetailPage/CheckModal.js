@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { TextField } from "@mui/material";
 import StarRating from './StarRating';
 import api from '../../apis/api';
-import { useDispatch } from 'react-redux';
-import { reviewActions } from '../../store/slice/reviewSlice';
+// import { useDispatch } from 'react-redux';
+// import { reviewActions } from '../../store/slice/reviewSlice';
 
 
 
@@ -27,10 +27,12 @@ function CheckModal(props) {
   //     });
   // }, [page]);
 
-  const handleClose = () => {
-    props.setIsOpen(false)
-  }
-  const dispatch = useDispatch()
+  // const handleClose = () => {
+  //   props.setIsOpen(false)
+  // }
+
+  // const dispatch = useDispatch()
+
   const onSubmitForm = () => {
     api.review.postReview(reviewArticle)
     .then((res) => {
@@ -103,30 +105,30 @@ function CheckModal(props) {
 }
 
 
-const Label = styled.div` 
-  // float: left;
-  text-align: left;
-  font-size: 20px;
-  color: white;
-  margin-bottom: 0.5rem;
-`;
+// const Label = styled.div` 
+//   // float: left;
+//   text-align: left;
+//   font-size: 20px;
+//   color: white;
+//   margin-bottom: 0.5rem;
+// `;
 
-const Input = styled.input`
-  width: 350px;
-  height: 60px;
-  outline: none;
-  border-radius: 15px;
-  // line-height: 2.5rem;
-  font-size: 20px;
-  padding-left: 1rem;
-  padding-right: 0.5rem;
-`;
+// const Input = styled.input`
+//   width: 350px;
+//   height: 60px;
+//   outline: none;
+//   border-radius: 15px;
+//   // line-height: 2.5rem;
+//   font-size: 20px;
+//   padding-left: 1rem;
+//   padding-right: 0.5rem;
+// `;
 
-const Wrapper = styled.div`
-    & + & {
-        margin-top: 1rem;
-    }
-`;
+// const Wrapper = styled.div`
+//     & + & {
+//         margin-top: 1rem;
+//     }
+// `;
 
 
 const Overlay = styled.div`
@@ -154,37 +156,37 @@ const ModalWrap = styled.div`
   z-index:997
   
 `;
-const Contents = styled.div`
-  position: absolute;
-  width: 600px;
-  height: 550px;
-  display: flex;
+// const Contents = styled.div`
+//   position: absolute;
+//   width: 600px;
+//   height: 550px;
+//   display: flex;
   
-  flex-direction: column;
-  // align-items: center;
-  // justify-content: center;
-  h1 {
-    color: white;
-    font-size: 40px;
-    font-weight: 600;
-    margin-bottom: 20px;
-  }
-`;
+//   flex-direction: column;
+//   // align-items: center;
+//   // justify-content: center;
+//   h1 {
+//     color: white;
+//     font-size: 40px;
+//     font-weight: 600;
+//     margin-bottom: 20px;
+//   }
+// `;
 
-const CButton = styled.button`
-  width: 110px;
-  height: 40px;
-  font-size: 20px;
-  margin-top: 20px;
-  margin-left: 20px;
-  background-color: #ffffff;
-  border-radius: 5px;
-  box-Shadow: 2px 2px 3px;
-  cursor: pointer;
-  &:hover {
-    background-color: #898989;
-  }
-`;
+// const CButton = styled.button`
+//   width: 110px;
+//   height: 40px;
+//   font-size: 20px;
+//   margin-top: 20px;
+//   margin-left: 20px;
+//   background-color: #ffffff;
+//   border-radius: 5px;
+//   box-Shadow: 2px 2px 3px;
+//   cursor: pointer;
+//   &:hover {
+//     background-color: #898989;
+//   }
+// `;
 
 
 

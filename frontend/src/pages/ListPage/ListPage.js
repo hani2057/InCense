@@ -61,6 +61,7 @@ const ListPage = () => {
 
         dispatch(perfumeListActions.getPerfumeList(res));
       })
+      
       .catch((err) => {
         alert(err);
       });
@@ -72,6 +73,7 @@ const ListPage = () => {
     (state) => {
       return (state.perfumeListReducers.perfumeList)
     });
+// 리스트는 perfumeList.content로 접근해야함
 
   const applyFilter = () => {
     api.list

@@ -69,9 +69,9 @@ export default function ReviewTable(props) {
     return state.reviewReducers.review.content
   })
   
-  function createData(id, name, content, score) {
-    return { id, name, content, score};
-  }
+  // function createData(id, name, content, score) {
+  //   return { id, name, content, score};
+  // }
   
   const rows = 
 
