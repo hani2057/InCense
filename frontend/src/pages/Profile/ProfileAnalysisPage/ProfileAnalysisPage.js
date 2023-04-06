@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { FlexDiv } from "../../../components/common/FlexDiv/FlexDiv";
-import { ScrollContainer } from "../../../components/common/ScrollContainer/ScrollContainer";
-import ProfileTitleBox from "../../../components/Profile/ProfileTitleBox/ProfileTitleBox";
-import WantAnalysisCard from "../../../components/Profile/WantAnalysisCard/WantAnalysisCard";
-import Wordcloud from "../../../components/Profile/Wordcloud/Wordcloud";
-import { ProfileOutletContainer } from "../ProfilePage/style";
 import api from "../../../apis/api";
+import ProfileTitleBox from "../../../components/Profile/ProfileTitleBox/ProfileTitleBox";
+import Wordcloud from "../../../components/Profile/Wordcloud/Wordcloud";
+import NoteAnalysis from "../../../components/Profile/NoteAnalysis/NoteAnalysis";
+import WantAnalysisCard from "../../../components/Profile/WantAnalysisCard/WantAnalysisCard";
+import { FlexDiv } from "../../../components/common/FlexDiv/FlexDiv";
+import { ProfileOutletContainer } from "../ProfilePage/style";
+import { ScrollContainer } from "./style";
 
 const ProfileAnalysisPage = () => {
   const { username } = useSelector((state) => state.userReducers);
   const [wordcloud, setWordcloud] = useState(null);
   const [iWantItList, setIWantItList] = useState(null);
   const [recommandList, setRecommandList] = useState(null);
-  console.log("wordcloud", wordcloud);
 
   // 워드클라우드 데이터 요청
   const fetchGetWordCloud = async () => {
@@ -53,9 +53,9 @@ const ProfileAnalysisPage = () => {
       <FlexDiv direction="column">
         <ProfileTitleBox bgimgNo={1} title={`${username}님의 취향 분석 결과`} />
         <Wordcloud wordcloud={wordcloud} />
+        {/* <NoteAnalysis  /> */}
 
         <ProfileTitleBox bgimgNo={1} title={"I want it 향수 취향 적중도"} />
-
         <ScrollContainer margin="0 0 10rem 0">
           {iWantItList.map(
             ({ perfumeId, perfumeName, perfumeBrand, image, predict }) => (
