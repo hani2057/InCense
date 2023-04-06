@@ -45,11 +45,12 @@ const NavBar = () => {
     setAlarmOpen((prev) => !prev);
   };
 
-  const isAlarmList = () => {
-    const len = alarmList.filter((data) => data.isReceived === true).length;
-    console.log("len!!!!!!:" + len);
-    return len > 0;
-  };
+  const isAlarmList = () =>{
+
+    const len = alarmList.filter((data)=>data.isReceived===false).length;
+    console.log("len!!!!!!:"+len);
+    return len>0;
+  }
 
   useEffect(() => {
     console.log(alarmCount + "alarmCount");
