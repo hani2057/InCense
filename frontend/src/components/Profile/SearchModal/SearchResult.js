@@ -21,10 +21,12 @@ const SearchResult = ({
         <ModalImg src={img} alt="perfume" height="3.5rem" />
       </div>
       <FlexDiv direction="column" width="auto" align="start">
-        <ModalSpan size="0.75rem" margin="0 0 0.2rem 0">
+        <ModalSpan size="0.75rem" margin="0 0 0.2rem 0" pointer={true}>
           {brand}
         </ModalSpan>
-        <ModalSpan bold={true}>{name}</ModalSpan>
+        <ModalSpan bold={true} pointer={true}>
+          {name}
+        </ModalSpan>
       </FlexDiv>
     </SearchResultItem>
   );

@@ -3,7 +3,8 @@ import { FlexDiv } from "../common/FlexDiv/FlexDiv";
 
 const AlarmContainer = styled.div`
   width: 18rem;
-  height: 31.125rem;
+  height: 31rem;
+  text-align: center;
   box-shadow: 1px 3px 3px 1px rgba(0, 0, 0, 0.2);
   position: fixed;
   top: var(--nav-height);

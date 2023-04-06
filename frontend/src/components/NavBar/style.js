@@ -41,8 +41,23 @@ const NavItem = styled(NavLink)`
 `;
 
 const NavLogInStatus = styled.span`
-  padding: 0 1rem;
+  margin: 0 1rem 0 1.5rem;
   cursor: pointer;
 `;
 
-export { NavWrapper, NavTitle, NavItem, NavLogInStatus };
+const AlarmCnt = styled.div`
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  background-color: var(--red-color);
+  position: absolute;
+  top: -0.4rem;
+  right: -0.4rem;
+  color: white;
+  font-size: 0.7rem;
+  text-align: center;
+  line-height: 0.9rem;
+  cursor: pointer;
+`;
+
+export { NavWrapper, NavTitle, NavItem, NavLogInStatus, AlarmCnt };
