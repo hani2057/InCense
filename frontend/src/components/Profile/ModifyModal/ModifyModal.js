@@ -36,7 +36,10 @@ const ModifyModal = ({
   });
 
   // 수정할 상태 관리용 state
-  const [profile, setProfile] = useState(img);
+  const imgRef = useRef();
+  const [profile, setProfile] = useState(
+    `https://j8a804.p.ssafy.io/api/display?filename=${img}`
+  );
   const [newName, setNewName] = useState(name);
   const [newBirthOpen, setNewBirthOpen] = useState(birthOpen);
   const [newGenderOpen, setNewGenderOpen] = useState(genderOpen);
@@ -65,11 +68,17 @@ const ModifyModal = ({
     }
   };
 
+  const showChosenImage = () => {
+    const file = imgRef.current.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setProfile(reader.result);
+    };
+  };
+
   // 프로필 수정 요청
   const fetchModifyProfile = async () => {
-    // 프로필 사진 수정
-
-    // 프로필사진 외 정보 수정
     if (!newName) {
       setIsError(true);
       setNameMsg("닉네임을 입력해주세요");
@@ -77,12 +86,21 @@ const ModifyModal = ({
       setIsError(true);
       setNameMsg("닉네임 중복체크를 완료해주세요");
     } else {
+      // 프로필사진 외 정보 수정
       await api.user.putUserInfo({
         nickname: newName,
         birthOpen: newBirthOpen ? 1 : 0,
         genderOpen: newGenderOpen ? 1 : 0,
         alarmOpen: newAlarmOpen ? 1 : 0,
       });
+
+      // 프로필 사진 수정
+      if (imgRef.current.files.length) {
+        const formData = new FormData();
+        formData.append("image", imgRef.current.files[0]);
+        await api.user.putUserProfileImg(formData);
+      }
+
       setModalOpen(false);
       fetchGetUserInfo();
     }
@@ -100,10 +118,19 @@ const ModifyModal = ({
           <FlexDiv direction="column" justify="start" padding="0 1rem">
             <FlexDiv height="60%">
               <FlexDiv width="60%" direction="column">
-                <ModalImg src={profile} alt="profile" height="10rem" />
-                <ModalSpan margin="0.5rem" pointer={true} color="dark-gray">
-                  프로필사진 변경
-                </ModalSpan>
+                <img src={profile} alt="profile" style={{ height: "10rem" }} />
+                <label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    ref={imgRef}
+                    onChange={showChosenImage}
+                    style={{ display: "none" }}
+                  />
+                  <ModalSpan margin="0.5rem" pointer={true} color="dark-gray">
+                    프로필사진 변경
+                  </ModalSpan>
+                </label>
               </FlexDiv>
               <FlexDiv width="12%" direction="column">
                 <FlexDiv justify="start" height="4rem">

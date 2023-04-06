@@ -19,6 +19,10 @@ const api = {
       }),
     getUserInfo: () => authInstance.get(`${USERS}/info`),
     putUserInfo: (data) => authInstance.put(`${USERS}/modify/info`, data),
+    putUserProfileImg: (data) =>
+      authInstance.put(`${USERS}/modify/profile`, data, {
+        headers: { "Content-Type": "multipart/form-data" },
+      }),
   },
   share: {
     getArticle: (articleId) => defaultInstance.get(`${SHARE}/${articleId}`),
