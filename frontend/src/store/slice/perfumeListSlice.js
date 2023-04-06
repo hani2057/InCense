@@ -25,7 +25,6 @@ export const perfumeListSlice = createSlice({
   },
   reducers: {
     getPerfumeList: (state, {payload}) => {
-      console.log('List get요청')
       state.perfumeList= payload
     }
   }

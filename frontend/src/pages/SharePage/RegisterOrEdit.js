@@ -37,7 +37,6 @@ const RegisterOrEdit = (props) => {
   ]
 
   const onSubmitForm = () => {
-    console.log('submit form')
   }
   
   const [searchQuery, setSearchQuery] = useState("");

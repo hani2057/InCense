@@ -17,9 +17,7 @@ export const similaritySlice = createSlice({
   },
   reducers: {
     getSimilarity: (state, {payload}) => {
-      console.log('similarity get요청')
       state.similarity = payload
-      console.log(state.similarity)
     }
   }
 })

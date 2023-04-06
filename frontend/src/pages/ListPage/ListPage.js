@@ -58,44 +58,32 @@ const ListPage = () => {
     api.list
       .getList(page)
       .then((res) => {
-        console.log("list가져오기");
-        console.log(res);
+
         dispatch(perfumeListActions.getPerfumeList(res));
       })
       .catch((err) => {
-        console.log(err);
         alert(err);
       });
   }, [page]);
 
-  console.log("페이지==", page);
 
   const perfumeList = useSelector(
     
     (state) => {
-      console.log(state)
       return (state.perfumeListReducers.perfumeList)
     });
 
   const applyFilter = () => {
-    console.log("필터 적용하기");
-    console.log(checklist);
-    console.log(checklist2);
-    console.log(checklist3);
     api.list
       .getFilteredList(page, checklist, checklist2, checklist3)
       .then((res) => {
-        console.log("filter list가져오기");
-        console.log(res);
         dispatch(perfumeListActions.getPerfumeList(res));
       })
       .catch((err) => {
-        console.log(err);
         alert(err);
       });
   };
 
-  console.log("퍼퓸리스트", perfumeList)
 
   return (
     <Box sx={{ marginBottom: "5rem" }}>

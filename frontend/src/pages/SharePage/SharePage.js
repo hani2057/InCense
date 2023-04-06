@@ -21,7 +21,6 @@ export default function SharePage() {
   const isLoggedIn = useSelector((state) => {
     return (state.userReducers.isLoggedIn)
   })
-  console.log('로그인?', isLoggedIn)
   const [dropdownVisibility, setDropdownVisibility] = useState(false);
   const [dropdown2Visibility, setDropdown2Visibility] = useState(false);
   const [dropdown3Visibility, setDropdown3Visibility] = useState(false);
@@ -51,14 +50,11 @@ export default function SharePage() {
         checklist4
       )
       .then((res) => {
-        console.log("필터 적용 성공");
         dispatch(articleListActions.getArticleList(res));
       })
       .catch((err) => {
-        console.log(err);
         alert(err);
       });
-    console.log("필터 적용하기");
   };
 
   const navigate = useNavigate();
@@ -80,12 +76,9 @@ export default function SharePage() {
     api.share
       .getList(page)
       .then((res) => {
-        console.log("sharelist가져오기");
-        console.log(res);
         dispatch(articleListActions.getArticleList(res));
       })
       .catch((err) => {
-        console.log(err);
         alert(err);
       });
       
@@ -94,7 +87,6 @@ export default function SharePage() {
 
 
   const articleList = useSelector((state) => {
-    console.log(state)
     return state.articleListReducers.articleList;
     // console.log(state)
   })

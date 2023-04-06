@@ -13,9 +13,7 @@ export const articleListSlice = createSlice({
   },
   reducers: {
     getArticleList: (state, {payload}) => {
-      console.log('Share List get요청')
       state.articleList = {...payload}
-      console.log(state.articleList)
     }
   }
 })

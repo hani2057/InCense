@@ -13,11 +13,9 @@ export const reviewSlice = createSlice({
   
   reducers: {
     getReview: (state, {payload}) => {
-      console.log('리뷰 state에서 조회')
       state.review = payload
     },
     postReview: (state, {payload}) => {
-      console.log('작성리뷰 스토어에 저장')
       state.review = payload
     }
   }
