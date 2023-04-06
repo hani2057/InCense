@@ -124,7 +124,7 @@ public class DealController {
   @GetMapping("")
   public ResponseEntity<Page<DealListRes>> getAllDeals(
           @ModelAttribute DealConditionReq dealConditionReq,
-          @PageableDefault(value = Integer.MAX_VALUE) Pageable pageable) {
+          @PageableDefault(value = 20) Pageable pageable) {
 
     /* dummy */
 //    List<DealListRes> result = new ArrayList<>();
@@ -132,6 +132,7 @@ public class DealController {
 //    result.add(temp);
 //
 //    return ResponseEntity.status(200).body(result);
+
     Page<DealListRes> result = dealService.getAllDeals(dealConditionReq, pageable);
 
     return ResponseEntity.status(200).body(result);
