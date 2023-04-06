@@ -28,7 +28,7 @@ const WantAnalysisCard = ({ perfumeId, name, brand, img, predict }) => {
         />
         <AnalysisPercent>
           <AnalysisCardSpan size="1.5rem" position="relative" zIndex="5">
-            {`${predict * 20}%`}
+            {`${(predict * 20).toFixed(1)}%`}
           </AnalysisCardSpan>
           <div></div>
         </AnalysisPercent>
