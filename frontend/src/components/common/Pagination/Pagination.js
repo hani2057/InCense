@@ -8,7 +8,7 @@ function Pagination({ total, limit, page, setPage, request }) {
     setPage(i);
     request(i);
   };
-  const start = page === 0 ? 0 : Math.ceil((page - 1) / 10);
+  const start = page === 0 ? 0 : Math.floor((page - 1) / 10);
   const pageButtons = Array(10)
     .fill()
     .map((_, i) => start * 10 + i + 1);
@@ -26,20 +26,6 @@ function Pagination({ total, limit, page, setPage, request }) {
         >
           &lt;
         </Button>
-
-        {/* {Array(numPages)
-          .fill()
-          .map((_, i) => (
-            <Button
-              key={i }
-              onClick={
-                (e)=>clickPage(e.currentTarget.textContent)
-              }
-              aria-current={page === i + 1 ? "page" : null}
-            >
-              {i + 1}
-            </Button>
-          ))} */}
 
         {pageButtons.map((num) => (
           <Button
