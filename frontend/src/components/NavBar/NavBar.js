@@ -11,7 +11,8 @@ import {
   initAlarmCount,
   selectAlarmList,
   selectAlarmCount,
-  setAlarmList
+  setAlarmList,
+  increaseAlarmCount
 } from "../../store/slice/alarmSlice";
 import NotificationAddIcon from "@mui/icons-material/NotificationAdd";
 import api from "../../apis/api";
@@ -38,13 +39,13 @@ const NavBar = () => {
   }, [pathname]);
 
   const alarmClick =async () => {
-    if (alarmOpen === false) {
+    
       await api.alarm.readAlarmSendAll();
       const res= await api.alarm.getAlarmSend();
       
       dispatch(setAlarmList(res));
-      dispatch(initAlarmCount());
-    } 
+      dispatch(increaseAlarmCount());
+      
      
     setAlarmOpen((prev) => !prev);
   };
