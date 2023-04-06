@@ -10,7 +10,15 @@ const AlarmContainer = styled.div`
   top: var(--nav-height);
   right: 4rem;
   background: white;
+  overflow: auto;
   z-index: 1000;
+
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+  /* 크롬, 사파리, 오페라, 엣지 */
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const AlarmWrapper = styled(FlexDiv)`
@@ -19,10 +27,11 @@ const AlarmWrapper = styled(FlexDiv)`
 `;
 
 const AlarmSpan = styled.span`
-  ${({ size, weight }) => css`
+  ${({ size, weight, pointer }) => css`
     font-size: ${size || "1rem"};
     font-weight: ${weight || "400"};
     padding: 0.3rem 0.5rem;
+    cursor: ${pointer ? "pointer" : "default"};
   `}
 `;
 

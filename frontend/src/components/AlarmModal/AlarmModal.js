@@ -2,17 +2,12 @@ import React, { useEffect, useState } from "react";
 import AlarmItem from "./AlarmItem";
 import { AlarmContainer } from "./style";
 import api from "../../apis/api";
-import {
-  selectAlarmList,
-  setAlarmList,
-  selectAlarmCount,
-} from "../../store/slice/alarmSlice";
+import { selectAlarmList, setAlarmList } from "../../store/slice/alarmSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-const AlarmModal = ({ setAlarmOpen }) => {
+const AlarmModal = ({ alarmOpen, setAlarmOpen }) => {
   const dispatch = useDispatch();
   const alarmList = useSelector(selectAlarmList);
-  const alarmCount = useSelector(selectAlarmCount);
 
   useEffect(() => {
     api.alarm
@@ -23,7 +18,7 @@ const AlarmModal = ({ setAlarmOpen }) => {
       .catch((err) => {
         console.log("axios alarm send err");
       });
-  }, []);
+  }, [alarmOpen]);
 
   return (
     <AlarmContainer>
