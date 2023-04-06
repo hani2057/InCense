@@ -22,7 +22,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontWeight:'bold'
   },
   [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
+    // fontSize: 14,
   },
 }));
 
@@ -32,7 +32,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
   // hide last border
   '&:last-child td, &:last-child th': {
-    border: 0,
+    // border: 0,
   },
 }));
 
@@ -79,7 +79,7 @@ export default function TableInCard(props) {
             </StyledTableCell>
               }
               <StyledTableCell align="center" sx={{borderRight:'1px solid grey', fontSize:'0.7vw'}}>{article.price}</StyledTableCell>
-              <StyledTableCell align="center" sx={{textAlign:'center',borderRight:'1px solid grey', fontSize:'0.7vw'}} onClick={onClickReview}>{article.volume}</StyledTableCell>
+              <StyledTableCell align="center" sx={{textAlign:'center',borderRight:'1px solid grey',borderTop:'1px solid grey', fontSize:'0.7vw'}} onClick={onClickReview}>{article.volume}</StyledTableCell>
               <StyledTableCell align="center" sx={{fontSize:'0.7vw'}}>{article.buyDate}</StyledTableCell>
             </StyledTableRow>
         </TableBody>
