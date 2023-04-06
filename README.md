@@ -49,11 +49,8 @@
 
 ### 📋 API 명세서
 
-<!-- ![API명세서1](/uploads/a86cf62f8879a0ed0ff465327df19a27/API명세서1.PNG)
-![API명세서2](/uploads/0cb73b9a2ad83eebf7ac3819553ed42c/API명세서2.PNG) -->
-
-<img src="/uploads/a86cf62f8879a0ed0ff465327df19a27/API명세서1.PNG" width="355" height="367">
-<img src="/uploads/0cb73b9a2ad83eebf7ac3819553ed42c/API명세서2.PNG" width="355" height="367">
+<img src="/uploads/a86cf62f8879a0ed0ff465327df19a27/API명세서1.PNG" width="400" height="413">
+<img src="/uploads/0cb73b9a2ad83eebf7ac3819553ed42c/API명세서2.PNG" width="400" height="413">
 
 
 <br><br>
