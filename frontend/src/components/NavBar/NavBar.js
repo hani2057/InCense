@@ -7,7 +7,7 @@ import { FlexDiv } from "../common/FlexDiv/FlexDiv";
 import { NavWrapper, NavTitle, NavItem, NavLogInStatus } from "./style";
 import AlarmModal from "../AlarmModal/AlarmModal";
 import { logout } from "../../store/slice/userSlice";
-import { selectAlarmCount, initAlarmCount } from "../../store/slice/alarmSlice";
+import { initAlarmCount,selectAlarmList } from "../../store/slice/alarmSlice";
 import NotificationAddIcon from '@mui/icons-material/NotificationAdd';
 
 const NavBar = () => {
@@ -16,7 +16,7 @@ const NavBar = () => {
   const { pathname } = useLocation();
   const [alarmOpen, setAlarmOpen] = useState(false);
   const isLoggedIn = useSelector((state) => state.userReducers.isLoggedIn);
-  const alarmCount = useSelector(selectAlarmCount);
+  const alarmList = useSelector(selectAlarmList);
   const alarmClick = () => {
     dispatch(initAlarmCount());
     setAlarmOpen((prev) => !prev);
@@ -39,7 +39,7 @@ const NavBar = () => {
           <NavItem to="/profile">My Page</NavItem>
         </FlexDiv>
         <FlexDiv width="auto">
-          {alarmCount > 0 ? (
+          {alarmList?.length> 0 ? (
             <NotificationAddIcon onClick={alarmClick}/>
           ) : (
             <BsBell onClick={alarmClick} style={{ cursor: "pointer" }} />
