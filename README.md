@@ -49,8 +49,8 @@
 
 ### 📋 API 명세서
 
-<img src="/uploads/a86cf62f8879a0ed0ff465327df19a27/API명세서1.PNG" width="440" height="454">
-<img src="/uploads/0cb73b9a2ad83eebf7ac3819553ed42c/API명세서2.PNG" width="440" height="454">
+<img src="/uploads/a86cf62f8879a0ed0ff465327df19a27/API명세서1.PNG" width="445" height="460">
+<img src="/uploads/0cb73b9a2ad83eebf7ac3819553ed42c/API명세서2.PNG" width="445" height="460">
 
 
 <br><br>
