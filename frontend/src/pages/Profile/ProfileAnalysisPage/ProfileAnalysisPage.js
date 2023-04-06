@@ -12,6 +12,7 @@ import { ScrollContainer } from "./style";
 const ProfileAnalysisPage = () => {
   const { username } = useSelector((state) => state.userReducers);
   const [wordcloud, setWordcloud] = useState(null);
+  const [noteData, setNoteData] = useState(null);
   const [iWantItList, setIWantItList] = useState(null);
   const [recommandList, setRecommandList] = useState(null);
 
@@ -24,7 +25,7 @@ const ProfileAnalysisPage = () => {
   // 노트별 취향 데이터 요청
   const fetchNoteGraph = async () => {
     const res = await api.analysis.getNoteGraph();
-    console.log("notes", res);
+    setNoteData(res);
   };
 
   // I want it 향수 예상평점 조회 요청
@@ -46,14 +47,14 @@ const ProfileAnalysisPage = () => {
     fetchGetRecommandList();
   }, []);
 
-  if (!wordcloud || !iWantItList || !recommandList) return null;
+  if (!wordcloud || !noteData || !iWantItList || !recommandList) return null;
 
   return (
     <ProfileOutletContainer>
       <FlexDiv direction="column">
         <ProfileTitleBox bgimgNo={1} title={`${username}님의 취향 분석 결과`} />
         <Wordcloud wordcloud={wordcloud} />
-        {/* <NoteAnalysis  /> */}
+        <NoteAnalysis noteData={noteData} />
 
         <ProfileTitleBox bgimgNo={1} title={"I want it 향수 취향 적중도"} />
         <ScrollContainer margin="0 0 10rem 0">
