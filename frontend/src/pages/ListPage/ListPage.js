@@ -64,7 +64,7 @@ const ListPage = () => {
       .catch((err) => {
         alert(err);
       });
-  }, [page]);
+  }, []);
 
   const perfumeList = useSelector((state) => {
     return state.perfumeListReducers.perfumeList;

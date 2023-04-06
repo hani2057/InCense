@@ -8,7 +8,7 @@ function Pagination({ total, limit, page, setPage, request }) {
     setPage(i);
     request(i);
   };
-  const start = page === 0 ? 1 : (page - 1) / 10;
+  const start = page === 0 ? 1 : Math.ceil((page - 1) / 10) + 1;
   const pageButtons = Array(10)
     .fill()
     .map((_, i) => start + i);
@@ -16,7 +16,14 @@ function Pagination({ total, limit, page, setPage, request }) {
   return (
     <>
       <Nav>
-        <Button onClick={() => setPage(page - 1)} disabled={page === 1}>
+        <Button
+          onClick={() =>
+            setPage(page - 1, () => {
+              request(page);
+            })
+          }
+          disabled={page === 1}
+        >
           &lt;
         </Button>
 
@@ -44,7 +51,14 @@ function Pagination({ total, limit, page, setPage, request }) {
           </Button>
         ))}
 
-        <Button onClick={() => setPage(page + 1)} disabled={page === numPages}>
+        <Button
+          onClick={() =>
+            setPage(page + 1, () => {
+              request(page);
+            })
+          }
+          disabled={page === numPages}
+        >
           &gt;
         </Button>
       </Nav>
