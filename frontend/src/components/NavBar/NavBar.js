@@ -38,16 +38,10 @@ const NavBar = () => {
     }
   }, [pathname]);
 
-  const alarmClick =async () => {
-    
-      await api.alarm.readAlarmSendAll();
-      const res= await api.alarm.getAlarmSend();
-      
-      dispatch(setAlarmList(res));
-      dispatch(increaseAlarmCount());
-      
-     
-    setAlarmOpen((prev) => !prev);
+  const alarmClick =() => {   
+
+      dispatch({type: "ON_ALARM_CHANGE"})
+      setAlarmOpen((prev) => !prev);
   };
 
   const isAlarmList = () =>{

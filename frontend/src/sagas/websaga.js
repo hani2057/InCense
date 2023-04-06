@@ -13,6 +13,7 @@ async function getAlarmList(){
   const res = await api.alarm.getAlarmSend();
   return res;
 }
+
 function createSocketChannel(socket) {
   return eventChannel((emit) => {
     const connectCallback = () => {
