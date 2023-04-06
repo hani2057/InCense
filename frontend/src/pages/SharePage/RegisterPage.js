@@ -182,7 +182,7 @@ const RegisterPage = () => {
           titleValue={article.title}
           contentValue={article.content}
           categoryValue={article.gubun}
-          priceValue={article.price || 0}
+          priceValue={article.price}
           isDeliveryValue={article.isDelivery}
           buyDateValue={article.buyDate}
           perfumeIdValue={article.perfumeId}
