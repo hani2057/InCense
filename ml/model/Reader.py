@@ -63,3 +63,17 @@ def name_reader(file_name):
         temp += i
     names.append(temp)
     return names
+
+def theme_reader(file_name):
+    file = open(file_name)
+    lines = file.readlines()[0]
+    names = []
+    temp = ''
+    for i in lines[:-1]:
+        if i == ';':
+            names.append(float(temp))
+            temp = ''
+            continue
+        temp += i
+    names.append(float(temp))
+    return names

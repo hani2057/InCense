@@ -1,6 +1,6 @@
 import numpy as np
 from flask import Flask, jsonify, request
-from model.Reader import text_reader, name_reader
+from model.Reader import text_reader, name_reader, theme_reader
 from model.MF import MatrixFactorization
 from keras.models import load_model
 
@@ -18,37 +18,33 @@ name_base = name_reader("./static/name_base.txt")
 name_all_sorted_notes = name_reader("./static/name_all_sorted_notes.txt")
 name_all_sorted_top = name_reader("./static/name_all_sorted_top.txt")
 
-c_model_path = "./model/c_model_path/"
-decoder_path = "./model/decoder_path/"
-c_model = load_model(c_model_path)
-decoder = load_model(decoder_path)
+c_model = load_model("./model/c_model_path/")
+decoder = load_model("./model/decoder_path/")
 
+theme_path = ["./static/result_woody.txt", "./static/result_floral.txt", "./static/result_sweet.txt",
+              "./static/result_city.txt"]
+no_theme_path = ["./static/nofresh.txt", "./static/nocitrus.txt", "./static/noarabian.txt",
+                 "./static/novanilla.txt", "./static/nomusk.txt", "./static/noLike.txt"]
+theme = [theme_reader(i) for i in theme_path]
+no_theme = [theme_reader(i) for i in no_theme_path]
 
-# 임시 !!
-factor = {1: [0, 1, 2, 3], 2: [4, 5, 6],
-          3: [7, 8, 9, 10, 11], 4: [12, 13, 14, 15],
-          5: [16, 17, 18, 19], 6: [20, 21, 22, 23],
-          7: [24, 25, 26, 27], 8: [28, 29, 30, 31]}
 #################################################################
 # 01. 최초 선호도 테스트
 @app.route('/ml/result', methods=['POST'])
 def get_result():
     params = request.get_json()
     choose = params['choose']
-    preference = params['pastPreference']
-    if preference == '':
-        preference = np.full((1, 32), 0.001).tolist()
+    past_preference = params['pastPreference']
+    if past_preference == '':
+        past_preference = np.full((1, 32), 0.001).tolist()
     else:
-        preference = [list(map(float, params['pastPreference'].split(';')[:-1]))]
-    ################# bias 수정 !!!!!!!
-    for choice in choose:
-        if choice == 1:
-            for i in factor[choice]:
-                preference[0][i] += 0.05
-    ################# bias 수정 !!!!!!!
+        past_preference = [list(map(float, params['pastPreference'].split(';')[:-1]))]
+    theme_preference = theme[choose[0]]
+    no_preference = no_theme[choose[3]]
     new_preference = ''
-    for pre in preference[0]:
-        new_preference += str(pre)
+    for i in range(len(past_preference[0])):
+        now = (past_preference[0][i] + theme_preference[i] - no_preference[i]) / 3
+        new_preference += str(now)
         new_preference += ';'
     result = {"preference": new_preference}
     return jsonify(result)
@@ -193,7 +189,6 @@ def get_words():
     result_json = {"cloud": []}
     cnt = 0
     for tpp in temp:
-        print(tpp)
         if cnt == 50:
             break
         now_note_name = name_all_sorted_notes[tpp[1]]
