@@ -25,25 +25,20 @@ const NoteAnalysis = ({ noteData }) => {
 
       <NoteSpan align="end">{middleNotes}</NoteSpan>
       <NoteSpan bold={true}>Middle</NoteSpan>
-      <FlexDiv>
+      <FlexDiv justify="space-between">
         {middleWeight.map(({ word, weight }, idx) => (
-          <NoteCircle
-            weight={weight}
-            color="main"
-            data-content={word}
-            key={idx}
-          />
+          <NoteCircle weight={weight} data-content={word} key={idx} />
         ))}
       </FlexDiv>
 
       <NoteSpan align="end">{baseNotes}</NoteSpan>
       <NoteSpan bold={true}>Base</NoteSpan>
-      <FlexDiv>
+      <FlexDiv justify="space-between">
         {baseWeight.map(({ word, weight }, idx) => (
           <NoteCircle
             weight={weight}
-            color="pink-main"
             data-content={word}
+            isBase={true}
             key={idx}
           />
         ))}

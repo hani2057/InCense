@@ -5,6 +5,7 @@ const NoteAnalysisContainer = styled.div`
   grid-template-columns: 1fr 10rem 1fr;
   grid-template-rows: repeat(3, 3rem);
   column-gap: 1rem;
+  margin-bottom: 10rem;
 `;
 
 const NoteSpan = styled.span`
@@ -16,23 +17,26 @@ const NoteSpan = styled.span`
 `;
 
 const NoteCircle = styled.div`
-  ${({ weight, color }) => css`
+  ${({ weight, isBase }) => css`
     display: inline;
-    width: ${(weight * 5.5) ** 2}px;
-    height: ${(weight * 5.5) ** 2}px;
+    width: ${isBase ? (weight * 12) ** 1.4 : (weight * 2.5) ** 4.5}px;
+    height: ${isBase ? (weight * 12) ** 1.4 : (weight * 2.5) ** 4.5}px;
     border-radius: 50%;
-    background-color: var(--${color}-color);
+    background-color: var(--${isBase ? "pink-main" : "main"}-color);
     margin-right: 0.5px;
     position: relative;
 
     &::after {
       content: attr(data-content);
-      width: 3rem;
-      height: 2rem;
-      border: 1px solid var(--${color}-color);
-      color: var(--${color}-color);
+      width: auto;
+      height: auto;
+      padding: 0.5rem;
+      border: 1px solid var(--${isBase ? "pink-main" : "main"}-color);
+      color: var(--${isBase ? "pink-main" : "main"}-color);
+      background: white;
       position: absolute;
-      top: -2.2rem;
+      bottom: 2rem;
+      transform: translateX(-40%);
       display: none;
     }
     &:hover::after {
