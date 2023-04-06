@@ -93,8 +93,12 @@ const NavBar = () => {
           </div>
           <NavLogInStatus
             onClick={() => {
-              if (isLoggedIn) dispatch(logout());
-              else navigate("/login");
+              if (isLoggedIn) {
+                dispatch(logout());
+                setAlarmLen(0);
+              } else {
+                navigate("/login");
+              }
             }}
           >
             {isLoggedIn ? "Log out" : "Log in"}
