@@ -19,7 +19,10 @@ const LogInPage = () => {
         direction="column"
         justify="center"
         width="45%"
-        style={{ backgroundImage: "url('/assets/images/bgimg1.png')" }}
+        style={{
+          backgroundImage: "url('/assets/images/bgimg1.png')",
+          backgroundSize: "cover",
+        }}
       >
         <TitleSpan>In</TitleSpan>
         <TitleSpan>Cense</TitleSpan>
