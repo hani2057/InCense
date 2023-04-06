@@ -4,20 +4,20 @@
 
 <br>
 
-<img src="/uploads/5c07169f8bdef70891859089c98ccaf6/Icon.png" align="left" width="130" height="130">
+<img src="/uploads/5c07169f8bdef70891859089c98ccaf6/Icon.png" align="left" width="150" height="150">
 
 <!-- 여러분에게 꼭 맞는 향기를 전하는 **In:Cense** 입니다. <br>
 향수 취향을 테스트하고, 취향에 맞는 향수들을 추천받아 보세요. <br>
 여러분들이 1,000개 이상의 향수 목록들을 둘러보며 등록한 향수들을 통해 더 상세한 취향 분석 결과를 받아볼 수도 있답니다! <br>
 여러분이 구매한 모든 향수가 여러분에게 꼭 맞는 향수일 수는 없죠, <br> 그러니 조금 아쉬운 향수는 소분하여 나눔하거나 판매해보세요! <br> -->
 
- 여러분에게 꼭 맞는 향기를 전하는 **In:Cense** 입니다. <br>
+여러분에게 꼭 맞는 향기를 전하는 **In:Cense** 입니다. <br>
 
- 간단한 테스트로 여러분의 취향에 맞는 향수들을 추천받아 보세요! <br>
- 테스트와 함께 여러분이 등록한 향수들을 통해 더 상세한 취향 분석 결과를 받아볼 수 있답니다. <br>
+간단한 테스트로 여러분의 취향에 맞는 향수들을 추천받아 보세요! <br>
+테스트와 함께 여러분이 등록한 향수들을 통해 더 상세한 취향 분석 결과를 받아볼 수 있답니다. <br>
 
- 여러분이 가진 모든 향수가 여러분에게 꼭 맞는 향수일 수는 없죠, <br>
- 조금 아쉬운 향수는 소분하여 나눔하거나 판매해보세요! 
+여러분이 가진 모든 향수가 여러분에게 꼭 맞는 향수일 수는 없죠, <br>
+조금 아쉬운 향수는 소분하여 나눔하거나 판매해보세요! 
 
 
 
@@ -79,7 +79,7 @@
 <br><br>
 
 ## 🔌 서비스 아키텍처
-<이미지>
+![시스템아키텍처](/uploads/2a14a81fdb392b15552003714e7ce8a7/시스템아키텍처.png)
 
 <br><br>
 
@@ -88,6 +88,25 @@
 <br><br>
 
 ### ✒️ Swagger
+
+![Authorization](/uploads/6d12c2c5bdcb13d4a21684f4a6b3dee6/Authorization.PNG)
+![member](/uploads/44d8e97306a0735433366f75610c6ea4/member.PNG)
+![mypage](/uploads/e53755920653d450781ca341f818f204/mypage.PNG)
+
+![alarm](/uploads/21047e98c786187c1b2c6cbd1578e161/alarm.PNG)
+
+![perfume](/uploads/5add1541512f58e3c4221c47a0b8cc91/perfume.PNG)
+![Brand](/uploads/7110e00ff59abc704ba0145f3b472d45/Brand.PNG)
+![review](/uploads/1a3b21a416132deab606ffb8198d4873/review.PNG)
+
+![Deal](/uploads/06262fb9611948e6ca47778de50a1c4c/Deal.PNG)
+![ImageDisplay](/uploads/ba63f7d397f6df5d7ee7a38fe99aa271/ImageDisplay.PNG)
+
+![analysis](/uploads/7eaf70d2183bb9938e98a26a619a0661/analysis.PNG)
+![note](/uploads/0ab0e958f00669116275cacad21085e8/note.PNG)
+![test](/uploads/a64b66f8327461cebc9a6aeb2a079679/test.PNG)
+
+![flask](/uploads/59c369ad522a70116b23140570edb00f/flask.PNG)
 
 <br><br>
 
