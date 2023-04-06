@@ -4,7 +4,21 @@ export const perfumeListSlice = createSlice({
   name: 'perfumeList',
   initialState: {
     perfumeList:{
-      content: [],
+      content: [{
+      
+        id: -1,
+        name: '',
+        brandName: '',
+        topNoteName: [],
+        middleNoteName: [],
+        baseNoteName: [],
+        price: 0,
+        volume: 0,
+        gender: '',
+        rating: 0,
+        image: '',
+        concentration: ''      
+    },],
       totalElements: 0
     }
 
@@ -12,7 +26,7 @@ export const perfumeListSlice = createSlice({
   reducers: {
     getPerfumeList: (state, {payload}) => {
       console.log('List get요청')
-      state.perfumeList = payload
+      state.perfumeList.content = payload
     }
   }
 })

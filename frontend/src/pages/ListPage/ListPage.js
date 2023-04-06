@@ -70,8 +70,11 @@ const ListPage = () => {
   console.log("페이지==", page);
 
   const perfumeList = useSelector(
-    (state) => (state.perfumeListReducers.perfumeList)
-  );
+    
+    (state) => {
+      console.log(state)
+      return (state.perfumeListReducers.perfumeList.content)
+    });
 
   const applyFilter = () => {
     console.log("필터 적용하기");
