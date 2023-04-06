@@ -45,34 +45,24 @@ const NavBar = () => {
     }
   }, [pathname]);
 
+  // 알람 이모티콘 클릭
   const alarmClick = () => {
     dispatch({ type: "ON_ALARM_CHANGE" });
+    setAlarmLen(0);
     setAlarmOpen((prev) => !prev);
   };
 
-  // const isAlarmList = () =>{
-
-  //   const len = alarmList.filter((data)=>data.isReceived==0).length;
-  //   console.log("len!!!!"+len)
-  //   console.log("len!!!!!!:"+alarmList);
-  //   return len>0;
-  // }
-
+  // 웹소켓 연결
   useEffect(() => {
     dispatch({ type: "INIT_ALARM" });
-    console.log("init alarm");
+    // console.log("init alarm");
   }, []);
 
+  // 알람 갯수가 바뀔 때마다 alarmLen을 업데이트
   useEffect(() => {
-    console.log(alarmCount + "alarmCount");
     const len = alarmList.filter((data) => data.isReceived === 0).length;
-    console.log(len + "len");
     setAlarmLen(len);
-  }, [alarmCount, alarmList]);
-
-  useEffect(() => {
-    console.log(alarmLen);
-  }, [alarmLen]);
+  }, [alarmCount]);
 
   return (
     <>
@@ -109,7 +99,9 @@ const NavBar = () => {
         </FlexDiv>
       </NavWrapper>
 
-      {alarmOpen && <AlarmModal setAlarmOpen={setAlarmOpen} />}
+      {alarmOpen && (
+        <AlarmModal alarmOpen={alarmOpen} setAlarmOpen={setAlarmOpen} />
+      )}
 
       <div style={{ paddingTop: "var(--nav-height)" }}>
         <Outlet />
