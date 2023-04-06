@@ -74,7 +74,7 @@ const ListPage = () => {
     
     (state) => {
       console.log(state)
-      return (state.perfumeListReducers.perfumeList.content)
+      return (state.perfumeListReducers.perfumeList)
     });
 
   const applyFilter = () => {
