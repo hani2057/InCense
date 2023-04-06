@@ -58,26 +58,22 @@ const ListPage = () => {
     api.list
       .getList(page)
       .then((res) => {
-
         dispatch(perfumeListActions.getPerfumeList(res));
       })
-      
+
       .catch((err) => {
         alert(err);
       });
   }, [page]);
 
+  const perfumeList = useSelector((state) => {
+    return state.perfumeListReducers.perfumeList;
+  });
+  // 리스트는 perfumeList.content로 접근해야함
 
-  const perfumeList = useSelector(
-    
-    (state) => {
-      return (state.perfumeListReducers.perfumeList)
-    });
-// 리스트는 perfumeList.content로 접근해야함
-
-  const applyFilter = () => {
+  const applyFilter = (curretnPage) => {
     api.list
-      .getFilteredList(page, checklist, checklist2, checklist3)
+      .getFilteredList(curretnPage, checklist, checklist2, checklist3)
       .then((res) => {
         dispatch(perfumeListActions.getPerfumeList(res));
       })
@@ -85,7 +81,6 @@ const ListPage = () => {
         alert(err);
       });
   };
-
 
   return (
     <Box sx={{ marginBottom: "5rem" }}>
@@ -326,7 +321,7 @@ const ListPage = () => {
           ></Box>
           <Button
             variant="outlined"
-            onClick={applyFilter}
+            onClick={() => applyFilter(page)}
             sx={{
               width: "10rem",
               height: "2rem",
@@ -365,12 +360,11 @@ const ListPage = () => {
               textAlign: "center",
             }}
           >
-            {perfumeList.totalElements
-            && (<p style={{ fontWeight: "bold" }}>
-              총 {perfumeList.totalElements}개의 향수가 등록되어 있습니다.
-            </p>)
-
-            }
+            {perfumeList.totalElements && (
+              <p style={{ fontWeight: "bold" }}>
+                총 {perfumeList.totalElements}개의 향수가 등록되어 있습니다.
+              </p>
+            )}
             {/* <p>인기순 | 후기 많은 순</p> */}
             <ToggleFilter />
           </Box>
@@ -404,11 +398,19 @@ const ListPage = () => {
           >
             <Pagination
               // total={Object.keys(perfumeList).length}
+              total={perfumeList ? perfumeList.totalElements : 0}
+              limit={limit}
+              page={page}
+              setPage={setPage}
+              request={applyFilter}
+            />
+            {/* <Pagination
+              // total={Object.keys(perfumeList).length}
               total={200}
               limit={limit}
               page={page}
               setPage={setPage}
-            />
+            /> */}
           </Box>
         </Box>
       </Box>
