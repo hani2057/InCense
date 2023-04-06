@@ -47,7 +47,7 @@ const NavBar = () => {
 
   // 알람 이모티콘 클릭
   const alarmClick = () => {
-    if (alarm === true) {
+    if (alarmOpen === true) {
       setAlarmLen(0);
     } else {
       dispatch({ type: "ON_ALARM_CHANGE" });
