@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import api from "../../apis/api";
 import { perfumeListActions } from "../../store/slice/perfumeListSlice";
 import { alarmSliceReducer } from "../../store/slice/alarmSlice";
+import { login, logout } from "../../store/slice/userSlice";
 
 const ListPage = () => {
   const [dropdownVisibility, setDropdownVisibility] = useState(false);
