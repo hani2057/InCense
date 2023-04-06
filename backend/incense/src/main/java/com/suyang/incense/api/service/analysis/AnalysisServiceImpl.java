@@ -155,4 +155,10 @@ public class AnalysisServiceImpl implements AnalysisService{
 
         return responseEntity;
     }
+
+    public boolean isNoDataUser(Long memberId) {
+
+        int count = Math.toIntExact(memberPerfumeRepository.getCountOfUserData(memberId));
+        return count <= 0;
+    }
 }

@@ -14,4 +14,6 @@ public interface MemberPerfumeCustomRepository {
     List<UpdateTasteReq> getHaveHadPerfumeAndScore(Long memberId);
 
     List<Long> getWantPerfumeId(Long memberId);
+
+    Long getCountOfUserData(Long memberId);
 }

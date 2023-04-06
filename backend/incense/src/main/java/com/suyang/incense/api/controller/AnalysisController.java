@@ -44,6 +44,11 @@ public class AnalysisController {
 
         Long memberId = authService.getIdByAuthentication(authentication);
 
+        //사용자 데이터가 있는지 확인한다.
+        if(analysisService.isNoDataUser(memberId)){
+            return ResponseEntity.status(200).body("데이터가 없는 유저입니다.");
+        }
+
         ResponseEntity<TestResultDto> response = analysisService.updateTaste(path, memberId);
 
         if(response.getStatusCode() == HttpStatus.OK){

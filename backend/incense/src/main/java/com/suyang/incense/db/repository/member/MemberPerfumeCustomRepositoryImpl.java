@@ -113,4 +113,15 @@ public class MemberPerfumeCustomRepositoryImpl implements MemberPerfumeCustomRep
         return result;
     }
 
+    public Long getCountOfUserData(Long memberId) {
+
+        return jpaQueryFactory
+                .select(memberPerfume.count())
+                .from(memberPerfume)
+                .where(memberPerfume.category.eq(Category.valueOf("WANT"))
+                        .and(memberPerfume.member.id.eq(memberId))
+                )
+                .fetchOne();
+    }
+
 }

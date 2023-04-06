@@ -17,4 +17,6 @@ public interface AnalysisService {
     ResponseEntity<PerfumePredictDto> getSimilarityOfWantPerfume(String path, Long memberId);
 
     ResponseEntity<PerfumePredictDto> getPredictOfAllPerfume(String path, Long memberId);
+
+    boolean isNoDataUser(Long memberId);
 }
