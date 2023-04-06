@@ -5,7 +5,7 @@ const BASE_URL = "https://j8a804.p.ssafy.io/api";
 
 // accessToken이 필요 없는 요청시
 const axiosApi = (url, options) => {
-  console.log("axiosAPI", url)
+  console.log("axiosAPI", url);
   const instance = axios.create({ baseURL: url, ...options });
 
   // 성공시 콘솔에 response.data 출력, 에러시 콘솔에 에러 출력
@@ -17,6 +17,7 @@ const axiosApi = (url, options) => {
     },
     (error) => {
       console.error(error);
+      return Promise.reject(error);
     }
   );
 
@@ -26,10 +27,8 @@ const axiosApi = (url, options) => {
 // accessToken이 필요한 요청시
 
 const axiosAuthApi = (url, options) => {
-  // const accessToken = `Bearer ${sessionStorage.getItem("accessToken")}`;
   const instance = axios.create({
     baseURL: url,
-    // headers: { Authorization: accessToken },
     ...options,
   });
 
@@ -53,12 +52,10 @@ const axiosAuthApi = (url, options) => {
   // 성공시 콘솔에 response.data 출력, 에러시 콘솔에 에러 출력
   instance.interceptors.response.use(
     (response) => {
-      console.log(response.data);
-
       return response.data;
     },
     (error) => {
-      // if (error.response.statusCode === '418') alert(error.response.message);
+      console.error(error);
       return Promise.reject(error);
     }
   );
