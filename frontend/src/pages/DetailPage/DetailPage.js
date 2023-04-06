@@ -16,12 +16,17 @@ import api from "../../apis/api";
 import { perfumeInfoActions } from "../../store/slice/perfumeInfoSlice";
 import { similarListActions } from "../../store/slice/similarListSlice";
 import { similarityActions } from "../../store/slice/similaritySlice";
+import { login, logout } from "../../store/slice/userSlice";
 
 
 const DetailPage = () => {
 
   const [alarmStatus, setAlarmStatus] = useState(false)
-  const isLoggedIn = true
+  const isLoggedIn = useSelector((state) => {
+    // console.log('state==',state)
+    return state.userReducers.isLoggedIn
+  })
+  console.log('login???', isLoggedIn)
   const navigate = useNavigate()
 
   const dispatch = useDispatch()
@@ -49,24 +54,13 @@ const DetailPage = () => {
         console.log(err)
         alert(err)
       })
-    api.list.getCategory(detailId)
-    .then((res) => {
-      console.log(res.category)
-      dispatch(perfumeInfoActions.getCategory(res.category))
 
-    })
     api.list.getSimilarList(detailId)
-      .then((res) => {
-        console.log('similarList가져오기')
-        console.log(res)
-        dispatch(similarListActions.getSimilarList(res))
-      })
-    api.analysis.getSimilarity(detailId)
-      .then((res) => {
-        console.log('유사도 가져오기')
-        console.log(res)
-        dispatch(similarityActions.getSimilarity(res))
-      })
+    .then((res) => {
+      console.log('similarList가져오기')
+      console.log(res)
+      dispatch(similarListActions.getSimilarList(res))
+    })
   }, [alarmStatus, detailId])
   console.log(alarmStatus)
   
@@ -79,6 +73,7 @@ const DetailPage = () => {
   const category = useSelector((state) => {
     return state.perfumeInfoReducers.category
   })
+  console.log('카테고리???',category)
   const similarList = useSelector((state) => {
     return state.similarListReducers.similarList
   })
@@ -92,11 +87,26 @@ const DetailPage = () => {
   const predictRate = similarity.predictRate
   const fileName = perfumeInfo.image
 
+useEffect(() => {
+  if (isLoggedIn===true){
+  api.analysis.getSimilarity(detailId)
+  .then((res) => {
+    console.log('유사도 가져오기')
+    console.log(res)
+    dispatch(similarityActions.getSimilarity(res))
+  })
   api.alarm.getAlarm(detailId)
   .then((res) => {
     console.log(res)
     setAlarmStatus(res)
+  })}
+  api.list.getCategory(detailId)
+  .then((res) => {
+    console.log(res.category)
+    dispatch(perfumeInfoActions.getCategory(res.category))
   })
+  }, [alarmStatus, detailId])
+
 
   // 알람 설정
   const onChangeAlarm = () => {
@@ -134,7 +144,11 @@ const DetailPage = () => {
 
   const [isOpen, setIsOpen] = useState(false)
   const onClickModal = () => {
-    setIsOpen(true)
+    if (isLoggedIn===true){
+    setIsOpen(true)} else {
+      alert('로그인이 필요합니다.')
+      navigate('/login')
+    }
   }
   
   console.log('isopen==', isOpen)
@@ -188,7 +202,7 @@ const DetailPage = () => {
               backgroundColor:'white',
               position:'relative'
           }}>
-              {alarmStatus === 0
+              {alarmStatus === false
                 ?<BsBell style={{position:'absolute',right:'1rem',top:'1rem', fontSize:'2rem',cursor:'pointer' }}
                 onClick={onChangeAlarm}></BsBell>
                 :<BsFillBellFill style={{position:'absolute',right:'1rem',top:'1rem', fontSize:'2rem', color:'#706DFF',cursor:'pointer' }}

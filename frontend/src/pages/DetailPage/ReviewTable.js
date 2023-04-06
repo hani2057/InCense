@@ -72,7 +72,6 @@ export default function ReviewTable(props) {
     console.log(state)
     return state.reviewReducers.review.content
   })
-  console.log(reviewList)
   
   function createData(id, name, content, score) {
     return { id, name, content, score};
@@ -89,7 +88,6 @@ export default function ReviewTable(props) {
     )
   ;
   
-  console.log(rows)
   
   
   return (
