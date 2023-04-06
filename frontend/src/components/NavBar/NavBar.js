@@ -19,6 +19,7 @@ const NavBar = () => {
   const isLoggedIn = useSelector((state) => state.userReducers.isLoggedIn);
   const alarmList = useSelector(selectAlarmList);
   const alarmCount = useSelector(selectAlarmCount);
+  const [alarmLen,setAlarmLen] = useState(0);
   const alarmClick = () => {
     if(alarmOpen===false){
       api.alarm.readAlarmSendAll();
@@ -28,14 +29,19 @@ const NavBar = () => {
     }
     setAlarmOpen((prev) => !prev);
   };
+  
+  
 
   const isAlarmList = () =>{
+
     const len = alarmList.filter((data)=>data.isReceived===true).length;
+    console.log("len!!!!!!:"+len);
     return len>0;
   }
 
   useEffect(()=>{
-      
+    console.log(alarmCount+"alarmCount")
+    setAlarmLen(isAlarmList());
   },[alarmCount])
 
   return (
@@ -56,7 +62,7 @@ const NavBar = () => {
           <NavItem to="/profile">My Page</NavItem>
         </FlexDiv>
         <FlexDiv width="auto">
-          {isAlarmList? (
+          {alarmLen>0? (
             <NotificationAddIcon onClick={alarmClick}/>
           ) : (
             <BsBell onClick={alarmClick} style={{ cursor: "pointer" }} />
