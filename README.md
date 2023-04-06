@@ -4,7 +4,7 @@
 
 <br>
 
-<img src="/uploads/5c07169f8bdef70891859089c98ccaf6/Icon.png" align="left" width="140" height="140">
+<img src="/uploads/5c07169f8bdef70891859089c98ccaf6/Icon.png" align="left" width="130" height="130">
 
 <!-- 여러분에게 꼭 맞는 향기를 전하는 **In:Cense** 입니다. <br>
 향수 취향을 테스트하고, 취향에 맞는 향수들을 추천받아 보세요. <br>
