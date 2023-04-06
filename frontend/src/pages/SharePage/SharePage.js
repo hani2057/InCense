@@ -19,8 +19,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 export default function SharePage() {
   const isLoggedIn = useSelector((state) => {
-    return (state.userReducers.isLoggedIn)
-  })
+    return state.userReducers.isLoggedIn;
+  });
   const [dropdownVisibility, setDropdownVisibility] = useState(false);
   const [dropdown2Visibility, setDropdown2Visibility] = useState(false);
   const [dropdown3Visibility, setDropdown3Visibility] = useState(false);
@@ -34,8 +34,6 @@ export default function SharePage() {
   const [limit, setLimit] = useState(20);
   const [gubun, setGubun] = useState("");
   const [page, setPage] = useState(1);
-
-  
 
   const dispatch = useDispatch();
 
@@ -51,6 +49,7 @@ export default function SharePage() {
       )
       .then((res) => {
         dispatch(articleListActions.getArticleList(res));
+        setPage(res.pageable.pageNumber + 1);
       })
       .catch((err) => {
         alert(err);
@@ -61,8 +60,8 @@ export default function SharePage() {
 
   const registerPost = () => {
     if (isLoggedIn === true) {
-      navigate('/share/register?isForEdit=false')
-      dispatch(articleActions.reset())
+      navigate("/share/register?isForEdit=false");
+      dispatch(articleActions.reset());
     } else {
       alert("로그인이 필요합니다.");
       navigate("/login");
@@ -70,7 +69,6 @@ export default function SharePage() {
   };
 
   // 페이지네이션
-
 
   useEffect(() => {
     api.share
@@ -81,15 +79,12 @@ export default function SharePage() {
       .catch((err) => {
         alert(err);
       });
-      
   }, []);
-
-
 
   const articleList = useSelector((state) => {
     return state.articleListReducers.articleList;
     // console.log(state)
-  })
+  });
 
   if (!articleList) return null;
   return (
@@ -297,7 +292,7 @@ export default function SharePage() {
                   <Box
                     sx={{
                       display: "flex",
-                      width:'100%',
+                      width: "100%",
                       flexDirection: "column",
                       fontSize: "1rem",
                       height: "15rem",
@@ -399,7 +394,7 @@ export default function SharePage() {
 
           <Button
             variant="outlined"
-            onClick={()=>applyFilter(page)}
+            onClick={() => applyFilter(page)}
             sx={{
               width: "10rem",
               height: "2rem",
@@ -438,7 +433,11 @@ export default function SharePage() {
               textAlign: "center",
             }}
           >
-            <ToggleFilter2 gubun={gubun} setGubun={setGubun} goGubun ={applyFilter}/>
+            <ToggleFilter2
+              gubun={gubun}
+              setGubun={setGubun}
+              goGubun={applyFilter}
+            />
 
             <Button
               variant="outlined"
@@ -463,30 +462,28 @@ export default function SharePage() {
           <Box
             sx={{
               // margin:"3rem",
-              width:"100%",
-              display:"flex",
-              flexDirection:"row",
-              justifyContent:"start",
-              flexWrap:"wrap",
-              marginBottom:"5rem"              
-            }}>
-            { articleList.content?.map((article, index) => {
-              return (
-                <ArticleCard key={index} article={article}/>
-              )
+              width: "100%",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "start",
+              flexWrap: "wrap",
+              marginBottom: "5rem",
+            }}
+          >
+            {articleList.content?.map((article, index) => {
+              return <ArticleCard key={index} article={article} />;
             })}
-
           </Box>
-            <Pagination 
-              // total={Object.keys(perfumeList).length}
-              total={articleList? articleList.totalElements : 0}
-              limit={limit}
-              page={page}
-              setPage={setPage}
-              request={applyFilter}
-            />          
-          </Box>
+          <Pagination
+            // total={Object.keys(perfumeList).length}
+            total={articleList ? articleList.totalElements : 0}
+            limit={limit}
+            page={page}
+            setPage={setPage}
+            request={applyFilter}
+          />
         </Box>
       </Box>
+    </Box>
   );
 }
