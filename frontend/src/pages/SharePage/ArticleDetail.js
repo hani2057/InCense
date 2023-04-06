@@ -168,9 +168,13 @@ function ArticleDetail() {
   // const onCloseDeal = () => {
   //   api.share.close(articleId)
   // }
+  // const hour = 
+  // if ()
+  // Number(article.createdDate.substr(11,2)) + 9
+  
 
   return (
-    <Box sx={{ width: "60%", margin: "1rem auto" }}>
+    <Box sx={{ width: "60%", margin: "1rem auto", marginBottom:'5rem' }}>
       <Box
         sx={{width:'100%', height:'0.2rem', backgroundColor:'#DCDCDC',marginTop:'2rem',marginBottom:'2rem',marginLeft:'1rem'}}>
       </Box>
@@ -186,17 +190,17 @@ function ArticleDetail() {
           :<></>}
         </Box>
       </Box>
-      <Box sx={{width:'100%', display:'flex',flexDirection:'row', marginLeft:'1rem'}}>
+      <Box sx={{width:'100%', minHeight:'45rem',display:'flex',flexDirection:'row', marginLeft:'1rem'}}>
         <Box sx={{width:'60%', display:'flex',flexDirection:'column'}}>
           <h2>작성자 : {article.nickname} &nbsp; 등급이름(로고)</h2>
-          <p style={{fontSize:'0.7rem', color:'grey', marginTop:'0.5rem'}}>{article.createdDate}</p>
+          <p style={{fontSize:'0.7rem', color:'grey', marginTop:'0.5rem'}}>{article.createdDate.substr(0,16)}</p>
           <Box sx={{width:'100%',display:'flex',flexDirection:'row'}}>
             <Box sx={{width:'50%', display:'flex',flexDirection:'column'}}>
               {article.gubun === 'SALE'
               ?<P3>구분 : 판매</P3>
               :<P3>구분 : 나눔</P3>
               }
-              <P3>구매시기 : {article.buyDate}</P3>
+              <P3>구매시기 : {article.buyDate.substr(0,4)} 년 {article.buyDate.substr(5)} 월</P3>
             </Box>
             <Box sx={{width:'50%', display:'flex',flexDirection:'column'}}>
               {article.isDelivery===0
@@ -243,12 +247,14 @@ function ArticleDetail() {
       {/* <CommentBox articleId={articleId}/>
       map으로 돌려야 함
       <CommentBox/> */}
+      <Box sx={{marginBottom:'5rem'}}>
       {comment && comment.slice(0).reverse().map((comment, index) => {
               return (
                 <CommentBox key={index} comment={comment} article={article} articleId={articleId} username={username} isLoggedIn={isLoggedIn}/>
               )
             })}
-      
+      </Box>
+      <Box> </Box>
     </Box>
   )
 }
