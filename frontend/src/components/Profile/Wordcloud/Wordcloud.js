@@ -1,85 +1,93 @@
-// // import React, { useEffect, useRef } from "react";
-// // import WordCloud from "react-d3-cloud";
+import React, { useEffect, useRef, useState } from "react";
+import WordCloud from "react-d3-cloud";
 
-// // const Wordcloud = ({ data }) => {
-// //   // const data = [
-// //   //   { text: "Hey", value: 1000 },
-// //   //   { text: "lol", value: 200 },
-// //   //   { text: "first impression", value: 800 },
-// //   //   { text: "very cool", value: 1000000 },
-// //   //   { text: "duck", value: 10 },
-// //   // ];
+const Wordcloud = ({ wordcloud }) => {
+  const [data, setData] = useState(wordcloud);
 
-// //   const canvasRef = useRef(null);
+  console.log("dddd", data);
 
-// //   // set willReadFrequently to true
-// //   useEffect(() => {
-// //     const canvas = canvasRef.current;
-// //     canvas.getContext("2d").willReadFrequently = true;
-// //   }, []);
+  const canvasRef = useRef(null);
 
-// //   return (
-// //     <div>
-// //       <canvas ref={canvasRef} />
-// //       <WordCloud data={data} />
-// //     </div>
-// //   );
-// // };
+  // set willReadFrequently to true
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    canvas.getContext("2d").willReadFrequently = true;
+  }, []);
 
-// // export default Wordcloud;
+  return (
+    <div
+      style={{
+        height: "15rem",
+        position: "relative",
+        top: "-10rem",
+        marginBottom: "10rem",
+      }}
+    >
+      <canvas ref={canvasRef} />
+      <WordCloud
+        data={data}
+        // width={1000}
+        // height={1000}
+        spiral={"archimedean"}
+        padding={5}
+        rotate={(_, idx) => (idx % 2) * 90}
+        fontSize={({ value }) => Math.log2(value * 10) * 15}
+      />
+    </div>
+  );
+};
 
-// // Result/index.js
-// import React, { useEffect } from 'react';
-// import * as d3 from 'd3';
-// import cloud from 'd3-cloud';
+export default Wordcloud;
 
-// const width = 400
-// const height = 400
+// import React, { useEffect } from "react";
+// import * as d3 from "d3";
+// import cloud from "d3-cloud";
 
-// function HotelsResult() {
+// const width = 400;
+// const height = 400;
+
+// const Wordcloud = ({ data }) => {
 //   useEffect(() => {
-//     const data = [
-//       "Hello", "world", "normally", "you", "want", "more", "words",
-//       "than", "this"]
-
 //     cloud()
 //       .size([width, height])
-//       .words(data.map(function(d) {
-//         return {text: d, size: 10 + Math.random() * 90, test: "haha"};
-//       }))
+//       .words(data)
 //       .padding(5)
-//       .font("Impact")
-//       .fontSize(function(d) { return d.size; })
+//       // .font("Impact")
+//       .fontSize((d) => d.value)
 //       .on("end", end)
 //       .start();
 
-//     function end(words) {
+//     function end(data) {
 //       d3.select("#word-cloud")
-//           .append("svg")
-//           .attr("width", 500)
-//           .attr("height", 500)
-//           .style("border", "1px solid black")
+//         .append("svg")
+//         .attr("width", 500)
+//         .attr("height", 500)
+//         .style("border", "1px solid black")
 //         .append("g")
-//           .attr("transform", "translate(" + 500 / 2 + "," + 500 / 2 + ")")
+//         .attr("transform", "translate(" + 500 / 2 + "," + 500 / 2 + ")")
 //         .selectAll("text")
-//           .data(words)
-//         .enter().append("text")
-//           .style("font-size", function(d) { return d.size + "px"; })
-//           .style("font-family", "Impact")
-//           .attr("text-anchor", "middle")
-//           .attr("transform", function(d) {
-//             return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-//           })
-//           .text(function(d) { return d.text; });
+//         .data(data)
+//         .enter()
+//         .append("text")
+//         .style("font-size", function (d) {
+//           return d.size + "px";
+//         })
+//         // .style("font-family", "Impact")
+//         .attr("text-anchor", "middle")
+//         .attr("transform", function (d) {
+//           return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+//         })
+//         .text(function (d) {
+//           return d.text;
+//         });
 //     }
-//   })
+//   }, []);
 
 //   return (
 //     <div>
-//       <h1>리뷰 분석 결과</h1>
 //       <div id="word-cloud"></div>
 //     </div>
-//   )
-// }
+//   );
+// };
 
-// export default HotelsResult;
+// export default Wordcloud;
