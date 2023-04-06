@@ -2,7 +2,7 @@
 
 프로젝트 기간 : 2023.02.20 ~ 2023.04.07
 
-<br>
+<br><br>
 
 <다시 작성 예정> <br>
 여러분에게 꼭 맞는 향기를 전하는 In:Cense 입니다. <br>
@@ -11,6 +11,71 @@
 향수를 소분하여 나눔하거나, 구매 후 아쉬운 향수를 판매해보세요.  <br>
 여러분의 활동 내역을 확인하고 상세한 취향 분석 결과를 받아보세요. <br>
 
+<br><br>
 
 <p align="center"><img src= "/uploads/5c07169f8bdef70891859089c98ccaf6/Icon.png"></p>
 
+![Icon](/uploads/5c07169f8bdef70891859089c98ccaf6/Icon.png)
+
+<br><br>
+
+## 🚴 팀원소개
+
+<br>
+
+<이미지>
+
+<br><br>
+
+## 🔧 기술 스택
+
+<br>
+
+<이미지>
+
+<br><br>
+
+## 📂 서비스
+
+<br><br>
+
+### 🔎 WBS
+
+<br><br>
+
+### 📋 API 명세서
+
+<br>
+
+![API명세서1](/uploads/8ad92138373736f84f2b2d460c9731e8/API명세서1.PNG)
+![API명세서2](/uploads/18ed542fc4e247edd4d6d6d07e0f98e7/API명세서2.PNG)
+![API명세서3](/uploads/7c374673ff6b1815524235e4ba47a2de/API명세서3.PNG)
+
+<br><br>
+
+## 🔌 서비스 아키텍처
+<이미지>
+
+<br><br>
+
+## 💻 프로젝트 구조
+
+<br><br>
+
+### ✒️ Swagger
+
+<br><br>
+
+### ☁️ ERD
+
+<br>
+
+![erd_캡처](/uploads/09982031142393488cfe7f25351b0199/erd_캡처.PNG)
+
+<br><br>
+
+### 🎨 와이어프레임, 스토리보드
+
+<br><br>
+
+## 🌈 주요 기능
