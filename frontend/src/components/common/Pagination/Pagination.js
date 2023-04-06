@@ -8,6 +8,10 @@ function Pagination({ total, limit, page, setPage, request }) {
     setPage(i);
     request(i);
   };
+  const start = page === 0 ? 1 : (page - 1) / 10;
+  const pageButtons = Array(10)
+    .fill()
+    .map((_, i) => start + i);
 
   return (
     <>
@@ -30,25 +34,16 @@ function Pagination({ total, limit, page, setPage, request }) {
             </Button>
           ))} */}
 
-        {Array(numPages)
-          .fill()
-          .map((_, i) => {
-            const start = i * 10 + 1;
-            const end = Math.min(start + 9, numPages * 10);
-            const pageButtons = Array(end - start + 1)
-              .fill()
-              .map((_, j) => start + j);
+        {pageButtons.map((num) => (
+          <Button
+            key={num}
+            onClick={() => clickPage(num)}
+            aria-current={page === num ? "page" : null}
+          >
+            {num}
+          </Button>
+        ))}
 
-            return pageButtons.map((num) => (
-              <Button
-                key={num}
-                onClick={() => clickPage(num)}
-                aria-current={page === num ? "page" : null}
-              >
-                {num}
-              </Button>
-            ));
-          })}
         <Button onClick={() => setPage(page + 1)} disabled={page === numPages}>
           &gt;
         </Button>
