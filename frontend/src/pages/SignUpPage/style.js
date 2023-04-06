@@ -14,7 +14,7 @@ const SignUpItemWrapper = styled(FlexDiv)`
 `;
 
 const SignUpInput = styled.input`
-  width: 23rem;
+  width: ${(props) => (props.modify ? "18rem" : "23rem")};
   height: 3rem;
   border-bottom: 1px solid var(--gray-color);
   font-size: 1.2rem;

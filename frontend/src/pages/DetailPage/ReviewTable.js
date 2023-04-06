@@ -9,6 +9,10 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Pagination from '../../components/common/Pagination/Pagination';
 import { Box } from '@mui/system';
+import api from '../../apis/api';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { reviewActions } from '../../store/slice/reviewSlice';
 
 
 
@@ -34,31 +38,61 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(id, name, content, score) {
-  return { id, name, content, score};
-}
 
-const rows = [
-  createData(1, '전태영', '제가 써본 향수 중에 제일 향기로워요!', 5),
-  createData(2, '전태영', '제가 써본 향수 중에 제일 향기로워요!', 5),
-  createData(3, '전태영', '제가 써본 향수 중에 제일 향기로워요!', 5),
-  createData(4, '전태영', '제가 써본 향수 중에 제일 향기로워요!', 5),
-  createData(5, '전태영', '제가 써본 향수 중에 제일 향기로워요!', 5),
-];
 
-export default function ReviewTable() {
-
+export default function ReviewTable(props) {
+  
   const onClickReview = () => {
     // 후기 모달 오픈하도록
-    console.log('후기 모달 열기')
   }
-
-
   
+  const dispatch = useDispatch()
+  
+  const perfumeInfo = props.perfumeInfo
+  const detailId = props.detailId
+  
+  // api.review.getReview(detailId, 1)
+  const page = 1
+  useEffect(() => {
+    api.review
+    .getReview(detailId, page)
+    .then((res) => {
 
+        dispatch(reviewActions.getReview(res))
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  }, [page]);
+
+  const reviewList = useSelector((state) => {
+    return state.reviewReducers.review.content
+  })
+  
+  function createData(id, name, content, score) {
+    return { id, name, content, score};
+  }
+  
+  const rows = 
+
+    reviewList && reviewList.map(
+      (review, index) => {
+        return(
+          // createData(index+1, review.name, review.comment, review.preference)
+          {id:index+1, name:review.name, comment:review.comment, preference:review.preference}
+        )}
+    )
+  ;
+  
+  
+  
   return (
     <Box>
-    <TableContainer component={Paper}>
+    {!rows 
+    ?<h1 style={{fontSize:'2rem', fontWeight:'bold', marginTop:'2rem', marginBottom:'3rem'}}>후기 (0)</h1>
+    :<h1 style={{fontSize:'2rem', fontWeight:'bold', marginTop:'2rem', marginBottom:'3rem'}}>후기 ({rows.length})</h1>
+      }
+      <TableContainer component={Paper}>
       <Table padding='none' sx={{ minWidth: 700, width:'80rem', height:'15rem' }} aria-label="customized table">
         <TableHead sx={{height:'2.5rem'}}>
           <TableRow>
@@ -68,22 +102,22 @@ export default function ReviewTable() {
             <StyledTableCell align="center" sx={{width:'15rem'}}>평점</StyledTableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.id}>
+        <TableBody >
+          {rows && rows.map((row) => (
+            <StyledTableRow key={row.id }sx={{height:'2.5rem'}} >
               <StyledTableCell align='center' component="th" scope="row">
                 {row.id}
               </StyledTableCell>
               <StyledTableCell align="center">{row.name}</StyledTableCell>
-              <StyledTableCell align="center" sx={{textAlign:'start', cursor:'pointer'}} onClick={onClickReview}>{row.content}</StyledTableCell>
-              <StyledTableCell align="center">{row.score}</StyledTableCell>
+              <StyledTableCell align="center" sx={{textAlign:'center', cursor:'pointer'}} onClick={onClickReview}>{row.comment}</StyledTableCell>
+              <StyledTableCell align="center">{row.preference}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
       </Table>
       </TableContainer>
       <Pagination
-        total={10}
+        total={reviewList ? reviewList.length :0}
         limit={5}
         page={5}
         setPage={1}

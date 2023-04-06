@@ -8,6 +8,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Box } from '@mui/system';
+import api from '../../../apis/api';
+import { useEffect } from 'react';  
+import { useDispatch, useSelector } from 'react-redux';
 
 
 
@@ -19,7 +22,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontWeight:'bold'
   },
   [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
+    // fontSize: 14,
   },
 }));
 
@@ -29,27 +32,25 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
   // hide last border
   '&:last-child td, &:last-child th': {
-    border: 0,
+    // border: 0,
   },
 }));
 
-function createData(method, price, quantity, buyDate) {
-  return { method, price, quantity, buyDate};
-}
+// function createData(method, price, quantity, buyDate) {
+//   return { method, price, quantity, buyDate};
+// }
 
-const rows = [
-  createData('택배', 15000, '50ml', '2023.03'),
+// const rows = [
+//   createData('택배', 15000, '50ml', '2023.03'),
 
-];
+// ];
 
-export default function TableInCard() {
+export default function TableInCard(props) {
 
   const onClickReview = () => {
-    // 후기 모달 오픈하도록
-    console.log('후기 모달 열기')
   }
 
-
+  const article = props.article
   
 
   return (
@@ -58,23 +59,26 @@ export default function TableInCard() {
       <Table padding='none' sx={{   height:'4rem' }} aria-label="customized table">
         <TableHead sx={{height:'2rem'}}>
           <TableRow>
-            <StyledTableCell align='center' sx={{width:'5rem',borderRight:'1px solid grey'}}>거래방식</StyledTableCell>
-            <StyledTableCell align="center" sx={{width:'5rem',borderRight:'1px solid grey'}}>가격</StyledTableCell>
-            <StyledTableCell align="center" sx={{width:'5rem',borderRight:'1px solid grey'}}>용량</StyledTableCell>
-            <StyledTableCell align="center" sx={{width:'5rem'}}>구매시기</StyledTableCell>
+            <StyledTableCell align='center' sx={{width:'5rem',borderRight:'1px solid grey', fontSize:'0.7vw'}}>거래방식</StyledTableCell>
+            <StyledTableCell align="center" sx={{width:'5rem',borderRight:'1px solid grey', fontSize:'0.7vw'}}>가격(원)</StyledTableCell>
+            <StyledTableCell align="center" sx={{width:'5rem',borderRight:'1px solid grey', fontSize:'0.7vw'}}>용량(ml)</StyledTableCell>
+            <StyledTableCell align="center" sx={{width:'5rem', fontSize:'0.7vw'}}>구매시기</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.id}>
-              <StyledTableCell align='center' component="th" scope="row" sx={{borderRight:'1px solid grey'}}>
-                {row.method}
+            <StyledTableRow key={article.dealId}>
+              {article.isDelivery && article.isDelivery === 1
+              ?<StyledTableCell align='center' component="th" scope="row" sx={{borderRight:'1px solid grey', fontSize:'0.7vw'}}>
+                택배
               </StyledTableCell>
-              <StyledTableCell align="center" sx={{borderRight:'1px solid grey'}}>{row.price}</StyledTableCell>
-              <StyledTableCell align="center" sx={{textAlign:'center',borderRight:'1px solid grey'}} onClick={onClickReview}>{row.quantity}</StyledTableCell>
-              <StyledTableCell align="center">{row.buyDate}</StyledTableCell>
+              :<StyledTableCell align='center' component="th" scope="row" sx={{borderRight:'1px solid grey', fontSize:'0.7vw'}}>
+              직거래
+            </StyledTableCell>
+              }
+              <StyledTableCell align="center" sx={{borderRight:'1px solid grey', fontSize:'0.7vw'}}>{article.price}</StyledTableCell>
+              <StyledTableCell align="center" sx={{textAlign:'center',borderRight:'1px solid grey',borderTop:'1px solid grey', fontSize:'0.7vw'}} onClick={onClickReview}>{article.volume}</StyledTableCell>
+              <StyledTableCell align="center" sx={{fontSize:'0.7vw'}}>{article.buyDate}</StyledTableCell>
             </StyledTableRow>
-          ))}
         </TableBody>
       </Table>
       </TableContainer>

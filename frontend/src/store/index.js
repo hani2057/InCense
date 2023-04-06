@@ -8,6 +8,10 @@ import { perfumeInfoReducers } from "./slice/perfumeInfoSlice";
 import { perfumeListReducers } from "./slice/perfumeListSlice";
 import { articleListReducers } from "./slice/articleListSlice";
 import { alarmSliceReducer } from "./slice/alarmSlice";
+import { commentReducers } from "./slice/commentSlice";
+import { reviewReducers } from "./slice/reviewSlice";
+import { similarListReducers } from "./slice/similarListSlice";
+import { similarityReducers } from "./slice/similaritySlice";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "../sagas";
 // const customHistory = createBrowserHistory();
@@ -19,11 +23,16 @@ const rootReducer = combineReducers({
   perfumeListReducers,
   articleListReducers,
   alarmSliceReducer,
+  commentReducers,
+  reviewReducers,
+  similarListReducers,
+  similarityReducers,
 });
 
 const persistConfig = {
   key: "root",
   storage: storageSession, // 세션스토리지 사용
+  // whitelist: ['user']
 };
 
 const store = configureStore({

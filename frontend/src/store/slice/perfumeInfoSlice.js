@@ -18,13 +18,17 @@ export const perfumeInfoSlice = createSlice({
         rating: 0,
         image: '',
         concentration: ''      
-    }
+    },
+    category: null,
   },
   reducers: {
     getPerfumeInfo: (state, {payload}) => {
-      console.log('Detail get요청')
       state.perfumeInfo = payload
+    },
+    getCategory: (state, {payload}) =>{
+      state.category = payload
     }
+
   }
 })
 

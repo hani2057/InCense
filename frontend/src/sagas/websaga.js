@@ -3,10 +3,17 @@ import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { take, call, put, fork, cancel, takeLatest } from "redux-saga/effects";
 import { authInstance } from "../apis";
+import api from "../apis/api"
 async function getUserInfo() {
   const res = await authInstance.get("/member/info");
   return res;
 }
+
+async function getAlarmList(){
+  const res = await api.alarm.getAlarmSend();
+  return res;
+}
+
 function createSocketChannel(socket) {
   return eventChannel((emit) => {
     const connectCallback = () => {
@@ -76,6 +83,8 @@ function* watchMessageChannel(channel) {
     const { type, payload } = yield take(channel);
     switch (type) {
       case "MESSAGE":
+        const alarmList = yield call(getAlarmList);
+        yield put({type:"alarm/setAlarmList",payload:alarmList})
         yield put({ type: "alarm/increaseAlarmCount" });
         break;
       default:
@@ -85,6 +94,8 @@ function* watchMessageChannel(channel) {
 }
 
 function* stompSaga() {
+  const alarmList = yield call(getAlarmList);
+  yield put({type:"alarm/setAlarmList",payload:alarmList})
   const res = yield call(getUserInfo);
   // const WEBSOCKET_URL = "http://localhost:8080/api/stomp/chat";
   const WEBSOCKET_URL = "https://j8a804.p.ssafy.io/api/stomp/chat";

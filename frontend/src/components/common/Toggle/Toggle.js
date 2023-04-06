@@ -23,9 +23,17 @@ const Toggle = ({
   msgChecked,
   msgUnchecked,
   padding,
+  width,
+  height,
 }) => {
   return (
-    <FlexDiv justify="start" align="center" padding={padding}>
+    <FlexDiv
+      justify="start"
+      align="center"
+      padding={padding}
+      width={width ? width : "100%"}
+      height={height ? height : "100%"}
+    >
       <ToggleWrapper>
         <ToggleInput
           id={id}

@@ -1,8 +1,11 @@
 import React from "react";
 import { FlexDiv } from "../../common/FlexDiv/FlexDiv";
 import { AnalysisCardSpan, AnalysisPercent } from "./style";
+import { useNavigate } from "react-router-dom";
 
-const WantAnalysisCard = ({ name, brand, img, percent }) => {
+const WantAnalysisCard = ({ perfumeId, name, brand, img, predict }) => {
+  const navigate = useNavigate();
+
   return (
     <FlexDiv
       direction="column"
@@ -20,11 +23,12 @@ const WantAnalysisCard = ({ name, brand, img, percent }) => {
         <img
           src={`https://j8a804.p.ssafy.io/api/display?filename=${img}`}
           alt="want perfume"
-          style={{ height: "8rem" }}
+          onClick={() => navigate(`/detail/${perfumeId}`)}
+          style={{ height: "8rem", cursor: "pointer" }}
         />
         <AnalysisPercent>
           <AnalysisCardSpan size="1.5rem" position="relative" zIndex="5">
-            {percent}%
+            {`${(predict * 20).toFixed(1)}%`}
           </AnalysisCardSpan>
           <div></div>
         </AnalysisPercent>

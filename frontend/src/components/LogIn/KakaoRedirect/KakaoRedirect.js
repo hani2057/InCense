@@ -19,7 +19,7 @@ const KakaoRedirect = (props) => {
   const kakaoLogin = async (code) => {
     const res = await api.user.login("kakao", code);
     if (res.accessToken) {
-      dispatch(login({ accessToken: res.accessToken }));
+      dispatch(login({ accessToken: res.accessToken, nickname: res.nickname }));
       // dispatch({ type: "START_WEBSOCKET" });
       navigate("/");
     } else

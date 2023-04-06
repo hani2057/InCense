@@ -36,7 +36,6 @@ const RegisterPage = () => {
     const isRegisterForEdit = paramsSearch.split("=")[1]
 
     if (isRegisterForEdit === 'true') {
-      console.log('forEdit=true')
       setTitleValue(article.title);
       setContentValue(article.content);
       // dispatch(articleActions.fetchArticle(id))
@@ -44,7 +43,6 @@ const RegisterPage = () => {
     } else {
       setTitleValue('');
       setContentValue('');
-      console.log('forEdit=false')
     }
     // setTitleValue(title);
     // setContentValue(content);
@@ -52,9 +50,6 @@ const RegisterPage = () => {
 
   const onRegisterChange = (event) => {
     const { name, value } = event.target;
-    console.log('dispatch changeRegister')
-    console.log(name, value)
-    
     dispatch(articleActions.changeRegisterInput({ name: name, value: value }));
   };
   
@@ -66,10 +61,6 @@ const RegisterPage = () => {
     // console.log("image", image)
     setImage(event.target)
   }
-  console.log("image", image)
-
-
-  console.log(article)
 
   const [perfumeId, setPerfumeId] = useState('')
   const [perfumeInfo, setPerfumeInfo] = useState('');
@@ -78,7 +69,6 @@ const RegisterPage = () => {
   const onSearchPerfume = (e) => {
     setPerfumeId(e.target.value)
   }
-  console.log('향수id==',perfumeInfo.id)
 
   const formData = new FormData();
   formData.append('perfumeId', perfumeInfo.id)
@@ -95,9 +85,10 @@ const RegisterPage = () => {
     formData.append('files', image[i])
   }
 
-  console.log(formData)
 
-
+  const articleId = useSelector((state) => {
+    return state.articleReducers.updateId
+  })
 
   const onSubmitArticle = (event) => {
     event.preventDefault();
@@ -135,7 +126,6 @@ const RegisterPage = () => {
 
     // const formdata = new FormData();
     formData.append('picture', image)
-    console.log(formData, '이건 폼데이터')
     const articleForRegister = {
       article: article, navigate:navigate
     };
@@ -144,15 +134,21 @@ const RegisterPage = () => {
       article: article, navigate:navigate
     };
 
+
     if (IsForUpdate) {
-      console.log('업데이트 ㄱㄱ');
-      console.log(articleForUpdate);
+
 
       dispatch(articleActions.updateArticle(articleForUpdate)); // 추가
+      api.share.update(articleId, formData)
+      .then((res) => {
+        alert('등록되었습니다.')
+        dispatch(articleActions.reset())
+        navigate('/share')
+        window.location.reload()
+      })
+
       // navigate(`/group/${groupId}/board`);
     } else {
-      console.log('작성ㄱㄱ')
-      console.log(articleForRegister)
       // axios로 post  
       // const accessToken = sessionStorage.getItem("accessToken")
       // axios.post('https://j8a804.p.ssafy.io/api/deal', formData, {
@@ -163,6 +159,7 @@ const RegisterPage = () => {
       alert('등록되었습니다.')
       dispatch(articleActions.reset())
       navigate('/share')
+      window.location.reload()
       // dispatch(articleActions.registerArticle(articleForRegister));
       // navigate(`/group/${groupId}/board`);
     } 
@@ -185,7 +182,7 @@ const RegisterPage = () => {
           titleValue={article.title}
           contentValue={article.content}
           categoryValue={article.gubun}
-          priceValue={article.price}
+          priceValue={article.price || 0}
           isDeliveryValue={article.isDelivery}
           buyDateValue={article.buyDate}
           perfumeIdValue={article.perfumeId}
