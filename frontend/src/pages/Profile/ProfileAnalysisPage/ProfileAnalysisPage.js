@@ -52,7 +52,7 @@ const ProfileAnalysisPage = () => {
     <ProfileOutletContainer>
       <FlexDiv direction="column">
         <ProfileTitleBox bgimgNo={1} title={`${username}님의 취향 분석 결과`} />
-        <Wordcloud data={wordcloud} />
+        <Wordcloud wordcloud={wordcloud} />
 
         <ProfileTitleBox bgimgNo={1} title={"I want it 향수 취향 적중도"} />
 
