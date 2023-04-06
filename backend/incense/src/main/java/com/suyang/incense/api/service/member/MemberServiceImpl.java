@@ -114,7 +114,7 @@ public class MemberServiceImpl implements MemberService {
         if(originProfile.equals("profile/male.png") || originProfile.equals("profile/female.png")) {
             return fileHandler.parseProfileImageInfo(profile);
         } else {
-            File file = new File(originProfile);
+            File file = new File("/asset/images/" + originProfile);
             if(file.exists()) {     // 서버에서 이미지가 정상적으로 삭제되었다면, 이미지를 새로 등록
                 if(file.delete()) {
                     System.out.println("############## 이미지 삭제 성공");
