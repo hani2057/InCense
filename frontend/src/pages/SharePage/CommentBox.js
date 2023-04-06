@@ -148,7 +148,7 @@ function CommentBox(props) {
   if (comment.isSecret === 1 && username!==article.nickname && username!==comment.writer) {
     return (
       <div>
-      <Box sx={{width:'100%',height:'8rem',marginLeft:'1rem', display:'flex',flexDirection:'column', borderTop:'1px solid lightgrey',justifyContent:'center'}}>
+      <Box sx={{width:'100%',height:'8rem',marginLeft:'1rem', display:'flex',flexDirection:'column', borderBottom:'1px solid lightgrey',justifyContent:'center'}}>
         <div style={{margin:'0.5rem',display:'flex',flexDirection:'row'}}>
           <p style={{marginTop:'1rem',marginRight:'0.5rem'}}><RxLockClosed/></p>          <p style={{marginTop:'1rem'}}>비밀 댓글입니다.</p>
         </div>
@@ -191,7 +191,7 @@ function CommentBox(props) {
 
   return (
     <div>
-    <Box sx={{width:'100%',height:'8rem',marginLeft:'1rem', display:'flex',flexDirection:'column', borderTop:'1px solid lightgrey'}}>
+    <Box sx={{width:'100%',height:'8rem',marginLeft:'1rem', display:'flex',flexDirection:'column', borderBottom:'1px solid lightgrey'}}>
       <div style={{margin:'0.5rem'}}>
         
         
@@ -199,13 +199,13 @@ function CommentBox(props) {
         <p style={{fontWeight:'bold',fontSize:'1.1rem'}}>{comment.writer}</p>
         {username === comment.writer
         ?<Box>
-          <img
+          {/* <img
           src="/assets/icons/edit.svg"
           alt="modify"
           // style={{ position: "absolute", right: "0" }}
           style={{marginRight:'0.5rem',cursor:'pointer'}}
           onClick={onEditcomment}
-          />
+          /> */}
           <img
           src="/assets/icons/delete.svg"
           alt="modify"
