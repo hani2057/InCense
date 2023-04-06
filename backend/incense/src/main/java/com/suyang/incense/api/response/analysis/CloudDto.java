@@ -16,7 +16,7 @@ public class CloudDto {
     @Setter
     public static class WordDto{
         private String text;
-        private double value;
+        private float value;
 
     }
 
