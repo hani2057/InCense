@@ -11,6 +11,7 @@ import {
   initAlarmCount,
   selectAlarmList,
   selectAlarmCount,
+  setAlarmList
 } from "../../store/slice/alarmSlice";
 import NotificationAddIcon from "@mui/icons-material/NotificationAdd";
 import api from "../../apis/api";
@@ -36,12 +37,15 @@ const NavBar = () => {
     }
   }, [pathname]);
 
-  const alarmClick = () => {
+  const alarmClick =async () => {
     if (alarmOpen === false) {
-      api.alarm.readAlarmSendAll();
-    } else {
+      await api.alarm.readAlarmSendAll();
+      const res= await api.alarm.getAlarmSend();
+      
+      dispatch(setAlarmList(res));
       dispatch(initAlarmCount());
-    }
+    } 
+     
     setAlarmOpen((prev) => !prev);
   };
 
@@ -57,6 +61,10 @@ const NavBar = () => {
     console.log(alarmCount + "alarmCount");
     setAlarmLen(isAlarmList());
   }, [alarmCount]);
+
+  useEffect(()=>{
+    console.log(alarmLen);
+  },[alarmLen]);
 
   return (
     <>
