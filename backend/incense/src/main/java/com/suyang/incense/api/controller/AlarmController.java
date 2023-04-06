@@ -88,6 +88,16 @@ public class AlarmController {
     }
 
 
+    @ApiOperation(value = "향수 알람 전체 읽음")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "성공",
+            content = @Content(schema = @Schema(implementation = String.class)))})
+    @PutMapping(path="/send")
+    public ResponseEntity<String> readAlarmAll(@ApiIgnore Authentication authentication){
+        Long memberId = authService.getIdByAuthentication(authentication);
+        alarmService.readAlarmAll(memberId);
+        return ResponseEntity.ok("success");
+    }
+
 
 
     @ApiOperation(value = "향수 알람 수신 목록 가져오기")
