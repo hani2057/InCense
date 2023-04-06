@@ -13,6 +13,7 @@ async function getAlarmList(){
   const res = await api.alarm.getAlarmSend();
   return res;
 }
+
 function createSocketChannel(socket) {
   return eventChannel((emit) => {
     const connectCallback = () => {
@@ -82,9 +83,9 @@ function* watchMessageChannel(channel) {
     const { type, payload } = yield take(channel);
     switch (type) {
       case "MESSAGE":
-        yield put({ type: "alarm/increaseAlarmCount" });
         const alarmList = yield call(getAlarmList);
         yield put({type:"alarm/setAlarmList",payload:alarmList})
+        yield put({ type: "alarm/increaseAlarmCount" });
         break;
       default:
         break;

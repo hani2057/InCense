@@ -11,7 +11,9 @@ import {
   initAlarmCount,
   selectAlarmList,
   selectAlarmCount,
-  setAlarmList
+  setAlarmList,
+  increaseAlarmCount,
+  selectAlarmLen
 } from "../../store/slice/alarmSlice";
 import NotificationAddIcon from "@mui/icons-material/NotificationAdd";
 import api from "../../apis/api";
@@ -25,6 +27,7 @@ const NavBar = () => {
   const alarmList = useSelector(selectAlarmList);
 
   const alarmCount = useSelector(selectAlarmCount);
+
   const [alarmOpen, setAlarmOpen] = useState(false);
   const [alarmLen, setAlarmLen] = useState(0);
 
@@ -37,29 +40,26 @@ const NavBar = () => {
     }
   }, [pathname]);
 
-  const alarmClick =async () => {
-    if (alarmOpen === false) {
-      await api.alarm.readAlarmSendAll();
-      const res= await api.alarm.getAlarmSend();
-      
-      dispatch(setAlarmList(res));
-      dispatch(initAlarmCount());
-    } 
-     
-    setAlarmOpen((prev) => !prev);
+  const alarmClick =() => {   
+
+      dispatch({type: "ON_ALARM_CHANGE"})
+      setAlarmOpen((prev) => !prev);
   };
 
-  const isAlarmList = () =>{
+  // const isAlarmList = () =>{
 
-    const len = alarmList.filter((data)=>data.isReceived==0).length;
-    console.log("len!!!!"+len)
-    console.log("len!!!!!!:"+alarmList);
-    return len>0;
-  }
+  //   const len = alarmList.filter((data)=>data.isReceived==0).length;
+  //   console.log("len!!!!"+len)
+  //   console.log("len!!!!!!:"+alarmList);
+  //   return len>0;
+  // }
 
   useEffect(() => {
     console.log(alarmCount + "alarmCount");
-    setAlarmLen(isAlarmList());
+
+    const len = alarmList.filter((data)=>data.isReceived==0).length;
+
+    setAlarmLen(len);
   }, [alarmCount]);
 
   useEffect(()=>{

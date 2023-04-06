@@ -15,15 +15,12 @@ import MenuButton from './MenuButton';
 import api from '../../apis/api';
 import { useDispatch, useSelector } from 'react-redux';
 import { articleActions } from '../../store/slice/articleSlice';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { commentActions } from '../../store/slice/commentSlice';
 import { login, logout } from '../../store/slice/userSlice';
 
 
-
-
 function ArticleDetail() {
-
 
   
   const [isSecret, setIsSecret] = useState(0)
@@ -32,9 +29,7 @@ function ArticleDetail() {
     ? setIsSecret(1)
     : setIsSecret(0)
     
-    console.log('비밀댓글 여부 변경')
   }
-  console.log('비밀여부==',isSecret)
   
   const [commentValue, setCommentValue] = useState('')
   const onChangeComment = (e) => {
@@ -43,13 +38,10 @@ function ArticleDetail() {
     ? alert('댓글을 입력하세요')
     : setCommentValue(commentValue)
   }
-  console.log('댓글내용==',commentValue)
   
   const article = useSelector((state) => {
-    console.log(state)
     return state.articleReducers.article
   })
-  console.log(article)
 
   const params = useParams()
   const articleId = params.articleId
@@ -63,17 +55,25 @@ function ArticleDetail() {
   //     setIsBookMark(false)
   //   console.log('북마크 해제')}
   // }
+  const comment = useSelector((state) => {
+    return state.commentReducers.comment
+  })
+
+  const username = useSelector((state) => {
+    return state.userReducers.username
+  })
+  const isLoggedIn = useSelector((state) => {
+    return state.userReducers.isLoggedIn
+  })
+
   
   useEffect(() => {
-    console.log('호출')
+    isLoggedIn &&
     api.share.check(articleId)
       .then((res) => {
-        console.log('Detail가져오기')
-        console.log(res)
         setIsBookMark(res.bookmark)
       })
       .catch((err) => {
-        console.log(err)
         alert(err)
       })
   }, [isBookmark])
@@ -88,16 +88,11 @@ function ArticleDetail() {
 
 
   useEffect(() => {
-    console.log('호출')
     api.share.getArticle(articleId)
       .then((res) => {
-        console.log('Detail가져오기')
-        console.log(res)
-        dispatch(articleActions.getArticleDetail(res))
-        
+        dispatch(articleActions.getArticleDetail(res))    
       })
       .catch((err) => {
-        console.log(err)
         alert(err)
       })
   }, [])
@@ -115,54 +110,41 @@ function ArticleDetail() {
     images.push({url: `https://j8a804.p.ssafy.io/api/display?filename=${article.imageInfo[i]}`})
   }
   }
-  console.log(images)
 
   const commentRegister = {
     content: commentValue,
     isSecret: isSecret,
     parentId: null
   }
-
+  const navigate = useNavigate()
   // 댓글 저장 api
   const onSubmitComment = () => {
-    console.log('댓글 저장')
+    if (isLoggedIn === true)
+    {
     api.comment.register(articleId, commentRegister)
       .then((res) => {
-        console.log(res)
         window.location.reload()
       })
       .catch((err) => {
         alert(err)
-      })
+      })}
+      else {
+        alert('로그인이 필요합니다')
+        navigate('/login')
+      }
   }
 
   // 댓글 불러오기
-  useEffect(() => {
-    console.log('호출')
+  useEffect(() => { 
     api.comment.getComment(articleId)
       .then((res) => {
-        console.log('comment가져오기')
-        console.log(res)
         dispatch(commentActions.getComment(res))
       })
       .catch((err) => {
-        console.log(err)
         alert(err)
       })
   }, [])
 
-  const comment = useSelector((state) => {
-    console.log(state)
-    return state.commentReducers.comment
-  })
-  console.log(comment)
-
-  const username = useSelector((state) => {
-    return state.userReducers.username
-  })
-  const isLoggedIn = useSelector((state) => {
-    return state.userReducers.isLoggedIn
-  })
 
   // const [isClosed, setIsClosed] = useState()
   // const onCloseDeal = () => {

@@ -44,7 +44,6 @@ export default function ReviewTable(props) {
   
   const onClickReview = () => {
     // 후기 모달 오픈하도록
-    console.log('후기 모달 열기')
   }
   
   const dispatch = useDispatch()
@@ -58,21 +57,17 @@ export default function ReviewTable(props) {
     api.review
     .getReview(detailId, page)
     .then((res) => {
-        console.log("리뷰가져오기");
-        console.log(res);
+
         dispatch(reviewActions.getReview(res))
       })
       .catch((err) => {
-        console.log(err);
         alert(err);
       });
   }, [page]);
 
   const reviewList = useSelector((state) => {
-    console.log(state)
     return state.reviewReducers.review.content
   })
-  console.log(reviewList)
   
   function createData(id, name, content, score) {
     return { id, name, content, score};
@@ -89,7 +84,6 @@ export default function ReviewTable(props) {
     )
   ;
   
-  console.log(rows)
   
   
   return (

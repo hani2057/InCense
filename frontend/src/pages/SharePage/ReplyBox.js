@@ -12,7 +12,6 @@ function ReplyBox(props) {
 
   // const userNickname = '전태영'
   const reply = props.comment[props.index]
-  console.log(reply)
   
 
   return (

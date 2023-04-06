@@ -28,7 +28,6 @@ function CommentBox(props) {
     ? alert('답글을 입력하세요')
     : setReplyValue(replyValue)
   }
-  console.log('답글내용 ==',replyValue)
 
   const [isSecret, setIsSecret] = useState(0)
   const onChangeSecret = () => {
@@ -36,13 +35,10 @@ function CommentBox(props) {
     ? setIsSecret(1)
     : setIsSecret(0)
     
-    console.log('비밀댓글 여부 변경')
   }
-  console.log('답글비밀여부==',isSecret)
 
   
   const comment = props.comment
-  console.log(comment)
 
   const username = props.username
   const isLoggedIn = props.isLoggedIn
@@ -92,8 +88,6 @@ function CommentBox(props) {
   
   console.log(data)
   const onDeleteConfirm = () => {
-    console.log('delete comment')
-    console.log(comment.commentId,)
     api.comment.delete(comment.commentId, data)
     window.location.reload()
   }
@@ -109,15 +103,11 @@ function CommentBox(props) {
 
   const articleId = props.articleId
   useEffect(() => {
-    console.log('호출')
     api.comment.getComment(articleId)
       .then((res) => {
-        console.log('comment가져오기')
-        console.log(res)
-        // dispatch(commentActions.getComment(res))
+
       })
       .catch((err) => {
-        console.log(err)
         alert(err)
       })
     }, [])
@@ -130,13 +120,10 @@ function CommentBox(props) {
     parentId: comment.commentId
   }
   
-  console.log(replyRegister)
 
   const onSubmitReply = () => {
-    console.log('답글 저장')
     api.comment.register(articleId, replyRegister)
     .then((res) => {
-      console.log(res)
       window.location.reload()
     })
     .catch((err) => {

@@ -8,7 +8,6 @@ export const commentListSlice = createSlice({
   },
   reducers: {
     getcommentList: (state, {payload}) => {
-      console.log('Share List get요청')
       state.commentList = payload
     }
   }

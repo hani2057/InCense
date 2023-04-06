@@ -16,12 +16,16 @@ import api from "../../apis/api";
 import { perfumeInfoActions } from "../../store/slice/perfumeInfoSlice";
 import { similarListActions } from "../../store/slice/similarListSlice";
 import { similarityActions } from "../../store/slice/similaritySlice";
+import { login, logout } from "../../store/slice/userSlice";
 
 
 const DetailPage = () => {
 
   const [alarmStatus, setAlarmStatus] = useState(false)
-  const isLoggedIn = true
+  const isLoggedIn = useSelector((state) => {
+    // console.log('state==',state)
+    return state.userReducers.isLoggedIn
+  })
   const navigate = useNavigate()
 
   const dispatch = useDispatch()
@@ -30,73 +34,63 @@ const DetailPage = () => {
   const detailId = params.detailId
 
   useEffect(() => {
-    console.log('호출')
     api.image.getImage(fileName)
       .then((res) => {
         
       })
       .catch((err) => {
-        console.log(err)
       })
     api.list.getDetail(detailId)
       .then((res) => {
-        console.log('Detail가져오기')
-        console.log(res)
         dispatch(perfumeInfoActions.getPerfumeInfo(res))
         
       })
       .catch((err) => {
-        console.log(err)
         alert(err)
       })
-    api.list.getCategory(detailId)
-    .then((res) => {
-      console.log(res.category)
-      dispatch(perfumeInfoActions.getCategory(res.category))
 
-    })
     api.list.getSimilarList(detailId)
-      .then((res) => {
-        console.log('similarList가져오기')
-        console.log(res)
-        dispatch(similarListActions.getSimilarList(res))
-      })
-    api.analysis.getSimilarity(detailId)
-      .then((res) => {
-        console.log('유사도 가져오기')
-        console.log(res)
-        dispatch(similarityActions.getSimilarity(res))
-      })
+    .then((res) => {
+
+      dispatch(similarListActions.getSimilarList(res))
+    })
   }, [alarmStatus, detailId])
-  console.log(alarmStatus)
   
   
 
   const perfumeInfo = useSelector((state) => {
     return state.perfumeInfoReducers.perfumeInfo
   })
-  console.log(perfumeInfo)
   const category = useSelector((state) => {
     return state.perfumeInfoReducers.category
   })
   const similarList = useSelector((state) => {
     return state.similarListReducers.similarList
   })
-  console.log(similarList)
   const similarity = useSelector((state) => {
     return state.similarityReducers.similarity
   })
-
   const favNotes = similarity.favNotes
   const worNotes = similarity.worNotes
   const predictRate = similarity.predictRate
   const fileName = perfumeInfo.image
 
+useEffect(() => {
+  if (isLoggedIn===true){
+  api.analysis.getSimilarity(detailId)
+  .then((res) => {
+    dispatch(similarityActions.getSimilarity(res))
+  })
   api.alarm.getAlarm(detailId)
   .then((res) => {
-    console.log(res)
     setAlarmStatus(res)
+  })}
+  api.list.getCategory(detailId)
+  .then((res) => {
+    dispatch(perfumeInfoActions.getCategory(res.category))
   })
+  }, [alarmStatus, detailId])
+
 
   // 알람 설정
   const onChangeAlarm = () => {
@@ -121,7 +115,6 @@ const DetailPage = () => {
   const onClickButton = () => {
     if (isLoggedIn === true) {
       setShowSimilarity(true)
-      console.log('유사도 보여주기')
     }
     else {
       alert('로그인이 필요합니다.')
@@ -134,11 +127,13 @@ const DetailPage = () => {
 
   const [isOpen, setIsOpen] = useState(false)
   const onClickModal = () => {
-    setIsOpen(true)
+    if (isLoggedIn===true){
+    setIsOpen(true)} else {
+      alert('로그인이 필요합니다.')
+      navigate('/login')
+    }
   }
   
-  console.log('isopen==', isOpen)
-  // console.log(typeIdx)
   
 
   return (
@@ -188,7 +183,7 @@ const DetailPage = () => {
               backgroundColor:'white',
               position:'relative'
           }}>
-              {alarmStatus === 0
+              {alarmStatus === false
                 ?<BsBell style={{position:'absolute',right:'1rem',top:'1rem', fontSize:'2rem',cursor:'pointer' }}
                 onClick={onChangeAlarm}></BsBell>
                 :<BsFillBellFill style={{position:'absolute',right:'1rem',top:'1rem', fontSize:'2rem', color:'#706DFF',cursor:'pointer' }}

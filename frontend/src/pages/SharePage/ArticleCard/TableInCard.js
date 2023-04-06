@@ -48,12 +48,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function TableInCard(props) {
 
   const onClickReview = () => {
-    // 후기 모달 오픈하도록
-    console.log('후기 모달 열기')
   }
 
   const article = props.article
-  // console.log(article)
   
 
   return (

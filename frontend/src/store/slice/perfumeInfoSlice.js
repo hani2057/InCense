@@ -23,11 +23,9 @@ export const perfumeInfoSlice = createSlice({
   },
   reducers: {
     getPerfumeInfo: (state, {payload}) => {
-      console.log('Detail get요청')
       state.perfumeInfo = payload
     },
     getCategory: (state, {payload}) =>{
-      console.log('category스토어에 저장')
       state.category = payload
     }
 

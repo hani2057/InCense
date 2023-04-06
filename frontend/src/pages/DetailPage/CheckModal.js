@@ -32,10 +32,8 @@ function CheckModal(props) {
   }
   const dispatch = useDispatch()
   const onSubmitForm = () => {
-    console.log('form제출!')
     api.review.postReview(reviewArticle)
     .then((res) => {
-      console.log(res)
       props.setIsOpen(false)
       window.location.reload()
     })
@@ -55,17 +53,14 @@ function CheckModal(props) {
     setReviewValue(reviewValue)
 
   }
-  console.log('후기내용==',reviewValue)
 
   const [starValue, setStarValue] = useState(0)
-  console.log('별점==',starValue/2)
 
   const category = ['HAD', 'HAVE', 'WANT']
 
   const reviewArticle = {
     category: category[props.idx], comment: reviewValue, perfumeId: props.perfumeInfo.id, preference: starValue/2
   }
-  console.log(reviewArticle)
 
 
 

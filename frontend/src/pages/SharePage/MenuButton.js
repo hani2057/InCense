@@ -47,7 +47,6 @@ export default function MenuButton(props) {
   const dispatch= useDispatch()
   const cancelConfirm = () => console.log("취소했습니다.");
   const editConfirm = () => {
-    console.log('수정하기..')
     dispatch(articleActions.updateId(articleId))
     
     navigate('/share/register?isForEdit=true')

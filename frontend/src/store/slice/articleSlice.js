@@ -31,7 +31,7 @@ export const articleSlice = createSlice({
     content: '',
     userId: '',
     gubun : 'SALE',
-    price: '',
+    price: 0,
     isDelivery: 0,
     perfumeId: '',
     buyDate: '',
@@ -46,25 +46,21 @@ export const articleSlice = createSlice({
   },
   reducers: {
     getArticleDetail: (state, {payload}) => {
-      console.log('Article상세조회!')
       state.article = payload
     }
     ,
     saveArticle: (state, {payload}) => {
-      console.log('article 저장 액션 호출');
       // console.log(data)
       state.article = payload;
     },
 
     updateArticle: (state, {payload}) => {
       // 마감여부는 따로 버튼
-      console.log('article 수정 액션 호출');
-      console.log(payload)
+
       state.article = payload
 
     },    
     updateId: (state, {payload}) => {
-      console.log(payload)
       state.updateId = payload
     },
 
