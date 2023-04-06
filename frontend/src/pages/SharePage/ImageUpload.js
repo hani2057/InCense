@@ -10,6 +10,11 @@ const ImageUpload = (props) => {
   // 이미지 상대경로 저장
   const handleAddImages = (event) => {
     const imageLists = event.target.files;
+    // const newList = []
+    // for(let i=0;i<imageLists.length;i++){
+    //   newList.push(imageLists[i]);
+    // }
+    // console.log(newList)
     let imageUrlLists = [...showImages];
 
     for (let i = 0; i < imageLists.length; i++) {
@@ -22,8 +27,8 @@ const ImageUpload = (props) => {
     }
 
     setShowImages(imageUrlLists);
-    console.log('---', showImages)
-    console.log('###',imageUrlLists)
+    // console.log('---', newList)
+    props.setImage(imageLists)
   };
   
   

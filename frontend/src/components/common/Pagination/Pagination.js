@@ -1,8 +1,15 @@
 import styled from "styled-components";
+function Pagination({ total, limit, page, setPage,request }) {
 
-function Pagination({ total, limit, page, setPage }) {
-  const numPages = Math.ceil(total / limit);
+  const numPages = isNaN((total-1)/limit)?1:Math.ceil((total-1) / limit);
 
+  
+  const clickPage = (i) => {
+    setPage(i);
+    request(i);
+  }
+
+  
   return (
     <>
       <Nav>
@@ -13,9 +20,11 @@ function Pagination({ total, limit, page, setPage }) {
           .fill()
           .map((_, i) => (
             <Button
-              key={i + 1}
-              onClick={() => setPage(i + 1)}
-              aria-current={page === i + 1 ? "page" : null}
+              key={i }
+              onClick={
+                 (e)=>clickPage(e.currentTarget.textContent)
+              }
+              aria-current={page == i + 1 ? "page" : null}
             >
               {i + 1}
             </Button>

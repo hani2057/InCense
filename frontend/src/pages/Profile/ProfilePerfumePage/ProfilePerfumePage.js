@@ -1,208 +1,135 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import dayjs from "dayjs";
+import api from "../../../apis/api";
+import { updateTasteTime } from "../../../store/slice/userSlice";
 import CheckboxPickOne from "../../../components/common/CheckboxPickOne/CheckboxPickOne";
-import { FlexDiv } from "../../../components/common/FlexDiv/FlexDiv";
+import SearchModal from "../../../components/Profile/SearchModal/SearchModal";
 import PerfumeItem from "../../../components/Profile/PerfumeItem/PerfumeItem";
-import CardComponent from "../../ListPage/CardComponent";
+import { FlexDiv } from "../../../components/common/FlexDiv/FlexDiv";
 import { ProfileOutletContainer } from "../ProfilePage/style";
-import { ProfilePerfumeHeader } from "./style";
+import { ProfilePerfumeHeader, ProfilePerfumeHeaderSpan } from "./style";
 
 const ProfilePerfumes = () => {
+  const dispatch = useDispatch();
+  const { lastTasteUpdate } = useSelector((state) => state.userReducers);
+
   const [typeIdx, setTypeIdx] = useState(0);
+  const [perfumes, setPerfumes] = useState(null);
+  const [serchModalOpen, setSearchModalOpen] = useState(false);
 
-  const data = [
-    {
-      id: 0,
-      name: "향수 이름입니다",
-      brandName: "brand입니다",
-      topNoteName: ["note1", "note2", "note3", "note4"],
-      middleNoteName: ["note1", "note2", "note3", "note4"],
-      baseNoteName: ["note1", "note2", "note3", "note4"],
-      price: 1,
-      volume: 0,
-      gender: 0,
-      rating: 0,
-    },
-    {
-      id: 1,
-      name: "향수 이름입니다",
-      brandName: "brand입니다",
-      topNoteName: ["note1", "note2", "note3", "note4"],
-      middleNoteName: ["note1", "note2", "note3", "note4"],
-      baseNoteName: ["note1", "note2", "note3", "note4"],
-      price: 1,
-      volume: 0,
-      gender: 0,
-      rating: 0,
-    },
-    {
-      id: 2,
-      name: "향수 이름입니다",
-      brandName: "brand입니다",
-      topNoteName: ["note1", "note2", "note3", "note4"],
-      middleNoteName: ["note1", "note2", "note3", "note4"],
-      baseNoteName: ["note1", "note2", "note3", "note4"],
-      price: 1,
-      volume: 0,
-      gender: 0,
-      rating: 0,
-    },
-    {
-      id: 3,
-      name: "향수 이름입니다",
-      brandName: "brand입니다",
-      topNoteName: ["note1", "note2", "note3", "note4"],
-      middleNoteName: ["note1", "note2", "note3", "note4"],
-      baseNoteName: ["note1", "note2", "note3", "note4"],
-      price: 1,
-      volume: 0,
-      gender: 0,
-      rating: 0,
-    },
-    {
-      id: 4,
-      name: "향수 이름입니다",
-      brandName: "brand입니다",
-      topNoteName: ["note1", "note2", "note3", "note4"],
-      middleNoteName: ["note1", "note2", "note3", "note4"],
-      baseNoteName: ["note1", "note2", "note3", "note4"],
-      price: 1,
-      volume: 0,
-      gender: 0,
-      rating: 0,
-    },
-    {
-      id: 5,
-      name: "향수 이름입니다",
-      brandName: "brand입니다",
-      topNoteName: ["note1", "note2", "note3", "note4"],
-      middleNoteName: ["note1", "note2", "note3", "note4"],
-      baseNoteName: ["note1", "note2", "note3", "note4"],
-      price: 1,
-      volume: 0,
-      gender: 0,
-      rating: 0,
-    },
-    {
-      id: 6,
-      name: "향수 이름입니다",
-      brandName: "brand입니다",
-      topNoteName: ["note1", "note2", "note3", "note4"],
-      middleNoteName: ["note1", "note2", "note3", "note4"],
-      baseNoteName: ["note1", "note2", "note3", "note4"],
-      price: 1,
-      volume: 0,
-      gender: 0,
-      rating: 0,
-    },
-    {
-      id: 7,
-      name: "향수 이름입니다",
-      brandName: "brand입니다",
-      topNoteName: ["note1", "note2", "note3", "note4"],
-      middleNoteName: ["note1", "note2", "note3", "note4"],
-      baseNoteName: ["note1", "note2", "note3", "note4"],
-      price: 1,
-      volume: 0,
-      gender: 0,
-      rating: 0,
-    },
-    {
-      id: 8,
-      name: "향수 이름입니다",
-      brandName: "brand입니다",
-      topNoteName: ["note1", "note2", "note3", "note4"],
-      middleNoteName: ["note1", "note2", "note3", "note4"],
-      baseNoteName: ["note1", "note2", "note3", "note4"],
-      price: 1,
-      volume: 0,
-      gender: 0,
-      rating: 0,
-    },
-    {
-      id: 9,
-      name: "향수 이름입니다",
-      brandName: "brand입니다",
-      topNoteName: ["note1", "note2", "note3", "note4"],
-      middleNoteName: ["note1", "note2", "note3", "note4"],
-      baseNoteName: ["note1", "note2", "note3", "note4"],
-      price: 1,
-      volume: 0,
-      gender: 0,
-      rating: 0,
-    },
-    {
-      id: 10,
-      name: "향수 이름입니다",
-      brandName: "brand입니다",
-      topNoteName: ["note1", "note2", "note3", "note4"],
-      middleNoteName: ["note1", "note2", "note3", "note4"],
-      baseNoteName: ["note1", "note2", "note3", "note4"],
-      price: 1,
-      volume: 0,
-      gender: 0,
-      rating: 0,
-    },
-  ];
+  // have, had, want 향수 목록 가져오기
+  const fetchGetPerfumeList = async () => {
+    const arr = ["HAVE", "HAD", "WANT"];
+    const res = await api.profile.getPerfumeList(arr[typeIdx]);
+    setPerfumes(res);
+  };
 
-  // {
-  //   id: 0,
-  //   name: "향수 이름입니다",
-  //   brandName: "brand입니다",
-  //   topNoteName: ["note1", "note2", "note3", "note4"],
-  //   middleNoteName: ["note1", "note2", "note3", "note4"],
-  //   baseNoteName: ["note1", "note2", "note3", "note4"],
-  //   price: 1,
-  //   volume: 0,
-  //   gender: 0,
-  //   rating: 0,
-  // }
+  // 내 취향에 반영하기 요청
+  const fetchUpdateTaste = async () => {
+    await api.analysis.getUpdateTaste();
+    dispatch(
+      updateTasteTime({ updateTasteTime: dayjs().format("YYYY-MM-DD") })
+    );
+  };
+
+  useEffect(() => {
+    fetchGetPerfumeList();
+  }, [typeIdx, lastTasteUpdate]);
+
+  if (!perfumes) return null;
 
   return (
-    <ProfileOutletContainer>
-      <ProfilePerfumeHeader>
-        <CheckboxPickOne
-          textArr={["I have it", "I had it", "I want it"]}
-          pickedIdx={typeIdx}
-          setPickedIdx={setTypeIdx}
-          width="50%"
-          padding="0 5%"
-          color="dark-gray"
-        />
-        <FlexDiv
-          width="50%"
-          padding="0 2%"
-          style={{ borderLeft: "2px solid var(--gray-color)" }}
-        >
-          <FlexDiv justify="start">
-            <img
-              src="/assets/icons/search.svg"
-              alt="search"
-              style={{ cursor: "pointer" }}
-            />
-            <span style={{ cursor: "pointer" }}>목록에 향수 추가</span>
+    <>
+      <ProfileOutletContainer>
+        <ProfilePerfumeHeader>
+          <CheckboxPickOne
+            textArr={["I have it", "I had it", "I want it"]}
+            pickedIdx={typeIdx}
+            setPickedIdx={setTypeIdx}
+            width="50%"
+            padding="0 5%"
+            color="dark-gray"
+          />
+          <FlexDiv
+            width="50%"
+            padding="0 2%"
+            style={{ borderLeft: "2px solid var(--gray-color)" }}
+          >
+            <FlexDiv justify="start">
+              <img
+                src="/assets/icons/search.svg"
+                alt="search"
+                style={{ cursor: "pointer" }}
+              />
+              <span
+                onClick={() => setSearchModalOpen(true)}
+                style={{ cursor: "pointer" }}
+              >
+                목록에 향수 추가
+              </span>
+            </FlexDiv>
+            <FlexDiv direction="column" align="end">
+              <ProfilePerfumeHeaderSpan onClick={() => fetchUpdateTaste()}>
+                내 취향에 반영하기
+              </ProfilePerfumeHeaderSpan>
+              <span
+                style={{
+                  fontSize: "0.625rem",
+                  position: "relative",
+                  top: "0.5rem",
+                }}
+              >
+                {lastTasteUpdate
+                  ? `마지막 반영일자 ${dayjs(lastTasteUpdate)
+                      .locale("en")
+                      .format("MMM DD, YYYY")}`
+                  : "아직 취향 정보가 없어요"}
+              </span>
+            </FlexDiv>
           </FlexDiv>
-          <FlexDiv direction="column" align="end">
-            <span style={{ cursor: "pointer" }}>내 취향에 반영하기</span>
-            <span
-              style={{
-                fontSize: "0.625rem",
-                position: "relative",
-                top: "0.5rem",
-              }}
-            >
-              마지막 반영일자 Feb 10, 2023
-            </span>
-          </FlexDiv>
-        </FlexDiv>
-      </ProfilePerfumeHeader>
+        </ProfilePerfumeHeader>
 
-      <FlexDiv wrap="wrap" justify="start" margin="3rem 0">
-        {data.map(({ id, name }) => (
-          // <CardComponent key={id} />
-          <PerfumeItem key={id} />
-        ))}
-      </FlexDiv>
-    </ProfileOutletContainer>
+        <FlexDiv wrap="wrap" justify="start" margin="3rem 0">
+          {perfumes.map(
+            ({
+              perfumeId,
+              myPerfumeId,
+              image,
+              perfumeName,
+              brandName,
+              alarm,
+              preference,
+              comment,
+            }) => (
+              <PerfumeItem
+                perfumeId={perfumeId}
+                myPerfumeId={myPerfumeId}
+                img={image}
+                name={perfumeName}
+                brand={brandName}
+                alarm={alarm}
+                preference={preference}
+                review={comment}
+                typeIdx={typeIdx}
+                setTypeIdx={setTypeIdx}
+                fetchGetPerfumeList={fetchGetPerfumeList}
+                key={perfumeId}
+              />
+            )
+          )}
+        </FlexDiv>
+      </ProfileOutletContainer>
+
+      {serchModalOpen && (
+        <SearchModal
+          setModalOpen={setSearchModalOpen}
+          typeIdx={typeIdx}
+          setTypeIdx={setTypeIdx}
+          fetchGetPerfumeList={fetchGetPerfumeList}
+        />
+      )}
+    </>
   );
 };
 

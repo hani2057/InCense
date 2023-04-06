@@ -4,6 +4,8 @@ import { Link, useParams,useLocation,useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { articleActions } from "../../store/slice/articleSlice";
 import RegisterOrEdit from "./RegisterOrEdit";
+import api from "../../apis/api";
+import axios from "axios";
 
 
 
@@ -34,7 +36,6 @@ const RegisterPage = () => {
     const isRegisterForEdit = paramsSearch.split("=")[1]
 
     if (isRegisterForEdit === 'true') {
-      console.log('forEdit=true')
       setTitleValue(article.title);
       setContentValue(article.content);
       // dispatch(articleActions.fetchArticle(id))
@@ -42,7 +43,6 @@ const RegisterPage = () => {
     } else {
       setTitleValue('');
       setContentValue('');
-      console.log('forEdit=false')
     }
     // setTitleValue(title);
     // setContentValue(content);
@@ -55,14 +55,41 @@ const RegisterPage = () => {
   
   const [image, setImage] = useState({name: ""})
   const onImageChange = (event) => {
-    console.log("event ======", event)
-    console.log("event.target", event.target)
-    console.log("event.target.files[0]", event.target.files[0])
-    setImage(()=>event.target.files[0])
-    console.log("image", image)
+    // console.log("event ======", event)
+    // console.log("event.target.files[0]", event.target.files[0])
+    // setImage(()=>event.target.files[0])
+    // console.log("image", image)
+    setImage(event.target)
+  }
+
+  const [perfumeId, setPerfumeId] = useState('')
+  const [perfumeInfo, setPerfumeInfo] = useState('');
+
+
+  const onSearchPerfume = (e) => {
+    setPerfumeId(e.target.value)
   }
 
   const formData = new FormData();
+  formData.append('perfumeId', perfumeInfo.id)
+  formData.append('price', article.price)
+  formData.append('buyDate', article.buyDate)
+  formData.append('content', article.content)
+  formData.append('gubun', article.gubun)
+  formData.append('isClosed', article.isClosed)
+  formData.append('isDelivery', article.isDelivery)
+  formData.append('title', article.title)
+  formData.append('volume', article.volume)
+  // formData.append('files', image)
+  for (let i = 0; i<image.length; i++) {
+    formData.append('files', image[i])
+  }
+
+
+  const articleId = useSelector((state) => {
+    return state.articleReducers.updateId
+  })
+
   const onSubmitArticle = (event) => {
     event.preventDefault();
 
@@ -85,19 +112,20 @@ const RegisterPage = () => {
       return false;
     }
     if (
-      article.perfumeId === null || article.perfumeId === ''
+      perfumeInfo.id === null || perfumeInfo.id === ''
     ) {
       alert('향수를 선택하세요.')
+      return false;
     }
     if (
       article.buyDate === null
     ) {
       alert('구매시기를 입력하세요.')
+      return false;
     }
 
     // const formdata = new FormData();
     formData.append('picture', image)
-    console.log(formData, '이건 폼데이터')
     const articleForRegister = {
       article: article, navigate:navigate
     };
@@ -106,15 +134,33 @@ const RegisterPage = () => {
       article: article, navigate:navigate
     };
 
+
     if (IsForUpdate) {
-      console.log('업데이트 ㄱㄱ');
-      console.log(articleForUpdate);
+
 
       dispatch(articleActions.updateArticle(articleForUpdate)); // 추가
+      api.share.update(articleId, formData)
+      .then((res) => {
+        alert('등록되었습니다.')
+        dispatch(articleActions.reset())
+        navigate('/share')
+        window.location.reload()
+      })
+
       // navigate(`/group/${groupId}/board`);
     } else {
-      
-      dispatch(articleActions.registerArticle(articleForRegister));
+      // axios로 post  
+      // const accessToken = sessionStorage.getItem("accessToken")
+      // axios.post('https://j8a804.p.ssafy.io/api/deal', formData, {
+      //   headers: {
+      //     'Content-Type': 'multipart/form-data', 'Authorization': `Bearer ${accessToken}`
+      //   }})
+      api.share.register(formData)
+      alert('등록되었습니다.')
+      dispatch(articleActions.reset())
+      navigate('/share')
+      window.location.reload()
+      // dispatch(articleActions.registerArticle(articleForRegister));
       // navigate(`/group/${groupId}/board`);
     } 
 
@@ -131,16 +177,28 @@ const RegisterPage = () => {
           justifyContent:'center'
         }}>
         <RegisterOrEdit
+          article={article}
           id={article.id}
           titleValue={article.title}
           contentValue={article.content}
+          categoryValue={article.gubun}
+          priceValue={article.price || 0}
+          isDeliveryValue={article.isDelivery}
+          buyDateValue={article.buyDate}
+          perfumeIdValue={article.perfumeId}
+          perfumeId={perfumeId}
+          volumeValue={article.volume}
+          onSearchPerfume={onSearchPerfume}
           userNickname={article.userNickname}
           handleRegisterChange={onRegisterChange}
           onImageHandler={onImageChange}
           handleSubmit={onSubmitArticle}
           updateRequest={IsForUpdate}
           formData = {formData}
-          picture={image.name}
+          image={image}
+          perfumeInfo={perfumeInfo}
+          setPerfumeInfo={setPerfumeInfo}
+          setImage={setImage}
         />
       </Box>
     </Box>

@@ -20,6 +20,7 @@ const GlobalStyle = createGlobalStyle`
     --gray-color: #DCDCDC;
     --dark-gray-color: #838383;
     --red-color: #E22525;
+    --white-color: #ffffff;
 
     /* Navigation bar height */
     --nav-height: 88px;

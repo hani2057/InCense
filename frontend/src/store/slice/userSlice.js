@@ -18,15 +18,23 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     isLoggedIn: false,
+    username: "",
+    lastTasteUpdate: "",
   },
   reducers: {
     login: (state, action) => {
       state.isLoggedIn = true;
+      state.username = action.payload.nickname;
       sessionStorage.setItem("accessToken", action.payload.accessToken);
     },
     logout: (state, action) => {
       state.isLoggedIn = false;
+      state.username = "";
+      state.lastTasteUpdate = "";
       sessionStorage.setItem("accessToken", null);
+    },
+    updateTasteTime: (state, action) => {
+      state.lastTasteUpdate = action.payload.updateTasteTime;
     },
   },
   // extraReducers: (builder) => {
@@ -37,5 +45,5 @@ const userSlice = createSlice({
 });
 
 export const userReducers = userSlice.reducer;
-export const { login, logout } = userSlice.actions;
+export const { login, logout, updateTasteTime } = userSlice.actions;
 export default userSlice;

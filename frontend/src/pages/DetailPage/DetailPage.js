@@ -5,6 +5,7 @@ import {BsBell} from 'react-icons/bs'
 import {BsFillBellFill} from 'react-icons/bs'
 import { Button } from "@mui/material";
 // import CardComponent from "../ListPage/CardComponent";
+import CardComponent2 from "./CardComponent2";
 import DivideLine from "../../components/common/DivideLine/DivideLine";
 import ReviewTable from "./ReviewTable";
 import { useNavigate, useParams } from "react-router";
@@ -13,12 +14,18 @@ import CheckModal from "./CheckModal";
 import { useDispatch, useSelector } from "react-redux";
 import api from "../../apis/api";
 import { perfumeInfoActions } from "../../store/slice/perfumeInfoSlice";
+import { similarListActions } from "../../store/slice/similarListSlice";
+import { similarityActions } from "../../store/slice/similaritySlice";
+import { login, logout } from "../../store/slice/userSlice";
 
 
 const DetailPage = () => {
 
   const [alarmStatus, setAlarmStatus] = useState(false)
-  const isLoggedIn = true
+  const isLoggedIn = useSelector((state) => {
+    // console.log('state==',state)
+    return state.userReducers.isLoggedIn
+  })
   const navigate = useNavigate()
 
   const dispatch = useDispatch()
@@ -27,43 +34,74 @@ const DetailPage = () => {
   const detailId = params.detailId
 
   useEffect(() => {
-    console.log('호출')
     api.image.getImage(fileName)
       .then((res) => {
         
       })
       .catch((err) => {
-        console.log(err)
       })
     api.list.getDetail(detailId)
       .then((res) => {
-        console.log('Detail가져오기')
-        console.log(res)
         dispatch(perfumeInfoActions.getPerfumeInfo(res))
         
       })
       .catch((err) => {
-        console.log(err)
         alert(err)
       })
-  }, [])
+
+    api.list.getSimilarList(detailId)
+    .then((res) => {
+
+      dispatch(similarListActions.getSimilarList(res))
+    })
+  }, [alarmStatus, detailId])
+  
+  
 
   const perfumeInfo = useSelector((state) => {
-    console.log(state)
     return state.perfumeInfoReducers.perfumeInfo
   })
-  // console.log('!!!!!!'+perfumeInfo)
-
+  const category = useSelector((state) => {
+    return state.perfumeInfoReducers.category
+  })
+  const similarList = useSelector((state) => {
+    return state.similarListReducers.similarList
+  })
+  const similarity = useSelector((state) => {
+    return state.similarityReducers.similarity
+  })
+  const favNotes = similarity.favNotes
+  const worNotes = similarity.worNotes
+  const predictRate = similarity.predictRate
   const fileName = perfumeInfo.image
+
+useEffect(() => {
+  if (isLoggedIn===true){
+  api.analysis.getSimilarity(detailId)
+  .then((res) => {
+    dispatch(similarityActions.getSimilarity(res))
+  })
+  api.alarm.getAlarm(detailId)
+  .then((res) => {
+    setAlarmStatus(res)
+  })}
+  api.list.getCategory(detailId)
+  .then((res) => {
+    dispatch(perfumeInfoActions.getCategory(res.category))
+  })
+  }, [alarmStatus, detailId])
+
 
   // 알람 설정
   const onChangeAlarm = () => {
     if (isLoggedIn === true) {
-      if(alarmStatus === false) {
-        setAlarmStatus(true)
+      if(alarmStatus === 0) {
+        setAlarmStatus(1)
+        api.alarm.setAlarm(detailId);
         // console.log('알람on')
-      } else if (alarmStatus === true) {
-        setAlarmStatus(false)
+      } else if (alarmStatus === 1) {
+        setAlarmStatus(0)
+        api.alarm.resetAlarm(detailId);
         // console.log('알람off')
       }
     } else {
@@ -77,7 +115,6 @@ const DetailPage = () => {
   const onClickButton = () => {
     if (isLoggedIn === true) {
       setShowSimilarity(true)
-      console.log('유사도 보여주기')
     }
     else {
       alert('로그인이 필요합니다.')
@@ -90,11 +127,13 @@ const DetailPage = () => {
 
   const [isOpen, setIsOpen] = useState(false)
   const onClickModal = () => {
-    setIsOpen(true)
+    if (isLoggedIn===true){
+    setIsOpen(true)} else {
+      alert('로그인이 필요합니다.')
+      navigate('/login')
+    }
   }
   
-  console.log('isopen==', isOpen)
-  // console.log(typeIdx)
   
 
   return (
@@ -162,6 +201,7 @@ const DetailPage = () => {
               padding="0 5%"
               color="dark-gray"
               isOpen = {isOpen}
+              category={category}
               setIsOpen = {setIsOpen}/>
               
 
@@ -195,15 +235,20 @@ const DetailPage = () => {
           </ul>
           <p style={{fontSize:'2rem', fontWeight:'bold', marginTop:'1rem', marginBottom:'1.5rem'}}>내 취향과의 유사도 : &nbsp; 
             {showSimilarity === false
-            ?<Button onClick={onClickButton} sx={{fontWeight:'bold'}} variant='outlined'> 확인하기 </Button>:<>72 %</>}
+            ?<Button onClick={onClickButton} sx={{fontWeight:'bold'}} variant='outlined'> 확인하기 </Button>:<>{predictRate*20}%</>}
           </p>
 
           {showSimilarity === true
           ?<div>
           <p style={{fontWeight:'bold', marginTop:'1rem', marginBottom:'1rem'}}>- 이런 점이 내 취향과 비슷해요</p>
-          <p>Diptyque &nbsp; 시트러스향 &nbsp; 높은 부향률</p>
+          {/* {Array.isArray(favNotes) &&
+            favNotes.length > 0 &&
+            favNotes.map((note, index) => {
+              return <p>Diptyque &nbsp; 시트러스향 &nbsp; 높은 부향률</p>
+            })} */}
+          <p>{favNotes.join(', ')}</p>
           <p style={{fontWeight:'bold', marginTop:'1rem', marginBottom:'1rem'}}>- 이런 점이 내 취향과 달라요</p>
-          <p>Oriental &nbsp; Vanilla</p>
+          <p>{worNotes.join(', ')}</p>
           </div>
           :<></>}
 
@@ -216,18 +261,18 @@ const DetailPage = () => {
       </Box>
       <Box
         sx={{width:'80rem',display:'flex',flexDirection:'row',justifyContent:'space-between',marginTop:'2rem',marginBottom:'2rem'}}>
-        {
-          // 해당 향수 비슷한 향수 식 필요
-        /* <CardComponent/>
-        <CardComponent/>
-        <CardComponent/>
-        <CardComponent/> */}
+
+        {Array.isArray(similarList) &&
+          similarList.length > 0 &&
+          similarList.map((perfume, index) => {
+            return <CardComponent2 key={index} perfume={perfume} />;
+          })}
       </Box>
       <DivideLine/>
       <Box
         sx={{width:'80rem',display:'flex', flexDirection:'column'}}>
-        <h1 style={{fontSize:'2rem', fontWeight:'bold', marginTop:'2rem', marginBottom:'3rem'}}>후기 (28)</h1>
-        <ReviewTable/> 
+        {/* <h1 style={{fontSize:'2rem', fontWeight:'bold', marginTop:'2rem', marginBottom:'3rem'}}>후기 (28)</h1> */}
+        <ReviewTable perfumeInfo={perfumeInfo} detailId={detailId}/> 
       </Box>
   
     </Box>

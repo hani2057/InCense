@@ -1,23 +1,50 @@
 import { Box } from '@mui/system';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { TextField } from "@mui/material";
 import StarRating from './StarRating';
+import api from '../../apis/api';
+import { useDispatch } from 'react-redux';
+import { reviewActions } from '../../store/slice/reviewSlice';
+
 
 
 
 
 function CheckModal(props) {
+  
+  // useEffect(() => {
+  //   api.list
+  //     .getList(page)
+  //     .then((res) => {
+  //       console.log("list가져오기");
+  //       console.log(res);
+  //       dispatch(perfumeListActions.getPerfumeList(res));
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //       alert(err);
+  //     });
+  // }, [page]);
 
   const handleClose = () => {
     props.setIsOpen(false)
   }
-
+  const dispatch = useDispatch()
   const onSubmitForm = () => {
-    console.log('form제출!')
+    api.review.postReview(reviewArticle)
+    .then((res) => {
+      props.setIsOpen(false)
+      window.location.reload()
+    })
+    .catch((err) => {
+      alert(err.message)
+    })
+
+    
   }
 
-  console.log(props.idx)
+  // console.log(props)
 
   const [reviewValue, setReviewValue] = useState('')
 
@@ -26,7 +53,16 @@ function CheckModal(props) {
     setReviewValue(reviewValue)
 
   }
-  console.log('후기내용==',reviewValue)
+
+  const [starValue, setStarValue] = useState(0)
+
+  const category = ['HAD', 'HAVE', 'WANT']
+
+  const reviewArticle = {
+    category: category[props.idx], comment: reviewValue, perfumeId: props.perfumeInfo.id, preference: starValue/2
+  }
+
+
 
   return (
     <Overlay>
@@ -42,7 +78,8 @@ function CheckModal(props) {
             <Box sx={{display:'flex',flexDirection:'column',textAlign:'start',marginLeft:'2rem',marginTop:'2rem'}}>
               <h1 style={{fontSize:'1rem',marginBottom:'1rem'}}>{props.perfumeInfo.brandName}</h1>
               <h1 style={{fontSize:'1.5rem',marginBottom:'2rem',fontWeight:'bold'}}>{props.perfumeInfo.name}</h1>
-              <StarRating/>
+              {props.idx !== 2 &&
+              <StarRating starValue={starValue} setStarValue={setStarValue}/>}
             </Box>
           </Box>
 
