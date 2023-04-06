@@ -16,12 +16,12 @@ import api from "../../apis/api";
 import { perfumeInfoActions } from "../../store/slice/perfumeInfoSlice";
 import { similarListActions } from "../../store/slice/similarListSlice";
 import { similarityActions } from "../../store/slice/similaritySlice";
-import { login, logout } from "../../store/slice/userSlice";
+// import { login, logout } from "../../store/slice/userSlice";
 
 
 const DetailPage = () => {
 
-  const [alarmStatus, setAlarmStatus] = useState(false)
+  const [alarmStatus, setAlarmStatus] = useState(0)
   const isLoggedIn = useSelector((state) => {
     // console.log('state==',state)
     return state.userReducers.isLoggedIn
@@ -61,6 +61,7 @@ const DetailPage = () => {
   const perfumeInfo = useSelector((state) => {
     return state.perfumeInfoReducers.perfumeInfo
   })
+  console.log('perfumeinfo', perfumeInfo)
   const category = useSelector((state) => {
     return state.perfumeInfoReducers.category
   })
@@ -84,6 +85,7 @@ useEffect(() => {
   api.alarm.getAlarm(detailId)
   .then((res) => {
     setAlarmStatus(res)
+    console.log('알람?',res)
   })}
   api.list.getCategory(detailId)
   .then((res) => {
@@ -183,7 +185,7 @@ useEffect(() => {
               backgroundColor:'white',
               position:'relative'
           }}>
-              {alarmStatus === false
+              {alarmStatus === 0
                 ?<BsBell style={{position:'absolute',right:'1rem',top:'1rem', fontSize:'2rem',cursor:'pointer' }}
                 onClick={onChangeAlarm}></BsBell>
                 :<BsFillBellFill style={{position:'absolute',right:'1rem',top:'1rem', fontSize:'2rem', color:'#706DFF',cursor:'pointer' }}

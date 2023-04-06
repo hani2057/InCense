@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FlexDiv } from "../../components/common/FlexDiv/FlexDiv";
 import { ReactComponent as CheckSvg } from "../../components/common/CheckboxWithIcon/check.svg"
-import { handleBreakpoints } from "@mui/system";
+// import { handleBreakpoints } from "@mui/system";
 
 /* 프롭스 설명
  *

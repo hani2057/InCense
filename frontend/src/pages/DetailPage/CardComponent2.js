@@ -6,13 +6,13 @@ import { Typography } from "@mui/material";
 import { CardActionArea } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/system";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import api from "../../apis/api";
+// import { useDispatch } from "react-redux";
+// import { useEffect } from "react";
+// import api from "../../apis/api";
 
 const CardComponent2 = (props) => {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   
   const perfume = props.perfume
   const fileName = perfume.image

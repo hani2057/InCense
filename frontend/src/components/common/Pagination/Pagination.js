@@ -22,9 +22,9 @@ function Pagination({ total, limit, page, setPage,request }) {
             <Button
               key={i }
               onClick={
-                 (e)=>clickPage(e.currentTarget.textContent)
+                (e)=>clickPage(e.currentTarget.textContent)
               }
-              aria-current={page == i + 1 ? "page" : null}
+              aria-current={page === i + 1 ? "page" : null}
             >
               {i + 1}
             </Button>
