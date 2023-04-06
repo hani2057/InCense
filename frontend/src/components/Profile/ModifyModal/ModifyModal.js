@@ -25,6 +25,7 @@ const ModifyModal = ({
   gender,
   genderOpen,
   alarmOpen,
+  fetchGetUserInfo,
 }) => {
   /*
    * Hooks
@@ -66,15 +67,25 @@ const ModifyModal = ({
 
   // 프로필 수정 요청
   const fetchModifyProfile = async () => {
-    const data = {
-      image: profile,
-      nickname: newName,
-      birthOpen: newBirthOpen,
-      genderOpen: newGenderOpen,
-      alarmOpen: newAlarmOpen,
-    };
-    const res = await api.user.putUserInfo(data);
-    console.log(data);
+    // 프로필 사진 수정
+
+    // 프로필사진 외 정보 수정
+    if (!newName) {
+      setIsError(true);
+      setNameMsg("닉네임을 입력해주세요");
+    } else if (name !== newName && !nameChecked) {
+      setIsError(true);
+      setNameMsg("닉네임 중복체크를 완료해주세요");
+    } else {
+      await api.user.putUserInfo({
+        nickname: newName,
+        birthOpen: newBirthOpen ? 1 : 0,
+        genderOpen: newGenderOpen ? 1 : 0,
+        alarmOpen: newAlarmOpen ? 1 : 0,
+      });
+      setModalOpen(false);
+      fetchGetUserInfo();
+    }
   };
 
   const ageRange = Math.floor((dayjs().year() - birth[0] + 1) / 10) * 10;
