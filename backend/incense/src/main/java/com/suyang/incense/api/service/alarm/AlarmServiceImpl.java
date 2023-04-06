@@ -52,6 +52,7 @@ public class AlarmServiceImpl implements AlarmService {
        }
     }
 
+
     public void insertAlarmToMembers(List<Member> members,Deal deal){
         for(Member member:members){
            insertAlarmSend(deal,member);
@@ -89,6 +90,7 @@ public class AlarmServiceImpl implements AlarmService {
     public long getIsAlarm(Long perfumeId, Long memberId){
        return memberAlarmPerfumeRepository.getIsAlarm(perfumeId,memberId);
     }
+    @Transactional(readOnly = true)
     @Override
     public List<AlarmSend> getAlarmSendList(Long memberId){
          return alarmSendRepository.getAlarmSendList(memberId);
@@ -109,6 +111,7 @@ public class AlarmServiceImpl implements AlarmService {
         alarmSendRepository.save(alarmSend);
     }
 
+    @Transactional
     @Override
     public void readAlarmAll(Long memberId) {
         List<AlarmSend> alarmSendList= alarmSendRepository.getAlarmSendList(memberId);
