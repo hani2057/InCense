@@ -57,7 +57,6 @@ const AlarmItem = ({
         weight="700"
         pointer={true}
         onClick={() => {
-          setAlarmOpen(false);
           navigate(`/share/article/${dealId}`);
         }}
       >
