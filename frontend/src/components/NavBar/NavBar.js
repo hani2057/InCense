@@ -39,9 +39,9 @@ const NavBar = () => {
   const alarmClick = () => {
     if (alarmOpen === false) {
       api.alarm.readAlarmSendAll();
-    } else {
       dispatch(initAlarmCount());
-    }
+    } 
+     
     setAlarmOpen((prev) => !prev);
   };
 
@@ -57,6 +57,10 @@ const NavBar = () => {
     console.log(alarmCount + "alarmCount");
     setAlarmLen(isAlarmList());
   }, [alarmCount]);
+
+  useEffect(()=>{
+    console.log(alarmLen);
+  },[alarmLen]);
 
   return (
     <>
