@@ -16,7 +16,7 @@ const Wordcloud = ({ wordcloud }) => {
         height: "15rem",
         position: "relative",
         top: "-10rem",
-        marginBottom: "10rem",
+        marginBottom: "3rem",
       }}
     >
       <canvas ref={canvasRef} />

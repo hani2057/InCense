@@ -18,6 +18,7 @@ const ProfileMainBtnWrapper = styled(FlexDiv)`
   height: calc(100vh - var(--nav-height));
   padding: 0;
   background-image: url("/assets/images/bgimg${(props) => props.bgimgNo}.png");
+  background-size: cover;
 `;
 
 // colors
