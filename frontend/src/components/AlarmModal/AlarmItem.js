@@ -5,8 +5,9 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { AlarmSpan, AlarmWrapper, AlarmDeleteIcon } from "./style";
 import { Link } from "react-router-dom";
 import api from "../../apis/api";
-import { setAlarmList,} from "../../store/slice/alarmSlice"
-import {useDispatch,} from "react-redux"
+import { selectAlarmList, setAlarmList,} from "../../store/slice/alarmSlice"
+import {useDispatch, useSelector,} from "react-redux"
+import { useEffect } from "react";
 
 
 dayjs.extend(relativeTime);
