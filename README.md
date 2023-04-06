@@ -49,12 +49,10 @@
 
 ### 📋 API 명세서
 
-<!-- ![API명세서1](/uploads/8ad92138373736f84f2b2d460c9731e8/API명세서1.PNG)
-![API명세서2](/uploads/18ed542fc4e247edd4d6d6d07e0f98e7/API명세서2.PNG)
-![API명세서3](/uploads/7c374673ff6b1815524235e4ba47a2de/API명세서3.PNG) -->
+![API명세서1](/uploads/a86cf62f8879a0ed0ff465327df19a27/API명세서1.PNG)
+![API명세서2](/uploads/0cb73b9a2ad83eebf7ac3819553ed42c/API명세서2.PNG)
 
-![API명세서4](/uploads/915fe5ca61cdb48f811437b65ad9dfc4/API명세서4.PNG)
-![API명세서5](/uploads/5700e6ff9638fffca1df2f80451f2d67/API명세서5.PNG)
+![API명세서1](/uploads/a86cf62f8879a0ed0ff465327df19a27/API명세서1.PNG)![API명세서2](/uploads/0cb73b9a2ad83eebf7ac3819553ed42c/API명세서2.PNG)
 
 <br><br>
 
