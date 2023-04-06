@@ -23,7 +23,7 @@ const ProfilePerfumeContentContainer = styled(FlexDiv)`
 `;
 
 const ProfilePerfumeItemWrapper = styled(FlexDiv)`
-  position: "relative";
+  position: relative;
   border: 1px solid transparent;
   border-image: linear-gradient(
     to right,
