@@ -22,4 +22,6 @@ public interface AlarmService {
     void readAlarm(Long alarmSendId);
 
     void deleteAlarmSend(Long alarmSendId);
+
+    void readAlarmAll(Long memberId);
 }

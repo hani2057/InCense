@@ -109,6 +109,15 @@ public class AlarmServiceImpl implements AlarmService {
         alarmSendRepository.save(alarmSend);
     }
 
+    @Override
+    public void readAlarmAll(Long memberId) {
+        List<AlarmSend> alarmSendList= alarmSendRepository.getAlarmSendList(memberId);
+        for(AlarmSend alarmSend:alarmSendList){
+            alarmSend.setIsReceived((byte)1);
+            alarmSendRepository.save(alarmSend);
+        }
+    }
+
 
     public void sendNotification(String nickname, AlarmSendRes alarmSendRes) {
         String destination = "/sub/notification/" +nickname;
