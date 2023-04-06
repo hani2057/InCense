@@ -47,7 +47,7 @@ const NavBar = () => {
 
   const isAlarmList = () =>{
 
-    const len = alarmList.filter((data)=>data.isReceived===false).length;
+    const len = alarmList.filter((data)=>data.isReceived===0).length;
     console.log("len!!!!!!:"+len);
     return len>0;
   }
