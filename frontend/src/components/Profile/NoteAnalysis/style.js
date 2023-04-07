@@ -17,10 +17,10 @@ const NoteSpan = styled.span`
 `;
 
 const NoteCircle = styled.div`
-  ${({ weight, isSimilar, isBase }) => css`
+  ${({ weight, isBase }) => css`
     display: inline;
-    width: ${isSimilar ? (weight * 3) ** 5 : (weight * 11) ** 1.5}px;
-    height: ${isSimilar ? (weight * 3) ** 5 : (weight * 11) ** 1.5}px;
+    width: ${(weight * 2.1) ** 4.5}px;
+    height: ${(weight * 2.1) ** 4.5}px;
     border-radius: 50%;
     background-color: var(--${isBase ? "pink-main" : "main"}-color);
     margin-right: 0.5px;
