@@ -84,8 +84,8 @@
 
 <img src="/uploads/b67ec1decd97831b5073d921e6bdf83f/swagger1.PNG" width="440" height="359">
 <img src="/uploads/029fb2e87f7bb67564b75c1d7cbebef3/swagger4.PNG" width="440" height="359">
-<img src="/uploads/09694fd0b5fd6fdaaaf8e848e855de4b/swagger2.PNG" width="440" height="293">
 <img src="/uploads/ea202ff6233643a3458270a266333a5f/swagger3.PNG" width="440" height="321">
+<img src="/uploads/09694fd0b5fd6fdaaaf8e848e855de4b/swagger2.PNG" width="440" height="293">
 
 
 <br>
@@ -120,6 +120,6 @@
 
 
 #### **나눔 판매 커뮤니티** <br>
-다양한 필터링 기능을 활용해 원하는 향수에 대한 글을 찾아 댓글을 작성하고, 북마크 할 수 있습니다. 
+다양한 필터링 기능을 활용해 원하는 향수에 대한 글을 찾아 댓글을 작성하고, 북마크 할 수 있습니다. <br>
 북마크한 나눔판매 글은 마이페이지에서 확인 가능합니다. 
 ![나눔판매GIF](/uploads/925f7f88e4ead8fa7d7b00b81bd83961/나눔판매GIF.gif)
