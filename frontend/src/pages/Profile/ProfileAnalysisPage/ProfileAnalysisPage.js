@@ -61,6 +61,7 @@ const ProfileAnalysisPage = () => {
           {iWantItList.map(
             ({ perfumeId, perfumeName, perfumeBrand, image, predict }) => (
               <WantAnalysisCard
+                perfumeId={perfumeId}
                 name={perfumeName}
                 brand={perfumeBrand}
                 img={image}
@@ -79,6 +80,7 @@ const ProfileAnalysisPage = () => {
           {recommandList.map(
             ({ perfumeId, perfumeName, perfumeBrand, image, predict }) => (
               <WantAnalysisCard
+                perfumeId={perfumeId}
                 name={perfumeName}
                 brand={perfumeBrand}
                 img={image}
