@@ -12,13 +12,24 @@ const NoteAnalysis = ({ noteData }) => {
     return arr;
   };
 
-  const isMiddleSimilar = Boolean(
-    middleWeight[0].weight - middleWeight[29].weight <= 0.3
-  );
-  const isBaseSimilar = Boolean(
-    baseWeight[0].weight - baseWeight[29].weight <= 0.3
-  );
+  // 표시되는 원의 크기를 일정하게 하기 위해
+  // 조정계수를 설정해 최대 크기를 0.9대로 맞춤
+  const newMiddle = middleWeight.map(({ weight }) => weight);
+  const newBase = baseWeight.map(({ weight }) => weight);
 
+  const adjustFactorMiddle = (10 - Math.ceil(Math.max(...newMiddle) * 10)) / 10;
+  const adjustFactorBase = (10 - Math.ceil(Math.max(...newBase) * 10)) / 10;
+
+  middleWeight = middleWeight.map((prev) => ({
+    ...prev,
+    weight: prev.weight + adjustFactorMiddle,
+  }));
+  baseWeight = baseWeight.map((prev) => ({
+    ...prev,
+    weight: prev.weight + adjustFactorBase,
+  }));
+
+  // 순서를 랜덤하게 섞음
   middleWeight = shuffle(middleWeight);
   baseWeight = shuffle(baseWeight);
 
@@ -32,12 +43,7 @@ const NoteAnalysis = ({ noteData }) => {
       <NoteSpan bold={true}>Middle</NoteSpan>
       <FlexDiv justify="space-between">
         {middleWeight.map(({ word, weight }, idx) => (
-          <NoteCircle
-            weight={weight}
-            data-content={word}
-            isSimilar={isMiddleSimilar}
-            key={idx}
-          />
+          <NoteCircle weight={weight} data-content={word} key={idx} />
         ))}
       </FlexDiv>
 
@@ -48,7 +54,6 @@ const NoteAnalysis = ({ noteData }) => {
           <NoteCircle
             weight={weight}
             data-content={word}
-            isSimilar={isBaseSimilar}
             isBase={true}
             key={idx}
           />
