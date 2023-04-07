@@ -63,10 +63,10 @@ const ToggleFilter2 = ({gubun,setGubun,goGubun}) => {
           </ToggleButton>
           {/* <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} /> */}
           <ToggleButton value="SALE" aria-label="center aligned">
-            나눔
+            판매
           </ToggleButton>
           <ToggleButton value="SHARE" aria-label="right aligned">
-            판매
+            나눔
           </ToggleButton>
 
         </StyledToggleButtonGroup>
