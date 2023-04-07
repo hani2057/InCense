@@ -43,7 +43,7 @@ function ArticleCard(props) {
 
   return (
     <Box 
-      sx={{width:'50%',height:'27vh', border:'2px solid transparent', borderImage:'linear-gradient(to right, #FFD6F8 0%, #FFFBD6 50%, #E1FFE9 100%)', borderImageSlice:'2',display:'flex',flexDirection:'row', '&:hover':{ boxShadow: '0 0 20px -5px #FF85EC',}, opacity:isClosed===1&&'0.5'}} >
+      sx={{width:'50%',height:'16rem', border:'2px solid transparent', borderImage:'linear-gradient(to right, #FFD6F8 0%, #FFFBD6 50%, #E1FFE9 100%)', borderImageSlice:'2',display:'flex',flexDirection:'row', '&:hover':{ boxShadow: '0 0 20px -5px #FF85EC',}, opacity:isClosed===1&&'0.5'}} >
       <img src={`https://j8a804.p.ssafy.io/api/display?filename=${fileName}`} alt='sample1' onClick={onClickArticle} style={{width:'9rem',height:'12rem',marginTop:'1rem',marginLeft:'1rem'}}/>
       <Box sx={{margin:'1rem',width:'60%'}}>
         <p onClick={onClickArticle}style={{color:'grey'}}>{article.createdDate.substr(0,16)}</p>
