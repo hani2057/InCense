@@ -15,7 +15,7 @@ export default function CheckboxGroup({
     if (checked) {
       onChange(values.concat(value));
     } else {
-      console.log(values)
+      // console.log(values)
       onChange(values.filter((v) => v !== value));
     }
   };

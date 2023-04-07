@@ -26,9 +26,9 @@ const PerfumeItem = ({
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
   const fetchDeletePerfume = async () => {
-    console.log(myPerfumeId);
+    // console.log(myPerfumeId);
     const res = await api.profile.deletePerfumeFromCategory(myPerfumeId);
-    console.log(res);
+    // console.log(res);
     setDeleteModalOpen(false);
   };
 
