@@ -72,7 +72,6 @@ const RegisterPage = () => {
 
   const formData = new FormData();
   formData.append('perfumeId', perfumeInfo.id)
-  formData.append('price', article.price)
   formData.append('buyDate', article.buyDate)
   formData.append('content', article.content)
   formData.append('gubun', article.gubun)
@@ -80,7 +79,11 @@ const RegisterPage = () => {
   formData.append('isDelivery', article.isDelivery)
   formData.append('title', article.title)
   formData.append('volume', article.volume)
+  if (article.price) {
+    formData.append('price', article.price)} else {
+    formData.append('price', 0)}
   // formData.append('files', image)
+  console.log(article)
   for (let i = 0; i<image.length; i++) {
     formData.append('files', image[i])
   }
@@ -137,7 +140,7 @@ const RegisterPage = () => {
 
     if (IsForUpdate) {
 
-
+      console.log(articleForUpdate)
       dispatch(articleActions.updateArticle(articleForUpdate)); // 추가
       api.share.update(articleId, formData)
       .then((res) => {
