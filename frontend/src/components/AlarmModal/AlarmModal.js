@@ -16,7 +16,7 @@ const AlarmModal = ({ alarmOpen, setAlarmOpen }) => {
         dispatch(setAlarmList(res));
       })
       .catch((err) => {
-        console.log("axios alarm send err");
+        // console.log("axios alarm send err");
       });
   }, [alarmOpen]);
 

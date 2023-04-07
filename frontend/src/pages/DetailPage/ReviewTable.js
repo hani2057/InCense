@@ -149,12 +149,12 @@ export default function ReviewTable(props) {
           </TableBody>
         </Table>
       </TableContainer>
-      <Pagination
+      {/* <Pagination
         total={reviewList ? reviewList.length : 0}
         limit={5}
         page={5}
         setPage={1}
-      />
+      /> */}
     </Box>
   );
 }

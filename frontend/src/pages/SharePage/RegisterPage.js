@@ -83,11 +83,10 @@ const RegisterPage = () => {
     formData.append('price', article.price)} else {
     formData.append('price', 0)}
   // formData.append('files', image)
-  console.log(article)
+
   for (let i = 0; i<image.length; i++) {
     formData.append('files', image[i])
   }
-
 
   const articleId = useSelector((state) => {
     return state.articleReducers.updateId

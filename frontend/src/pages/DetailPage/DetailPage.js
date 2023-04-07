@@ -381,7 +381,7 @@ const DetailPage = () => {
           })}
       </Box>
       <DivideLine />
-      <Box sx={{ width: "80rem", display: "flex", flexDirection: "column" }}>
+      <Box sx={{ width: "80rem", display: "flex", flexDirection: "column", marginBottom:'3rem' }}>
         {/* <h1 style={{fontSize:'2rem', fontWeight:'bold', marginTop:'2rem', marginBottom:'3rem'}}>후기 (28)</h1> */}
         <ReviewTable perfumeInfo={perfumeInfo} detailId={detailId} />
       </Box>

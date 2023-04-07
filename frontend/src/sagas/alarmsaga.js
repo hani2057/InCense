@@ -5,9 +5,9 @@ function* alarmRun() {
   yield call(api.alarm.readAlarmSendAll);
   const res = yield call(api.alarm.getAlarmSend);
   yield put({ type: "alarm/selectAlarmList", payload: res });
-  console.log("saga alarmRun");
+  // console.log("saga alarmRun");
   yield put({ type: "alarm/increaseAlarmCount" });
-  console.log("count");
+  // console.log("count");
 }
 
 function* alarmSaga() {
