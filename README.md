@@ -82,10 +82,10 @@
 
 ### ✒️ Swagger
 
-<img src="/uploads/b67ec1decd97831b5073d921e6bdf83f/swagger1.PNG" width="455" height="371">
-<img src="/uploads/09694fd0b5fd6fdaaaf8e848e855de4b/swagger2.PNG" width="455" height="303">
-<img src="/uploads/ea202ff6233643a3458270a266333a5f/swagger3.PNG" width="445" height="332">
-<img src="/uploads/029fb2e87f7bb67564b75c1d7cbebef3/swagger4.PNG" width="445" height="371">
+<img src="/uploads/b67ec1decd97831b5073d921e6bdf83f/swagger1.PNG" width="450" height="367">
+<img src="/uploads/09694fd0b5fd6fdaaaf8e848e855de4b/swagger2.PNG" width="450" height="299">
+<img src="/uploads/ea202ff6233643a3458270a266333a5f/swagger3.PNG" width="450" height="328">
+<img src="/uploads/029fb2e87f7bb67564b75c1d7cbebef3/swagger4.PNG" width="450" height="367">
 
 
 <br>
